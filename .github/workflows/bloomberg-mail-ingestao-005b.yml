@@ -65,9 +65,9 @@ jobs:
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_${series}_ultimos_10.json"
           curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
           sha256sum "$out" | tee "$out.sha256"
-          python - <<'PY'
-          import json
-          p="EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_1178_ultimos_10.json"
+          python - "$out" <<'PY'
+          import json, sys
+          p=sys.argv[1]
           with open(p,encoding="utf-8") as f: x=json.load(f)
           assert isinstance(x,list) and len(x)>0
           assert all("data" in r and "valor" in r for r in x)
@@ -99,6 +99,15 @@ jobs:
               assert any("COTAHIST" in n.upper() for n in names), f"COTAHIST não encontrado: {names}"
           print("B3 COTAHIST ZIP structural validation: PASS")
           PY
+          expected='4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768'
+          actual="$(sha256sum "$out" | awk '{print $1}')"
+          if [ "$actual" != "$expected" ]; then
+            echo "B3 SHA-256 MISMATCH"
+            echo "expected=$expected"
+            echo "actual=$actual"
+            exit 1
+          fi
+          echo "B3 SHA-256 reconciliation: PASS"
       - name: Manifesto da execução
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
