@@ -1,0 +1,119 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005-C — Tesouro + VIX
+
+on:
+  workflow_dispatch:
+    inputs:
+      tesouro_url:
+        description: "URL EXATA do arquivo Tesouro resolvida no portal oficial"
+        required: true
+        type: string
+      tesouro_file:
+        description: "Nome original do arquivo Tesouro"
+        required: true
+        type: string
+      vix_file:
+        description: "Nome do arquivo VIX"
+        required: true
+        default: "VIX_History.csv"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Preparar diretórios
+        run: |
+          set -euo pipefail
+          mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/RAW
+          mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO
+
+      - name: Validar URL Tesouro
+        env:
+          TESOURO_URL: ${{ inputs.tesouro_url }}
+        run: |
+          set -euo pipefail
+          python - "$TESOURO_URL" <<'PY'
+          import sys
+          from urllib.parse import urlparse
+          u=urlparse(sys.argv[1])
+          assert u.scheme == "https", "Tesouro exige HTTPS"
+          assert u.hostname and u.hostname.endswith("tesourodireto.com.br"), "Host Tesouro não autorizado"
+          print("Tesouro URL host validation: PASS")
+          PY
+
+      - name: Adquirir Tesouro — RAW imutável
+        env:
+          TESOURO_URL: ${{ inputs.tesouro_url }}
+          TESOURO_FILE: ${{ inputs.tesouro_file }}
+        run: |
+          set -euo pipefail
+          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$TESOURO_FILE"
+          if [ -e "$out" ]; then
+            echo "RAW Tesouro já existe; reutilizando sem sobrescrita."
+          else
+            curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$TESOURO_URL"
+          fi
+          sha256sum "$out" | tee "${out}.sha256"
+          test -s "$out"
+          file "$out"
+
+      - name: Adquirir VIX — Cboe oficial
+        env:
+          VIX_FILE: ${{ inputs.vix_file }}
+        run: |
+          set -euo pipefail
+          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$VIX_FILE"
+          url="https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+          if [ -e "$out" ]; then
+            echo "RAW VIX já existe; reutilizando sem sobrescrita."
+          else
+            curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
+          fi
+          sha256sum "$out" | tee "${out}.sha256"
+          test -s "$out"
+          python - "$out" <<'PY'
+          import csv,sys
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          rows=list(csv.DictReader(p.open(encoding="utf-8-sig",newline="")))
+          required={"DATE","OPEN","HIGH","LOW","CLOSE"}
+          assert rows, "VIX sem registros"
+          assert required.issubset(rows[0]), f"Colunas VIX ausentes: {required-set(rows[0])}"
+          assert all(r["DATE"] and r["CLOSE"] for r in rows), "VIX contém data/fechamento vazio"
+          print(f"VIX structural/date presence validation: PASS ({len(rows)} rows)")
+          PY
+
+      - name: Evidência de aquisição
+        env:
+          TESOURO_URL: ${{ inputs.tesouro_url }}
+          TESOURO_FILE: ${{ inputs.tesouro_file }}
+          VIX_FILE: ${{ inputs.vix_file }}
+        run: |
+          set -euo pipefail
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          {
+            echo "# INGESTÃO 005-C — aquisição controlada Tesouro + VIX"
+            echo
+            echo "- timestamp_utc: $ts"
+            echo "- Tesouro URL: $TESOURO_URL"
+            echo "- Tesouro arquivo: $TESOURO_FILE"
+            echo "- VIX arquivo: $VIX_FILE"
+            echo "- VIX fonte: https://www.cboe.com/tradable_products/vix/vix_historical_data/"
+            echo "- Política RAW: imutável; arquivos existentes não são sobrescritos."
+            echo "- Gate: aquisição concluída não implica aprovação da Layer A."
+          } > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/execucao_005c.md
+
+      - name: Publicar evidência
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/RAW EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO
+          git commit -m "INGESTAO 005-C: aquisição controlada Tesouro e VIX" || echo "Sem alterações"
+          git push
