@@ -25,6 +25,8 @@ PRICE_FIELDS = [(57,69),(70,82),(83,95),(96,108),(109,121),(122,134),(135,147),(
 INT_FIELDS = [(148,152),(153,170),(243,245)]
 DATE_FIELDS = [(3,10),(203,210)]
 VALID_TYPES = {b"00", b"01", b"99"}
+VALID_TPMERC = {b"010", b"012", b"013", b"017", b"020", b"030", b"050", b"060", b"070", b"080"}
+VALID_INDOPC = {b" ", b"0", b"1", b"2", b"8", b"9"}
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -119,7 +121,7 @@ with zipfile.ZipFile(RAW, "r") as z:
                     and bool(rec[2:15].strip())
                     and bool(rec[15:23].strip())
                     and bool(re.fullmatch(rb"\d{8}", rec[23:31]))
-                    and rec[31:] == rec[31:]
+                    and len(rec[31:]) == 214
                 )
                 checks["header_valid"] = checks["header_valid"] or ok
             elif typ == b"01":
@@ -128,15 +130,20 @@ with zipfile.ZipFile(RAW, "r") as z:
                 try:
                     ok &= bool(re.fullmatch(rb"\d{8}", field(rec,3,10)))
                     ok &= bool(re.fullmatch(rb"[ -~]{2}", field(rec,11,12)))
+                    if not field(rec,11,12).strip():
+                        checks["codbdi_blank_count"] += 1
+                        ok = False
                     ok &= bool(re.fullmatch(rb"[ -~]{12}", field(rec,13,24)))
-                    ok &= bool(re.fullmatch(rb"\d{3}", field(rec,25,27)))
+                    ok &= field(rec,25,27) in VALID_TPMERC
+                    if field(rec,25,27) not in VALID_TPMERC:
+                        checks["tpmec_invalid"] += 1
                     for s,e in PRICE_FIELDS:
                         ok &= fixed_numeric_ok(field(rec,s,e))
                     for s,e in INT_FIELDS:
                         ok &= digits_or_blank(field(rec,s,e))
                     ok &= valid_date(field(rec,3,10))
                     ok &= valid_date(field(rec,203,210))
-                    if field(rec,202,202) not in b" 01289":
+                    if field(rec,202,202) not in VALID_INDOPC:
                         checks["indopc_invalid"] += 1
                         ok = False
                 except UnicodeDecodeError:
@@ -180,11 +187,12 @@ status = "PASS" if all([
     checks["record_other"] == 0, checks["record_00"] == 1, checks["record_99"] == 1,
     checks["header_valid"], checks["trailer_valid"], checks["record_01_fields_invalid"] == 0,
     checks["date_invalid"] == 0, checks["numeric_invalid"] == 0,
+    checks["tpmec_invalid"] == 0, checks["codbdi_blank_count"] == 0,
     checks["indopc_invalid"] == 0, checks["trailer_count_matches_record01"],
 ]) else "FAIL"
 
 report = {
-    "schema_version": "1.0-b3-layout-validation",
+    "schema_version": "1.1-b3-layout-validation",
     "status": status,
     "dataset_id": "B3_COTAHIST_A2026",
     "source": "B3 — Cotações Históricas",
