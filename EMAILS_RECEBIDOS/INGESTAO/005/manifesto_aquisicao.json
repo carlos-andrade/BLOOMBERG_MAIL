@@ -84,7 +84,7 @@
         "H4",
         "regime"
       ],
-      "acquisition_status": "ACQUIRED_RAW_VALIDATED",
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED_RECONCILED",
       "source_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/VIX_History.csv",
       "checksum_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
@@ -96,7 +96,8 @@
       "schema_version": "1.0-ingest-005",
       "parser_version": ".github/workflows/bloomberg-mail-ingestao-005c-tesouro-vix.yml",
       "quality_status": "PASS_STRUCTURAL_VALIDATION_DATE_CLOSE_NONEMPTY",
-      "reconciliation_status": "PENDING_INDEPENDENT_RECONCILIATION"
+      "reconciliation_status": "PASS",
+      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_vix.json"
     }
   ],
   "required_provenance": [
@@ -128,6 +129,6 @@
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "B3 RAW adquirido e estruturalmente validado; divergência histórica do endpoint registrada como atualização da fonte. CVM adquirido/validado e reconciliado. BCB SGS 1178 reconciliado com igualdade semântica entre RAW e endpoint. Tesouro RAW adquirido/validado. VIX RAW adquirido e estruturalmente validado pela fonte oficial Cboe, mas permanece sem missingness completo, duplicate check e reconciliação independente; portanto a Layer A continua bloqueada."
+    "reason": "B3 RAW adquirido e estruturalmente validado; divergência histórica do endpoint registrada como atualização da fonte. CVM adquirido/validado e reconciliado. BCB SGS 1178 reconciliado com igualdade semântica entre RAW e endpoint. Tesouro RAW adquirido/validado. VIX REC-001 reconciliado com igualdade semântica e SHA-256 entre RAW e endpoint oficial Cboe. Layer A permanece bloqueada porque a aprovação é global e ainda depende da conclusão dos gates dos demais datasets."
   }
 }
