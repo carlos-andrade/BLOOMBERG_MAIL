@@ -47,3 +47,10 @@ A página oficial da B3 foi reaberta e confirma que o acesso à série históric
 
 ### Evidência externa
 A página oficial da B3 confirma a série desde 1986, ausência de ajuste automático por inflação/proventos, distribuição em ZIP e conteúdo de preços, negócios e volume. citeturn1view0
+
+
+## Reconciliação com o repositório B3 — 2026-10-07
+
+A pendência do endpoint foi resolvida no nível de descoberta/reprodutibilidade por evidência versionada no repositório `carlos-andrade/B3`. O manifesto `dados/cotahist/manifests/COTAHIST_A2026.json` registra o endpoint `https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP`, o arquivo `COTAHIST_A2026.ZIP`, status `VALIDADO` e SHA-256 `4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768`. O B3 também mantém o arquivo RAW anual e seu checksum correspondente.
+
+Assim, o estado deixa de ser **ENDPOINT NÃO MATERIALIZADO** e passa a ser **ENDPOINT RECONCILIADO**. O arquivo ainda não foi baixado novamente pelo BLOOMBERG_MAIL; portanto, a aquisição RAW e a normalização continuam pendentes.
