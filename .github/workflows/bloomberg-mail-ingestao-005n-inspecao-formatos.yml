@@ -1,0 +1,30 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005N — Inspeção de Formatos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Inspect raw formats
+        run: python scripts/inspecao_formatos_normalizacao_005.py
+
+      - name: Publish inspection
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/INSPECAO_FORMATOS_005.json
+          git commit -m "BLOOMBERG_MAIL: publicar inspeção de formatos 005" || echo "Sem alterações"
+          git push
