@@ -31,7 +31,7 @@ jobs:
               x=json.loads((p/f).read_text(encoding="utf-8"))
               assert x["quality_status"]=="NORMALIZED_DERIVED"
               assert x["raw_sha256"]
-              assert x["parser_version"]=="normalizacao-005-v1.0"
+              assert x["parser_version"]=="normalizacao-005-v1.1"
           print("NORMALIZATION STRUCTURAL CHECK: PASS")
           PY
 
