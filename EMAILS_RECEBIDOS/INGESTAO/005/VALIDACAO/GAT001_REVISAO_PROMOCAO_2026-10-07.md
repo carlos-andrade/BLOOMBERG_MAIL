@@ -31,32 +31,27 @@ A promoção permanece separada da validação e exige que a proveniência obrig
 
 ## 4. Pendências identificadas
 
-O manifesto de aquisição ainda não contém todos os campos de required_provenance para B3, CVM e BCB. Em particular, devem ser completados, sem alterar o RAW:
+A revisão determinística recuperou os valores de proveniência que faltavam a partir de evidências versionadas no próprio repositório. O manifesto foi corrigido sem alteração dos RAW.
 
-- retrieval_timestamp_utc
-- reference_period
-- original_filename
-- format
-- encoding
-- schema_version
-- parser_version
-
-para os datasets onde ainda estiverem ausentes.
-
-A CVM também deve permanecer marcada como reconciliada no manifesto, pois o REC-001 independente já passou.
+- B3: aquisição 2026-10-07T11:37:56Z; COTAHIST_A2026; período registrado como arquivo anual de 2026.
+- BCB SGS 1178: aquisição 2026-10-07T10:34:56Z; período 2026-09-23 a 2026-10-06.
+- CVM: aquisição registrada em 2026-10-07T10:58:45Z; snapshot do endpoint oficial de dataset de eventos.
+- CVM permanece marcada como reconciliada; REC-001 independente PASS.
+- Todos os cinco datasets possuem agora os campos de required_provenance no manifesto.
 
 ## 5. Decisão
 
 GAT-001 = PASS.
 
-Layer A = BLOQUEADA até completar a proveniência obrigatória e executar a revisão final de promoção.
+Proveniência obrigatória = COMPLETA no manifesto.
+
+Layer A = BLOQUEADA até nova execução 005D, revisão final de promoção e aprovação explícita.
 
 Nenhum valor deve ser inventado, interpolado, ajustado automaticamente ou transformado em sinal operacional durante essa etapa.
 
 ## 6. Próxima etapa
 
-1. Completar a proveniência obrigatória no manifesto.
-2. Executar novamente 005D.
-3. Confirmar GAT-001 PASS sobre o manifesto corrigido.
-4. Executar a revisão final de promoção.
-5. Somente após aprovação explícita, criar a camada derivada da Layer A a partir do RAW imutável.
+1. Executar novamente 005D sobre o manifesto corrigido.
+2. Confirmar GAT-001 PASS e a consistência da proveniência.
+3. Executar a revisão final de promoção.
+4. Somente após aprovação explícita, criar a camada derivada da Layer A a partir do RAW imutável.
