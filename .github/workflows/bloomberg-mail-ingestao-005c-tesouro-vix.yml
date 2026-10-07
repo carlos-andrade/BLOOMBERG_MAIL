@@ -25,33 +25,18 @@ jobs:
           mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/RAW
           mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO
 
-      - name: Validar URL Tesouro
+      - name: Adquirir Tesouro — fonte oficial resolvida
         env:
-          TESOURO_URL: ${{ inputs.tesouro_url }}
+          TESOURO_URL: "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv"
         run: |
           set -euo pipefail
-          python - "$TESOURO_URL" <<'PY'
-          import sys
-          from urllib.parse import urlparse
-          u=urlparse(sys.argv[1])
-          assert u.scheme == "https", "Tesouro exige HTTPS"
-          assert u.hostname and u.hostname.endswith("tesourodireto.com.br"), "Host Tesouro não autorizado"
-          print("Tesouro URL host validation: PASS")
-          PY
-
-      - name: Adquirir Tesouro — RAW imutável
-        env:
-          TESOURO_URL: ${{ inputs.tesouro_url }}
-          TESOURO_FILE: ${{ inputs.tesouro_file }}
-        run: |
-          set -euo pipefail
-          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$TESOURO_FILE"
+          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv"
           if [ -e "$out" ]; then
             echo "RAW Tesouro já existe; reutilizando sem sobrescrita."
           else
             curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$TESOURO_URL"
           fi
-          sha256sum "$out" | tee "${out}.sha256"
+          sha256sum "$out" | tee "EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv.sha256"
           test -s "$out"
           file "$out"
 
@@ -67,7 +52,7 @@ jobs:
           else
             curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
           fi
-          sha256sum "$out" | tee "${out}.sha256"
+          sha256sum "$out" | tee "EMAILS_RECEBIDOS/INGESTAO/005/RAW/$VIX_FILE.sha256"
           test -s "$out"
           python - "$out" <<'PY'
           import csv,sys
@@ -83,8 +68,7 @@ jobs:
 
       - name: Evidência de aquisição
         env:
-          TESOURO_URL: ${{ inputs.tesouro_url }}
-          TESOURO_FILE: ${{ inputs.tesouro_file }}
+          TESOURO_URL: "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv"
           VIX_FILE: ${{ inputs.vix_file }}
         run: |
           set -euo pipefail
@@ -94,9 +78,8 @@ jobs:
             echo
             echo "- timestamp_utc: $ts"
             echo "- Tesouro URL: $TESOURO_URL"
-            echo "- Tesouro arquivo: $TESOURO_FILE"
+            echo "- Tesouro arquivo: precotaxatesourodireto.csv"
             echo "- VIX arquivo: $VIX_FILE"
-            echo "- VIX fonte: https://www.cboe.com/tradable_products/vix/vix_historical_data/"
             echo "- Política RAW: imutável; arquivos existentes não são sobrescritos."
             echo "- Gate: aquisição concluída não implica aprovação da Layer A."
           } > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/execucao_005c.md
