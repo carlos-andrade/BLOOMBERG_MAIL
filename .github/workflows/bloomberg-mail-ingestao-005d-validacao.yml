@@ -1,0 +1,45 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005D — Validação Determinística
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install validator dependencies
+        run: python -m pip install --disable-pip-version-check pandas
+
+      - name: Run deterministic validation
+        run: |
+          python scripts/validacao_ingestao_005.py
+
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: bloomberg-mail-ingestao-005-validacao
+          path: EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/
+          if-no-files-found: error
+
+      - name: Publish validation report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/
+          if git diff --cached --quiet; then
+            echo "Nenhuma evidência nova para publicar."
+          else
+            git commit -m "BLOOMBERG_MAIL: publicar validação determinística 005D"
+            git push
+          fi
