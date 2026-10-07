@@ -1,0 +1,13 @@
+{
+  "dataset": "VIX",
+  "result": "PASS",
+  "endpoint": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+  "raw_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+  "endpoint_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+  "raw_records": 9288,
+  "endpoint_records": 9288,
+  "headers_equal": true,
+  "semantic_records_equal": true,
+  "raw_preserved": true,
+  "promotion_impact": "VIX_REC_RECONCILED"
+}
