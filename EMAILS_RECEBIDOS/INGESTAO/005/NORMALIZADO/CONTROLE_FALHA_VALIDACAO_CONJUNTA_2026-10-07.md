@@ -1,78 +1,164 @@
-# BLOOMBERG_MAIL — INGESTÃO 005N — CONTROLE DE FALHA DA VALIDAÇÃO CONJUNTA
+# BLOOMBERG_MAIL — INGESTÃO 005N — CONTROLE DE FALHAS DA NORMALIZAÇÃO E VALIDAÇÃO CONJUNTA
 
 **Cabeçalho histórico — 2026-10-07**
 
-## Evento
+## Evento 1 — Validação conjunta #1
 
 Workflow: **BLOOMBERG_MAIL — INGESTÃO 005N — Validação Conjunta dos Normalizadores**  
 Run: **#1**  
-Run ID: **37685223362**  
-Commit executado: **a219b1dfb7639f1a654ad4d1a8f814e9c036c318**  
 Conclusão: **FAILURE**
 
-## Diagnóstico determinístico
-
-A falha ocorreu no passo `Run joint deterministic validation`.
-
-Erro objetivo:
+Erro:
 
 `AssertionError: missing normalized CVM_OFERTAS`
 
-O validador encontrou os RAW necessários, mas o arquivo derivado `cvm_ofertas_normalizado.json` ainda não estava publicado no checkout usado pela execução.
+Causa: o workflow de normalização ainda executava somente BCB e VIX, embora CVM e Tesouro já tivessem scripts implementados.
 
-A falha não foi causada por SHA divergente, corrupção do RAW ou erro de reconciliação. O pipeline parou antes dessas verificações.
+## Evento 2 — Validação conjunta #2 e #3
 
-## Causa-raiz
+As execuções #2 e #3 foram realizadas no commit:
 
-Os normalizadores de CVM e Tesouro haviam sido implementados como scripts, mas o workflow de normalização ainda executava somente:
+`55a54f5ed24b71dc3a7c36294703db1382f96126`
 
-- BCB
-- VIX
+Ambas reproduziram deterministicamente:
 
-Portanto, havia uma inconsistência entre:
+`AssertionError: missing normalized CVM_OFERTAS`
 
-**estado do código:** 4 normalizadores implementados  
-**execução do workflow:** somente 2 normalizadores executados  
-**validação conjunta:** exigia 4 saídas persistidas
+O problema permaneceu porque as saídas de CVM e Tesouro ainda não haviam sido publicadas no repositório.
+
+## Evento 3 — Normalização determinística #2
+
+Workflow: **BLOOMBERG_MAIL — INGESTÃO 005N — Normalização Determinística**  
+Run: **#2**  
+Run ID: **37689661444**  
+Commit de execução: `55a54f5ed24b71dc3a7c36294703db1382f96126`  
+Conclusão: **FAILURE**
+
+### O que passou
+
+Os quatro normalizadores foram executados com sucesso:
+
+1. BCB + VIX — PASS
+2. CVM — PASS
+3. Tesouro — PASS
+4. validação estrutural 4/5 — PASS
+
+### Causa-raiz real da falha
+
+A etapa de publicação tentou enviar para o GitHub:
+
+- `cvm_ofertas_normalizado.json` — **223,91 MB**
+- `tesouro_normalizado.json` — **65,57 MB**
+
+O GitHub recusou o push:
+
+- CVM excedeu o limite máximo de 100 MB.
+- Tesouro excedeu o limite recomendado de 50 MB.
+
+Erro remoto:
+
+`GH001: Large files detected`
+
+Portanto, **os normalizadores não falharam**. A falha ocorreu exclusivamente na estratégia de armazenamento/publicação dos derivados.
+
+O commit local `156b3b7` foi criado no runner, mas **não foi publicado** porque o push foi rejeitado. Não considerar esse commit como estado oficial do repositório.
 
 ## Correção aplicada
 
-O workflow:
+Foi adotado armazenamento derivado comprimido, sem alterar o RAW:
 
-`.github/workflows/bloomberg-mail-ingestao-005n-normalizacao.yml`
+### CVM
 
-foi corrigido para executar, em sequência:
+`cvm_ofertas_normalizado.json` passa a ser um **manifesto**, com os registros armazenados em:
 
-1. BCB + VIX
-2. CVM
-3. Tesouro
-4. validação estrutural das quatro saídas implementadas
-5. publicação dos derivados
+- JSONL
+- UTF-8
+- gzip
+- um arquivo por membro do ZIP original
 
-Commit da correção:
+Parser atualizado:
 
-`2799626e8b68b5b498b8e116d2827233b2407d16`
+`normalizacao-005-cvm-v1.1`
 
-## Estado após a correção
+### Tesouro
 
-**NÃO EXECUTADO AINDA:** nova execução do workflow de normalização após a correção.
+`tesouro_normalizado.json` passa a ser um **manifesto**, com registros em JSONL gzip.
 
-Consequentemente:
+Parser atualizado:
 
-- BCB normalizado: implementado e anteriormente executado
-- VIX normalizado: implementado e anteriormente executado
-- CVM normalizado: implementado, aguardando execução
-- Tesouro normalizado: implementado, aguardando execução
-- B3 normalizado: BLOQUEADO por falta de mapeamento autoritativo
-- validação conjunta 005N: **BLOCKED** até existirem as quatro saídas implementadas
-- integração: **BLOCKED**
+`normalizacao-005-tesouro-v1.1`
 
-## Regra
+### Validação
 
-A falha deve permanecer registrada. Não será transformada artificialmente em PASS.
+O validador foi atualizado para validar:
 
-A próxima sequência correta é:
+- existência dos manifests;
+- SHA-256 do RAW;
+- vínculo do derivado ao SHA esperado;
+- `NORMALIZED_DERIVED`;
+- existência dos arquivos comprimidos;
+- leitura mínima de integridade gzip.
 
-**executar 005N Normalização → verificar 4/5 → executar 005N Validação Conjunta → corrigir eventuais falhas → somente depois avançar para B3 e reconciliação 5/5.**
+### Commits das correções
 
-RAW permanece imutável.
+- CVM: `a6ed4a2ad8ca69a5326e7ab3b8a2ba5869a4624b`
+- Tesouro: `8720514a33ce5bc01f9225c2cd7c72327e15d6b3`
+- Validador: `df544e2c18e69aef3e38659a44008f793650955b`
+- Workflow: `8b1d78bae56e747b29f4646781e99a0b9f5b9466`
+
+## Evento 4 — Validação conjunta #4
+
+A validação conjunta #4 foi executada no mesmo commit antigo `55a54f5...`.
+
+Como a normalização #2 não conseguiu publicar os derivados, a validação #4 novamente encontrou:
+
+`missing normalized CVM_OFERTAS`
+
+Esse resultado é **esperado e determinístico**.
+
+## Estado oficial
+
+| Componente | Estado |
+|---|---|
+| RAW | **PRESERVADO / IMUTÁVEL** |
+| BCB | implementado |
+| VIX | implementado |
+| CVM | corrigido para armazenamento comprimido |
+| Tesouro | corrigido para armazenamento comprimido |
+| Validador conjunto | corrigido |
+| Workflow normalização | corrigido |
+| CVM publicado | **PENDENTE DE NOVA EXECUÇÃO** |
+| Tesouro publicado | **PENDENTE DE NOVA EXECUÇÃO** |
+| Validação conjunta 5 | **PENDENTE** |
+| B3 | BLOQUEADO por mapeamento autoritativo |
+| Integração | BLOQUEADA |
+
+## Sequência obrigatória
+
+```
+NOVO COMMIT
+    ↓
+005N NORMALIZAÇÃO
+    ↓
+publicar manifests + JSONL gzip
+    ↓
+verificar push bem-sucedido
+    ↓
+VALIDAÇÃO CONJUNTA
+    ↓
+PASS 4/5
+    ↓
+B3 authoritative mapping
+    ↓
+B3 normalização
+    ↓
+validação 5/5
+    ↓
+reconciliação
+    ↓
+integração
+```
+
+**Não executar novamente a validação conjunta até que uma nova execução da normalização termine com publicação bem-sucedida.**
+
+RAW não é alterado, comprimido, reescrito ou substituído por esta correção.
