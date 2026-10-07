@@ -20,8 +20,14 @@ def sha256(path):
 
 def canonical(path):
     data=json.loads(path.read_text(encoding="utf-8"))
-    records=[{"data":x["data"],"valor":x.get("valor",x.get("value"))} for x in data]\n    return sorted(records,key=lambda x:(x["data"],str(x["valor"])))
-
+    if not isinstance(data,list):
+        raise ValueError("BCB response is not a JSON list")
+    records=[]
+    for x in data:
+        if not isinstance(x,dict) or "data" not in x or ("valor" not in x and "value" not in x):
+            raise ValueError("BCB record schema is invalid")
+        records.append({"data":x["data"],"valor":x.get("valor",x.get("value"))})
+    return sorted(records,key=lambda x:(x["data"],str(x["valor"])))
 def main():
     observed_at=datetime.now(timezone.utc).isoformat()
     if not RAW.exists():
