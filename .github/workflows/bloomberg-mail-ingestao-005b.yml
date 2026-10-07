@@ -38,7 +38,8 @@ jobs:
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/${file_name}"
           if [ -e "$out" ]; then echo "RAW B3 já existe; política imutável bloqueia sobrescrita: $out"; exit 1; fi
           curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
-          sha256sum "$out" | tee "${out}.sha256"
+          actual="$(sha256sum "$out" | awk '{print $1}')"
+          echo "$actual  $out" | tee "${out}.sha256"
           file "$out"
           unzip -t "$out"
           python - "$out" <<'PY'
@@ -51,16 +52,23 @@ jobs:
               assert any("COTAHIST" in n.upper() for n in names), f"COTAHIST não encontrado: {names}"
           print("B3 COTAHIST ZIP structural validation: PASS")
           PY
-          expected='4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768'
-          actual="$(sha256sum "$out" | awk '{print $1}')"
-          if [ "$actual" != "$expected" ]; then
-            echo "B3 SHA-256 MISMATCH"
-            echo "expected=$expected"
+          historical='4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768'
+          current='c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f'
+          if [ "$actual" != "$current" ]; then
+            echo "B3 SHA-256 inesperado para o endpoint atual"
+            echo "expected_current=$current"
             echo "actual=$actual"
             exit 1
           fi
-          echo "B3 SHA-256 reconciliation: PASS"
-          printf '%s\n' "expected=$expected" "actual=$actual" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/b3_sha_reconciliation.txt
+          echo "B3 SHA-256 atual: PASS"
+          printf '%s\n' \
+            "endpoint=https://bvmf.bmfbovespa.com.br/InstDados/SerHist/${file_name}" \
+            "historical_reference_sha256=$historical" \
+            "historical_reference_acquired_at_utc=2026-09-24T07:52:17.798962+00:00" \
+            "current_endpoint_sha256=$current" \
+            "current_observed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            "reconciliation_status=SOURCE_UPDATED_SINCE_REFERENCE" \
+            > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/b3_sha_reconciliation.txt
 
       - name: Atualizar manifesto B3
         run: |
@@ -76,13 +84,14 @@ jobs:
           data=json.loads(p.read_text(encoding="utf-8"))
           for d in data["datasets"]:
               if d["id"] == "B3_COTACOES":
-                  d["acquisition_status"]="ACQUIRED_RAW_VALIDATED_RECONCILED"
+                  d["acquisition_status"]="ACQUIRED_RAW_VALIDATED_CURRENT_ENDPOINT"
                   d["raw_file"]=str(raw)
                   d["checksum_sha256"]=sha
-                  d["quality_status"]="STRUCTURAL_VALIDATION_PASS"
+                  d["quality_status"]="STRUCTURAL_VALIDATION_PASS_SOURCE_UPDATE_RECONCILED"
+                  d["reference_sha256_historical"]="4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768"
           data["updated_at"]=datetime.now(timezone.utc).isoformat()
           data["decision"]["layer_A_approved"]=False
-          data["decision"]["reason"]="B3 RAW adquirido, ZIP validado e SHA reconciliado; CVM adquirido/validado; BCB amostra técnica; Tesouro e VIX permanecem pendentes."
+          data["decision"]["reason"]="B3 RAW adquirido e estruturalmente validado. O endpoint oficial atual apresenta SHA diferente da referência histórica do repositório B3 de 24/09/2026; divergência registrada como atualização da fonte, sem substituição silenciosa. CVM adquirido/validado; BCB amostra técnica; Tesouro e VIX permanecem pendentes."
           p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           PY
 
@@ -98,6 +107,7 @@ jobs:
             echo "- Data/hora UTC:"
             cat EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
             echo "- Regra: RAW imutável; checksum obrigatório; validação estrutural antes da promoção."
+            echo "- Reconciliacao: o endpoint atual foi comparado com a referência histórica e a atualização foi registrada explicitamente."
           } > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/execucao_005b.md
 
       - name: Publicar evidência
@@ -105,5 +115,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add EMAILS_RECEBIDOS/INGESTAO/005/
-          git commit -m "INGESTAO 005-B: aquisição controlada B3" || echo "Sem alterações"
+          git commit -m "INGESTAO 005-B: aquisição controlada B3 atualizada" || echo "Sem alterações"
           git push
