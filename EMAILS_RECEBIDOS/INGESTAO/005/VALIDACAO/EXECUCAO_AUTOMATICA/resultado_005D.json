@@ -1,0 +1,293 @@
+{
+  "contract": "CONTRATO_VERIFICACAO_V1_0",
+  "matrix": "MATRIZ_TESTES_V1_0",
+  "generated_at_utc": "2026-10-07T12:56:08Z",
+  "datasets": {
+    "B3_COTACOES": "BLOCKED",
+    "CVM_OFERTAS": "BLOCKED",
+    "BCB_SGS": "BLOCKED",
+    "TESOURO_HISTORICO": "BLOCKED",
+    "VIX": "BLOCKED"
+  },
+  "global_gate": "BLOCKED",
+  "tests": [
+    {
+      "test_id": "INT-001",
+      "dataset": "B3_COTACOES",
+      "result": "PASS",
+      "expected": "SHA-256 calculável",
+      "observed": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+      "rationale": "Checksum calculado diretamente sobre o RAW."
+    },
+    {
+      "test_id": "INT-001",
+      "dataset": "CVM_OFERTAS",
+      "result": "PASS",
+      "expected": "SHA-256 calculável",
+      "observed": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
+      "rationale": "Checksum calculado diretamente sobre o RAW."
+    },
+    {
+      "test_id": "INT-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "SHA-256 calculável",
+      "observed": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
+      "rationale": "Checksum calculado diretamente sobre o RAW."
+    },
+    {
+      "test_id": "INT-001",
+      "dataset": "TESOURO_HISTORICO",
+      "result": "PASS",
+      "expected": "SHA-256 calculável",
+      "observed": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+      "rationale": "Checksum calculado diretamente sobre o RAW."
+    },
+    {
+      "test_id": "INT-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "SHA-256 calculável",
+      "observed": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+      "rationale": "Checksum calculado diretamente sobre o RAW."
+    },
+    {
+      "test_id": "STR-001",
+      "dataset": "B3_COTACOES",
+      "result": "PASS",
+      "expected": "ZIP íntegro e legível",
+      "observed": {
+        "entries": 1,
+        "bad_entry": null
+      },
+      "rationale": "Teste estrutural do arquivo ZIP."
+    },
+    {
+      "test_id": "STR-001",
+      "dataset": "CVM_OFERTAS",
+      "result": "PASS",
+      "expected": "ZIP íntegro e legível",
+      "observed": {
+        "entries": 2,
+        "bad_entry": null
+      },
+      "rationale": "Teste estrutural do arquivo ZIP."
+    },
+    {
+      "test_id": "STR-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "JSON com data/valor",
+      "observed": 10,
+      "rationale": "Schema mínimo."
+    },
+    {
+      "test_id": "SCH-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "data e valor",
+      "observed": [
+        "data",
+        "valor"
+      ],
+      "rationale": "Campos obrigatórios."
+    },
+    {
+      "test_id": "DUP-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "sem duplicidade por data",
+      "observed": 0,
+      "rationale": "Chave lógica: data."
+    },
+    {
+      "test_id": "MIS-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "valor presente",
+      "observed": "amostra verificada",
+      "rationale": "Missing não convertido em zero."
+    },
+    {
+      "test_id": "STR-001",
+      "dataset": "TESOURO_HISTORICO",
+      "result": "PASS",
+      "expected": "CSV legível",
+      "observed": [
+        "Tipo Titulo",
+        "Data Vencimento",
+        "Data Base",
+        "Taxa Compra Manha",
+        "Taxa Venda Manha",
+        "PU Compra Manha",
+        "PU Venda Manha",
+        "PU Base Manha"
+      ],
+      "rationale": "CSV reconhecido."
+    },
+    {
+      "test_id": "SCH-001",
+      "dataset": "TESOURO_HISTORICO",
+      "result": "PASS",
+      "expected": "cabeçalho com múltiplos campos",
+      "observed": 8,
+      "rationale": "Schema mínimo de arquivo."
+    },
+    {
+      "test_id": "STR-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "DATE,OPEN,HIGH,LOW,CLOSE",
+      "observed": [
+        "DATE",
+        "OPEN",
+        "HIGH",
+        "LOW",
+        "CLOSE"
+      ],
+      "rationale": "Header esperado."
+    },
+    {
+      "test_id": "DAT-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "datas parseáveis",
+      "observed": 9288,
+      "rationale": "Datas verificadas."
+    },
+    {
+      "test_id": "TYP-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "OHLC numérico",
+      "observed": 9288,
+      "rationale": "Valores OHLC convertidos para número."
+    },
+    {
+      "test_id": "DUP-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "sem duplicidade por data",
+      "observed": 0,
+      "rationale": "Chave lógica: DATE."
+    },
+    {
+      "test_id": "ORD-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "ordem temporal crescente",
+      "observed": true,
+      "rationale": "Sequência DATE."
+    },
+    {
+      "test_id": "REC-001",
+      "dataset": "B3_COTACOES",
+      "result": "BLOCKED",
+      "expected": "segunda representação oficial ou independente acessível",
+      "observed": "não configurada nesta execução",
+      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+    },
+    {
+      "test_id": "REC-001",
+      "dataset": "CVM_OFERTAS",
+      "result": "BLOCKED",
+      "expected": "segunda representação oficial ou independente acessível",
+      "observed": "não configurada nesta execução",
+      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+    },
+    {
+      "test_id": "REC-001",
+      "dataset": "BCB_SGS",
+      "result": "BLOCKED",
+      "expected": "segunda representação oficial ou independente acessível",
+      "observed": "não configurada nesta execução",
+      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+    },
+    {
+      "test_id": "REC-001",
+      "dataset": "TESOURO_HISTORICO",
+      "result": "BLOCKED",
+      "expected": "segunda representação oficial ou independente acessível",
+      "observed": "não configurada nesta execução",
+      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+    },
+    {
+      "test_id": "REC-001",
+      "dataset": "VIX",
+      "result": "BLOCKED",
+      "expected": "segunda representação oficial ou independente acessível",
+      "observed": "não configurada nesta execução",
+      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+    },
+    {
+      "test_id": "PRO-001",
+      "dataset": "B3_COTACOES",
+      "result": "PASS",
+      "expected": "RAW + filename + SHA disponíveis",
+      "observed": {
+        "filename": "COTAHIST_A2026.ZIP",
+        "sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f"
+      },
+      "rationale": "Proveniência mínima local disponível."
+    },
+    {
+      "test_id": "PRO-001",
+      "dataset": "CVM_OFERTAS",
+      "result": "PASS",
+      "expected": "RAW + filename + SHA disponíveis",
+      "observed": {
+        "filename": "oferta_distribuicao.zip",
+        "sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306"
+      },
+      "rationale": "Proveniência mínima local disponível."
+    },
+    {
+      "test_id": "PRO-001",
+      "dataset": "BCB_SGS",
+      "result": "PASS",
+      "expected": "RAW + filename + SHA disponíveis",
+      "observed": {
+        "filename": "bcb_sgs_1178_ultimos_10.json",
+        "sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36"
+      },
+      "rationale": "Proveniência mínima local disponível."
+    },
+    {
+      "test_id": "PRO-001",
+      "dataset": "TESOURO_HISTORICO",
+      "result": "PASS",
+      "expected": "RAW + filename + SHA disponíveis",
+      "observed": {
+        "filename": "precotaxatesourodireto.csv",
+        "sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e"
+      },
+      "rationale": "Proveniência mínima local disponível."
+    },
+    {
+      "test_id": "PRO-001",
+      "dataset": "VIX",
+      "result": "PASS",
+      "expected": "RAW + filename + SHA disponíveis",
+      "observed": {
+        "filename": "VIX_History.csv",
+        "sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab"
+      },
+      "rationale": "Proveniência mínima local disponível."
+    },
+    {
+      "test_id": "GAT-001",
+      "dataset": "GLOBAL",
+      "result": "BLOCKED",
+      "expected": "todos os datasets VALIDATED",
+      "observed": {
+        "B3_COTACOES": "BLOCKED",
+        "CVM_OFERTAS": "BLOCKED",
+        "BCB_SGS": "BLOCKED",
+        "TESOURO_HISTORICO": "BLOCKED",
+        "VIX": "BLOCKED"
+      },
+      "rationale": "Gate V1.0: qualquer BLOCKED impede promoção."
+    }
+  ],
+  "promotion": "BLOCKED"
+}
