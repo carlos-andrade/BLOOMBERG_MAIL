@@ -149,3 +149,8 @@ Entretanto, antes de liberar o normalizador para produção, deve ser feita uma 
 - Nenhum campo ausente pode ser preenchido.
 - Nenhum ajuste de preços será aplicado.
 - O normalizador B3 será derivado exclusivamente do layout oficial e do RAW.
+
+
+## Achado de reconciliação — COTAHIST A2026
+
+A validação determinística do RAW A2026 (SHA-256 `c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f`) encontrou 1.696 registros com `TPMERC=021`. Esse código **não consta** na tabela TPMERC do documento B3 v2.0/revisão 02 usado como referência. O projeto não atribui significado ao código 021 por inferência. Até identificação de fonte oficial B3 que o reconcilie, o gate de validação permanece FAIL/BLOCKED e o normalizador B3 não pode ser promovido.
