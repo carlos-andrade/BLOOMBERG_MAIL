@@ -1,0 +1,31 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005N — Validação Conjunta dos Normalizadores
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-normalizers:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run joint deterministic validation
+        run: python scripts/validacao_normalizadores_005n.py
+      - name: Publish validation evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/VALIDACAO_NORMALIZADORES_005N.json
+          if git diff --cached --quiet; then
+            echo "Nenhuma evidência nova."
+          else
+            git commit -m "BLOOMBERG_MAIL: publicar validação conjunta 005N"
+            git push
+          fi
