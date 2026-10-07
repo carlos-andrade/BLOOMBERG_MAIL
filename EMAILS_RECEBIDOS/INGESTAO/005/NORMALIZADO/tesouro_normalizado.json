@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.1-normalized-tesouro",
+  "dataset_id": "TESOURO_HISTORICO",
+  "source": "Tesouro Direto",
+  "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv",
+  "raw_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+  "processed_at_utc": "2026-10-07",
+  "parser_version": "normalizacao-005-tesouro-v1.1",
+  "quality_status": "NORMALIZED_DERIVED",
+  "storage_policy": "COMPRESSED_JSONL",
+  "field_names": [
+    "Tipo Titulo",
+    "Data Vencimento",
+    "Data Base",
+    "Taxa Compra Manha",
+    "Taxa Venda Manha",
+    "PU Compra Manha",
+    "PU Venda Manha",
+    "PU Base Manha"
+  ],
+  "record_count": 177086,
+  "output_file": "tesouro_normalizado.jsonl.gz",
+  "compression": "gzip",
+  "record_format": "jsonl"
+}
