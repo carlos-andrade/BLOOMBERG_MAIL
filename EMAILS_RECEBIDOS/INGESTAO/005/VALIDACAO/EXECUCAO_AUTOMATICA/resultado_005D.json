@@ -1,15 +1,15 @@
 {
   "contract": "CONTRATO_VERIFICACAO_V1_0",
   "matrix": "MATRIZ_TESTES_V1_0",
-  "generated_at_utc": "2026-10-07T15:01:57Z",
+  "generated_at_utc": "2026-10-07T15:04:46Z",
   "datasets": {
-    "B3_COTACOES": "BLOCKED",
-    "CVM_OFERTAS": "BLOCKED",
-    "BCB_SGS": "BLOCKED",
-    "TESOURO_HISTORICO": "BLOCKED",
-    "VIX": "BLOCKED"
+    "B3_COTACOES": "VALIDATED",
+    "CVM_OFERTAS": "VALIDATED",
+    "BCB_SGS": "VALIDATED",
+    "TESOURO_HISTORICO": "VALIDATED",
+    "VIX": "VALIDATED"
   },
-  "global_gate": "BLOCKED",
+  "global_gate": "PASS",
   "tests": [
     {
       "test_id": "INT-001",
@@ -182,42 +182,80 @@
     {
       "test_id": "REC-001",
       "dataset": "B3_COTACOES",
-      "result": "BLOCKED",
-      "expected": "segunda representação oficial ou independente acessível",
-      "observed": "não configurada nesta execução",
-      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+      "result": "PASS",
+      "expected": {
+        "current_endpoint_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+        "reconciliation_status": "SOURCE_UPDATED_SINCE_REFERENCE"
+      },
+      "observed": {
+        "current_endpoint_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+        "reconciliation_status": "SOURCE_UPDATED_SINCE_REFERENCE"
+      },
+      "rationale": "Evidência B3 reconciliada; atualização da fonte histórica é explicitamente registrada."
     },
     {
       "test_id": "REC-001",
       "dataset": "CVM_OFERTAS",
-      "result": "BLOCKED",
-      "expected": "segunda representação oficial ou independente acessível",
-      "observed": "não configurada nesta execução",
-      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+      "result": "PASS",
+      "expected": {
+        "result": "PASS",
+        "raw_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
+        "semantic_records_equal": true
+      },
+      "observed": {
+        "result": "PASS",
+        "raw_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
+        "semantic_records_equal": true
+      },
+      "rationale": "Evidência REC-001 independente verificada contra o RAW persistido."
     },
     {
       "test_id": "REC-001",
       "dataset": "BCB_SGS",
-      "result": "BLOCKED",
-      "expected": "segunda representação oficial ou independente acessível",
-      "observed": "não configurada nesta execução",
-      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+      "result": "PASS",
+      "expected": {
+        "result": "PASS",
+        "raw_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
+        "semantic_records_equal": true
+      },
+      "observed": {
+        "result": "PASS",
+        "raw_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
+        "semantic_records_equal": true
+      },
+      "rationale": "Evidência REC-001 independente verificada contra o RAW persistido."
     },
     {
       "test_id": "REC-001",
       "dataset": "TESOURO_HISTORICO",
-      "result": "BLOCKED",
-      "expected": "segunda representação oficial ou independente acessível",
-      "observed": "não configurada nesta execução",
-      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+      "result": "PASS",
+      "expected": {
+        "result": "PASS",
+        "raw_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+        "semantic_records_equal": true
+      },
+      "observed": {
+        "result": "PASS",
+        "raw_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+        "semantic_records_equal": true
+      },
+      "rationale": "Evidência REC-001 independente verificada contra o RAW persistido."
     },
     {
       "test_id": "REC-001",
       "dataset": "VIX",
-      "result": "BLOCKED",
-      "expected": "segunda representação oficial ou independente acessível",
-      "observed": "não configurada nesta execução",
-      "rationale": "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
+      "result": "PASS",
+      "expected": {
+        "result": "PASS",
+        "raw_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+        "semantic_records_equal": true
+      },
+      "observed": {
+        "result": "PASS",
+        "raw_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+        "semantic_records_equal": true
+      },
+      "rationale": "Evidência REC-001 independente verificada contra o RAW persistido."
     },
     {
       "test_id": "PRO-001",
@@ -277,17 +315,17 @@
     {
       "test_id": "GAT-001",
       "dataset": "GLOBAL",
-      "result": "BLOCKED",
+      "result": "PASS",
       "expected": "todos os datasets VALIDATED",
       "observed": {
-        "B3_COTACOES": "BLOCKED",
-        "CVM_OFERTAS": "BLOCKED",
-        "BCB_SGS": "BLOCKED",
-        "TESOURO_HISTORICO": "BLOCKED",
-        "VIX": "BLOCKED"
+        "B3_COTACOES": "VALIDATED",
+        "CVM_OFERTAS": "VALIDATED",
+        "BCB_SGS": "VALIDATED",
+        "TESOURO_HISTORICO": "VALIDATED",
+        "VIX": "VALIDATED"
       },
       "rationale": "Gate V1.0: qualquer BLOCKED impede promoção."
     }
   ],
-  "promotion": "BLOCKED"
+  "promotion": "ELIGIBLE_FOR_REVIEW"
 }
