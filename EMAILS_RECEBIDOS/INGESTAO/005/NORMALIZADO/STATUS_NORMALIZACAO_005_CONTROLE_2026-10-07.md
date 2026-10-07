@@ -112,3 +112,18 @@ A INTEGRAÇÃO continua bloqueada até a validação completa dos cinco datasets
 - Etapa em execução: `Validar COTAHIST contra layout oficial B3`
 - Evidência final: ainda não publicada; o workflow publica o JSON somente após PASS.
 - RAW permanece imutável.
+
+
+## 2026-10-07 — Correção e execução controlada B3 — TPMERC 021
+
+- Run #7: 37694046706
+- Commit executor: 0ba7f00cbab1c82535c96da8c5c44de953809cf0
+- Resultado: FAIL determinístico.
+- Evidência: 1.696 registros com TPMERC = 021.
+- O layout B3 v2.0/rev.02 atualmente mapeado documenta 010, 012, 013, 017, 020, 030, 050, 060, 070 e 080; 021 não foi atribuído por inferência.
+- RAW SHA confirmado e RAW permaneceu imutável.
+- Diagnóstico publicado em `NORMALIZADO/B3/DIAGNOSTICO_TPMERC_021_2026-10-07.md`.
+- Workflow temporariamente usado com gatilho push foi restaurado para `workflow_dispatch` בלבד/manual-only no commit `f2b0934e7ad128ce49c19b4b6cd8ed802b2be536`.
+- B3 normalizer: BLOQUEADO.
+- Integração: BLOQUEADA.
+- Próximo gate: reconciliação oficial do TPMERC 021 antes de qualquer PASS.
