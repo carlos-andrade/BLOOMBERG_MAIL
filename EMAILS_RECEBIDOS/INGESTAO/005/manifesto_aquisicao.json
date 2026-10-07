@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07T15:10:00Z",
+  "updated_at": "2026-10-07T15:20:00Z",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -25,7 +25,14 @@
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
       "checksum_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
       "quality_status": "STRUCTURAL_VALIDATION_PASS_SOURCE_UPDATE_RECONCILED",
-      "reference_sha256_historical": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768"
+      "reference_sha256_historical": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
+      "retrieval_timestamp_utc": "2026-10-07T11:37:56Z",
+      "reference_period": "2026 (arquivo anual COTAHIST_A2026)",
+      "original_filename": "COTAHIST_A2026.ZIP",
+      "format": "ZIP",
+      "encoding": "binary ZIP archive",
+      "schema_version": "1.0-ingest-005",
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml"
     },
     {
       "id": "CVM_OFERTAS",
@@ -40,15 +47,16 @@
       "checksum_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
       "archive_validation": "PASS",
       "source_url": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
-      "retrieval_timestamp_utc": "2026-10-07T13:17:52.064350+00:00",
+      "retrieval_timestamp_utc": "2026-10-07T10:58:45Z",
       "original_filename": "oferta_distribuicao.zip",
       "format": "ZIP",
       "encoding": "binary ZIP archive",
       "schema_version": "1.0-ingest-005",
-      "parser_version": "scripts/reconciliacao_cvm_005.py",
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml",
       "quality_status": "PASS_ARCHIVE_VALIDATION_REC001_RECONCILED",
       "reconciliation_status": "PASS",
-      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_cvm.json"
+      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_cvm.json",
+      "reference_period": "current official endpoint snapshot; event dataset"
     },
     {
       "id": "BCB_SGS",
@@ -64,7 +72,14 @@
       "source_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=23%2F09%2F2026&dataFinal=06%2F10%2F2026",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_1178_ultimos_10.json",
       "checksum_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
-      "quality_status": "PASS_RECONCILIATION_RAW_ENDPOINT_SEMANTIC_EQUAL"
+      "quality_status": "PASS_RECONCILIATION_RAW_ENDPOINT_SEMANTIC_EQUAL",
+      "retrieval_timestamp_utc": "2026-10-07T10:34:56Z",
+      "reference_period": "2026-09-23 to 2026-10-06",
+      "original_filename": "bcb_sgs_1178_ultimos_10.json",
+      "format": "JSON",
+      "encoding": "UTF-8",
+      "schema_version": "1.0-ingest-005",
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml"
     },
     {
       "id": "TESOURO_HISTORICO",
@@ -141,6 +156,6 @@
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "GAT-001 PASS confirmado pela INGESTÃO 005D #4 para B3, CVM, BCB SGS 1178, Tesouro Histórico e VIX. CVM foi promovido no manifesto para ACQUIRED_RAW_VALIDATED_RECONCILED com evidência REC-001 independente. Layer A permanece bloqueada porque o manifesto ainda precisa completar a proveniência obrigatória dos datasets que possuem campos ausentes (especialmente B3 e BCB) e a revisão final de promoção deve ocorrer separadamente do gate de validação. RAW permanece imutável; não há autorização para normalização operacional ou geração de sinais."
+    "reason": "GAT-001 PASS confirmado pela INGESTÃO 005D #4. A revisão de proveniência foi corrigida com valores recuperados de evidências versionadas no próprio repositório para B3, BCB e CVM. Todos os datasets possuem agora os campos required_provenance. Layer A continua bloqueada até nova execução 005D, revisão final de promoção e aprovação explícita. RAW permanece imutável; não há autorização para normalização operacional ou geração de sinais."
   }
 }
