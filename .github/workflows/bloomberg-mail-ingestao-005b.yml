@@ -85,6 +85,7 @@ jobs:
           esac
           url="https://bvmf.bmfbovespa.com.br/InstDados/SerHist/${file_name}"
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/${file_name}"
+          if [ -e "$out" ]; then echo "RAW B3 já existe; política imutável bloqueia sobrescrita: $out"; exit 1; fi
           curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
           sha256sum "$out" | tee "${out}.sha256"
           file "$out"
@@ -108,6 +109,7 @@ jobs:
             exit 1
           fi
           echo "B3 SHA-256 reconciliation: PASS"
+          printf '%s\n' "expected=$expected" "actual=$actual" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/b3_sha_reconciliation.txt
       - name: Atualizar manifesto B3
         if: ${{ inputs.source == 'B3' }}
         run: |
