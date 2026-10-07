@@ -4,6 +4,10 @@
 Lê somente o RAW COTAHIST_A2026.ZIP. Não altera RAW nem produz dados normalizados.
 Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.
 """
+
+# Execução controlada de validação: este arquivo aciona o workflow temporariamente
+# habilitado para produzir a evidência da revisão 1.1.
+
 from __future__ import annotations
 
 import datetime as dt
@@ -102,7 +106,6 @@ with zipfile.ZipFile(RAW, "r") as z:
         while pending:
             line = pending
             pending = f.readline()
-            # Physical line ending is not part of the 245-byte record.
             rec = line.rstrip(b"\r\n")
             checks["record_count_physical"] += 1
             if len(rec) != RECORD_LEN:
@@ -178,7 +181,6 @@ checks["trailer_valid"] = bool(
     and digits_or_blank(field(trailer_raw,32,42))
 )
 
-# B3 trailer count is the number of quotation records (01), excluding 00 and 99.
 checks["trailer_count_matches_record01"] = trailer_total == checks["record_01"]
 checks["trailer_count_matches_total_physical"] = trailer_total == checks["record_count_physical"]
 
