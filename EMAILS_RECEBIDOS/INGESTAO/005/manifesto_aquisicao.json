@@ -12,14 +12,25 @@
       "id": "B3_COTACOES",
       "source": "B3",
       "frequency": "daily",
-      "role": ["H1","H2","H3"],
-      "acquisition_status": "PENDING_BINARY_ACQUISITION"
+      "role": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "acquisition_status": "ENDPOINT_RECONCILED_BINARY_PENDING",
+      "source_url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP",
+      "reference_file": "COTAHIST_A2026.ZIP",
+      "reference_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
+      "reference_source_repository": "carlos-andrade/B3"
     },
     {
       "id": "CVM_OFERTAS",
       "source": "CVM",
       "frequency": "event",
-      "role": ["H2","H3"],
+      "role": [
+        "H2",
+        "H3"
+      ],
       "acquisition_status": "ACQUIRED_RAW_VALIDATED",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/oferta_distribuicao.zip",
       "checksum_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
@@ -29,40 +40,63 @@
       "id": "BCB_SGS",
       "source": "BCB",
       "frequency": "series-dependent",
-      "role": ["H4"],
+      "role": [
+        "H4"
+      ],
       "acquisition_status": "TECHNICAL_SAMPLE_ACQUIRED",
-      "series": [1178]
+      "series": [
+        1178
+      ]
     },
     {
       "id": "TESOURO_HISTORICO",
       "source": "Tesouro Direto",
       "frequency": "daily/annual-file",
-      "role": ["H4"],
+      "role": [
+        "H4"
+      ],
       "acquisition_status": "PENDING_FILE_ACQUISITION"
     },
     {
       "id": "VIX",
       "source": "Cboe",
       "frequency": "daily",
-      "role": ["H4","regime"],
+      "role": [
+        "H4",
+        "regime"
+      ],
       "acquisition_status": "PENDING_SOURCE_ACCESS"
     }
   ],
   "required_provenance": [
-    "source","source_url","retrieval_timestamp_utc","reference_period",
-    "original_filename","checksum_sha256","format","encoding",
-    "schema_version","parser_version","quality_status"
+    "source",
+    "source_url",
+    "retrieval_timestamp_utc",
+    "reference_period",
+    "original_filename",
+    "checksum_sha256",
+    "format",
+    "encoding",
+    "schema_version",
+    "parser_version",
+    "quality_status"
   ],
   "promotion_gate": [
-    "structural_validation","unit_validation","date_validation",
-    "missingness_report","duplicate_check","independent_reconciliation"
+    "structural_validation",
+    "unit_validation",
+    "date_validation",
+    "missingness_report",
+    "duplicate_check",
+    "independent_reconciliation"
   ],
   "forbidden": [
-    "invented_values","silent_interpolation",
-    "automatic_price_adjustment","operational_signal"
+    "invented_values",
+    "silent_interpolation",
+    "automatic_price_adjustment",
+    "operational_signal"
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "CVM RAW adquirido e ZIP validado; BCB amostra técnica adquirida; B3/Tesouro permanecem pendentes e VIX permanece pendente."
+    "reason": "CVM RAW adquirido e ZIP validado; BCB amostra técnica adquirida; endpoint B3 reconciliado por evidência versionada no repositório B3, mas binário ainda não adquirido novamente em BLOOMBERG_MAIL; Tesouro e VIX permanecem pendentes."
   }
 }
