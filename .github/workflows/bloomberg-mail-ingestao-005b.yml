@@ -11,10 +11,15 @@ on:
         options:
           - CVM
           - BCB
-      reference:
-        description: "Referência"
+      cvm_file:
+        description: "Arquivo CVM"
         required: false
         default: "oferta_distribuicao.zip"
+        type: string
+      bcb_series:
+        description: "Série BCB SGS"
+        required: false
+        default: "1178"
         type: string
 
 permissions:
@@ -49,7 +54,7 @@ jobs:
         if: ${{ inputs.source == 'BCB' }}
         run: |
           set -euo pipefail
-          series='1178'
+          series='${{ inputs.bcb_series }}'
           url="https://api.bcb.gov.br/dados/serie/bcdata.sgs.${series}/dados/ultimos/10?formato=json"
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_${series}_ultimos_10.json"
           curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
@@ -70,7 +75,12 @@ jobs:
             echo "# INGESTÃO 005-B — execução"
             echo
             echo "- Fonte: ${{ inputs.source }}"
-            echo "- Referência: ${{ inputs.reference }}"
+            if [ "${{ inputs.source }}" = "CVM" ]; then
+              reference="${{ inputs.cvm_file }}"
+            else
+              reference="SGS:${{ inputs.bcb_series }}"
+            fi
+            echo "- Referência: ${reference}"
             echo "- Runner: GitHub Actions"
             echo "- Data/hora UTC:"
             cat EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
