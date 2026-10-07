@@ -4,10 +4,6 @@
 Lê somente o RAW COTAHIST_A2026.ZIP. Não altera RAW nem produz dados normalizados.
 Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.
 """
-
-# Execução controlada de validação: este arquivo aciona o workflow temporariamente
-# habilitado para produzir a evidência da revisão 1.1.
-
 from __future__ import annotations
 
 import datetime as dt
