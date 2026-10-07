@@ -46,7 +46,7 @@ jobs:
 
       - name: Adquirir VIX — Cboe oficial
         env:
-          VIX_FILE: ${{ inputs.vix_file }}
+          VIX_FILE: ${{ inputs.vix_file || 'VIX_History.csv' }}
         run: |
           set -euo pipefail
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$VIX_FILE"
