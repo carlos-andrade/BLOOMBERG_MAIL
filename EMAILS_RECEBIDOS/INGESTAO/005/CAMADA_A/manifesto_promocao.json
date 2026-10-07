@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0-layer-a-reference",
+  "promotion_status": "PROMOTED_REFERENCE_VALIDATED",
+  "promoted_at_utc": "2026-10-07T20:22:32Z",
+  "authorization_basis": {
+    "validation_workflow_run": 37681467705,
+    "validation_commit": "f160c9424ee6bdad95cb1e4f6c00f146b666b821",
+    "validation_result": "PASS",
+    "global_gate": "PASS",
+    "promotion_result": "EXPLICITLY_AUTHORIZED"
+  },
+  "raw_policy": "IMMUTABLE",
+  "normalization_policy": "SEPARATE_DERIVED_STEP",
+  "operational_signal_policy": "FORBIDDEN",
+  "datasets": {
+    "B3_COTACOES": {
+      "status": "PROMOTED_REFERENCE",
+      "raw_path": "../RAW/COTAHIST_A2026.ZIP",
+      "sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f"
+    },
+    "CVM_OFERTAS": {
+      "status": "PROMOTED_REFERENCE",
+      "raw_path": "../RAW/oferta_distribuicao.zip",
+      "sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306"
+    },
+    "BCB_SGS": {
+      "status": "PROMOTED_REFERENCE",
+      "raw_path": "../RAW/bcb_sgs_1178_ultimos_10.json",
+      "sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36"
+    },
+    "TESOURO_HISTORICO": {
+      "status": "PROMOTED_REFERENCE",
+      "raw_path": "../RAW/precotaxatesourodireto.csv",
+      "sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e"
+    },
+    "VIX": {
+      "status": "PROMOTED_REFERENCE",
+      "raw_path": "../RAW/VIX_History.csv",
+      "sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab"
+    }
+  }
+}
