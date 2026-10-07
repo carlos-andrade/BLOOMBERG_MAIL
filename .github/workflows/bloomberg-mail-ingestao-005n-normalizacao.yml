@@ -27,23 +27,28 @@ jobs:
       - name: Run Tesouro deterministic normalization
         run: python scripts/normalizacao_tesouro_005.py
 
-      - name: Validate all implemented generated JSON
+      - name: Validate generated normalized manifests
         run: |
           python - <<'PY'
-          import json
+          import json, gzip
           from pathlib import Path
           p=Path("EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO")
-          expected = {
-              "bcb_sgs_1178_normalizado.json": "normalizacao-005-v1.1",
-              "vix_normalizado.json": "normalizacao-005-v1.1",
-              "cvm_ofertas_normalizado.json": "normalizacao-005-cvm-v1.0",
-              "tesouro_normalizado.json": "normalizacao-005-tesouro-v1.0",
+          expected={
+            "bcb_sgs_1178_normalizado.json":"normalizacao-005-v1.1",
+            "vix_normalizado.json":"normalizacao-005-v1.1",
+            "cvm_ofertas_normalizado.json":"normalizacao-005-cvm-v1.1",
+            "tesouro_normalizado.json":"normalizacao-005-tesouro-v1.1",
           }
-          for f, parser in expected.items():
-              x=json.loads((p/f).read_text(encoding="utf-8"))
-              assert x["quality_status"]=="NORMALIZED_DERIVED", f
-              assert x["raw_sha256"], f
-              assert x["parser_version"]==parser, f
+          for f,parser in expected.items():
+            x=json.loads((p/f).read_text(encoding="utf-8"))
+            assert x["quality_status"]=="NORMALIZED_DERIVED"
+            assert x["raw_sha256"]
+            assert x["parser_version"]==parser
+          for f in ("cvm_ofertas_normalizado.json","tesouro_normalizado.json"):
+            x=json.loads((p/f).read_text(encoding="utf-8"))
+            fs=[m["output_file"] for m in x["members"]] if "members" in x else [x["output_file"]]
+            for name in fs:
+              with gzip.open(p/name,"rt",encoding="utf-8") as g: g.readline()
           print("NORMALIZATION STRUCTURAL CHECK 4/5 IMPLEMENTED DATASETS: PASS")
           PY
 
@@ -55,6 +60,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nenhuma saída nova."
           else
-            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N BCB VIX CVM Tesouro"
+            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N comprimida"
             git push
           fi
