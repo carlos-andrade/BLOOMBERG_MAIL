@@ -1,8 +1,12 @@
 name: BLOOMBERG_MAIL — INGESTÃO 005-C — Tesouro + VIX
 
 on:
+  push:
+    paths:
+      - ".github/workflows/bloomberg-mail-ingestao-005c-tesouro-vix.yml"
   workflow_dispatch:
     inputs:
+
       vix_file:
         description: "Nome do arquivo VIX"
         required: true
@@ -46,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$VIX_FILE"
-          url="https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+          url="https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
           if [ -e "$out" ]; then
             echo "RAW VIX já existe; reutilizando sem sobrescrita."
           else
