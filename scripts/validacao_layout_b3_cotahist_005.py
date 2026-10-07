@@ -78,6 +78,7 @@ checks = {
     "date_invalid": 0,
     "numeric_invalid": 0,
     "tpmec_invalid": 0,
+    "tpmec_invalid_values": {},
     "codbdi_blank_count": 0,
     "indopc_invalid": 0,
     "trailer_total_records": None,
@@ -136,6 +137,8 @@ with zipfile.ZipFile(RAW, "r") as z:
                     ok &= field(rec,25,27) in VALID_TPMERC
                     if field(rec,25,27) not in VALID_TPMERC:
                         checks["tpmec_invalid"] += 1
+                        key = field(rec,25,27).decode("ascii", errors="replace")
+                        checks["tpmec_invalid_values"][key] = checks["tpmec_invalid_values"].get(key, 0) + 1
                     for s,e in PRICE_FIELDS:
                         ok &= fixed_numeric_ok(field(rec,s,e))
                     for s,e in INT_FIELDS:
