@@ -68,6 +68,27 @@ A NORMALIZAÇÃO dos quatro datasets implementados está validada. A integraçã
 - Sem promoção parcial para INTEGRAÇÃO.
 - VALIDAÇÃO não executa normalizadores e não modifica RAW.
 
+## Validação B3 preparada
+
+Foram publicados, sem executar ainda o workflow:
+
+- `scripts/validacao_layout_b3_cotahist_005.py`
+- `.github/workflows/bloomberg-mail-ingestao-005n-validacao-b3-layout.yml`
+
+A validação é **somente leitura do RAW** e verifica deterministically:
+1. SHA-256 do ZIP contra o manifesto;
+2. integridade do ZIP e quantidade de membros;
+3. registros de 245 bytes;
+4. tipos 00/01/99;
+5. unicidade estrutural de header/trailer;
+6. posições e formatos dos campos do registro 01;
+7. datas;
+8. campos numéricos;
+9. INDOPC;
+10. contagem informada no trailer versus registros de cotação.
+
+O workflow é `workflow_dispatch` e publica a evidência somente se a validação terminar em **PASS**. Não houve execução automática nesta etapa.
+
 ## Próxima ação operacional
 
 A fonte autoritativa do layout B3 COTAHIST foi identificada e registrada em:
