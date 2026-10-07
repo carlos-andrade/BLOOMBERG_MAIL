@@ -17,11 +17,34 @@ jobs:
         uses: actions/checkout@v4
       - name: Aquisição, validação e preservação RAW
         run: python3 scripts/aquisicao_tesouro_direto_005.py
+      - name: REC-001 Tesouro — reconciliação independente
+        run: |
+          python3 - <<'PY'
+          import csv, hashlib, pathlib, urllib.request, json
+          endpoint = "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv"
+          raw = pathlib.Path("EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv")
+          tmp = pathlib.Path("/tmp/precotaxatesourodireto_endpoint.csv")
+          def sha256(p):
+              h=hashlib.sha256()
+              with open(p,"rb") as fh:
+                  for chunk in iter(lambda: fh.read(1024*1024), b""): h.update(chunk)
+              return h.hexdigest()
+          urllib.request.urlretrieve(endpoint,tmp)
+          def rows(p):
+              with open(p,"r",encoding="utf-8-sig",newline="") as fh:
+                  return [tuple(x) for x in csv.reader(fh,delimiter=";")]
+          a,b=rows(raw),rows(tmp)
+          result={"dataset":"TESOURO_HISTORICO","result":"PASS" if a==b else "FAIL","endpoint":endpoint,"raw_sha256":sha256(raw),"endpoint_sha256":sha256(tmp),"raw_records":max(0,len(a)-1),"endpoint_records":max(0,len(b)-1),"headers_equal":bool(a and b and a[0]==b[0]),"semantic_records_equal":a==b,"raw_preserved":True,"promotion_impact":"TESOURO_REC_RECONCILED" if a==b else "TESOURO_REC_FAILED"}
+          out=pathlib.Path("EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA"); out.mkdir(parents=True,exist_ok=True)
+          (out/"rec001_tesouro.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          (out/"rec001_tesouro.md").write_text("# REC-001 Tesouro Direto — Reconciliação independente\n\n"+json.dumps(result,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          if result["result"]!="PASS": raise SystemExit(1)
+          PY
       - name: Publicar RAW, checksum e evidência
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv.sha256 EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/aquisicao_tesouro_direto_005.json EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/aquisicao_tesouro_direto_005.md
+          git add EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv.sha256 EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/aquisicao_tesouro_direto_005.json EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/aquisicao_tesouro_direto_005.md EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_tesouro.json EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_tesouro.md
           git diff --cached --quiet || git commit -m "evidence: aquisição Tesouro Direto INGESTÃO 005"
           git push
