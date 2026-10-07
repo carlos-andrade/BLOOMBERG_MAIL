@@ -110,6 +110,7 @@ jobs:
           fi
           echo "B3 SHA-256 reconciliation: PASS"
           printf '%s\n' "expected=$expected" "actual=$actual" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/b3_sha_reconciliation.txt
+
       - name: Atualizar manifesto B3
         if: ${{ inputs.source == 'B3' }}
         run: |
@@ -118,6 +119,7 @@ jobs:
           python - "$out" <<'PY'
           import json, sys
           from pathlib import Path
+          from datetime import datetime, timezone
           p=Path("EMAILS_RECEBIDOS/INGESTAO/005/manifesto_aquisicao.json")
           raw=Path(sys.argv[1])
           sha=raw.with_name(raw.name + ".sha256").read_text().split()[0]
@@ -128,11 +130,12 @@ jobs:
                   d["raw_file"]=str(raw)
                   d["checksum_sha256"]=sha
                   d["quality_status"]="STRUCTURAL_VALIDATION_PASS"
-          data["updated_at"]="2026-10-07"
+          data["updated_at"]=datetime.now(timezone.utc).isoformat()
           data["decision"]["layer_A_approved"]=False
           data["decision"]["reason"]="B3 RAW adquirido, ZIP validado e SHA reconciliado; CVM adquirido/validado; BCB amostra técnica; Tesouro e VIX permanecem pendentes."
           p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           PY
+
       - name: Manifesto da execução
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
