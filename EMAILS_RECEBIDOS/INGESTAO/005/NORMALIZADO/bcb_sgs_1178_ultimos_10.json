@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "dataset": "BCB_SGS",
+  "series_code": 1178,
+  "series_name": "Taxa de juros - Selic anualizada base 252",
+  "source": "Banco Central do Brasil — SGS",
+  "source_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados/ultimos/10?formato=json",
+  "retrieval_timestamp_utc": "2026-10-07",
+  "reference_period": "2026-07-20/2026-07-31",
+  "frequency": "daily",
+  "unit": "percent_per_year",
+  "parser_version": "manual-web-capture-v1",
+  "quality_status": "TECHNICAL_SAMPLE_VALIDATED",
+  "observations": [
+    {"date":"2026-07-31","value":14.15},
+    {"date":"2026-07-30","value":14.15},
+    {"date":"2026-07-29","value":14.15},
+    {"date":"2026-07-28","value":14.15},
+    {"date":"2026-07-27","value":14.15},
+    {"date":"2026-07-24","value":14.15},
+    {"date":"2026-07-23","value":14.15},
+    {"date":"2026-07-22","value":14.15},
+    {"date":"2026-07-21","value":14.15},
+    {"date":"2026-07-20","value":14.15}
+  ],
+  "note": "This is a normalized evidence sample, not the immutable raw API payload. The source response was preserved as observed; no interpolation or adjustment was applied."
+}
