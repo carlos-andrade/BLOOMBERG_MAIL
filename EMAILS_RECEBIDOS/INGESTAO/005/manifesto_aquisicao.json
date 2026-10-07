@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07",
+  "updated_at": "2026-10-07T11:24:27.754909+00:00",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -17,11 +17,15 @@
         "H2",
         "H3"
       ],
-      "acquisition_status": "ENDPOINT_RECONCILED_BINARY_PENDING",
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED_CURRENT_ENDPOINT",
       "source_url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP",
       "reference_file": "COTAHIST_A2026.ZIP",
       "reference_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
-      "reference_source_repository": "carlos-andrade/B3"
+      "reference_source_repository": "carlos-andrade/B3",
+      "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+      "checksum_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+      "quality_status": "STRUCTURAL_VALIDATION_PASS_SOURCE_UPDATE_RECONCILED",
+      "reference_sha256_historical": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768"
     },
     {
       "id": "CVM_OFERTAS",
@@ -97,6 +101,6 @@
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "CVM RAW adquirido e ZIP validado; BCB amostra técnica adquirida; endpoint B3 reconciliado por evidência versionada no repositório B3, mas binário ainda não adquirido novamente em BLOOMBERG_MAIL; Tesouro e VIX permanecem pendentes."
+    "reason": "B3 RAW adquirido e estruturalmente validado. O endpoint oficial atual apresenta SHA diferente da referência histórica do repositório B3 de 24/09/2026; divergência registrada como atualização da fonte, sem substituição silenciosa. CVM adquirido/validado; BCB amostra técnica; Tesouro e VIX permanecem pendentes."
   }
 }

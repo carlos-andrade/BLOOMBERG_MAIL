@@ -1,0 +1,6 @@
+endpoint=https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP
+historical_reference_sha256=4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768
+historical_reference_acquired_at_utc=2026-09-24T07:52:17.798962+00:00
+current_endpoint_sha256=c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f
+current_observed_at_utc=2026-10-07T11:24:27Z
+reconciliation_status=SOURCE_UPDATED_SINCE_REFERENCE

@@ -1,8 +1,9 @@
-# INGESTÃO 005-B — execução
+# INGESTÃO 005-B — execução B3
 
-- Fonte: CVM
-- Referência: oferta_distribuicao.zip
+- Fonte: B3
+- Referência: COTAHIST_A2026.ZIP
 - Runner: GitHub Actions
 - Data/hora UTC:
-2026-10-07T10:58:45Z
+2026-10-07T11:24:27Z
 - Regra: RAW imutável; checksum obrigatório; validação estrutural antes da promoção.
+- Reconciliacao: o endpoint atual foi comparado com a referência histórica e a atualização foi registrada explicitamente.
