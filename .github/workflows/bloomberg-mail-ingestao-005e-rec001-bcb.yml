@@ -1,0 +1,11 @@
+name: BLOOMBERG_MAIL REC-001 BCB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rec001-bcb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/reconciliacao_bcb_sgs_005.py
