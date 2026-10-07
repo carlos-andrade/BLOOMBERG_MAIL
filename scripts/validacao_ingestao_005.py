@@ -131,15 +131,65 @@ try:
 except Exception as e:
     tests.append(result("STR-001", "VIX", "FAIL", "CSV VIX legível", str(e), "Falha de leitura/estrutura."))
 
-# Reconciliation is deliberately conservative until a secondary representation
-# is explicitly registered in FONTES/ and configured for the dataset.
-for dataset in files:
-    tests.append(result(
-        "REC-001", dataset, "BLOCKED",
-        "segunda representação oficial ou independente acessível",
-        "não configurada nesta execução",
-        "O contrato proíbe promover REC-001 a PASS sem segunda representação documentada."
-    ))
+# REC-001 consumes persisted, dataset-specific evidence produced by the independent
+# reconciliation workflows. This validator does not redownload endpoints and never
+# modifies RAW. Evidence is accepted only when it explicitly reports PASS and the
+# persisted RAW checksum matches the current RAW file.
+rec_evidence = {
+    "B3_COTACOES": ROOT / "EMAILS_RECEBIDOS" / "INGESTAO" / "005" / "VALIDACAO" / "b3_sha_reconciliation.txt",
+    "CVM_OFERTAS": OUT / "rec001_cvm.json",
+    "BCB_SGS": OUT / "rec001_bcb_sgs_1178.json",
+    "TESOURO_HISTORICO": OUT / "rec001_tesouro.json",
+    "VIX": OUT / "rec001_vix.json",
+}
+
+def validate_rec_json(dataset, evidence_path, raw_path):
+    if not evidence_path.exists():
+        return result("REC-001", dataset, "BLOCKED",
+                      "evidência REC-001 persistida com result=PASS",
+                      "evidência ausente",
+                      "A validação determinística não recria REC-001; exige evidência persistida.")
+    try:
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        raw_sha = sha256(raw_path)
+        observed_sha = evidence.get("raw_sha256")
+        status = evidence.get("result")
+        semantic_equal = evidence.get("semantic_records_equal", True)
+        ok = status == "PASS" and observed_sha == raw_sha and semantic_equal is True
+        return result("REC-001", dataset, "PASS" if ok else "FAIL",
+                      {"result": "PASS", "raw_sha256": raw_sha, "semantic_records_equal": True},
+                      {"result": status, "raw_sha256": observed_sha, "semantic_records_equal": semantic_equal},
+                      "Evidência REC-001 independente verificada contra o RAW persistido.")
+    except Exception as e:
+        return result("REC-001", dataset, "FAIL", "evidência JSON válida", str(e),
+                      "Falha ao ler/validar evidência REC-001.")
+
+def validate_b3_rec(evidence_path, raw_path):
+    if not evidence_path.exists():
+        return result("REC-001", "B3_COTACOES", "BLOCKED",
+                      "evidência B3 persistida", "evidência ausente",
+                      "Arquivo de reconciliação B3 não encontrado.")
+    try:
+        kv = {}
+        for line in evidence_path.read_text(encoding="utf-8").splitlines():
+            if "=" in line:
+                k, v = line.split("=", 1)
+                kv[k.strip()] = v.strip()
+        raw_sha = sha256(raw_path)
+        current_sha = kv.get("current_endpoint_sha256")
+        status = kv.get("reconciliation_status")
+        ok = current_sha == raw_sha and status == "SOURCE_UPDATED_SINCE_REFERENCE"
+        return result("REC-001", "B3_COTACOES", "PASS" if ok else "FAIL",
+                      {"current_endpoint_sha256": raw_sha, "reconciliation_status": "SOURCE_UPDATED_SINCE_REFERENCE"},
+                      {"current_endpoint_sha256": current_sha, "reconciliation_status": status},
+                      "Evidência B3 reconciliada; atualização da fonte histórica é explicitamente registrada.")
+    except Exception as e:
+        return result("REC-001", "B3_COTACOES", "FAIL", "evidência B3 válida", str(e),
+                      "Falha ao ler/validar evidência B3.")
+
+tests.append(validate_b3_rec(rec_evidence["B3_COTACOES"], files["B3_COTACOES"]))
+for dataset in ("CVM_OFERTAS", "BCB_SGS", "TESOURO_HISTORICO", "VIX"):
+    tests.append(validate_rec_json(dataset, rec_evidence[dataset], files[dataset]))
 
 # Provenance/evidence/gate are evaluated at the report level.
 for dataset, path in files.items():
@@ -196,7 +246,7 @@ md += [
     "",
     f"**GAT-001 global: {gate}**",
     "",
-    "REC-001 permanece BLOCKED para todos os datasets nesta execução porque nenhuma segunda representação oficial/independente foi configurada explicitamente.",
+    "REC-001 é consumido exclusivamente de evidências persistidas e verificadas contra o RAW; esta etapa não redownload nem altera RAW.",
     "",
     "Nenhum RAW foi alterado. Nenhuma promoção para Layer A foi executada.",
 ]
