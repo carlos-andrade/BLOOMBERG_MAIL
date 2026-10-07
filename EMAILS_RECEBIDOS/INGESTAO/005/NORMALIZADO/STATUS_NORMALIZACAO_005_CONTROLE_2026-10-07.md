@@ -102,3 +102,13 @@ O mapeamento documenta os registros 00, 01 e 99, os offsets oficiais, tipos, esc
 Antes da implementação do normalizador B3, executar validação determinística do layout contra o RAW COTAHIST_A2026.ZIP: comprimento de 245 bytes, header/trailer, offsets, tipos, escalas, datas, quantidade, volume e contagem do trailer.
 
 A INTEGRAÇÃO continua bloqueada até a validação completa dos cinco datasets.
+
+## Execução controlada da validação B3 — run #6
+
+- Commit de disparo: `ceb870f7bbcd2289a23d8452bf7547970e5e6ab2`
+- Workflow run: `37693597585`
+- Acionamento: `push` controlado sobre a revisão 1.1 do validador
+- Estado verificado: `in_progress`
+- Etapa em execução: `Validar COTAHIST contra layout oficial B3`
+- Evidência final: ainda não publicada; o workflow publica o JSON somente após PASS.
+- RAW permanece imutável.
