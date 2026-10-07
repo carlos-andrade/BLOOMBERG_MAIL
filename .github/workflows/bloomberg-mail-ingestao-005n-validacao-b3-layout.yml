@@ -1,0 +1,30 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005N — Validação Layout B3 COTAHIST
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-b3-layout:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Validar COTAHIST contra layout oficial B3
+        run: python scripts/validacao_layout_b3_cotahist_005.py
+
+      - name: Publicar evidência determinística
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/VALIDACAO_LAYOUT_COTAHIST_A2026.json
+          git diff --cached --quiet || git commit -m "BLOOMBERG_MAIL: evidência validação layout B3 COTAHIST 005N"
+          git push
