@@ -2,6 +2,9 @@ name: BLOOMBERG_MAIL REC-001 BCB
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/reconciliacao_bcb_sgs_005.py"
 
 permissions:
   contents: write
