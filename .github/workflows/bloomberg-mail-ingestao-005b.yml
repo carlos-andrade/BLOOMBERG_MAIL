@@ -36,8 +36,11 @@ jobs:
           esac
           url="https://bvmf.bmfbovespa.com.br/InstDados/SerHist/${file_name}"
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/${file_name}"
-          if [ -e "$out" ]; then echo "RAW B3 já existe; política imutável bloqueia sobrescrita: $out"; exit 1; fi
-          curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
+          if [ -e "$out" ]; then
+            echo "RAW B3 já existe; política imutável: reutilizando o RAW existente sem sobrescrita."
+          else
+            curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
+          fi
           actual="$(sha256sum "$out" | awk '{print $1}')"
           echo "$actual  $out" | tee "${out}.sha256"
           file "$out"
