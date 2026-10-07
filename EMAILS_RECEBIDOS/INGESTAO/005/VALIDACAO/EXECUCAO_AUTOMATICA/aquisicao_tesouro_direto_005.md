@@ -11,7 +11,7 @@ Resultado: PASS
   "dataset": "TESOURO_HISTORICO",
   "source": "Tesouro Direto/Tesouro Transparente",
   "endpoint": "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv",
-  "observed_at_utc": "2026-10-07T13:52:50.428568+00:00",
+  "observed_at_utc": "2026-10-07T14:39:34.553923+00:00",
   "raw_preserved": true,
   "result": "PASS",
   "endpoint_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
