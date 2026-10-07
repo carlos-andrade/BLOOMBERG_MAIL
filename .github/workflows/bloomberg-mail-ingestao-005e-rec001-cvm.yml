@@ -1,0 +1,23 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005E — REC-001 CVM
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rec001-cvm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Execute REC-001 CVM
+        run: python3 scripts/reconciliacao_cvm_005.py
+      - name: Commit evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_cvm.json EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_cvm.md
+          git diff --cached --quiet || git commit -m "BLOOMBERG_MAIL: REC-001 CVM"
+          git push
