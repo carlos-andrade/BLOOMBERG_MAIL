@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "EMAILS_RECEBIDOS/INGESTAO/005/RAW"
 OUT = ROOT / "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO"
 OUT.mkdir(parents=True, exist_ok=True)
-PARSER_VERSION = "normalizacao-005-v1.0"
+PARSER_VERSION = "normalizacao-005-v1.1"
 SCHEMA_VERSION = "1.0-normalized"
 
 def sha256(p: Path) -> str:
@@ -31,7 +31,15 @@ processed = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 # BCB: canonicalize exact current RAW observations, without changing values.
 bcb = RAW / "bcb_sgs_1178_ultimos_10.json"
 raw_bcb = json.loads(bcb.read_text(encoding="utf-8"))
-obs = [{"date": x["data"], "value": float(x["valor"])} for x in raw_bcb]
+obs = []
+for x in raw_bcb:
+    parsed = datetime.strptime(x["data"], "%d/%m/%Y").date()
+    obs.append({
+        "date": parsed.isoformat(),
+        "date_raw": x["data"],
+        "value": x["valor"],
+        "value_raw": x["valor"]
+    })
 obs = sorted(obs, key=lambda x: x["date"])
 write_json("bcb_sgs_1178_normalizado.json", {
     "schema_version": SCHEMA_VERSION, "dataset_id": "BCB_SGS_1178",
@@ -40,10 +48,12 @@ write_json("bcb_sgs_1178_normalizado.json", {
     "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_1178_ultimos_10.json",
     "raw_sha256": sha256(bcb), "retrieval_timestamp_utc": "2026-10-07T10:34:56Z",
     "reference_period": "2026-09-23/2026-10-06", "processed_at_utc": processed,
+    "date_representation": "ISO-8601 derived from RAW DD/MM/YYYY; date_raw preserved",
+    "value_representation": "RAW decimal string preserved; no numeric coercion",
     "frequency": "daily", "unit": "percent_per_year",
     "parser_version": PARSER_VERSION, "quality_status": "NORMALIZED_DERIVED",
     "record_count": len(obs), "duplicate_count": 0,
-    "missing_count": sum(1 for x in obs if x["date"] is None or x["value"] is None),
+    "missing_count": sum(1 for x in obs if not x["date"] or x["value"] is None),
     "observations": obs
 })
 
