@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.1-normalizer-validation",
+  "status": "PASS",
+  "raw_policy": "IMMUTABLE",
+  "checks": {
+    "BCB_SGS_1178": {
+      "raw_sha_match": true,
+      "normalized_raw_link_match": true,
+      "quality_status": "NORMALIZED_DERIVED",
+      "output_exists": true,
+      "derived_files": []
+    },
+    "VIX": {
+      "raw_sha_match": true,
+      "normalized_raw_link_match": true,
+      "quality_status": "NORMALIZED_DERIVED",
+      "output_exists": true,
+      "derived_files": []
+    },
+    "CVM_OFERTAS": {
+      "raw_sha_match": true,
+      "normalized_raw_link_match": true,
+      "quality_status": "NORMALIZED_DERIVED",
+      "output_exists": true,
+      "derived_files": [
+        "oferta_distribuicao.jsonl.gz",
+        "oferta_resolucao_160.jsonl.gz"
+      ]
+    },
+    "TESOURO_HISTORICO": {
+      "raw_sha_match": true,
+      "normalized_raw_link_match": true,
+      "quality_status": "NORMALIZED_DERIVED",
+      "output_exists": true,
+      "derived_files": [
+        "tesouro_normalizado.jsonl.gz"
+      ]
+    }
+  },
+  "dataset_count": 4,
+  "integration_gate": "BLOCKED_UNTIL_B3_NORMALIZER_AND_ALL_FIVE_VALIDATED",
+  "notes": "Validates persisted derived outputs and compressed JSONL manifests; does not execute or modify RAW."
+}
