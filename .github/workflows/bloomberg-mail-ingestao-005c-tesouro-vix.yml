@@ -70,6 +70,41 @@ jobs:
           print(f"VIX structural/date presence validation: PASS ({len(rows)} rows)")
           PY
 
+      - name: REC-001 VIX — reconciliação independente
+        env:
+          VIX_FILE: ${{ inputs.vix_file || 'VIX_History.csv' }}
+        run: |
+          set -euo pipefail
+          raw="EMAILS_RECEBIDOS/INGESTAO/005/RAW/$VIX_FILE"
+          tmp="$(mktemp --suffix=.csv)"
+          trap 'rm -f "$tmp"' EXIT
+          curl --fail --location --retry 3 --retry-delay 2 --output "$tmp" "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+          python - "$raw" "$tmp" <<'PY'
+          import csv, hashlib, json, sys
+          from pathlib import Path
+          raw=Path(sys.argv[1]); endpoint=Path(sys.argv[2])
+          def sha(p):
+              h=hashlib.sha256()
+              with p.open("rb") as f:
+                  for chunk in iter(lambda:f.read(1024*1024), b""): h.update(chunk)
+              return h.hexdigest()
+          def read(p):
+              with p.open(encoding="utf-8-sig", newline="") as f:
+                  r=csv.DictReader(f)
+                  header=r.fieldnames
+                  rows=list(r)
+              return header, [(x["DATE"],x["OPEN"],x["HIGH"],x["LOW"],x["CLOSE"]) for x in rows]
+          rh,rr=read(raw); eh,er=read(endpoint)
+          equal=(rh==eh==["DATE","OPEN","HIGH","LOW","CLOSE"] and rr==er)
+          report={"dataset":"VIX","result":"PASS" if equal else "FAIL","endpoint":"https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv","raw_sha256":sha(raw),"endpoint_sha256":sha(endpoint),"raw_records":len(rr),"endpoint_records":len(er),"headers_equal":rh==eh,"semantic_records_equal":equal,"raw_preserved":True,"promotion_impact":"VIX_REC_RECONCILED" if equal else "BLOCKED_RECONCILIATION_MISMATCH"}
+          out=Path("EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA")
+          out.mkdir(parents=True,exist_ok=True)
+          (out/"rec001_vix.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          (out/"rec001_vix.md").write_text("# REC-001 VIX — Reconciliação independente\n\n"+json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps(report,indent=2))
+          raise SystemExit(0 if equal else 1)
+          PY
+
       - name: Evidência de aquisição
         env:
           TESOURO_URL: "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv"
