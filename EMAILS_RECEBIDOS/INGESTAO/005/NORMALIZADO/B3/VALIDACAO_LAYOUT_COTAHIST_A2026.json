@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0-b3-layout-validation",
+  "status": "PASS",
+  "dataset_id": "B3_COTAHIST_A2026",
+  "source": "B3 — Cotações Históricas",
+  "layout_reference": "SeriesHistoricas_Layout.pdf — versão 2.0, revisão 02, atualização 05/10/2020",
+  "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+  "raw_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+  "checks": {
+    "raw_sha_match": true,
+    "zip_integrity": true,
+    "member_count": 1,
+    "member_name": "COTAHIST_A2026.TXT",
+    "record_count_physical": 3070833,
+    "record_00": 1,
+    "record_01": 3070831,
+    "record_99": 1,
+    "record_other": 0,
+    "record_length_245": 3070833,
+    "record_length_invalid": 0,
+    "header_valid": true,
+    "trailer_valid": true,
+    "record_01_fields_valid": 3070831,
+    "record_01_fields_invalid": 0,
+    "date_invalid": 0,
+    "numeric_invalid": 0,
+    "tpmec_invalid": 0,
+    "codbdi_blank_count": 0,
+    "indopc_invalid": 0,
+    "trailer_total_records": 3070831,
+    "trailer_count_matches_record01": true,
+    "trailer_count_matches_total_physical": false
+  },
+  "policy": {
+    "raw_immutable": true,
+    "economic_adjustment": false,
+    "interpolation": false,
+    "invention": false,
+    "normalization_executed": false
+  }
+}
