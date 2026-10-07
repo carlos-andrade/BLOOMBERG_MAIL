@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "ingestion_id": "003",
+  "method": "independent_source_validation",
+  "source_ingestion": "001",
+  "status": "PARTIAL",
+  "results": [
+    {"id":"NUM-011","claim":"French debt average duration above eight years","status":"validated_partial","confidence":"high","reason":"Independent 2026 source reports average life of negotiable French state debt of 8 years and 158 days at 30 Sep 2026."},
+    {"id":"EVT-004","claim":"France-Germany spread moved 141 to 127 bps in 10Y and 65 to 44 bps in 2Y","status":"validated_partial","confidence":"medium","reason":"Independent 2026 sources confirm OAT-Bund around 130 bps and unusually elevated French sovereign spread, but exact four-point sequence was not independently reproduced in this pass."},
+    {"id":"CTX-001","claim":"French fiscal stress is material","status":"context_confirmed","confidence":"high","reason":"Independent 2026 sources report French public debt around 119% of GDP and elevated long-term yields."},
+    {"id":"NUM-001","claim":"Global listings YTD of USD 230bn","status":"pending"},
+    {"id":"NUM-002","claim":"45 percent above prior year","status":"pending"},
+    {"id":"NUM-003","claim":"USD 373bn in 2021","status":"pending"},
+    {"id":"NUM-004","claim":"Approximately 200 companies listed in prior 12 months","status":"pending"},
+    {"id":"NUM-005","claim":"Forward multiple compression of approximately three points","status":"pending"},
+    {"id":"NUM-006","claim":"USD 2tn potential SpaceX lock-up supply","status":"pending"},
+    {"id":"NUM-012","claim":"12 percent prediction-market probability for Jean-Luc Melenchon","status":"pending"}
+  ],
+  "promotion_rule":"Only validated or context_confirmed claims may feed downstream features; pending claims remain source-attributed observations."
+}
