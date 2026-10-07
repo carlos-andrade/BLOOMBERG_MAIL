@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "source_file": "EMAILS_RECEBIDOS/Sesame Street meets Wall Street’s record rally.msg",
+  "source_sha": "4ed2cb14c693b44b3bfad90e8934cffdaf98b827",
+  "source_size_bytes": 559104,
+  "extracted_format": "HTML -> normalized text",
+  "html_found": true,
+  "html_chars": 60568,
+  "text_chars": 11610,
+  "title": "Sesame Street Meets Wall Street’s Record Rally",
+  "preservation_rule": "original .msg remains unchanged in EMAILS_RECEBIDOS",
+  "extraction_note": "The Outlook MSG container was read from the repository and its embedded HTML message body was normalized for analysis."
+}
