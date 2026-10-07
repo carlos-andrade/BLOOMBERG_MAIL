@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "ingestion_id": "002",
+  "parent_ingestion": "001",
+  "source": "EMAILS_RECEBIDOS/Sesame Street meets Wall Street’s record rally.msg",
+  "status": "EXTRAIDO_COM_PROVENIENCIA",
+  "rule": "Os campos abaixo são extrações da newsletter. Não são fatos validados externamente.",
+  "entities": [
+    {"id":"ENT-001","type":"index","name":"S&P 500","role":"equity_benchmark"},
+    {"id":"ENT-002","type":"index","name":"Russell Top 50","role":"large_cap_proxy"},
+    {"id":"ENT-003","type":"index","name":"Russell 2000","role":"small_cap_proxy"},
+    {"id":"ENT-004","type":"theme","name":"Artificial Intelligence","role":"growth_driver"},
+    {"id":"ENT-005","type":"market_event","name":"IPO wave","role":"equity_supply"},
+    {"id":"ENT-006","type":"company","name":"Anthropic","role":"prospective_ipo"},
+    {"id":"ENT-007","type":"company","name":"SpaceX","role":"large_listing_and_future_supply"},
+    {"id":"ENT-008","type":"company","name":"OpenAI","role":"future_ipo_reference"},
+    {"id":"ENT-009","type":"country","name":"France","role":"sovereign_risk"},
+    {"id":"ENT-010","type":"country","name":"Germany","role":"benchmark_sovereign"},
+    {"id":"ENT-011","type":"bond","name":"French OAT","role":"sovereign_bond"},
+    {"id":"ENT-012","type":"bond","name":"German Bund","role":"sovereign_benchmark"},
+    {"id":"ENT-013","type":"bond","name":"Italian BTP","role":"sovereign_comparator"}
+  ],
+  "events": [
+    {"id":"EVT-001","theme":"equity_record","statement":"S&P 500 fechou em máxima histórica, com liderança descrita como estreita.","source_location":"To the Victors the Spoils","validation_status":"pending"},
+    {"id":"EVT-002","theme":"equity_style_dispersion","statement":"A newsletter descreve deterioração relativa de small caps/value frente a mega caps/growth.","source_location":"To the Victors the Spoils","validation_status":"pending"},
+    {"id":"EVT-003","theme":"ipo_supply","statement":"Aumento de emissão de ações é apresentado como possível pressão sobre múltiplos e retornos.","source_location":"Riding the IPO Wave","validation_status":"pending"},
+    {"id":"EVT-004","theme":"sovereign_spread","statement":"Spread França-Alemanha de 10 anos recuou de 141 para 127 bps; 2 anos, de 65 para 44 bps.","source_location":"Catching a Falling Guillotine","validation_status":"pending"},
+    {"id":"EVT-005","theme":"sovereign_duration","statement":"A newsletter afirma que a dívida francesa possui duration média superior a oito anos.","source_location":"Catching a Falling Guillotine","validation_status":"pending"}
+  ],
+  "numeric_facts_for_validation": [
+    {"id":"NUM-001","value":230,"unit":"USD_billion","claim_context":"global listings YTD"},
+    {"id":"NUM-002","value":45,"unit":"percent","claim_context":"listings YTD versus prior year"},
+    {"id":"NUM-003","value":373,"unit":"USD_billion","claim_context":"2021 IPO proceeds"},
+    {"id":"NUM-004","value":200,"unit":"companies","claim_context":"approximate listings in prior 12 months"},
+    {"id":"NUM-005","value":3,"unit":"multiple_points","claim_context":"approximate forward multiple compression cited"},
+    {"id":"NUM-006","value":2,"unit":"USD_trillion","claim_context":"potential SpaceX lock-up supply cited"},
+    {"id":"NUM-007","value":141,"unit":"bps","claim_context":"France-Germany 10Y spread before retracement"},
+    {"id":"NUM-008","value":127,"unit":"bps","claim_context":"France-Germany 10Y spread after retracement"},
+    {"id":"NUM-009","value":65,"unit":"bps","claim_context":"France-Germany 2Y spread before retracement"},
+    {"id":"NUM-010","value":44,"unit":"bps","claim_context":"France-Germany 2Y spread after retracement"},
+    {"id":"NUM-011","value":8,"unit":"years","claim_context":"French debt average duration, as stated"},
+    {"id":"NUM-012","value":12,"unit":"percent","claim_context":"prediction-market probability cited for Jean-Luc Melenchon"}
+  ]
+}
