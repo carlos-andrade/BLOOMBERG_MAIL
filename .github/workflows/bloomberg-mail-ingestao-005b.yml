@@ -11,6 +11,7 @@ on:
         options:
           - CVM
           - BCB
+          - B3
       cvm_file:
         description: "Arquivo CVM"
         required: false
@@ -20,6 +21,11 @@ on:
         description: "Série BCB SGS"
         required: false
         default: "1178"
+        type: string
+      b3_file:
+        description: "Arquivo anual COTAHIST B3"
+        required: false
+        default: "COTAHIST_A2026.ZIP"
         type: string
 
 permissions:
@@ -68,6 +74,31 @@ jobs:
           print("BCB JSON structural validation: PASS")
           PY
 
+      - name: Adquirir B3 COTAHIST
+        if: ${{ inputs.source == 'B3' }}
+        run: |
+          set -euo pipefail
+          file_name='${{ inputs.b3_file }}'
+          case "$file_name" in
+            COTAHIST_A[0-9][0-9][0-9][0-9].ZIP) ;;
+            *) echo "Arquivo B3 inválido: $file_name"; exit 1 ;;
+          esac
+          url="https://bvmf.bmfbovespa.com.br/InstDados/SerHist/${file_name}"
+          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/${file_name}"
+          curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
+          sha256sum "$out" | tee "${out}.sha256"
+          file "$out"
+          unzip -t "$out"
+          python - "$out" <<'PY'
+          import sys
+          from zipfile import ZipFile
+          p=sys.argv[1]
+          with ZipFile(p) as z:
+              names=z.namelist()
+              assert names, "ZIP sem conteúdo"
+              assert any("COTAHIST" in n.upper() for n in names), f"COTAHIST não encontrado: {names}"
+          print("B3 COTAHIST ZIP structural validation: PASS")
+          PY
       - name: Manifesto da execução
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
@@ -77,8 +108,10 @@ jobs:
             echo "- Fonte: ${{ inputs.source }}"
             if [ "${{ inputs.source }}" = "CVM" ]; then
               reference="${{ inputs.cvm_file }}"
-            else
+            elif [ "${{ inputs.source }}" = "BCB" ]; then
               reference="SGS:${{ inputs.bcb_series }}"
+            else
+              reference="${{ inputs.b3_file }}"
             fi
             echo "- Referência: ${reference}"
             echo "- Runner: GitHub Actions"
