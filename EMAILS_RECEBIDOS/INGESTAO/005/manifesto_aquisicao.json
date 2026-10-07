@@ -20,7 +20,10 @@
       "source": "CVM",
       "frequency": "event",
       "role": ["H2","H3"],
-      "acquisition_status": "PENDING_BINARY_ACQUISITION"
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED",
+      "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/oferta_distribuicao.zip",
+      "checksum_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
+      "archive_validation": "PASS"
     },
     {
       "id": "BCB_SGS",
@@ -60,6 +63,6 @@
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "BCB technical sample validated; required binary/raw acquisition remains incomplete for B3/CVM/Tesouro and VIX access remains pending."
+    "reason": "CVM RAW adquirido e ZIP validado; BCB amostra técnica adquirida; B3/Tesouro permanecem pendentes e VIX permanece pendente."
   }
 }
