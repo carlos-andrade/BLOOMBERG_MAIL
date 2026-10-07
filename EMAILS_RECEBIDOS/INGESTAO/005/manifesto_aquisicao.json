@@ -1,0 +1,19 @@
+{
+  "schema_version":"1.0",
+  "project":"BLOOMBERG_MAIL",
+  "ingestion_id":"005",
+  "status":"READY_FOR_ACQUISITION",
+  "created_at":"2026-10-07",
+  "raw_policy":"immutable",
+  "normalization_policy":"derived_from_raw",
+  "datasets":[
+    {"id":"B3_COTACOES","source":"B3","frequency":"daily","role":["H1","H2","H3"]},
+    {"id":"CVM_OFERTAS","source":"CVM","frequency":"event","role":["H2","H3"]},
+    {"id":"BCB_SGS","source":"BCB","frequency":"series-dependent","role":["H4"]},
+    {"id":"TESOURO_HISTORICO","source":"Tesouro Direto","frequency":"daily/annual-file","role":["H4"]},
+    {"id":"VIX","source":"Cboe","frequency":"daily","role":["H4","regime"]}
+  ],
+  "required_provenance":["source","source_url","retrieval_timestamp_utc","reference_period","original_filename","checksum_sha256","format","encoding","schema_version","parser_version","quality_status"],
+  "promotion_gate":["structural_validation","unit_validation","date_validation","missingness_report","duplicate_check","independent_reconciliation"],
+  "forbidden":["invented_values","silent_interpolation","automatic_price_adjustment","operational_signal"]
+}
