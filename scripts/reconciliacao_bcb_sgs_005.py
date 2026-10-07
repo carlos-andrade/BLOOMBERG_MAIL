@@ -20,7 +20,7 @@ def sha256(path):
 
 def canonical(path):
     data=json.loads(path.read_text(encoding="utf-8"))
-    return sorted({"data":x["data"],"valor":x.get("valor",x.get("value"))} for x in data)
+    records=[{"data":x["data"],"valor":x.get("valor",x.get("value"))} for x in data]\n    return sorted(records,key=lambda x:(x["data"],str(x["valor"])))
 
 def main():
     observed_at=datetime.now(timezone.utc).isoformat()
