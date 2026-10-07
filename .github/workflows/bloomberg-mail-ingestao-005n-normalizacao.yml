@@ -1,0 +1,48 @@
+name: BLOOMBERG_MAIL — INGESTÃO 005N — Normalização Determinística
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Run deterministic normalization
+        run: python scripts/normalizacao_ingestao_005.py
+
+      - name: Validate generated JSON
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO")
+          for f in ["bcb_sgs_1178_normalizado.json","vix_normalizado.json"]:
+              x=json.loads((p/f).read_text(encoding="utf-8"))
+              assert x["quality_status"]=="NORMALIZED_DERIVED"
+              assert x["raw_sha256"]
+              assert x["parser_version"]=="normalizacao-005-v1.0"
+          print("NORMALIZATION STRUCTURAL CHECK: PASS")
+          PY
+
+      - name: Publish derived outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/
+          if git diff --cached --quiet; then
+            echo "Nenhuma saída nova."
+          else
+            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N"
+            git push
+          fi
