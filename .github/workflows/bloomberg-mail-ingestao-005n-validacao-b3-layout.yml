@@ -2,9 +2,6 @@ name: BLOOMBERG_MAIL — INGESTÃO 005N — Validação Layout B3 COTAHIST
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - scripts/validacao_layout_b3_cotahist_005.py
 
 permissions:
   contents: write
