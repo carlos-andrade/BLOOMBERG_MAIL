@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.1-format-inspection",
+  "raw_policy": "IMMUTABLE",
+  "inspection_scope": "member_metadata_plus_bounded_text_preview; no RAW modification",
+  "b3": {
+    "file": "COTAHIST_A2026.ZIP",
+    "sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "zip_integrity": "PASS",
+    "members": [
+      {
+        "name": "COTAHIST_A2026.TXT",
+        "size": 758495751,
+        "compressed_size": 89359571,
+        "crc": "68498a8d",
+        "preview_sha256": "f7ef9fe385bde2b95a6ee29409d42bccba3dd2f5a686a233a033f13a8d2cde23",
+        "structure": {
+          "text_decodable": true,
+          "encoding_candidate": "utf-8-sig",
+          "line_count_sampled": 5,
+          "first_lines": [
+            "00COTAHIST.2026BOVESPA 20261006                                                                                                                                                                                                                      ",
+            "012026010202LEVE3       010METAL LEVE  ON      NM   R$  000000000341700000000034840000000003316000000000335700000000033500000000003347000000000335001954000000000000320100000000001074616400000000000000009999123100000010000000000000BRLEVEACNOR2202",
+            "012026010202LJQQ3       010QUERO-QUERO ON      NM   R$  000000000022300000000002230000000000209000000000021300000000002100000000000210000000000021103598000000000002653100000000000566854200000000000000009999123100000010000000000000BRLJQQACNOR5105",
+            "012026010202LOGG3       010LOG COM PROPON  ED  NM   R$  000000000244500000000025350000000002427000000000249300000000025350000000002535000000000253702956000000000000700400000000001746619100000000000000009999123100000010000000000000BRLOGGACNOR7112",
+            "012026010202LOGN3       010LOG-IN      ON      NM   R$  000000000335200000000033730000000003340000000000335800000000033600000000003360000000000337000058000000000000025200000000000084629700000000000000009999123100000010000000000000BRLOGNACNOR3105"
+          ],
+          "delimiter_counts_sample": {
+            ",": 0,
+            ";": 0,
+            "|": 0,
+            "\t": 0
+          },
+          "first_line_length": 245
+        }
+      }
+    ]
+  },
+  "cvm": {
+    "file": "oferta_distribuicao.zip",
+    "sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
+    "zip_integrity": "PASS",
+    "members": [
+      {
+        "name": "oferta_distribuicao.csv",
+        "size": 26514023,
+        "compressed_size": 2699686,
+        "crc": "faf53b52",
+        "preview_sha256": "30eaed9c16a953475d03cdaed05f05959aae1bb8c60e0f6ce8658f516f5a56f8",
+        "structure": {
+          "text_decodable": true,
+          "encoding_candidate": "latin-1",
+          "line_count_sampled": 5,
+          "first_lines": [
+            "Numero_Processo;Numero_Registro_Oferta;Tipo_Oferta;Tipo_Componente_Oferta_Mista;Tipo_Ativo;CNPJ_Emissor;Nome_Emissor;CNPJ_Lider;Nome_Lider;Nome_Vendedor;CNPJ_Ofertante;Nome_Ofertante;Rito_Oferta;Modalidade_Oferta;Modalidade_Registro;Modalidade_Dispensa_Registro;Data_Abertura_Processo;Data_Protocolo;Data_Dispensa_Oferta;Data_Registro_Oferta;Data_Inicio_Oferta;Data_Encerramento_Oferta;Emissao;Classe_Ativo;Serie;Especie_Ativo;Forma_Ativo;Data_Emissao;Data_Vencimento;Quantidade_Sem_Lote_Suplementar;Quantidade_No_Lote_Suplementar;Quantidade_Total;Preco_Unitario;Valor_Total;Oferta_Inicial;Oferta_Incentivo_Fiscal;Oferta_Regime_Fiduciario;Atualizacao_Monetaria;Juros;Projeto_Audiovisual;Tipo_Societario_Emissor;Tipo_Fundo_Investimento;Ultimo_Comunicado;Data_Comunicado;Nr_Pessoa_Fisica;Qtd_Pessoa_Fisica;Nr_Clube_Investimento;Qtd_Clube_Investimento;Nr_Fundos_Investimento;Qtd_Fundos_Investimento;Nr_Entidade_Previdencia_Privada;Qtd_Entidade_Previdencia_Privada;Nr_Companhia_Seguradora;Qtd_Companhia_Seguradora;Nr_Investidor_Estrangeiro;Qtd_Investidor_Estrangeiro;Nr_Instit_Intermed_Partic_Consorcio_Distrib;Qtd_Instit_Intermed_Partic_Consorcio_Distrib;Nr_Instit_Financ_Emissora_Partic_Consorcio;Qtd_Instit_Financ_Emissora_Partic_Consorcio;Nr_Demais_Instit_Financ;Qtd_Demais_Instit_Financ;Nr_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio;Qtd_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio;Nr_Demais_Pessoa_Juridica;Qtd_Demais_Pessoa_Juridica;Nr_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio;Qdt_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio;Nr_Outros;Qtd_Outros;Qtd_Cli_Pessoa_Fisica;Qtd_Cli_Pessoa_Juridica;Qtd_Cli_Pessoa_Juridica_Ligada_Adm;QtD_Cli_Demais_Pessoa_Juridica;Qtd_Cli_Investidor_Estrangeiro;Qtd_Cli_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio",
+            "RJ-1988-4140;CVM/SRE/REM/1989/002;Primária;;AÇÔES PREFERENCIAIS;;IND OLEOS PACAEMBU SA;;;;;IND DE OLEO PACAEMBU S/A;ICVM 400 (com registro);Registrada;Concedido;;1988-12-14;;;1989-01-11;;;;;;;;;;689987645;0;689987645.00;4.20;2897948.11;N;N;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+            "RJ-1988-4154;CVM/SRE/REM/1989/001;Primária;;AÇÕES ORDINÁRIAS;;CIA PROG INDL BRASIL FAB BANGU;;;;;CIA PROGRESSO INDL BRASIL FB;ICVM 400 (com registro);Registrada;Concedido;;1988-12-16;;;1989-01-10;;1989-05-18;;;;;;;;207000000;0;207000000.00;2.00;414000000.00;N;N;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+            "RJ-1988-4154;CVM/SRE/REM/1989/001;Primária;;AÇÔES PREFERENCIAIS;;CIA PROG INDL BRASIL FAB BANGU;;;;;CIA PROGRESSO INDL BRASIL FB;ICVM 400 (com registro);Registrada;Concedido;;1988-12-16;;;1989-01-10;;1989-05-18;;;;;;;;414000000;0;414000000.00;2.00;828000000.00;N;N;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+            "RJ-1988-4214;CVM/SRE/REM/1989/003;Primária;;AÇÕES ORDINÁRIAS;;PROMETAL PRODS METALURGICOS SA;;;;;PROMETAL PRODUTOS METALURGICOS;ICVM 400 (com registro);Registrada;Concedido;;1988-12-27;;;1989-01-12;;1989-05-29;;;;;;;;385000000;0;385000000.00;1.80;693000.00;N;N;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+          ],
+          "delimiter_counts_sample": {
+            ",": 0,
+            ";": 75,
+            "|": 0,
+            "\t": 0
+          },
+          "first_line_length": 1798
+        }
+      },
+      {
+        "name": "oferta_resolucao_160.csv",
+        "size": 15394450,
+        "compressed_size": 2969158,
+        "crc": "61967c06",
+        "preview_sha256": "441a21311e0d1c51e3261227824da961d07df909c57811eeb564fd28642f8488",
+        "structure": {
+          "text_decodable": true,
+          "encoding_candidate": "latin-1",
+          "line_count_sampled": 5,
+          "first_lines": [
+            "Numero_Requerimento;Rito_Requerimento;Numero_Processo;Data_requerimento;Data_Registro;Data_Encerramento;Status_Requerimento;Valor_Mobiliario;Tipo_requerimento;Bookbuilding;CNPJ_Emissor;Nome_Emissor;CNPJ_Lider;Nome_Lider;Grupo_Coordenador;Tipo_Oferta;Emissao;Qtde_Total_Registrada;Valor_Total_Registrado;Oferta_inicial;Oferta_vasos_comunicantes;Publico_alvo;Reabertura_serie;Titulo_classificado_como_sustentavel;Titulo_padronizado;Destinacao_recursos;Data_deliberacao_aprovou_oferta;Mercado_negociacao;Tipo_lastro;Regime_fiduciario;Ativos_alvo;Descricao_garantias;Descricao_lastro;Identificacao_devedores_coobrigados;Possibilidade_revolvencia;FIDC_nao_padronizado;Titulo_incentivado;Regime_distribuicao;Tipo_societario;Administrador;Gestor;Agente_fiduciario;Escriturador;Custodiante;Avaliador_Risco;Processo_SEI;Endereco_emissor_rede_mundial_computadores;Num_Invest_Pessoa_Natural;Qtde_VM_Pessoa_Natural;Num_Invest_Clube_Investimento;Qtde_VM_Clube_Investimento;Num_Invest_Fundos_Investimento;Qtde_VM_Fundos_Investimento;Num_Invest_Entidade_Previdencia_Privada;Qtde_VM_Entidade_Previdencia_Privada;Num_Invest_Companhia_Seguradora;Qtde_VM_Companhia_Seguradora;Num_Invest_Investidor_Estrangeiro;Qtde_VM_Investidor_Estrangeiro;Num_Invest_Instit_Intermed_Partic_Consorcio_Distrib;Qtde_VM_Instit_Intermed_Partic_Consorcio_Distrib;Num_Invest_Instit_Financ_Emissora_Partic_Consorcio;Qtde_VM_Instit_Financ_Emissora_Partic_Consorcio;Num_Invest_Demais_Instit_Financ;Qtde_VM_Demais_Instit_Financ;Num_Invest_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio;Qtde_VM_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio;Num_Invest_Demais_Pessoa_Juridica;Qtde_VM_Demais_Pessoa_Juridica;Num_Invest_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio;Qdte_VM_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio",
+            "392;Automático;SRE/0001/2023;2023-01-04;2023-01-04;2023-07-03;Oferta Encerrada;Cotas de FIDC;OPD Aut Profissional - sem bookbuilding;N;49.024.937/0001-96;OVERFLOW FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS;59.281.253/0001-23;BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM;;PRIMARIA;;200000;200000000.00;S;;Profissional;;N;;;02/01/2023;N/A;Concentrado;;Direitos creditórios objeto de ações judiciais no Brasil movidas em face de entes públicos;;;;;S;N;Melhores Esforços;;BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS;RADIX PORTFOLIO GESTÃO DE INVESTIMENTO LTDA.;;BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS;BANCO BTG PACTUAL S.A.;N/A;;;0;0;0;0;0;0;0;0;0;0;2;101562;0;0;0;0;0;0;0;0;0;0;0;0",
+            "395;Automático;SRE/0003/2023;2023-01-05;2023-01-05;2023-01-12;Oferta Encerrada;Debêntures;OPD Aut Profissional - sem bookbuilding;N;07.047.251/0001-70;CIA ENERG CEARA - COELCE;30.306.294/0001-45;BANCO BTG PACTUAL S/A;;PRIMARIA;9;950000;950000000.00;;;Profissional;N;N;N;Os recursos serão destinados, a exclusivo critério da diretoria da Emissora, para refinanciamento e reforço de caixa no curso ordinário dos negócios da Emissora;04/01/2023;MDA - Módulo de Distribuição de Ativos;;;;;;;;;N;Garantia Firme de Colocação;;;;Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.;Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.;;;;;0;0;0;0;0;0;0;0;0;0;0;0;1;950000;0;0;0;0;0;0;0;0;0;0",
+            "396;Automático;SRE/0002/2023;2023-01-04;2023-01-04;2023-01-17;Oferta Encerrada;Cotas de FII;OPD Aut Profissional - sem bookbuilding;N;36.501.159/0001-37;FUNDO DE INVESTIMENTO IMOBILIÁRIO HBC RENDA URBANA;45.246.410/0001-55;BANCO GENIAL S.A.;;PRIMARIA;;720000;75528000.00;S;;Profissional;;;;Os recursos a serem captados no âmbito da Oferta serão destinados ao investimento preponderante de Ativos Imobiliários, bem como serão utilizados para o pagamento das obrigações anteriormente assumidas pelo Fundo, observada a Política de Investimento do Fundo, descrita nos artigos 13 a 19º do Regulamento.;02/01/2023;Balcão Organizado;;;;;;;;;;Melhores Esforços;;BANCO GENIAL S.A;BANCO GENIAL S.A;;BANCO GENIAL S.A;BANCO GENIAL S.A;;;;0;0;0;0;6;600000;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0",
+            "401;Automático;SRE/0013/2023;2023-01-10;2023-01-10;2023-07-03;Oferta Encerrada;Cotas de FIF;OPD Aut Profissional - sem bookbuilding;N;33.150.739/0001-39;NACAR FUNDO DE INVESTIMENTO MULTIMERCADO CREDITO PRIVADO INVESTIMENTO NO EXTERIOR;02.332.886/0001-04;XP INVESTIMENTOS CCTVM S.A.;;PRIMARIA;;1587302;2000000.00;N;;Profissional;;;;Não obrigatório nos termos da RCVM160;03/01/2023;Não serão admitidas;;;;;;;;;;Melhores Esforços;;02.332.886/0001-04;34.118.647/0001-34;;02.201.501/0001-61;42.272.526/0001-70;;;;1;235940;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+          ],
+          "delimiter_counts_sample": {
+            ",": 3,
+            ";": 70,
+            "|": 0,
+            "\t": 0
+          },
+          "first_line_length": 1799
+        }
+      }
+    ]
+  },
+  "tesouro": {
+    "file": "precotaxatesourodireto.csv",
+    "sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+    "encoding_candidate": "utf-8-sig",
+    "header": [
+      "Tipo Titulo;Data Vencimento;Data Base;Taxa Compra Manha;Taxa Venda Manha;PU Compra Manha;PU Venda Manha;PU Base Manha"
+    ],
+    "sample_rows": [
+      [
+        "Tesouro Selic;01/03/2027;06/10/2026;0",
+        "01;0",
+        "02;20037",
+        "23;20026",
+        "20;20026",
+        "20"
+      ],
+      [
+        "Tesouro Selic;01/03/2029;06/10/2026;0",
+        "05;0",
+        "06;20014",
+        "60;19999",
+        "59;19999",
+        "59"
+      ],
+      [
+        "Tesouro Selic;01/03/2031;06/10/2026;0",
+        "09;0",
+        "10;19962",
+        "22;19943",
+        "27;19943",
+        "27"
+      ]
+    ],
+    "sample_structure": {
+      "text_decodable": true,
+      "encoding_candidate": "utf-8-sig",
+      "line_count_sampled": 5,
+      "first_lines": [
+        "Tipo Titulo;Data Vencimento;Data Base;Taxa Compra Manha;Taxa Venda Manha;PU Compra Manha;PU Venda Manha;PU Base Manha",
+        "Tesouro Selic;01/03/2027;06/10/2026;0,01;0,02;20037,23;20026,20;20026,20",
+        "Tesouro Selic;01/03/2029;06/10/2026;0,05;0,06;20014,60;19999,59;19999,59",
+        "Tesouro Selic;01/03/2031;06/10/2026;0,09;0,10;19962,22;19943,27;19943,27",
+        "Tesouro Selic;01/03/2028;06/10/2026;0,03;0,04;20028,55;20015,51;20015,51"
+      ],
+      "delimiter_counts_sample": {
+        ",": 5,
+        ";": 7,
+        "|": 0,
+        "\t": 0
+      },
+      "first_line_length": 117
+    }
+  }
+}
