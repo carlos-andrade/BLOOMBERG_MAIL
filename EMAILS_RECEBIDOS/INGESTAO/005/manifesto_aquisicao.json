@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07T11:37:56.696185+00:00",
+  "updated_at": "2026-10-07T13:52:50.428568+00:00",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -59,7 +59,18 @@
       "role": [
         "H4"
       ],
-      "acquisition_status": "PENDING_FILE_ACQUISITION"
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED",
+      "source_url": "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv",
+      "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv",
+      "checksum_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
+      "retrieval_timestamp_utc": "2026-10-07T13:52:50.428568+00:00",
+      "reference_period": "2005-02-01 to 2015-12-31",
+      "original_filename": "precotaxatesourodireto.csv",
+      "format": "CSV",
+      "encoding": "UTF-8 with BOM-compatible reader (utf-8-sig)",
+      "schema_version": "1.0-ingest-005",
+      "parser_version": "scripts/aquisicao_tesouro_direto_005.py",
+      "quality_status": "PASS_STRUCTURAL_VALIDATION_NO_MISSING_ROWS_NO_DUPLICATE_ROWS"
     },
     {
       "id": "VIX",
