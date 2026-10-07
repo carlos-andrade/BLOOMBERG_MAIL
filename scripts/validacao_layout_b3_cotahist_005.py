@@ -2,7 +2,7 @@
 """BLOOMBERG_MAIL — validação determinística do layout B3 COTAHIST 005.
 
 Lê somente o RAW COTAHIST_A2026.ZIP. Não altera RAW nem produz dados normalizados.
-Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.
+Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.\n\nValidador 1.1: TPMERC, INDOPC e CODBDI possuem validação semântica explícita.
 """
 from __future__ import annotations
 
