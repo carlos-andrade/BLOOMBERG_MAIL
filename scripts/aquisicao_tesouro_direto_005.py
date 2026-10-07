@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv, hashlib, json, os, sys, tempfile
+import csv, hashlib, json, os, sys, tempfile  # deterministic acquisition
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 
