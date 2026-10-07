@@ -3,14 +3,6 @@ name: BLOOMBERG_MAIL — INGESTÃO 005-C — Tesouro + VIX
 on:
   workflow_dispatch:
     inputs:
-      tesouro_url:
-        description: "URL EXATA do arquivo Tesouro resolvida no portal oficial"
-        required: true
-        type: string
-      tesouro_file:
-        description: "Nome original do arquivo Tesouro"
-        required: true
-        type: string
       vix_file:
         description: "Nome do arquivo VIX"
         required: true
