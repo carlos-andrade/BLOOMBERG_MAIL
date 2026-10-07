@@ -32,3 +32,18 @@ A fonte oficial está confirmada, mas a URL dinâmica do download não foi mater
 
 Prioridade operacional:
 **CVM → BCB → B3 → Tesouro → VIX**, sempre com RAW + checksum + validação antes da promoção.
+
+
+## Verificação operacional — 2026-10-07
+
+A página oficial da B3 foi reaberta e confirma que o acesso à série histórica ocorre pelo link dinâmico “Acesse agora a série histórica de cotações”. O conteúdo informa histórico desde 1986, ZIP com TXT e necessidade de layout para interpretação. O mecanismo de acesso não materializou o destino do link: a tentativa controlada de seguir o link expirou por timeout. Portanto, nenhuma URL B3 foi inventada e nenhum arquivo foi tratado como adquirido.
+
+### Estado
+- Fonte oficial: CONFIRMADA
+- Endpoint binário: NÃO MATERIALIZADO
+- Aquisição RAW: PENDENTE
+- Normalização: BLOQUEADA
+- Regra: somente adquirir quando o destino oficial puder ser obtido de forma reproduzível.
+
+### Evidência externa
+A página oficial da B3 confirma a série desde 1986, ausência de ajuste automático por inflação/proventos, distribuição em ZIP e conteúdo de preços, negócios e volume. citeturn1view0
