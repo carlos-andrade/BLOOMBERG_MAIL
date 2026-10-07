@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "ingestion_id": "001",
+  "source": "EMAILS_RECEBIDOS/Sesame Street meets Wall Street’s record rally.msg",
+  "purpose": "treinar uma pipeline de inteligência de mercado que transforma newsletters recebidas em sinais estruturados, comparáveis e auditáveis para posterior confronto com dados de mercado brasileiro e outras fontes públicas.",
+  "rule": "Nenhum dado ou opinião da newsletter deve ser tratado como verdade de mercado sem validação independente; preservar sempre a origem.",
+  "observations": [
+    {
+      "id": "MKT-001",
+      "theme": "equity_concentration",
+      "claim": "S&P 500 em máxima histórica com avanço descrito como estreito e concentrado em mega caps/growth.",
+      "numbers": [],
+      "signal": "concentração de liderança",
+      "potential_use": "comparar breadth, concentração e participação das maiores ações no mercado brasileiro."
+    },
+    {
+      "id": "MKT-002",
+      "theme": "style_rotation",
+      "claim": "Small caps perderam grande parte da vantagem sobre mega caps e value atingiu mínimo da década frente a growth, segundo a newsletter.",
+      "numbers": [],
+      "signal": "growth versus value / large versus small",
+      "potential_use": "construir matriz de rotação de fatores para IBOV, IBrX e small caps."
+    },
+    {
+      "id": "MKT-003",
+      "theme": "ipo_supply",
+      "claim": "Aumento da oferta de ações pode pressionar valuations e retornos futuros.",
+      "numbers": [
+        {
+          "value": 230,
+          "unit": "US$ bilhões",
+          "context": "proventos de listings no ano até a publicação"
+        },
+        {
+          "value": 45,
+          "unit": "%",
+          "context": "acima do total do ano anterior"
+        },
+        {
+          "value": 373,
+          "unit": "US$ bilhões",
+          "context": "total de 2021"
+        }
+      ],
+      "signal": "equity supply",
+      "potential_use": "monitorar follow-ons, IPOs, ofertas subsequentes, lock-ups e impacto sobre liquidez/valuation no Brasil."
+    },
+    {
+      "id": "MKT-004",
+      "theme": "ipo_concentration",
+      "claim": "A atividade de IPO descrita está concentrada em poucas empresas.",
+      "numbers": [
+        {
+          "value": 200,
+          "unit": "empresas",
+          "context": "aproximadamente listadas nos 12 meses anteriores à publicação"
+        }
+      ],
+      "signal": "concentração de emissão",
+      "potential_use": "medir concentração de novas ofertas versus liquidez disponível."
+    },
+    {
+      "id": "MKT-005",
+      "theme": "valuation_ai",
+      "claim": "A newsletter contrapõe crescimento de lucros de empresas de IA ao risco de capex excessivo, demanda insuficiente e retorno decepcionante sobre o investimento.",
+      "numbers": [
+        {
+          "value": 3,
+          "unit": "pontos",
+          "context": "compressão aproximada dos múltiplos forward do S&P 500 mencionada no texto"
+        }
+      ],
+      "signal": "earnings versus valuation",
+      "potential_use": "cruzar lucro, capex, múltiplos e expectativa de crescimento."
+    },
+    {
+      "id": "MKT-006",
+      "theme": "lockup_supply",
+      "claim": "O vencimento futuro de lock-up de ações da SpaceX é apontado como possível pressão adicional sobre valuations.",
+      "numbers": [
+        {
+          "value": 2,
+          "unit": "US$ trilhões",
+          "context": "valor de ações mencionado como potencialmente liberado no vencimento do lock-up"
+        }
+      ],
+      "signal": "future supply shock",
+      "potential_use": "criar calendário de eventos de oferta e medir reação de preços/volatilidade."
+    },
+    {
+      "id": "MKT-007",
+      "theme": "sovereign_spread",
+      "claim": "Spread França-Alemanha recuou após forte abertura.",
+      "numbers": [
+        {
+          "value": 141,
+          "unit": "bps",
+          "context": "spread francês-alemão de 10 anos antes da retração"
+        },
+        {
+          "value": 127,
+          "unit": "bps",
+          "context": "spread de 10 anos após retração"
+        },
+        {
+          "value": 65,
+          "unit": "bps",
+          "context": "spread de 2 anos antes da retração"
+        },
+        {
+          "value": 44,
+          "unit": "bps",
+          "context": "spread de 2 anos após retração"
+        }
+      ],
+      "signal": "sovereign risk repricing",
+      "potential_use": "adaptar para NTN-B/NTN-F, CDS Brasil, curva DI, spread de crédito e risco fiscal doméstico."
+    },
+    {
+      "id": "MKT-008",
+      "theme": "debt_duration",
+      "claim": "A estrutura de financiamento francês é descrita como predominantemente de longo prazo.",
+      "numbers": [
+        {
+          "value": 8,
+          "unit": "anos",
+          "context": "duração média da dívida francesa, segundo a fonte"
+        }
+      ],
+      "signal": "duration sensitivity",
+      "potential_use": "relacionar fiscal risk, duration, curva de juros e marcação a mercado."
+    },
+    {
+      "id": "MKT-009",
+      "theme": "political_risk",
+      "claim": "Mudanças nas probabilidades políticas e promessas fiscais foram apresentadas como drivers de yields e spreads.",
+      "numbers": [
+        {
+          "value": 12,
+          "unit": "%",
+          "context": "probabilidade presidencial atribuída a Jean-Luc Mélenchon em prediction markets na newsletter"
+        }
+      ],
+      "signal": "political probability",
+      "potential_use": "cruzar eventos políticos brasileiros com DI, câmbio, bolsa e crédito."
+    }
+  ],
+  "hypotheses_to_test": [
+    "Concentração extrema da alta pode coexistir com deterioração de breadth e maior fragilidade marginal.",
+    "Aumento de supply de ações pode comprimir múltiplos mesmo quando earnings continuam crescendo.",
+    "Eventos de lock-up e grandes ofertas devem ser modelados como choques de oferta, não apenas como eventos corporativos.",
+    "Risco fiscal e político deve ser analisado conjuntamente com duration e posição da curva.",
+    "Uma informação recebida gratuitamente ganha valor quando transformada em série temporal, comparada com dados independentes e testada fora da amostra."
+  ],
+  "brazil_translation": [
+    "IBOV/IBrX/Small Caps: breadth, concentração, rotação growth/value e liderança por setor.",
+    "B3 equity supply: IPOs, follow-ons, ofertas subsequentes, lock-ups e volume financeiro.",
+    "Juros: DI, curva de juros, NTN-B/NTN-F, inclinação e prêmio de risco.",
+    "Crédito: spreads, CDS Brasil quando disponível, debêntures e crédito bancário.",
+    "FX: BRL/USD como canal de transmissão de risco global e doméstico.",
+    "Eventos: calendário econômico, decisões do COPOM, fiscal, eleições e fatos corporativos."
+  ]
+}
