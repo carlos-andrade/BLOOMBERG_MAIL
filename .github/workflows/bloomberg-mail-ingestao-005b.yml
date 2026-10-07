@@ -1,30 +1,11 @@
-name: BLOOMBERG_MAIL — INGESTÃO 005-B — aquisição controlada
+name: BLOOMBERG_MAIL — INGESTÃO 005-B — aquisição controlada B3
 
 on:
   workflow_dispatch:
     inputs:
-      source:
-        description: "Fonte a adquirir"
-        required: true
-        default: "CVM"
-        type: choice
-        options:
-          - CVM
-          - BCB
-          - B3
-      cvm_file:
-        description: "Arquivo CVM"
-        required: false
-        default: "oferta_distribuicao.zip"
-        type: string
-      bcb_series:
-        description: "Série BCB SGS"
-        required: false
-        default: "1178"
-        type: string
       b3_file:
         description: "Arquivo anual COTAHIST B3"
-        required: false
+        required: true
         default: "COTAHIST_A2026.ZIP"
         type: string
 
@@ -45,37 +26,7 @@ jobs:
           mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO
           mkdir -p EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO
 
-      - name: Adquirir CVM
-        if: ${{ inputs.source == 'CVM' }}
-        run: |
-          set -euo pipefail
-          url='https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip'
-          out='EMAILS_RECEBIDOS/INGESTAO/005/RAW/oferta_distribuicao.zip'
-          curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
-          sha256sum "$out" | tee EMAILS_RECEBIDOS/INGESTAO/005/RAW/oferta_distribuicao.zip.sha256
-          file "$out"
-          unzip -t "$out"
-
-      - name: Adquirir BCB SGS
-        if: ${{ inputs.source == 'BCB' }}
-        run: |
-          set -euo pipefail
-          series='${{ inputs.bcb_series }}'
-          url="https://api.bcb.gov.br/dados/serie/bcdata.sgs.${series}/dados/ultimos/10?formato=json"
-          out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_${series}_ultimos_10.json"
-          curl --fail --location --retry 3 --retry-delay 2 --output "$out" "$url"
-          sha256sum "$out" | tee "$out.sha256"
-          python - "$out" <<'PY'
-          import json, sys
-          p=sys.argv[1]
-          with open(p,encoding="utf-8") as f: x=json.load(f)
-          assert isinstance(x,list) and len(x)>0
-          assert all("data" in r and "valor" in r for r in x)
-          print("BCB JSON structural validation: PASS")
-          PY
-
       - name: Adquirir B3 COTAHIST
-        if: ${{ inputs.source == 'B3' }}
         run: |
           set -euo pipefail
           file_name='${{ inputs.b3_file }}'
@@ -112,7 +63,6 @@ jobs:
           printf '%s\n' "expected=$expected" "actual=$actual" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/b3_sha_reconciliation.txt
 
       - name: Atualizar manifesto B3
-        if: ${{ inputs.source == 'B3' }}
         run: |
           set -euo pipefail
           out="EMAILS_RECEBIDOS/INGESTAO/005/RAW/${{ inputs.b3_file }}"
@@ -140,17 +90,10 @@ jobs:
         run: |
           date -u +"%Y-%m-%dT%H:%M:%SZ" > EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
           {
-            echo "# INGESTÃO 005-B — execução"
+            echo "# INGESTÃO 005-B — execução B3"
             echo
-            echo "- Fonte: ${{ inputs.source }}"
-            if [ "${{ inputs.source }}" = "CVM" ]; then
-              reference="${{ inputs.cvm_file }}"
-            elif [ "${{ inputs.source }}" = "BCB" ]; then
-              reference="SGS:${{ inputs.bcb_series }}"
-            else
-              reference="${{ inputs.b3_file }}"
-            fi
-            echo "- Referência: ${reference}"
+            echo "- Fonte: B3"
+            echo "- Referência: ${{ inputs.b3_file }}"
             echo "- Runner: GitHub Actions"
             echo "- Data/hora UTC:"
             cat EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/retrieval_timestamp_utc.txt
@@ -162,5 +105,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add EMAILS_RECEBIDOS/INGESTAO/005/
-          git commit -m "INGESTAO 005-B: aquisição controlada ${{ inputs.source }}" || echo "Sem alterações"
+          git commit -m "INGESTAO 005-B: aquisição controlada B3" || echo "Sem alterações"
           git push
