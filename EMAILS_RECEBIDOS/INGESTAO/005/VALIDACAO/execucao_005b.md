@@ -4,5 +4,5 @@
 - Referência: oferta_distribuicao.zip
 - Runner: GitHub Actions
 - Data/hora UTC:
-2026-10-07T10:41:43Z
+2026-10-07T10:55:51Z
 - Regra: RAW imutável; checksum obrigatório; validação estrutural antes da promoção.
