@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07T13:52:50.428568+00:00",
+  "updated_at": "2026-10-07T13:59:09Z",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -47,10 +47,14 @@
       "role": [
         "H4"
       ],
-      "acquisition_status": "TECHNICAL_SAMPLE_ACQUIRED",
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED_RECONCILED",
       "series": [
         1178
-      ]
+      ],
+      "source_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=23%2F09%2F2026&dataFinal=06%2F10%2F2026",
+      "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_1178_ultimos_10.json",
+      "checksum_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
+      "quality_status": "PASS_RECONCILIATION_RAW_ENDPOINT_SEMANTIC_EQUAL"
     },
     {
       "id": "TESOURO_HISTORICO",
@@ -80,7 +84,19 @@
         "H4",
         "regime"
       ],
-      "acquisition_status": "PENDING_SOURCE_ACCESS"
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED",
+      "source_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+      "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/VIX_History.csv",
+      "checksum_sha256": "cfcb9dce25bbbbd83aedca9a1480468bb25db2e988b3e893a4eebabb1905e1ab",
+      "retrieval_timestamp_utc": "2026-10-07T13:59:08Z",
+      "reference_period": "1990-01-02 to 2026-10-06",
+      "original_filename": "VIX_History.csv",
+      "format": "CSV",
+      "encoding": "UTF-8 with BOM-compatible reader (utf-8-sig)",
+      "schema_version": "1.0-ingest-005",
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005c-tesouro-vix.yml",
+      "quality_status": "PASS_STRUCTURAL_VALIDATION_DATE_CLOSE_NONEMPTY",
+      "reconciliation_status": "PENDING_INDEPENDENT_RECONCILIATION"
     }
   ],
   "required_provenance": [
@@ -112,6 +128,6 @@
   ],
   "decision": {
     "layer_A_approved": false,
-    "reason": "B3 RAW adquirido e estruturalmente validado. O endpoint oficial atual apresenta SHA diferente da referência histórica do repositório B3 de 24/09/2026; divergência registrada como atualização da fonte, sem substituição silenciosa. CVM adquirido/validado; BCB amostra técnica; Tesouro e VIX permanecem pendentes."
+    "reason": "B3 RAW adquirido e estruturalmente validado; divergência histórica do endpoint registrada como atualização da fonte. CVM adquirido/validado e reconciliado. BCB SGS 1178 reconciliado com igualdade semântica entre RAW e endpoint. Tesouro RAW adquirido/validado. VIX RAW adquirido e estruturalmente validado pela fonte oficial Cboe, mas permanece sem missingness completo, duplicate check e reconciliação independente; portanto a Layer A continua bloqueada."
   }
 }
