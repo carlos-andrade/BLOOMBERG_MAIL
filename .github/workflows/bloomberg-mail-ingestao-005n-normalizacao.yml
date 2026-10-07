@@ -18,21 +18,33 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run deterministic normalization
+      - name: Run BCB and VIX deterministic normalization
         run: python scripts/normalizacao_ingestao_005.py
 
-      - name: Validate generated JSON
+      - name: Run CVM deterministic normalization
+        run: python scripts/normalizacao_cvm_005.py
+
+      - name: Run Tesouro deterministic normalization
+        run: python scripts/normalizacao_tesouro_005.py
+
+      - name: Validate all implemented generated JSON
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           p=Path("EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO")
-          for f in ["bcb_sgs_1178_normalizado.json","vix_normalizado.json"]:
+          expected = {
+              "bcb_sgs_1178_normalizado.json": "normalizacao-005-v1.1",
+              "vix_normalizado.json": "normalizacao-005-v1.1",
+              "cvm_ofertas_normalizado.json": "normalizacao-005-cvm-v1.0",
+              "tesouro_normalizado.json": "normalizacao-005-tesouro-v1.0",
+          }
+          for f, parser in expected.items():
               x=json.loads((p/f).read_text(encoding="utf-8"))
-              assert x["quality_status"]=="NORMALIZED_DERIVED"
-              assert x["raw_sha256"]
-              assert x["parser_version"]=="normalizacao-005-v1.1"
-          print("NORMALIZATION STRUCTURAL CHECK: PASS")
+              assert x["quality_status"]=="NORMALIZED_DERIVED", f
+              assert x["raw_sha256"], f
+              assert x["parser_version"]==parser, f
+          print("NORMALIZATION STRUCTURAL CHECK 4/5 IMPLEMENTED DATASETS: PASS")
           PY
 
       - name: Publish derived outputs
@@ -43,6 +55,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nenhuma saída nova."
           else
-            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N"
+            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N BCB VIX CVM Tesouro"
             git push
           fi
