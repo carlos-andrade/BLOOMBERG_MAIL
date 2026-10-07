@@ -3,7 +3,7 @@
   "series_code": "1178",
   "result": "PASS",
   "endpoint": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=23%2F09%2F2026&dataFinal=06%2F10%2F2026",
-  "observed_at_utc": "2026-10-07T13:36:46.186479+00:00",
+  "observed_at_utc": "2026-10-07T13:41:06.621439+00:00",
   "raw_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
   "endpoint_sha256": "8204460a08c177416ebfe92dc517ea00667f07c91ae020d0a839b9472becaeda",
   "raw_preserved": true,
