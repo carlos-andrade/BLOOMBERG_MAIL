@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# INGESTAO-005F: SHA-256 determinístico corrigido e validado.
 import csv, hashlib, json, os, sys, tempfile  # deterministic acquisition
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
