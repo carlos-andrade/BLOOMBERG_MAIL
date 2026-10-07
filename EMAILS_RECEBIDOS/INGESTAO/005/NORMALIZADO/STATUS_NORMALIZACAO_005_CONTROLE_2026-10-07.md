@@ -70,6 +70,14 @@ A NORMALIZAÇÃO dos quatro datasets implementados está validada. A integraçã
 
 ## Próxima ação operacional
 
-**Pesquisar e registrar a fonte autoritativa do layout do B3 COTAHIST antes de qualquer implementação de normalização B3.**
+A fonte autoritativa do layout B3 COTAHIST foi identificada e registrada em:
 
-Não inferir offsets, posições, escalas, tipos de registro ou semântica de campos a partir de memória ou de bibliotecas de terceiros sem validação documental autoritativa.
+EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/MAPEAMENTO_AUTORITATIVO_COTAHIST_V2_0_2026-10-07.md
+
+Fonte oficial B3: https://www.b3.com.br/data/files/33/67/B9/50/D84057102C784E47AC094EA8/SeriesHistoricas_Layout.pdf
+
+O mapeamento documenta os registros 00, 01 e 99, os offsets oficiais, tipos, escalas e tabelas relevantes. O bloqueio documental inicial está resolvido.
+
+Antes da implementação do normalizador B3, executar validação determinística do layout contra o RAW COTAHIST_A2026.ZIP: comprimento de 245 bytes, header/trailer, offsets, tipos, escalas, datas, quantidade, volume e contagem do trailer.
+
+A INTEGRAÇÃO continua bloqueada até a validação completa dos cinco datasets.
