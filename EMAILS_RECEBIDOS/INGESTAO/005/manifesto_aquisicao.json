@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07T13:59:09Z",
+  "updated_at": "2026-10-07T14:40:10Z",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -12,11 +12,7 @@
       "id": "B3_COTACOES",
       "source": "B3",
       "frequency": "daily",
-      "role": [
-        "H1",
-        "H2",
-        "H3"
-      ],
+      "role": ["H1", "H2", "H3"],
       "acquisition_status": "ACQUIRED_RAW_VALIDATED_CURRENT_ENDPOINT",
       "source_url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP",
       "reference_file": "COTAHIST_A2026.ZIP",
@@ -31,10 +27,7 @@
       "id": "CVM_OFERTAS",
       "source": "CVM",
       "frequency": "event",
-      "role": [
-        "H2",
-        "H3"
-      ],
+      "role": ["H2", "H3"],
       "acquisition_status": "ACQUIRED_RAW_VALIDATED",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/oferta_distribuicao.zip",
       "checksum_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
@@ -44,13 +37,9 @@
       "id": "BCB_SGS",
       "source": "BCB",
       "frequency": "series-dependent",
-      "role": [
-        "H4"
-      ],
+      "role": ["H4"],
       "acquisition_status": "ACQUIRED_RAW_VALIDATED_RECONCILED",
-      "series": [
-        1178
-      ],
+      "series": [1178],
       "source_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=23%2F09%2F2026&dataFinal=06%2F10%2F2026",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/bcb_sgs_1178_ultimos_10.json",
       "checksum_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
@@ -60,10 +49,8 @@
       "id": "TESOURO_HISTORICO",
       "source": "Tesouro Direto",
       "frequency": "daily/annual-file",
-      "role": [
-        "H4"
-      ],
-      "acquisition_status": "ACQUIRED_RAW_VALIDATED",
+      "role": ["H4"],
+      "acquisition_status": "ACQUIRED_RAW_VALIDATED_RECONCILED",
       "source_url": "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/precotaxatesourodireto.csv",
       "checksum_sha256": "8c0aa0c51b23d49843bf8c912adec1eb8fc959755f3a671e319c98a692b83d4e",
@@ -74,16 +61,15 @@
       "encoding": "UTF-8 with BOM-compatible reader (utf-8-sig)",
       "schema_version": "1.0-ingest-005",
       "parser_version": "scripts/aquisicao_tesouro_direto_005.py",
-      "quality_status": "PASS_STRUCTURAL_VALIDATION_NO_MISSING_ROWS_NO_DUPLICATE_ROWS"
+      "quality_status": "PASS_STRUCTURAL_VALIDATION_NO_MISSING_ROWS_NO_DUPLICATE_ROWS",
+      "reconciliation_status": "PASS",
+      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_tesouro.json"
     },
     {
       "id": "VIX",
       "source": "Cboe",
       "frequency": "daily",
-      "role": [
-        "H4",
-        "regime"
-      ],
+      "role": ["H4", "regime"],
       "acquisition_status": "ACQUIRED_RAW_VALIDATED_RECONCILED",
       "source_url": "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
       "raw_file": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/VIX_History.csv",
@@ -100,35 +86,11 @@
       "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_vix.json"
     }
   ],
-  "required_provenance": [
-    "source",
-    "source_url",
-    "retrieval_timestamp_utc",
-    "reference_period",
-    "original_filename",
-    "checksum_sha256",
-    "format",
-    "encoding",
-    "schema_version",
-    "parser_version",
-    "quality_status"
-  ],
-  "promotion_gate": [
-    "structural_validation",
-    "unit_validation",
-    "date_validation",
-    "missingness_report",
-    "duplicate_check",
-    "independent_reconciliation"
-  ],
-  "forbidden": [
-    "invented_values",
-    "silent_interpolation",
-    "automatic_price_adjustment",
-    "operational_signal"
-  ],
+  "required_provenance": ["source", "source_url", "retrieval_timestamp_utc", "reference_period", "original_filename", "checksum_sha256", "format", "encoding", "schema_version", "parser_version", "quality_status"],
+  "promotion_gate": ["structural_validation", "unit_validation", "date_validation", "missingness_report", "duplicate_check", "independent_reconciliation"],
+  "forbidden": ["invented_values", "silent_interpolation", "automatic_price_adjustment", "operational_signal"],
   "decision": {
     "layer_A_approved": false,
-    "reason": "B3 RAW adquirido e estruturalmente validado; divergência histórica do endpoint registrada como atualização da fonte. CVM adquirido/validado e reconciliado. BCB SGS 1178 reconciliado com igualdade semântica entre RAW e endpoint. Tesouro RAW adquirido/validado. VIX REC-001 reconciliado com igualdade semântica e SHA-256 entre RAW e endpoint oficial Cboe. Layer A permanece bloqueada porque a aprovação é global e ainda depende da conclusão dos gates dos demais datasets."
+    "reason": "B3 RAW adquirido e estruturalmente validado; divergência histórica do endpoint registrada como atualização da fonte. CVM adquirido/validado e reconciliado. BCB SGS 1178 reconciliado com igualdade semântica entre RAW e endpoint. Tesouro RAW adquirido/validado e REC-001 reconciliado com igualdade semântica, igualdade de SHA-256 e preservação do RAW. VIX REC-001 reconciliado com igualdade semântica e SHA-256 entre RAW e endpoint oficial Cboe. Layer A permanece bloqueada porque a aprovação é global e ainda depende da conclusão dos gates dos demais datasets."
   }
 }
