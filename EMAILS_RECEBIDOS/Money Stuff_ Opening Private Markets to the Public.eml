@@ -1,0 +1,2141 @@
+Received: from SA1PR02MB8575.namprd02.prod.outlook.com (2603:10b6:806:1fb::5)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Thu, 1 Oct 2026
+ 17:58:49 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=y3DMJr9dMNakpgunnuXbo5CdHCvfAqFzK2XXAtKyV7bWySXj6kOQe4HeENCVEzLlghzGPYMbdtNyEHG6WG40WSBNrZYNMTkNRNBJcl67oWyxAGn+hRlX3Wuyd9boF9brtVqCnYsFTPbHYlN5FbYZtwPTksBjBh+SZ911Fm+NGJhwTqO/15453RjZ0xyXs7ZUUf6ApD1VNBro9fpuztPH/GJZCuKev/VGXDncWBpGKjaOM5BJkNx12kar3+UBHNExIHwKySqmihwxmFBQg1vlQGdVyDjsrycBzw032nPAqFaCfV8lNO56IVdmCyR463a1ftfHdRbMn1o3QiUqE9plyw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HlyTCeUIQ8wQonal9fIN+XBu+RQNONkTtYeqGT+WdLM=;
+ b=lO867ZZi1mhR2yKtOajoO5yW1lF9KB2svToGzHve1lbVeDsQHETDWpeTFy9zH9oMTHlAyA8F2y8lcn2okhG8o/MXTU5tW84lgQDj0E5iTMV2ayqpDHe6EuWmUimlf4Pc5oofwZL2vVcenNPCXkl1eR+HrOOmfLQSRuAcTzMJx4utPVdZRTuO9cs0kXHE0NzOWGklT+Pj07CWUW1CHoziPQbzU8GqrIeiCAxaMwc851UBjWzgeCXTdDU/RWfdee/eQLf3AHT1aRjN78Nml9wUDCyUcKY8yzzyOmpZTVfknOSBmw6FTs0m4up94SY5VA4WZHEXjKP71Y6WOLyESYuupQ==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 74.125.230.233) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20734ags-uegg=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from CH2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:610:4f::33)
+ by SA1PR02MB8575.namprd02.prod.outlook.com (2603:10b6:806:1fb::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 17:58:46 +0000
+Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
+ (2603:10b6:610:4f:cafe::ad) by CH2PR18CA0023.outlook.office365.com
+ (2603:10b6:610:4f::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 17:58:46 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 74.125.230.233) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 74.125.230.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=74.125.230.233; helo=mail-qk2-f41.google.com; pr=C
+Received: from mail-qk2-f41.google.com (74.125.230.233) by
+ CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 17:58:46 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:2220B5637863B62E1E8B732A7F881F39C32322B311AC8B0CD08B95A09848B3F1;UpperCasedChecksum:7497A1B3DD1D783487BAE1B5D84FF3730987B0A0E91B7C272A5ADA458E652E0B;SizeAsReceived:8663;Count:37
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c5818c4a4so467411685a.3
+        for <carlos-andrade@outlook.com.br>; Thu, 01 Oct 2026 10:58:46 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1790877526; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=YBKUabbtTxGiHek5NRzgRSoobTQ0o2ndWWjorqYPB9Qzub3VdFadLdNvokLOo+/WGM
+         DACit3P7XEoe+mOoYSezgzt87KLTclNwy6jJw6m1zx3fjRzLHrF6zvQFMleI0b6c/zfS
+         KD3Qjyi3pGQAhl09gOUjvmPylMLCCiaTaYQJyMi2hrwzxJyF82SPPPYoqzX7Pn0Gpl8c
+         W05n6CKc1IfR346iF3EDawMsgs5ZOGI6yQOc9K4T2mIUjQCA0jskBJhqSfgGtjFz3qs4
+         tdSwNA+gyAHtsgoPpTem0J3XjEdy5FuXnU6OWttmIkyuMqLn8zTjWcEPsOoIV5coeVIs
+         3vSw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=HlyTCeUIQ8wQonal9fIN+XBu+RQNONkTtYeqGT+WdLM=;
+        fh=NIz6iYiRlmjhc9kCTXmdONNioCyNHd+i+X4kMZGrgSE=;
+        b=Sij/AN0hBzTX1Ia6mL6fHZOaSF9mamadoe/8+lLoU0xBFguwG7cLc2oxqs7T3VlQ1M
+         Qo3cPBe81POCapnFea3pASQRvn+Xfy9Ae+7nu3rVFJo12+Cvb8JxR9ln/mJWyTJdks5b
+         ChHzfaJUSSWgdKcxRZk2BwK1dS/PHqrI0lPgL9a/8CVUzrLHTmtLZj+IU0/mawQ72/53
+         cbk9SrxI/HyRbMwEfZ6jkcSAqGZrtg92K4iua6c6tszIs1dLfxnxORIFOR8UPTwOXi0B
+         UTrxlAtxxbSZx2vDpD4gHkyuElPtPWEpfgxztTTiWn36k6a2TdrHKDlRu/Absm1dpz4s
+         cAAw==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=SwqVwNjM;
+       spf=pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790877526; x=1791482326;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HlyTCeUIQ8wQonal9fIN+XBu+RQNONkTtYeqGT+WdLM=;
+        b=IjSlMRCZg/Thki1qcmfb1tNmgOAkMcwd+n4z72IPjWUyEXPW580tLwkasioT83C5Gt
+         0HQrM0eoHwnIstQ+4A8Zo+jFs1JEOgysZiAKsiJbCmrDOnOnVWyh1+lqrgSoujfXr6dp
+         8X1pGRyd7UHHV/HFYZfZAGeQtU+OnsFYErgcEiMmIcLgyulCgEUCeSrx8BRS3sGx1Dvz
+         v4cUZ/TQxlrrj071VQBJin+kA2PDiwzkKlH57/HKnKgbUglurYTUkneKRfo3p4ZVFay6
+         dB2FQdQ3KW9NQyTqLWtuv8rXqNW0wppFFlt6y5S8hq088C372kMtH0+TBhMWd1r2u94h
+         vnDA==
+X-Forwarded-Encrypted: i=2; AKwUvBzLmuNY1gp96CtRRa8X9Vor4KAEhXEgqdTDh1zr9QiPZVTQlk3gHBZqbDj1rqfYq7VAdS5G33r9jEd6rbNAwg==@outlook.com.br
+X-Gm-Message-State: AFuF++le2YdHfwl2E86lZvDZbsXSr7i4x1hYgHlzTDAy0Gc1soOBGyrj
+	ofXC+BpavLXD07ZHvNUBuVDJ1V/dGtK8p4NIm6CMJJ33xTYB8EDIbkyLRMUKK2tUOnp77Ta46EI
+	mlcM5MB9c71ZKoHSKdtyKGnWmN94puvizMh+qENvXKunK6TaIC/29Ta6+mY9iHQ==
+X-Received: by 2002:a05:620a:2814:b0:93b:ec83:80ee with SMTP id af79cd13be357-93cac22b43fmr1003862685a.57.1790877525760;
+        Thu, 01 Oct 2026 10:58:45 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a05:6214:584e:b0:910:4097:60f7 with SMTP id ml14csp1460810qvb;
+        Thu, 1 Oct 2026 10:58:42 -0700 (PDT)
+X-Received: by 2002:a05:701a:c902:b0:145:f4:13ff with SMTP id a92af1059eb24-14d36916355mr5228543c88.43.1790877522354;
+        Thu, 01 Oct 2026 10:58:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790877522; cv=none;
+        d=google.com; s=arc-20260327;
+        b=siTwjgvs5SNoepvBnU5c632P7uDpsKB2tBaO2qU7Y+iySGDXQFcD+lyvYBaX/OXLFS
+         RFovY2nOKWE9IXZn3CAwPVxkQFL84FCI4KVpjMtCbG/H1R0f9l4j1AgkoCt/eMDq2opW
+         ylxMYfKe8GyvQimQBhuykQ6+G5G7i2a0vLVZwhoTxbBSeCWv0CKfYXcv9rPmi3B21Xd4
+         aBEGKXle4seuKD2NHqe4EUcBDKH+2bPIVQIiJzMi6cQQmUEwC/XVEZd335ArUv85nvRx
+         AHP1eGHYU0ke8tQSt8zr41iSuSRXtdcmhzk2oJ/3kn6awTGclKFOWwqMyScjIUyK+8pL
+         tpMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=HlyTCeUIQ8wQonal9fIN+XBu+RQNONkTtYeqGT+WdLM=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=KqCqfa1uddRVG1fBDYZiOEU6qGodR1eZGBIgRh2fYvhHuBFv8+M4rKOemAJYYUUx/X
+         wSODi73lu0vUgJhhqbBX6OtBIqusGUdDKkekPKCm3IixSeUT1LYmhV+aTnYua4tUHLvg
+         pn30d6d8MDKfw3stBopeWyqrqCN4d/LtlEevFr5OIl6iHH/0m2BSD0v7dEROXbgyIyFQ
+         yYSHaFCCFzkaX6IQNoQ12VnivS6vS2p9GdkjCwReoPUliphJPyFvUxuhPtf17LAl9ItG
+         4SiBIVNd75X1tHD87FMVYyw16uZoC//24AMZGlE+ymsFd0a1nCAaH+8F53GSKVc+qjvX
+         +saA==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=SwqVwNjM;
+       spf=pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-21.sparkpostmail.com (mta-203-32-21.sparkpostmail.com. [168.203.32.21])
+        by mx.google.com with ESMTPS id a92af1059eb24-14f47092ebasi224354c88.68.2026.10.01.10.58.42
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 01 Oct 2026 10:58:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) client-ip=168.203.32.21;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=SwqVwNjM;
+       spf=pass (google.com: domain of
+ msprvs1=20734ags-uegg=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.21 as permitted sender)
+ smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: FAci4DOrlKcbNQ62ayhNVmmDY563MH/Nq3XWfh7Rn/k=|eyJjdXN0b21lcl9pZCI
+	6IjI4MDE3MiIsInIiOiJjYXJsb3NhbmRyYWRlbmFAZ21haWwuY29tIiwibWVzc2F
+	nZV9pZCI6IjZhYmU0ZTlmYmU2YWE5N2IxYjU3IiwidGVuYW50X2lkIjoic3BjIiw
+	ic3ViYWNjb3VudF9pZCI6IjE3ODEifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1790877518; i=@news.bloomberg.com;
+	bh=HlyTCeUIQ8wQonal9fIN+XBu+RQNONkTtYeqGT+WdLM=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=SwqVwNjMM/LgFn4k0HT6SwIlVTaLJMzQ0bArF7XXCRkdNUg/zLjm5V/65lrm3/ddQ
+	 oyMSAwKO0wp399xd03gjkCSe4iLP5kbdhQQ3Od4E+ISsX/0u876q3Y43JylsLd0Gxr
+	 GR19nUYt4Og+jvFAgo8aOldZXJi2jRmalp92DNJiXB46PIStCLQ8yOZFtC5Ed+pqmf
+	 5osQXxzzcNs0LK8ghHp543WMtjNiQVBwHqYBev5AXN/6e75JAIfMPmtiZsycruab2Y
+	 8KstanspFAEkEhVUR+FzcriS4ORQskn36WI2mrYe9POHy7xm2hr/w4OHF20dI2rZqn
+	 96QLbLOa+S0Vw==
+Received: from [10.90.22.140] ([10.90.22.140])
+	by i-083fcd8f09720c0d7.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76435 r(msys-ecelerity:tags/5.3.0.19)) with REST
+	id 75/B1-28241-E4F9EBA6; Thu, 01 Oct 2026 17:58:38 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <75.B1.28241.E4F9EBA6@i-083fcd8f09720c0d7.mta1vrest.sd.prd.sparkpost>
+Date: Thu, 01 Oct 2026 17:58:38 +0000
+Content-Type: multipart/alternative; boundary="_----T1AQTdjDOtbJP1qU/jbiWw===_44/B1-28241-E4F9EBA6"
+X-Campaign-ID: 20157889
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20157889+26597240@unsubscribe.iterable.com>
+X-Message-ID: b8c20e9331f847518799a0290019f776
+X-Feedback-ID: 26597240:20157889:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Money Stuff: Opening Private Markets to the Public
+From: "Matt Levine" <noreply@news.bloomberg.com>
+Feedback-ID: 26597240:20157889:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 01 Oct 2026 17:58:46.4825
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 5ff4f98f-f230-4909-32c2-08df1fe5a3bb
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|SA1PR02MB8575:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: CH1PEPF0000AD7D.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/1/2026 5:47:39 PM
+X-MS-Office365-Filtering-Correlation-Id: 5ff4f98f-f230-4909-32c2-08df1fe5a3bb
+X-Sender-IP: 74.125.230.233
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|35120799009|5139299004|9000799056|1680799066|260826003000599003|68400799013|2120399003|10300799038|9400799043|32080799009|3069299007|260928210016899003|6149299003|9020799019|5149299006|36140799009|1602099012|30041999003|2607281247196008|56899033|1370799030|1380799030|1360799030|4302099013|3412199025|440099028|2006899018|2406899039|6406899015;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 17:58:46.4567
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff4f98f-f230-4909-32c2-08df1fe5a3bb
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR02MB8575
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.4006386
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eklMaktDUWhaNzJZUTBFL2ZlVTB1aHg0a0drQ1FVYm1oOGNCRWIzQWFBVXI4?=
+ =?utf-8?B?TWlZcFV5SDR0M2NwelU3L2k2UEczbkwrZzZMcithR29mUWRzbXYvUi9yT1F2?=
+ =?utf-8?B?UnlqdWJ2bHUyTVVNeGViUU8wOHczWDIrL1F5cjZBeXBJS2dBNEtDdy9KQTZh?=
+ =?utf-8?B?V1gzTG9sYnZzRGRtbVdwWVV3Tndvc0QwNFI3WkJrZW1aRXZJRUJ4c2RYVmVw?=
+ =?utf-8?B?VmFGSDd5OXc1SnlpRlpvTzh0Q0RSempoOGhXNHR0WE5zQ0VMdGtmdUN5R20x?=
+ =?utf-8?B?SHRDRFA4U2lvaWtKeldmRFRTNnFyQmR3bzc4Q1hVcmI3eE9JZ1ZjdXUrTGxk?=
+ =?utf-8?B?NVVXMXBEVXBWcWFRaFh4WjlMWHF5dWFNYlBQYzlCalM5NTQrY1BNZEpqczZq?=
+ =?utf-8?B?dnl1aGZpSTJLYmhMejNEWkp2VW5takREVWNqN1pFcHk1aW5vaVlkdnVJdlVD?=
+ =?utf-8?B?c293UkRkZXA2aTRPU0xjQkhZUTBCL3dwNmo0ZHN3ZkttT2dIQit0U25xMUw5?=
+ =?utf-8?B?TUdyL1ZIVmZqKzhHNGFYVFkxeHhMUGZNZkR4aE5VMVJHVnJZb1RRRFFMSllE?=
+ =?utf-8?B?dkJaZW5ldDM2aVoxeXRzR2E5L2krVUlqNHZrWDlxT3lBT3dxdHJ2cUhUVFla?=
+ =?utf-8?B?c2NmZTc0aHBVdTM4Qld2cCt2VHBPOUVsTmJ2eFBxUWo0L0Rlb05nRjcyd0pH?=
+ =?utf-8?B?aktPTXJObzBoVVR2Vko3NCsyUWJvdDE3N21PV3I3OWl1cEQ4cVZDemxBSHBO?=
+ =?utf-8?B?aEhwMDBObjErdHkrWE1UR1BNMDBQVTRwL1lDbVR5NHVlVHRTYzlzaUNDZzhv?=
+ =?utf-8?B?TGxsT0lwamtORHpvMUVNaXNkeWJDT3hSOUtoUURrUXhMdlB5eDdYWjNKTzhr?=
+ =?utf-8?B?eVRIMFRSS2tzVi9OWHl1WFdRZjVFSStRMFRvUTUrSkJPN1RCcGU1RUlwL0dz?=
+ =?utf-8?B?RU82RzNXZVBpWUhjdWw5MGtDRUxvMkxLMi9zMTJYQVdnTVdsZjNzdHN3RmZk?=
+ =?utf-8?B?Vnc2SkZZTEtUdFpzRTAzb3E2TE9uVnQ4Tmg3QWJERHA4ZzE5SFBrYWJ4NzNi?=
+ =?utf-8?B?aFQwTHAwT0JhNWtEWlh3WE5rTmpyOE5YVXRRRFY2L01TRnROVVBSa3hFdXhw?=
+ =?utf-8?B?T1VKNzBHNktZMnJRTEt4QmE2WGh1Z3VpRDVrSGpVM0R5UmNOZ0tPY0RiZUNP?=
+ =?utf-8?B?VEZIQldjaGVWWVJ6VVgxWTdGcm9mWC9xdEdESHFybkFnNGkzT1V3Tzhoc2p1?=
+ =?utf-8?B?V1YweVJyaWRtVnpnTVA3alhpUDZPckpGc1d6MlUxb1RDWXpvVkhMSE00ZGxS?=
+ =?utf-8?B?dmFlT093SHFrNkYrdGdRc0RSclluVjRlbmJkQkRKUzByenN3elNIZW13bTNX?=
+ =?utf-8?B?UEVab0dSM01CSmExcCtDZTJTcWJMWGlvWUplN2hMOEcxZlRtT0Z1dnZmNEQz?=
+ =?utf-8?B?b2h6alNlSTNaRFd5SnFRQ2o0aTdNYURKcExDYWw4bG9TYzltYjhsa3RaU2h1?=
+ =?utf-8?B?UE9LT1pReEw4ck9FTTNhbGNRY3NTMWMwRnlKQTRGNDU1QTRzK090OVBlZ1NT?=
+ =?utf-8?B?UG9zTVdpbUIwZU9TLzlUVSsrb2dhWXFoYUJQT25IV1VQY3JSZDIyUUs2dmlx?=
+ =?utf-8?B?NHpkY3RyOUI1M29QaUlUMS8rclZhRGJqeERoSFVYazBaQ1dCMzBycFFPdVBk?=
+ =?utf-8?B?cVVGVzVPMU40S2paWEw3Kzg0Z0NHRm9lTTlVSmhkMVk1cVpuUHFWTHlxZFJp?=
+ =?utf-8?B?SzRWU1NRd0RVaXpMcTRncDVUK3UwWkIzczZSajVrQUxEWW5RUkVHVnNxZW5Z?=
+ =?utf-8?B?Nkd0dzczdzMydXpUbjRpcWhYVjd6NHJsbHZmZjVJUHN3NnNDNTlXL3YyQ1FR?=
+ =?utf-8?B?dndrUGE3MXV0bGNaZkRwZnd3NjBqL1RvTytRaXVHSnBMcWRFcnQyWGVsRDNN?=
+ =?utf-8?B?Mm9abG13WUk4cVlXcUpPOWNrckh0dTBQNURiTFlzam44bWRWV01kOUd3Zkpt?=
+ =?utf-8?B?Ym5maGozc0ZoNTc4NWhxK0I1NiszTWRHZUZ3bkI3STczVjNGNVRXS012NVdO?=
+ =?utf-8?B?NThZSkNHTW5XMXd0YTRjMmtia1NBV0loY0hsTU9FcDl2dXVHZWU4OHpCMXhE?=
+ =?utf-8?B?dThJZ0ZucWRUS1NQZVc5bnZ3OXVVOVVDVnljcVpDdWI1b3BvTWtYQWI1bzFp?=
+ =?utf-8?B?SGZ4QUNDVWxma3pqTk5mYmd6MDBpTVg2RC84Mmp2TlNpbkYxQ2J5alZMNGkr?=
+ =?utf-8?B?MnR4dk9taVJUQ1AzN2NPUlp0a0ZRdTQwQWc2dTNSOEQwd2N5dVl5NWdXQlEz?=
+ =?utf-8?B?QlpLZlNTcVE0UUU5WlJnZ1pCeDRISWZJbmFMdlZWTEtmWHJwSmlTMCs1SUJR?=
+ =?utf-8?B?ZW9RNTNZNnZvcHM3b0Y2MTZkeDN0VjNPRGFFbU53ZEpzWHZZUCtSZ2VnYjk1?=
+ =?utf-8?B?NkhzaTJacmk4aWlMbFU3d0M3bEVpVVk1SFRzMmlLZHZCQWUzOHlrcWVXTXNO?=
+ =?utf-8?B?UzU3WTlOWnRUMmhkQjcwSjM2LzU1UVM1YmRCS05NL2o4WmsxNFkxcGJyU25a?=
+ =?utf-8?B?eHFEeFJxbEsyYTAxeUwvNUZRcDRJWS82emhNOGhwTWhHd1JacnU0Y0JKLzVa?=
+ =?utf-8?B?NE8zbTJNc0dpWitYV1pyTVlmajNDejdVclFVd2xyNTZVN3NPRW4zS1Ewa0FD?=
+ =?utf-8?B?NmtFcDRlbGxzNEhhNXlja3daL2c4UW5SdVUxNWdGZ3FDM0ZRUTIrRGdhT1Np?=
+ =?utf-8?B?d1ZJaU55OTFNTmF0SDNERVYraFNhZDIxWFpWRmQyUGFvOFhnTnBXbjdYdEhI?=
+ =?utf-8?B?WXdBdnVPbmNKcHBNaG5PVFAyZHBxSWNMQzB1NExQU2t6azFPM3pXOWZXdWgw?=
+ =?utf-8?B?dXdnWUN0ZjVxQ0lEeDN6K2ZIbHl5NlJnajJIbEhWTm9OWjBIR1d3dENub2Na?=
+ =?utf-8?Q?YVwWN8aO/N050Fo+?=
+MIME-Version: 1.0
+
+--_----T1AQTdjDOtbJP1qU/jbiWw===_44/B1-28241-E4F9EBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Money Stuff =0A Fees, tests, votes, Knicks. =0A=0AView in browser <https://=
+bloom.bg/4hH9Kw3> =0A <https://bloom.bg/4AJGptw> =0A=0A =0A<https://sli.blo=
+omberg.com/click=3Fs=3D1149004&li=3D20157889&m=3Dbb4a280bebb1586390b9615b88=
+86024a&p=3D10012026175838&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&stpe=
+=3Ddefault>=0A =0A<https://sli.bloomberg.com/click=3Fs=3D1149004&li=3D20157=
+889&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10012026175838&lctg=3Da3e8b6e3=
+-e359-4066-94ef-329d1b0625a6&stpe=3Ddefault>=0A=0A=0A=0APrivate markets are=
+ the new public markets: Performance fees=0A=0AA simple model is:=0A=0A * R=
+egular retail investors pay index fund managers fees of approximately =0A0.=
+03% of assets. =0A * Sophisticated institutional investors pay hedge fund a=
+nd private equity =0Afund managers fees of approximately 2% of assets and 2=
+0% of returns, or =0Asometimes much more. =0AOne possibility is that the re=
+tail investors are getting a much, much better =0Adeal. Another possibility=
+ is that the institutional investors are getting much, =0Amuch better inves=
+tment managers. Probably there is some truth to both theories.=0A=0AOf cour=
+se this is a gross oversimplification. Institutional investors mostly =0Ado=
+n=E2=80=99t really pay 2-and-20 fees on their entire portfolios. Many of th=
+em put =0Amost of their money into regular stock index funds that charge ve=
+ry low fees, =0Aand some of their money into =E2=80=9Calternatives=E2=80=9D=
+ =E2=80=94 hedge funds, private equity, =0Aventure capital =E2=80=94 that c=
+harge high fees. But retail investors mostly don=E2=80=99t have =0Aany 2-an=
+d-20 investments at all.=0A=0AThere are a lot of reasons for this differenc=
+e, but one pretty simple one is =0Athat US securities rules generally don=
+=E2=80=99t let retail investors pay 2-and-20 fees.=0AUS law <https://bloom.=
+bg/4rLrPO7> generally prohibits registered fund managers =0Afrom charging p=
+erformance fees, that is, fees calculated as a percentage of =0Areturns. Th=
+ere are exceptions for fund managers whose clients are all =E2=80=9C=0Aqual=
+ified clients <https://bloom.bg/3VegXMD>,=E2=80=9D meaning that they have n=
+et worth =0Aof at least $2.7 million or at least $1.4 million of assets und=
+er management at =0Athe fund company. [1]  <> So a hedge fund that takes mo=
+ney only in large chunks =0Afrom institutional investors and rich people ca=
+n charge 20% of gains, but a =0Amutual fund that takes money in $1,000 incr=
+ements from anyone mostly can=E2=80=99t.=0A=0AHere is an intuitive story yo=
+u might tell about the effects of this rule:=0A=0A * If you=E2=80=99re very=
+ good at picking the stocks that will go up, you would rather =0Ado it for =
+institutional investors in a hedge fund or private equity fund [2]  <>=0A (=
+and get a cut of your winnings) than for retail investors in a mutual fund =
+=0A(and not get a cut). =0A * Over time, the best investors will work at he=
+dge funds and private equity =0Afunds and the, uh, second-best will work at=
+ mutual funds. =0A * The hedge funds and private equity funds will outperfo=
+rm the market, while =0Athe mutual funds won=E2=80=99t. =0A * People will n=
+otice, and tell retail investors: =E2=80=9CHey, the mutual funds that =0Ayo=
+u buy don=E2=80=99t outperform the market, but they charge like 1% manageme=
+nt fees. =0AYou could just buy the whole market in an index fund, get simil=
+ar or better =0Aperformance, and pay much lower fees.=E2=80=9D =0A * Eventu=
+ally retail money will all migrate out of actively managed mutual =0Afunds =
+<https://bloom.bg/4hyBrae> that charge 1% fees and into index funds that =
+=0Acharge like 0.03% fees. (This will push even more good investors out of =
+mutual =0Afunds and into hedge funds or private equity.) =0A * The retail i=
+nvestors will get market performance very cheaply. =0A * The institutional =
+investors, in the hedge funds and private equity funds, =0Awill get above-m=
+arket performance, and pay for it. =0AThis is not the only possible story, =
+but it is a possible story. Is it a good =0Astory=3F Certainly it is better=
+ to get market performance cheaply than to get =0Abelow-market performance =
+expensively.Possibly it is better to get above-market =0Aperformance expens=
+ively, depending on how expensive. This is a story in which =0Aretail inves=
+tors have gotten much betterpricing on their main investment =0A(owning the=
+ stock market), but maybe less access to other, cooler investments.=0A=0AYe=
+sterday the US Securities and Exchange Commission proposed a bunch of chang=
+es=0A <https://bloom.bg/3W1Zl6I> to its rules to allow what it calls =E2=80=
+=9Cresponsible =0Aretailization of private markets.=E2=80=9D The basic issu=
+e, which we discuss a lot =0Aaround here, is that retail investors can inve=
+st in public markets, but not in =0Aprivate companies. Private markets have=
+ gotten bigger in recent decades, and =0Anow a lot of the good cool compani=
+es are private. Anthropic and OpenAI are each =0Aworth a zillion dollars, a=
+nd private. SpaceX went public this June at about a =0A$1.8 trillion valuat=
+ion, meaning that the first $1.8 trillion of value created =0Aat SpaceX wen=
+t to its private investors, not to public investors. [3]  <> This =0Astrike=
+s people as a problem: Fancy institutions and rich people can own the =0Ago=
+od cool private companies, but ordinary investors can=E2=80=99t.=0A=0AIf yo=
+u think this is a problem =E2=80=94 and the SEC does =E2=80=94 how do you f=
+ix it=3F There =0Aare about three possible approaches. One is to try to get=
+ more of the good cool =0Acompanies to go public. For instance, change the =
+rules to make it easier to be =0Apublic: Make it harder for public sharehol=
+ders tosue companies =0A<https://bloom.bg/4AGCIoi>, or require less public =
+reporting =0A<https://bloom.bg/4rLP7n8>. The SEC is doing a lot of this. =
+=E2=80=9CMake IPOs Great =0AAgain=E2=80=9D isthe slogan <https://bloom.bg/4=
+ANiTvS> for this approach.=0A=0AAnother approach, conversely, is just to le=
+t regular retail investors invest =0Ain private companies. The SEC is worki=
+ng on this too, and yesterday=E2=80=99s =0Aannouncement included new =E2=80=
+=9Caccredited investor=E2=80=9D proposals that we will discuss =0Abelow. Bu=
+t you can only go so far with this: Just saying =E2=80=9Cregular investors =
+can =0Abuy any private stocks they want=E2=80=9D effectivelymeans getting r=
+id of the US=E2=80=99s =0Asecurities disclosure rules <https://bloom.bg/4AO=
+Lnp4>, which have largely =0Aworked well for almost a century. Plus regular=
+ investors couldn=E2=80=99t actually buy=0Aanyprivate stocks they want: May=
+be the best private companies would raise large =0Achecks from the best ins=
+titutional investors, the worst private companies would =0Araise small chec=
+ks from dentists, andretail would be adversely selected =0A<https://bloom.b=
+g/4rHrhZn>.=0A=0AThe third approach, and the main focus of yesterday=E2=80=
+=99s proposals, is to make it =0Aeasier for individual investors to invest =
+in private markets throughfunds. =0APrivate markets would still be open mos=
+tly to institutional investors, but =0Athose institutional investors would =
+include funds that raise money from retail =0Ainvestors. Retail investors w=
+ould get access to private markets, but not =0Adirectly; they wouldn=E2=80=
+=99t buy private companies themselves. But institutional =0Afund managers w=
+ho invest in private companies would have an easier time, under =0Athe new =
+rules, raising money from retail investors.=0A=0AOne set of rules <https://=
+bloom.bg/3VmaiA4> is about =E2=80=9Cinterval fund =0Amodernization <https:/=
+/bloom.bg/4hXSpjD>.=E2=80=9D Private markets are less liquid than =0Apublic=
+ markets. Public-market mutual funds generally offer daily liquidity: If =
+=0Ayou have money in a mutual fund, you can take it out with one day=E2=80=
+=99s notice. =0AThis is pretty easy for the mutual fund to handle: If you t=
+ake your money out, =0Ait can sell some stock to pay you. It=E2=80=99s hard=
+er, though, for a private equity =0Afund. The SEChas rules <https://bloom.b=
+g/3OPpQJ9> for =E2=80=9Cinterval funds,=E2=80=9D public =0Afunds that inves=
+t in private securities and offer limited quarterly liquidity. =0AIf you wa=
+nt to take your money out of an interval fund, you can do it once per =0Aqu=
+arter and in limited amounts, sort of like the non-traded business =0Adevel=
+opment companies <https://bloom.bg/4z2BdPI> that have run into trouble =0At=
+his year. The SEC=E2=80=99s new rules will give interval funds more flexibi=
+lity (to =0Aoffer monthly instead of quarterly liquidity, for instance), to=
+ make it easier =0Ato run and market them.=0A=0AThe other set of rules <htt=
+ps://bloom.bg/3VncdnS> is about performance fees =0A<https://bloom.bg/4AIgM=
+cB>. Basically: Now you=E2=80=99ll be allowed to charge =0Aperformance fees=
+ (up to 20% of returns) to retail clients. The SEC says:=0A=0AThe use of pe=
+rformance-based compensation has long been a common and defining =0Acharact=
+eristic of investment strategies that are associated with private funds, =
+=0Asuch as hedge fund, private equity, and venture capital strategies. Beca=
+use =0Aperformance=E2=80=91based arrangements have traditionally been assoc=
+iated with private =0Afunds, access to these strategies, as a practical mat=
+ter, has been limited to a =0Anarrow group of eligible investors. By permit=
+ting similar incentives to, for =0Aexample, advisers to regulated funds, su=
+ch advisers may be more likely to offer =0Aprivate market strategies to reg=
+ulated funds.=0A=0AIf the good investment managers can charge retail client=
+s the good fees, the =0Athinking goes, maybe they will sell them the good p=
+roducts.=0A=0AThis is not the only possible analysis, of course. The Wall S=
+treet Journal =0Anotes <https://bloom.bg/4rDUGDP>:=0A=0AExpanding the pool =
+of potential investors is a priority of the private-equity =0Aindustry at a=
+ time when many institutions such as pension funds and endowments =0Aare pu=
+lling back from the asset class. The industry=E2=80=99s main problem has be=
+en its =0Ainability to unload companies at attractive prices, leaving a hug=
+e backlog of =0Aunsold assets.=0A=0APrivate-equity fundraising has declined=
+ every year since 2023, a trend =E2=80=9Cdriven =0Aby underwhelming returns=
+=E2=80=9D in the period since the frothy postpandemic years, =0Aaccording t=
+o data-tracking firm PitchBook. U.S. private-equity managers raised =0Aabou=
+t $160 billion this year through June 30, roughly in line with 2025=E2=80=
+=99s muted =0Atotal, PitchBook said.=0A=0AThe SEC=E2=80=99s actions could h=
+elp relieve the industry=E2=80=99s challenges. =E2=80=9CWe appreciate =0Ath=
+e SEC=E2=80=99s recognition of the longstanding role private markets have p=
+layed in =0Asecuring America=E2=80=99s public pensions=E2=80=94providing st=
+rong, stable returns and vital =0Adiversification for decades,=E2=80=9D sai=
+d Will Dunham, president and chief executive =0Aof the American Investment =
+Council, private equity=E2=80=99s largest trade group.=0A=0AIf the good inv=
+estment managers can charge retail clients the good fees, maybe =0Athey wil=
+l sell them the good products, though right this minute the actual =0Aprodu=
+cts are arguably a little tarnished. But if the good investment managers =
+=0Acan charge retail clients the good fees, they will definitely charge the=
+m the =0Agood fees.=0A=0A =0A<https://sli.bloomberg.com/click=3Fs=3D868432&=
+stpe=3Ddefault&li=3D20157889&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10012=
+026175838&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6>=0A=0A =0A<https://sl=
+i.bloomberg.com/click=3Fs=3D868432&stpe=3Ddefault&li=3D20157889&m=3Dbb4a280=
+bebb1586390b9615b8886024a&p=3D10012026175838&lctg=3Da3e8b6e3-e359-4066-94ef=
+-329d1b0625a6>=0A=0APrivate markets are the new public markets: Certificate=
+ of Smart Investment=0A=0ALike I said, most of what the SEC announced yeste=
+rday is about getting retail =0Ainvestors to invest in private assets throu=
+ghfunds. There is one exception, =0Athough. Private companies are technical=
+ly allowed to raise money from =0A=E2=80=9Caccredited investors,=E2=80=9D a=
+ term that has traditionally meant (1) institutions =0Aand (2) rich individ=
+uals. Over time, this category has become less exclusive: =0AThe main ways =
+to be anaccredited investor <https://bloom.bg/3VpFtKH> are by =0Aearning mo=
+re than $200,000 per year ($300,000 for married couples) or having a =0Anet=
+ worth of more than $1 million. [4]  <> The rough numbers are that about =
+=0A18.5% <https://bloom.bg/3VpFtKH> of US households qualify as accredited,=
+ while =0Aabout21% <https://bloom.bg/4jwyc5F> of US households own (public)=
+ stocks =0Adirectly (as opposed to through mutual funds). So, as Ihave writ=
+ten =0A<https://bloom.bg/3TjXMAp>, =E2=80=9Cthe pool of people who can buy =
+private investments =0Ais about as big as the pool of people who do buy sto=
+cks,=E2=80=9D and the accredited =0Ainvestor test is not that high a bar.=
+=0A=0AStill, it feels very elitist to say that only wealthy people can buy =
+the good =0Acompanies. The theory is that wealthier people (1) might be mor=
+e financially =0Asophisticated and (2) can probably afford to lose more mon=
+ey. But it=E2=80=99s not =0Aobvious that=E2=80=99s true, the rule is contro=
+versial, and there is a widespread sense =0Athat even people who don=E2=80=
+=99t meet the financial thresholds should be allowed to =0Ainvest in privat=
+e companies if they go in with their eyes wide open about the =0Arisk.=0A=
+=0AWhat does =E2=80=9Cgo in with their eyes wide open=E2=80=9D mean, though=
+, in practice=3F I have, =0Alike, seven-eighths-seriouslyproposed my own no=
+n-financial test for investor =0Aaccreditation <https://bloom.bg/4hlLDEe>. =
+In my version, if you want to buy =0Aweird private stuff of any kind, =E2=
+=80=9Cyou just have to go to the local office of =0Athe SEC and get a Certi=
+ficate of Dumb Investment=E2=80=9D:=0A=0ATo get that certificate, you sign =
+a form. The form is one page with a lot of =0Awhite space. It says in very =
+large letters: =E2=80=9CI want to buy a dumb investment. I =0Aunderstand th=
+at the person selling it will almost certainly steal all my money, =0Aand t=
+hat I would almost certainly be better off just buying index funds, but I =
+=0Awant to do this dumb thing anyway. I agree that I will never, under any =
+=0Acircumstances, complain to anyone when this investment inevitably goes w=
+rong. I =0Aunderstand that violating this agreement is a felony.=E2=80=9D=
+=0A=0AThen you take the form to an SEC employee, who slaps you hard across =
+the face =0Aand says =E2=80=9Creally=3F=3F=3F=E2=80=9D And if you reply =E2=
+=80=9Cyes really=E2=80=9D then she gives you the =0Acertificate.=0A=0AIf so=
+meone sells you a dumb weird private investment without checking your =0Ace=
+rtificate first, they go to jail. But if you get the certificate and then b=
+uy =0Athe dumb weird investment and it goes to zero, and youcomplain, you g=
+o to jail. =0ACaveat extremely emptor!=0A=0AIt is safe to say that nobody a=
+grees with me on this. Instead, everyone else =0Athinks that the way to ens=
+ure that retail investors go into private investments =0Awith their eyes wi=
+de open is by giving them a Certificate ofSmart Investment. =0ALike, you pa=
+ss a test of your investing knowledge and acumen, and then you can =0Abuy t=
+he dumbest stuff imaginable, but you won=E2=80=99t, will you, because you=
+=E2=80=99re so =0Asmart. Right=3FI once wrote <https://bloom.bg/3TjXMAp>:=
+=0A=0AThe essential point about the Certificate of Dumb Investment is that =
+it is not =0Aaspirational. It=E2=80=99s not that you go to the SEC and take=
+ a test and get 100% on =0Athe test and they=E2=80=99re like =E2=80=9Ccongr=
+atulations you=E2=80=99re so smart=E2=80=9D and you are like =E2=80=9CI =0A=
+know right=E2=80=9D and they give you the Certificate of Being a Smart Inve=
+stor Who Can =0ABuy the Good Investments Now and a little button saying =E2=
+=80=9CSMART INVESTOR=E2=80=9D and =0Ayou walk out of the SEC office wearing=
+ that button and you are absolutelymobbed =0Aby people selling structured n=
+otes. People selling financial productslove =0Ainvestors who think they are=
+ sophisticated.=0A=0AAnyway yesterday=E2=80=99s SEC announcement <https://b=
+loom.bg/3W1Zl6I> also includes a =0ACertificate of Smart Investment:=0A=0AT=
+he Commission separately seeks comment on the potential designation of the =
+=0Apassage of an accredited investor exam to be developed by the Financial =
+=0AIndustry Regulatory Authority (FINRA) as an additional method for invest=
+ors to =0Abe accredited investors. An exam would provide a non-financial pa=
+thway for =0Ainvestors to demonstrate their sophistication in the areas of =
+securities, =0Ainvesting, and financial and business matters to appropriate=
+ly evaluate the =0Amerits and risks of a prospective investment.=0A=0AHere =
+are more details <https://bloom.bg/4rHiWVy>. A sample:=0A=0AThe Investment =
+Risks section would be designed to test knowledge, =0Acomprehension, and sk=
+ills with respect to the risks associated with exempt =0Aofferings. For exa=
+mple, this section would test candidates=E2=80=99 understanding of =0Aliqui=
+dity risks (e.g., resale restrictions, redemption restrictions, and risks =
+=0Aassociated with potentially longer investment horizons), issuer performa=
+nce =0Ahistory (if any), concentration risks, diversification as a risk mit=
+igation =0Astrategy, investment specific risks (e.g., dilution), the use of=
+ leverage and =0Aits potential to amplify losses, and the impact of fees an=
+d expenses on net =0Ainvestment returns. =E2=80=A6=0A=0AThe Financial State=
+ments section would be designed to test knowledge, =0Acomprehension, and sk=
+ills to understand different types of financial =0Astatements, financial st=
+atement numeracy, and investment-related ratios and =0Ametrics. For example=
+, this section would test candidates=E2=80=99 knowledge of the =0Adifferent=
+ types of financial statements (e.g., balance sheets and income =0Astatemen=
+ts), GAAP versus non-GAAP financial measures, and valuation ratios and =0Am=
+etrics (e.g., debt-to-equity ratio, current ratio, internal rate of return,=
+ =0Aand bond calculations such as yield to maturity).=0A=0AThe Conflicts of=
+ Interest section would be designed to test knowledge, =0Acomprehension, an=
+d skills with respect to a variety of conflicts investors may =0Aencounter =
+in exempt offerings. For example, this section would test candidates=E2=80=
+=99 =0Aunderstanding of issuer and affiliate conflicts of interest, interme=
+diary =0Aconflicts of interest, insider conflicts of interest, and investor=
+ conflicts of =0Ainterest (such as tiered information access and other pref=
+erential treatment =0Afor certain investors).=0A=0ASounds sophisticated.=0A=
+=0A=0AShareholder voting=0A=0AEvery year, US public companies ask their sha=
+reholders to vote on stuff: =0Are-electing directors, approving executive p=
+ay, (until recently =0A<https://bloom.bg/4rKAUqz>) non-binding shareholder =
+proposals. Some =0Ashareholders pay attention to this stuff, and vote. In p=
+articular, =0Ainstitutional asset managers tend to think that they have a f=
+iduciary duty to =0Apay at least some minimum quantity of attention to this=
+ stuff, so they will =0Anormally vote. (Many have traditionally paid the ve=
+ry minimum quantity of =0Aattention, and just outsourced their voting topro=
+xy advisory services =0A<https://bloom.bg/4xVCeYY>; these days that is a bi=
+t more controversial so they =0Aoutsource it to AI <https://bloom.bg/4ADW51=
+z> instead.)=0A=0AOther shareholders don=E2=80=99t pay attention, and don=
+=E2=80=99t vote. In particular, retail =0Ashareholders stereotypically don=
+=E2=80=99t vote. This is generally very rational of =0Athem: Voting 10 shar=
+es of stock takes time and has essentially no benefit.=0A=0AWhat happens to=
+ their votes=3F If 40% of shareholders vote for some proposal and =0A30% vo=
+te against and 30% don=E2=80=99t vote, then it gets =E2=80=9Ca majority of =
+votes cast=E2=80=9D =0Aand probably passes. Butsome things <https://bloom.b=
+g/4rJt14C> (mergers, etc.) =0Arequire =E2=80=9Ca majority of shares outstan=
+ding,=E2=80=9D and in that case it wouldn=E2=80=99t pass. =0AThat is, if yo=
+u don=E2=80=99t vote your stock, then:=0A=0A * Usually you are letting the =
+people who do vote decide for you, except =0A * For some very important cor=
+porate decisions, you are effectively voting No. =0AThose are pretty intuit=
+ive outcomes! Like:=0A=0A * The people who don=E2=80=99t pay attention real=
+ly might rationally prefer to defer =0Ato the people who do pay attention, =
+but =0A * Big important fundamental changes should only happen if a majorit=
+y of =0Ashareholders pay attention and agree to them. =0AFine. There are ot=
+her possibilities, though. We talk occasionally =0A<https://bloom.bg/4jEPLA=
+u> about =E2=80=9Cretail shareholders who don=E2=80=99t care should be =0Aa=
+llowed to sell their voting rights to people who do care,=E2=80=9D which ha=
+s an =0Aobvious appeal but mostlyhasn=E2=80=99t taken off <https://bloom.bg=
+/4rI4Bsc>. But =0Aanother possibility is:=0A=0A * If you don=E2=80=99t vote=
+, you should let the company=E2=80=99s management decide for you. =0AThat i=
+s, in some abstract model of democracy, =E2=80=9Cif you don=E2=80=99t care,=
+ you=E2=80=99re =0Aletting the people who do care decide=E2=80=9D makes sen=
+se. But if you bought shares in =0Aa company, that might suggest =E2=80=94 =
+at least as a default =E2=80=94 that you trust the =0Amanagers of the compa=
+ny. If you don=E2=80=99t care about the details of some vote, =0Amaybe =E2=
+=80=9Clet management decide=E2=80=9D better captures your unexpressed desir=
+es than =0A=E2=80=9Clet the shareholders who do care decide.=E2=80=9D Maybe=
+ the shareholders who do care =0Aare not representative of the ones who don=
+=E2=80=99t; maybe management is.=0A=0AAnd so, if there=E2=80=99s some share=
+holder proposal like =E2=80=9Cthe company should write a =0Areport about cl=
+imate change,=E2=80=9D and 40% vote yes and 30% vote no and 30% don=E2=80=
+=99t =0Avote, maybe thatreally means that 40% want the company to do someth=
+ing =0Adifferent and 60% =E2=80=94 the nos and the nonvoters =E2=80=94 thin=
+k =E2=80=9Cmeh it=E2=80=99s fine as it is.=E2=80=9D =0AOr if the company as=
+ks shareholders to vote to approve executive pay, and 30% =0Avote yes and 4=
+0% vote no and 30% don=E2=80=99t vote, maybe thatreally means that 40% of =
+=0Ashareholders are engaged and angry and don=E2=80=99t want the executives=
+ to get paid =0Athat much, but the other 60% are like =E2=80=9Cehh it=E2=80=
+=99s fine, we like management.=E2=80=9D=0A=0AI=E2=80=99m not sure that=E2=
+=80=99s correct: Retail shareholders could be pretty annoyed with =0Amanage=
+ment, but still not annoyed enough to go and fill out proxy cards for =0Ath=
+eir small holdings. But you could ask them. Bloomberg=E2=80=99sTodd Gillesp=
+ie =0Areported Monday <https://bloom.bg/4hASnwC>:=0A=0AGoldman Sachs Group =
+Inc. plans to give individual shareholders the option of =0Aletting the boa=
+rd of directors decide how their votes will be cast, a year =0Aafter coming=
+ closer than ever to having its executive compensation proposal =0Arejected=
+.=0A=0ARegulators gave a green light to the firm=E2=80=99s request to give=
+ retail investors =0Athe option of voting with the board by default, accord=
+ing to a Securities and =0AExchange Commission letter Monday. Those investo=
+rs account for roughly 30% of =0AGoldman=E2=80=99s shares, according to a p=
+erson familiar with the matter.=0A=0AThe change is likely to increase turno=
+ut in a way the boosts support for the =0Acompany=E2=80=99s position on key=
+ proposals at annual general meetings, where in recent =0Ayears Goldman has=
+ faced significant objection to large pay packages for its top =0Aexecutive=
+s.=0A=0AAnd Tuesday the US Securities and Exchange Commission granted Tesla=
+ Inc. =0Apermission <https://bloom.bg/4iT0FT2> to implement a similar progr=
+am in which =0Aretail investors could default to letting Elon Musk vote the=
+ir shares. I mean, =0Anot literally Elon Musk; theshares would be voted <ht=
+tps://bloom.bg/4AHY7xk> =0A=E2=80=9Cbased on the recommendation of the comp=
+any=E2=80=99s board of directors.=E2=80=9D=0A=0AThis approach was pioneered=
+ by ExxonMobil Corp., and we talked about it a few =0Amonths ago <https://b=
+loom.bg/4jzyM2A>. An Exxon shareholder complained that, if =0A=E2=80=9Calwa=
+ys vote with the board=E2=80=9D is an option available to shareholders, the=
+n =0A=E2=80=9Calways vote against the board,=E2=80=9D or =E2=80=9Calways vo=
+te the way proxy advisers =0Asuggest,=E2=80=9D should also be options. I ju=
+st think that=E2=80=99s wrong=3F I understand why =0Athis option annoys goo=
+d-governance advocates, because it really does have the =0Aeffect of entren=
+ching management and giving the board free rein to run the =0Acompany. But =
+also =E2=80=9Cgive the board free rein to run the company=E2=80=9D really i=
+s a =0Aplausible model of what inattentive retail shareholders want. Especi=
+ally at =0ATesla.=0A=0AIncidentally, we  talked yesterday <https://bloom.bg=
+/4rF3Pw9> about the =0Aprospects that agentic artificial intelligence will =
+eliminate retail-investor =0Ainattention. (Which will be bad for banks, whi=
+ch rely on inattention, and very =0Avery good for Robinhood, which relies o=
+n attention.) I suppose you could tell =0Asome sort of related story here, =
+like, =E2=80=9Cretail investors will be able to =0Aactively vote all of the=
+ir shares on everything by instructing their AI agent =0Aon what to do.=E2=
+=80=9D But what will they tell the agent to do=3F =E2=80=9CVote however you=
+ =0Athink is best=E2=80=9D=3F I feel like the simplest answer is =E2=80=9Cj=
+ust re-elect the =0Adirectors, approve the pay, and don=E2=80=99t vote for =
+any weird proposals=E2=80=9D: That is, =0Ajust defer to management. And at =
+Tesla, the retail shareholders willobviously =0Atell their agents =E2=80=9C=
+just vote for whatever Elon wants.=E2=80=9D=0A=0A=0AKnicks and Rangers=0A=
+=0AThere is a lot of finance theory about conglomerates. If you have a widg=
+et =0Acompany, and I have a sprocket company, and we merge them into one co=
+mpany, =0Athere are advantages and disadvantages. Some of these are manager=
+ial (=E2=80=9Cyou can =0Aapply best-in-class management skills to multiple =
+businesses=E2=80=9D vs. =E2=80=9Cthe managers =0Aare unfocused and distract=
+ed by multiple businesses=E2=80=9D) but some are more =0Acorporate finance-=
+y. The main financial advantages and disadvantages of =0Aconglomerates are:=
+=0A=0A * A conglomerate that combines two uncorrelated businesses is safer =
+than =0Aeither business alone: Sometimes widget sales are down but sprocket=
+ sales are =0Aup, meaning that the company can muddle through a widget down=
+turn without going =0Abankrupt. The conglomerate is more attractive to debt=
+ investors because its =0Arisks offset each other, and debt investors hate =
+risk. =0A * But =E2=80=9Ca basket of options <https://bloom.bg/4rEk6RO> is =
+worth more than an =0Aoption on a basket=E2=80=9D: Shareholders might prefe=
+r to own a widget company and a =0Asprocket company separately, because the=
+y get the upside on each investment but =0Atheir downside is floored at zer=
+o. If the widget industry dies out but the =0Asprocket industry booms, a sh=
+areholder of separate companies does well: Her =0Awidget investment goes to=
+ zero, her sprocket investment returns 1,000%, and =0Ashe=E2=80=99s happy. =
+But if she owns a widget/sprocket conglomerate, it might spend =0Ayears los=
+ing money on widgets, subsidized by its sprocket profits; its widget =0Alos=
+ses arenot floored at zero. The conglomerate might be less attractive to =
+=0Aequity investors, because its risks offset each other, and equity invest=
+ors =0Alove risk. =0AThere is another, related but slightly different set o=
+f investor-targeting =0Aadvantages and disadvantages:=0A=0A * Some investor=
+s might really like widgets, and some might really like =0Asprockets. If yo=
+u run a widget/sprocket conglomerate, you might attract both =0Asets of inv=
+estors, and so appeal to more investors than either company alone. =0A * Al=
+ternatively, if you run a widget/sprocket conglomerate, you might attract =
+=0Aneitherset of investors. There might be specialized widget investors who=
+ ignore =0Ayou, and specialized sprocket investors who ignore you. If you s=
+eparated into =0Atwo focused companies they might each be able to attract n=
+ew investors. You can =0Atell a clearer story (rather, two clearer stories)=
+ to the market. =0A * And if an investor did want a diversified widgets-and=
+-sprockets bet, she =0Acould just buy shares of both companies. You don=E2=
+=80=99t have to give her that =0Adiversified bet at the corporate level; sh=
+e can do it herself. =0AThis is pretty standard stuff. We have talked about=
+ all of it in connection =0Awith <https://bloom.bg/4rEy3PI> Elon Musk=E2=80=
+=99s conglomerating and =0Ade-conglomerating impulses.=0A=0ASeparately, we =
+talked a few months ago about a sports gambling exchange-traded =0Afund <ht=
+tps://bloom.bg/4B1pxyL>. Obviously I loved it, but I was a bit =0Askeptical=
+. The sports gambling ETF would manage a diversified portfolio of =0Asport=
+s bets. This would make it less risky than a sports gambling ETF that bet =
+=0Aonly on, like, =E2=80=9Cthe Knicks will win the NBA championship.=E2=80=
+=9D As a product for =0Ayour retirement fund, sure, makes sense, I guess. (=
+=3F=3F=3F) But =E2=80=A6 it=E2=80=99s =E2=80=A6 sports =E2=80=A6 =0Agamblin=
+g=3F Presumablymuch of the appeal of sports gambling is, like, picking the =
+=0Ateam you want or expect to win and betting on them=3F And so a sports ga=
+mbling =0AETF that is like =E2=80=9Cwe=E2=80=99ll do some sports gambling f=
+or you and give you the =0Aproceeds=E2=80=9D is missing an important part o=
+f the appeal of sports gambling. I=E2=80=99ve=0Apointed out <https://bloom.=
+bg/4rQY6TV> that really what you want is, like, a =0AKnicks ETF, because th=
+en people who like the Knicks could bet on your ETF.=0A=0AThe point here is=
+, maybe, that diversification in sports betting is bad, at =0Athe fund/prod=
+uct level. Some people want to bet on the Knicks, some people want =0Ato be=
+t on the Spurs, some people want to bet on the Clippers, but (1) very few =
+=0Apeople want a diversified bet on all of them and (2) if they do, they ca=
+n =0Aconstruct it themselves. =E2=80=9CHere=E2=80=99s a diversified sports =
+bet=E2=80=9D is just going to =0Aappeal to fewer people than =E2=80=9Chere=
+=E2=80=99s a Knicks bet.=E2=80=9D=0A=0AAnyway <https://bloom.bg/3Vo4rtZ>:=
+=0A=0AThe New York Knicks and Rangers will soon be available for purchase s=
+eparately =0Aon the stock market.=0A=0AMSG Sports, which owns the NBA and N=
+HL teams, announced Wednesday =0A<https://bloom.bg/47tV2Ul> that it will sp=
+lit the two franchises into separate =0Apublicly traded companies after its=
+ board of directors approved the move this =0Aweek. The company has explore=
+d the move since earlier this year and expects to =0Acomplete the transacti=
+on Oct. 26. The spin-off comes after a year of =0Ahigh-profile success for =
+the Knicks, who won the NBA title in June, and as the =0ARangers work throu=
+gh a rebuild after missing the playoffs the last two seasons.=0A=0AMSG Spor=
+ts, currently a publicly traded company, will become MSG =0AKnickerbockers =
+Corp. It will own the Knicks and Westchester Knicks (their G =0ALeague team=
+). MSG Rangers Corp. will be comprised of the Rangers, the MSG =0Atraining =
+facility and the Hartford Wolf Pack (the Rangers=E2=80=99 AHL team).=0A=0AI=
+ mean, sure. Presumably there is a market for, like, =E2=80=9Chere=E2=80=99=
+s a diversified =0Abet on New York sports teams=E2=80=9D =E2=80=94 lots of =
+people like the Knicks and the Rangers =0A=E2=80=94 but if you want that yo=
+u can just buy Knicks and Rangers shares separately. =0AThat doesn=E2=80=99=
+t give you any New York baseball, football or soccer exposure, but =0Ayou c=
+an get that on Kalshi.=0A=0A=0AThings happen=0A=0AUS Benchmark Yield Hits H=
+ighest Since 2002 as  Bonds Sell Off =0A<https://bloom.bg/4hnlp4f>. Who=E2=
+=80=99s Who at  Jane Street <https://bloom.bg/4rEk78k>=0A. Apollo DebutsDai=
+ly Private Credit Marks <https://bloom.bg/46W0yyR> as SEC =0AUrges Vigilanc=
+e. Porsche SE <https://bloom.bg/3Vdzxo6> Says German Court Has =0ADismissed=
+ $6.1 Billion Lawsuit Brought by Investors. How SpaceX=E2=80=99s AI Unit =
+=0A<https://bloom.bg/4iZc188> Turned Itself Into an AI Cloud Firm.  Paramou=
+nt=E2=80=99s =0A<https://bloom.bg/4rF3Ikd> $41 Billion of M&A Bonds Slump a=
+s Trading Begins. =0AWalgreens Owner Nears Deal to Sell British Pharmacy Ch=
+ain Boots =0A<https://bloom.bg/4jEPIEO>. King=E2=80=99s bank Coutts hit wit=
+h new lawsuit after =E2=80=98 =0Adebanking <https://bloom.bg/4rKAVe7>.=E2=
+=80=99 UBS pushes back against investor call to =0A leave Switzerland <http=
+s://bloom.bg/47Am2S1>. Tech CEOs Privately  Questioned =0AAmodei <https://b=
+loom.bg/4s17hBv> for Sounding AI Alarm Bells. Bridgewater CEO =0A<https://b=
+loom.bg/47Am64d> Warns That AI Threatens =E2=80=98Societal Breakdown.=E2=80=
+=99 Now =0AWe=E2=80=99re All Starting to Talk Like AI Chatbots <https://blo=
+om.bg/4jwy8Tt> Too. =0ALouvre boss vows to instil =E2=80=98culture of secur=
+ity=E2=80=99 after heist =0A<https://bloom.bg/4jzuHLK>. Inside the Global M=
+arket for  Elite $30,000 =0ASheepdogs <https://bloom.bg/3W18axD>.=0A=0AIf y=
+ou'd like to get Money Stuff in handy email form, right in your inbox, =0Ap=
+leasesubscribe at this link <https://bloom.bg/447aq8q>. Or you can subscrib=
+e =0Ato Money Stuff and other great Bloomberg newslettershere =0A<https://b=
+loom.bg/4gyj3wg>. Thanks!=0A=0A[1] These numbers change over time; see page=
+ 27 of the SEC proposed rule =0A<https://bloom.bg/3VncdnS> for the current =
+numbers.=0A=0A[2] I=E2=80=99m being cutesy in saying that private equity fu=
+nds pick =E2=80=9Cthe stocks that =0Ago up,=E2=80=9D but there is an obviou=
+s continuum between buying some shares of a =0Apublic company based on your=
+ sophisticated analysis, on the one hand, and =0Abuying the whole company i=
+n a leveraged buyout, on the other.=0A=0A[3] This is slightly loose. Like $=
+44 billion of it went to public investors in =0ATwitter <https://bloom.bg/4=
+hp4Uok>.=0A=0A[4] Isn't it a little weird that there are so many different =
+thresholds=3F The =0Aaccredited investor test is unrelated to, and lower th=
+an, the qualified-client =0Atest for charging performance fees.=0A=0A=0A <h=
+ttps://bloom.bg/4ey6nWe> =0A=0AFollow Us  <https://bloom.bg/4nqVBoU>  <http=
+s://bloom.bg/4k7tEj3>  =0A<https://bloom.bg/3ZTy0mC>  Get the newsletter  <=
+https://bloom.bg/41HS7pA> =0A=0A=0ALike getting this newsletter=3F  Subscri=
+be to Bloomberg.com =0A<https://www.bloomberg.com/subscriptions=3Futm_mediu=
+m=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dmoneystuff&utm_content=3Dt=
+out-money-stuff&utm_term=3D>=0A for unlimited access to trusted, data-drive=
+n journalism and subscriber-only =0Ainsights.=0A=0ABefore it=E2=80=99s here=
+, it=E2=80=99s on the Bloomberg Terminal. Find out more about how the =0ATe=
+rminal delivers information and analysis that financial professionals can=
+=E2=80=99t =0Afind anywhere else.Learn more =0A<https://link.mail.bloomberg=
+business.com/click/15638356.78421/aHR0cHM6Ly93d3cuYmxvb21iZXJnLmNvbS9wcm9mZ=
+XNzaW9uYWwvc29sdXRpb24vYmxvb21iZXJnLXRlcm1pbmFsLw/55088ec43b35d034698d38aeB=
+e3d4e6ab>=0A.=0A=0AWant to sponsor this newsletter=3F  Get in touch here =
+=0A<https://www.bloombergmedia.com/contact/=3Futm_medium=3Demail&utm_source=
+=3Dnewsletter&utm_campaign=3Dmoneystuff>=0A.=0A=0A You received this messag=
+e because you are subscribed to Bloomberg's Money =0AStuff newsletter. =0AU=
+nsubscribe =0A<https://www.bloomberg.com/account/newsletters/money-stuff=3F=
+source=3Dnewsletter_unsub&email=3Dcarlosandradena@gmail.com&hash=3D6e1e8750=
+b026b2c4a755c098730d24d74ddad9f4>=0A |Bloomberg.com <https://bloom.bg/41Bzm=
+UH> | Contact Us =0A<https://bloom.bg/3PWd74F> =0A=0A <https://bloom.bg/4kg=
+uDNP>  |  <https://bloom.bg/40s7Jfd> =0ABloomberg L.P. 731 Lexington, New Y=
+ork, NY, 10022  =0A<https://links.message.bloomberg.com/s/eh/JU1yydSQeZIfj6=
+knwc0jAaO6qofqnPye_K8fd-MM6KO6nT-WLWKeTWdT33gKILZKtjPEAdTvDVN9DHoeW5njsqV7r=
+AMy2D9ENvpYd9m4ANpSt17Wd6TQ0E7DQBgUnsWmh102k6xzgolkGX67CuE7aghAXfD7mFmqBDhF=
+Gu3hRqgLAw1V0Rbb-Moc6kkMkbuZ-rSdY_hgCXM_SMbljoIoFXlTEZIQZB3hptaSyZRAJ6oLuYZ=
+3HJ4CpuUk4IdNUTV8Sgq8ePmNqRIbe4SRzrbzNkTxjZoABtsVT0EeKJJdEtTATlMzB3DI1KANUN=
+8g8xcrynXLJH0LVpQra-Fe8Jydlt3kwJT4CEC6Yxc/Dl2c7Ehz8J9dAbwA7S3lZ0EZ61H26st8/=
+25>
+--_----T1AQTdjDOtbJP1qU/jbiWw===_44/B1-28241-E4F9EBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml" style=3D"width: 100%;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"> <=
+meta name=3D"viewport" content=3D"initial-scale=3D1"> <title>Money Stuff</t=
+itle> <!--[if (mso)|(mso 16)]><style type=3D"text/css">a{text-decoration:no=
+ne}</style><![endif]--> <style>body{width:100%;-webkit-font-smoothing:antia=
+liased;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:15=
+0%;margin:0;padding:0}img{max-width:550px}.body-component a:visited{color:#=
+000;text-decoration:none!important;border-bottom:1px solid #000;background-=
+color:#ccc}.body-component h1 a:visited{text-decoration:none;color:#000}@me=
+dia only screen and (max-width:480px){.lihide{display:none!important}.lisho=
+w{display:block!important;width:auto!important;overflow:visible!important;f=
+loat:none!important;max-height:inherit!important;line-height:inherit!import=
+ant}.email-ssl-image{width:100%!important;height:auto!important}.body-image=
+ img{width:100%!important}.logo-image{width:100%!important}}</style></head>=
+ <body style=3D"width: 100%; -webkit-font-smoothing: antialiased; font-fami=
+ly: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%; margi=
+n: 0; padding: 0;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/XRWqr0F=
+qeTkYcBsjbHHH3A~~/AARGbBA~/E5XpJe865Yt1LxzCcM9Aw7hrMcDMFEVnq--QbPt4Sor5B1QO=
+5EQtw283doLplTVUGNuCEiatzC8nZhmXHfVqbg~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/mZsJoT1BfgD7V8JhTjdgo06ABFIm9V1aM2qVDfBoqMMooFZQ8v274LRB0W-P=
+KXgQiyBivNUVGjQCGSuXu9ysjKRA-DyQI3xNzUNctTZ-uopXF9DWlv0wj_03gAza73hzCO3wYEH=
+6NSDTG0fVhchPKmdD0H0JBuYq8V6Oe4-V8nI1XO8WIfzerBGo-yjPUXgcQBg4H93YTi1TDNMygp=
+1-_XuZ2acfE7fW6FIF/totyPDMEyk971vY5_-PnjRsk3G4RqJ4A/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"> <table id=3D"wrapper" width=
+=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ style=3D"-webkit-font-smoothing: antialiased; font-family: Helvetica, Aria=
+l, sans-serif; font-size: 16px; max-width: 550px; width: 100% !important;">=
+ <!--[if mso]><center> <tr><td> <table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"550"><![endif]--> <tr> <td style=3D"border-collapse: =
+collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <div style=3D"dis=
+play: none; max-height: 0px; overflow: hidden;"> Fees, tests, votes, Knicks=
+. </div> </td> </tr> <tr> <td style=3D"border-collapse: collapse; mso-table=
+-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 15px;"> <table width=
+=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td align=
+=3D"center" style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-=
+table-rspace: 0pt; padding: 20px 0px 10px;"> <a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/ZYPwxTmNtY1JVwzAH1cxQlcXv-mLaBnLiOe9Rv3tbP-6Xoei3Y7581=
+MzsxrfDvSEcm6c8BATXktUx_wiXXWoovc1BUUAJi5aknJoxA-_QNluhVlhQjqLa6ARtLbdGBq9Y=
+vTy8tw8GxjlULq6_pwqU1rGQjjpoaysHvygZD47Bf09EYPnVsW5O4MuKFporJMLOGWJP_VaZ3rR=
+WDZD9ro5XYI6EvbCnCRIr_bLgf26KmaT8gaZXRP-R0J-LU-9vD1T7YVkKpgmpqoBk60x3o7u2sw=
+2N-RaHutJk0LvwNMUZ_GW3hYZD4tboacjr1FrTbx78WqNvN-25KJ2lH7IjSyULnIzPgYsXH7jAu=
+qKchTzwOVpDqqWWxR6YXdX9w/YeE7KP27ITARRjvJUKzqJPiKeKgpEq6o/25" style=3D"font=
+-family: Helvetica, Arial, sans-serif; text-decoration: underline; font-siz=
+e: 14px; color: #767676 !important;">View in browser</a> </td> </tr> <tr> <=
+td align=3D"center" style=3D"border-collapse: collapse; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt; padding-bottom: 5px;"> <a href=3D"https://links.=
+message.bloomberg.com/s/c/nF2UMhV-9ERzrK7QCMjpKYyPf4ndFSO57sPxtJq2zSdkx_VvO=
+zl9E5WUiR527LsQ8tzusgpfF150imc-MrkuF6uiyEJY9P763XczdV4k2F0l68g7oaO7BOc5jnkb=
+93RQPOpjiNLCQ1ePfzDWvYzsv_IFvnCGLJXDdY_JEmNFNMkcfEeTPjDr5HroOg9TUQSmBVmtOFj=
+NgjchQxe7X_26ziH37YFGyHWWsOELn_6l2QRkZDgPr9tLIq3O6At6zmvOjtG27yQ9BeiAYEKrJn=
+KlZjz3u2L_ZwNo3FTgizbr4TkZy3zLfgWSwYaEM2nkCDSiHivEXQ31yRh3OUF1ucmYTW8bKCzpZ=
+_rursvo8rPrYYnJL7uYurOtsMG7Gw/UnnwVHEqsxmHTN-0ijLFrsfMfqJnLyYX/25"><!--[if =
+mso]><table width=3D"550"><tr><td><img alt=3D"Bloomberg" src=3D"https://ass=
+ets.bwbx.io/images/users/iqjWHBFdfxIU/img7rZ7yYddA/v0/-1x-1.png" width=3D"5=
+50"/></td></tr></table> <div style=3D"display:none"><![endif]--><img class=
+=3D"logo-image" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/img=
+7rZ7yYddA/v0/-1x-1.png" border=3D"0" alt=3D"Bloomberg" style=3D"max-width: =
+550px; width: 530px; display: block;" width=3D"530"><!--[if mso]></div><![e=
+ndif]--></a> </td> </tr> </table><table align=3D"center" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" data-lt-version=3D"3.0.0"> <tr> <td colspan=
+=3D"2" align=3D"center" style=3D"line-height: 1px"> <img src=3D"https://sli=
+.bloomberg.com/imp?s=3D1149004&amp;li=3D20157889&amp;m=3Dbb4a280bebb1586390=
+b9615b8886024a&amp;p=3D10012026175838&amp;lctg=3Da3e8b6e3-e359-4066-94ef-32=
+9d1b0625a6&amp;stpe=3Dstatic" border=3D"0" style=3D"max-width: 550px; displ=
+ay: block; max-height: 12px !important;"> </td> </tr> <tr> <td colspan=3D"2=
+" style=3D"line-height: 1px"> <a href=3D"https://links.message.bloomberg.co=
+m/s/c/U2LTmgWT2mHNtJR50G5IL4PxmZc9QU8HKRwicQxoNGMRL7Q_a99g1anrdOGfQAzROJ55U=
+PZwCxJ3LRXsr3zdViqOCvyCuU_fOBaL8gHOvwj2NtdKxPHwuzxHWXVn2IHqLGidiWpDSlAV3-bF=
+pC_x1ihMUa77kzn2-qdMwBFooMme_NNr2mQ7jVlIvNzy0svraJ52Wi4VhZzoL9hbCRwBTGuEdyX=
+9gPqBPOdRQF8yqlJCYQA0-GfEe3X9gUavoztIT2BbKvM35r5F2jb0hFtO5JTRzA3UIvbXuLfNuO=
+0diTqlwc0W2MFJlAkCZNGo5H7FnHtFcQMvekhCosQFn1dBvkaJ0yJbv9aizfQ5hPvQ-ep1NdfoV=
+_DeQzW9VuUWTwbsxxN5j_83f_e_a55rn61MBkX3IpBCo4sONGZvYrWFpQWmuWDzkTvI2H7yM3ng=
+uW6YzP58gT-ppRkG6MyTnQHaXe_8aUf7l3zLhPzD0J9r_UQ14JnwpjmPBlBYYL_uoxnqNfd9qHI=
+UC8QOrK0gIe9Ik3TsSYFttlAQ06G54E-AlCqcr39A6ZpZk5gQJYUf9cVTY3sXFqpw7mx1mMObDk=
+cUVp-ruiFRcwGF17g4nbksAbVXO7swUG1iymJYR1WTUutNy8n3LFUlwPfjoqgf2SsNO16lRAnjQ=
+yHgDY__fZFlyNldzQX2ckjnunfcLqcdrDhbBlfLkh37P_xPd5Y/tBy6MDGYGA0DeGJYUMuIMcmg=
+vEfuk1go/25" rel=3D"nofollow" target=3D"_blank"> <img src=3D"https://sli.bl=
+oomberg.com/imp?s=3D1149004&amp;li=3D20157889&amp;m=3Dbb4a280bebb1586390b96=
+15b8886024a&amp;p=3D10012026175838&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1=
+b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=3D550"=
+ border=3D"0" width=3D"550" style=3D"display: block; width: 100% !important=
+; max-width: 550px !important;"> </a> </td> </tr> <!--[if !mso]>--> <tr sty=
+le=3D"display: none"> <td colspan=3D"2" style=3D"line-height: 1px"> <a href=
+=3D"https://links.message.bloomberg.com/s/c/9Pz00mbRShi_yiSaVPenr-Gw4WJdQwB=
+pKn3kDBLqspHWdm5hQpcAADt0LvR-MwSrB2moLHSkrWJ1c-dqQlSzCT1wLSLnD4Op3T8ixzmDzX=
+iHFSyQDw--bMFm2I8GFYImkZ_uQiAZpfmdygNL--LX_CA0cl8qfkCCZGcS7k1D8BNo2m1HNxq6i=
+xqNLW1mm6caro5zNgHS9gH_6ZQ20ZyegGi1EfSGzPDVBQy11_9yVWlQEYaiQPPCS5ytPm49aMw7=
+POdWjIuvYie4KUzwLqvLxogPrcopPP8mjTv3_BT8T16oxYsoi3FKprWVl06KXYECJ5fFbrv5dY0=
+CYkcEiu1TjSlsos0yKTvm7olPG-4ruq20xhdj7gVi9ufeJMfbK0bB3TwDgRijSfGR0T4X9ZjAAO=
+2DqjOb-baL6AEozOkkoABwlf1iQAnAII8VaSI7ACgqGnWdA1SYwh3pRb2QML9c21yY6IQvajgeC=
+zLF0v9VW3WWcT0XgzzB6Lu5kaJ_6i7Rw86RP9SOqwHbTTw9z0ivPROXb2FM5d4mj9LUAhRa4kZb=
+gJbt1x92YHanAbGogTy1Frn-tao3yKIphUutD0SxYHPwmGqUtItBIYzWuERTKk-nDf8uZXhClLu=
+fEpYHyx4j3B5cI1mc5x6HZiFUZ6AzIXKFdwdz8r8k2aqm96UuYeO1F0yPfWh0-p4WTZaaQ3qT7M=
+xZDKLsAEclgIo/57QoM1OAb4KiMBu8ZIJOwHblad5rVKxA/25" rel=3D"nofollow" target=
+=3D"_blank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D1149004&amp;li=
+=3D20157889&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10012026175838=
+&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Ddefault&amp;li_=
+coord=3Dmobile&amp;collapse_width=3D550" border=3D"0" width=3D"550" style=
+=3D"display: block !important; width: 100% !important; max-width: 550px !im=
+portant;"> </a> </td> </tr> <!--<![endif]--> </table> </td> </tr> <tr> <td =
+style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt;"> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt; line-height: 150%; padding: 0 10px;"> <table width=
+=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=
+=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+;"> <h2 style=3D"font-weight: bold; font-family: &quot;Arial Black&quot;, A=
+rial, Helvetica, sans-serif; letter-spacing: -1px; font-size: 20px; border-=
+bottom-width: 1px; border-bottom-style: dotted; margin: 0px; padding: 16px =
+0px 5px;">Private markets are the new public markets: Performance fees</h2>=
+ </td> </tr> </table> <p style=3D"margin: 16px 0;">A simple model is:</p> <=
+ol style=3D"list-style-type: decimal; padding-left: 40px; margin: 16px 0;">=
+ <li style=3D"margin-bottom: 5px;">Regular retail investors pay index fund =
+managers fees of approximately 0.03% of assets.</li> <li style=3D"margin-bo=
+ttom: 5px;">Sophisticated institutional investors pay hedge fund and privat=
+e equity fund managers fees of approximately 2% of assets and 20% of return=
+s, or sometimes much more.</li> </ol> <p style=3D"margin: 16px 0;">One poss=
+ibility is that the retail investors are getting a much, much better deal. =
+Another possibility is that the institutional investors are getting much, m=
+uch better investment managers. Probably there is some truth to both theori=
+es.</p> <p style=3D"margin: 16px 0;">Of course this is a gross oversimplifi=
+cation. Institutional investors mostly don=E2=80=99t really pay 2-and-20 fe=
+es on their entire portfolios. Many of them put most of their money into re=
+gular stock index funds that charge very low fees, and some of their money =
+into =E2=80=9Calternatives=E2=80=9D =E2=80=94&nbsp;hedge funds, private equ=
+ity, venture capital =E2=80=94&nbsp;that charge high fees. But retail inves=
+tors mostly don=E2=80=99t have any 2-and-20 investments at all.</p> <p styl=
+e=3D"margin: 16px 0;">There are a lot of reasons for this difference, but o=
+ne pretty simple one is that US securities rules generally don=E2=80=99t le=
+t retail investors pay 2-and-20 fees. <a href=3D"https://links.message.bloo=
+mberg.com/s/c/vDLnmhUMkWtwSUAOBUfvQH8jMwI--HPjFgP2qA7FkSOr63fZGGUrqAvNvGGJm=
+tUBGUbqkwGGUbsKprL2swOtOF9ZPFYE-z7IG6zru79mGrpfT6tJb0T20WTcblV67e39uwr6DiZl=
+DlNNPdySpk82Ey6NzbkrP5-zq722SC3IY6TZ6-zfxoEEhfjvV7CXu-nHZsVevY3oRXSmqy7jr6o=
+NO0q3F5yyD93ieEVZVy32TLqiQT1dc4b9DZCfZb-BtBrhZ2jj4i4K369oF7iv6rpxuJ0QrnTv1S=
+YxrftCfwiIcpoEieJdPWCTx0I0l1oGC3p5BXvHB4iNAwveC5lp2bR1tgQrWseE13vuwqJYzUpQb=
+YskWERn0MZRRqMDqg/Lj0-EGZGRE7N3aFxCeL4_fy5NsuQL7Wr/25" itemprop=3D"StoryLin=
+k" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-=
+decoration: none !important; border-bottom-width: 1px; border-bottom-color:=
+ #000000; border-bottom-style: solid; background-color: #ccc;">US law</a>&n=
+bsp;generally prohibits registered fund managers from charging performance =
+fees, that is, fees calculated as a percentage of returns. There are except=
+ions for fund managers whose clients are all =E2=80=9C<a href=3D"https://li=
+nks.message.bloomberg.com/s/c/U-VLlV0yJeO39mDkrg2ZizirxBPWIHUwJzyq3Yi_CWLWj=
+9etYwyUvfSNtEtxFlP40Y5riK_SGuDKOtPQfFOAoLG29duSCX99X9W6rRJ018m-lkjtNH_C92Op=
+MiePjx1msQQELh8mVXlEYdgRjh7SuYl3nnGMSx1BgHhKqWgDdffXEktIUP3ngsM_4AI8DNCPSzN=
+CsKZmjt-o1TXqYNc-CV3I2nCI-69BWYTZ-zGcUo8JSFu-mKMNFng-rQtEiVEdccergAzses-moy=
+tBH5wwiNI-63NjoSZU9Q_L7W4_SMIYUB9OvzzdDCca7ngXAPLY-VAEXnit-qR5lfk0hO_WD1JEE=
+pY7-CpQsI5zdGeektv4DXvuF_YH46iVAg/O4uctvyoMLVGf0hCZ7VXTAtRxUP1aK89/25" item=
+prop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color=
+: #000000; text-decoration: none !important; border-bottom-width: 1px; bord=
+er-bottom-color: #000000; border-bottom-style: solid; background-color: #cc=
+c;">qualified clients</a>,=E2=80=9D meaning that they have net worth of at =
+least $2.7 million or at least $1.4 million of assets under management at t=
+he fund company.<a href=3D"#footnote-1" style=3D"color: #000000; text-decor=
+ation: none !important; border-bottom-width: 1px; border-bottom-color: #000=
+000; border-bottom-style: none !important; background-color: transparent !i=
+mportant; display: inline-block;"> <span>[1]</span> </a> So a hedge fund th=
+at takes money only in large chunks from institutional investors and rich p=
+eople can charge 20% of gains, but a mutual fund that takes money in $1,000=
+ increments from anyone mostly can=E2=80=99t.</p> <p style=3D"margin: 16px =
+0;">Here is an&nbsp; intuitive story you might tell about the effects of th=
+is rule:</p> <ol style=3D"list-style-type: decimal; padding-left: 40px; mar=
+gin: 16px 0;"> <li style=3D"margin-bottom: 5px;">If you=E2=80=99re very goo=
+d at picking the stocks that will go up, you would rather do it for institu=
+tional investors in a hedge fund or private equity fund<a href=3D"#footnote=
+-2" style=3D"color: #000000; text-decoration: none !important; border-botto=
+m-width: 1px; border-bottom-color: #000000; border-bottom-style: none !impo=
+rtant; background-color: transparent !important; display: inline-block;"> <=
+span>[2]</span> </a>&nbsp;(and get a cut of your winnings) than for retail =
+investors in a mutual fund (and not get a cut).&nbsp;</li> <li style=3D"mar=
+gin-bottom: 5px;">Over time, the best investors will work at hedge funds an=
+d private equity funds and the, uh, second-best will work at mutual funds.&=
+nbsp;</li> <li style=3D"margin-bottom: 5px;">The hedge funds and private eq=
+uity funds will outperform the market, while the mutual funds won=E2=80=99t=
+.&nbsp;</li> <li style=3D"margin-bottom: 5px;">People will notice, and tell=
+ retail investors: =E2=80=9CHey, the mutual funds that you buy don=E2=80=99=
+t outperform the market, but they charge like 1% management fees. You could=
+ just buy the whole market in an index fund, get similar or better performa=
+nce, and pay much lower fees.=E2=80=9D</li> <li style=3D"margin-bottom: 5px=
+;">Eventually retail money will all <a href=3D"https://links.message.bloomb=
+erg.com/s/c/BWV3CE9dJAdXuLgvN9EQLtZvUakkN8MufKZ8RkaMi_A4ln05bBKzi7w3sk0UBXt=
+QMNtTE58o74vWkg5GVXIp16D16dTcbOuQ3irC91WTOu-EaTXWE2j4gofnCoHZQ-MYbN8nnt1GXG=
+yfnBaCmJZFrkbo6iYDXKd3td_0AOf9WCaKlA_uC07gDuq-sIMftD5IqHHS-Pp-mzv26xHgZ7nYV=
+SGZq5ECl5svaJ2f-Q2ArgnZdL-YonkclcmEZ_wibwwIA0M9ftzTEpaWu1vixDiKHyYuG_TN683w=
+G7ijtn9h6qguF2Sn_lMKfokQ-_BiBkPPw2fKkfjG6eW_VKdjq6doBgSM_9zojfS8qDfysrBH6h_=
+iLQZmF7ifVVA_cQ/ad_AH4aB7XAoijsgZ_YZj2RYBwIlbGsD/25" itemprop=3D"StoryLink"=
+ itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-de=
+coration: none !important; border-bottom-width: 1px; border-bottom-color: #=
+000000; border-bottom-style: solid; background-color: #ccc;">migrate out of=
+ actively managed mutual funds</a> that charge 1% fees and into index funds=
+ that charge like 0.03% fees. (This will push even more good investors out =
+of mutual funds and into hedge funds or private equity.)</li> <li style=3D"=
+margin-bottom: 5px;">The retail investors will get market performance very =
+cheaply.</li> <li style=3D"margin-bottom: 5px;">The institutional investors=
+, in the hedge funds and private equity funds, will get above-market perfor=
+mance, and pay for it.</li> </ol> <p style=3D"margin: 16px 0;">This is not =
+the only possible story, but it is a possible story. Is it a&nbsp;<em>good&=
+nbsp;</em>story? Certainly it is better to get market performance cheaply t=
+han to get below-market performance expensively.&nbsp;<em>Possibly </em>it =
+is&nbsp;better to get above-market performance expensively, depending on ho=
+w expensive. This is a story in which retail investors have gotten much bet=
+ter&nbsp;<em>pricing&nbsp;</em>on their main investment (owning the stock m=
+arket), but maybe less access to other, cooler investments.</p> <p style=3D=
+"margin: 16px 0;">Yesterday the US Securities and Exchange Commission <a hr=
+ef=3D"https://links.message.bloomberg.com/s/c/soZmtHu42npe6WijWUG_pj4h7jAQE=
+KbrmLYkZcFP7ejgrRWnwZi6z0601iVt876Tg2_PRVuu8LbS0h_RT_M7EmjNnA3MdZYEY0mLxgrP=
+WbjubKFbk-aVlwDUoO5cmh2cvolEBWk24xS7hKe_pEImPpQ0xF4lvnurVlGkIgV_6SP5prm4WpC=
+ixb6VIr04nIru_tsyxfU-UR0WtQaro2Lnh3yGZX0hDCfgzwqWqm4cBXRlszhLihlfPiu6otlA6_=
+dEY1XrqdLyyldUylXNV-mla2q4W9m-9wr86COxh6vQcf5LkmGoU0fboS8xbloJSo-21kDPDiU-F=
+svFPa-8fLFgKbd7CoSeQoWUsECHhwSs4FZb88Kr2UQd1hKZNPY/afLjosDBypbthXsKgo38yrvo=
+Qm4KEdy-/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blan=
+k" style=3D"color: #000000; text-decoration: none !important; border-bottom=
+-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; back=
+ground-color: #ccc;">proposed a bunch of changes</a> to its rules to allow =
+what it calls =E2=80=9Cresponsible retailization of private markets.=E2=80=
+=9D&nbsp;The basic issue, which we discuss a lot around here, is that retai=
+l investors can invest in public markets, but not in private companies.&nbs=
+p;Private markets have gotten bigger in recent decades, and now a lot of th=
+e good cool companies are private. Anthropic and OpenAI are each worth a zi=
+llion dollars, and private. SpaceX went public this June at about a $1.8 tr=
+illion valuation, meaning that the first $1.8 trillion of value created at =
+SpaceX went to its private investors, not to public investors.<a href=3D"#f=
+ootnote-3" style=3D"color: #000000; text-decoration: none !important; borde=
+r-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: non=
+e !important; background-color: transparent !important; display: inline-blo=
+ck;"> <span>[3]</span> </a>&nbsp;This strikes people as a problem: Fancy in=
+stitutions and rich people can own the good cool private companies, but ord=
+inary investors can=E2=80=99t.</p> <p style=3D"margin: 16px 0;">If you thin=
+k this is a problem =E2=80=94&nbsp;and the SEC does =E2=80=94&nbsp;how do y=
+ou fix it?&nbsp;There are about three possible approaches. One is to try to=
+ get more of the good cool companies to go public. For instance, change the=
+ rules to make it easier to be public: Make it harder for public shareholde=
+rs to <a href=3D"https://links.message.bloomberg.com/s/c/pL4BbGazKtWSRllraQ=
+yvO3ckrvRXfh5U-rw8e3_PbUqE3HwvslVCAMKUbiUh1lc73K5W74zszWzkZHmXRapaArO-ptwsI=
+vkX-SCp-cv7qrGcW6G74TStajl4GKKiwER-3WQLTg-EKFvLhMewKI0mYLQuZRYKjbXli02kFR1f=
+KX4a6i0ujZ1Z5PRsFh69p5eQxF4TjXV1vLhgEyQYSJFONlwpA7sedDo3_BXkEILm4PAZPfn3Vi4=
+zQv04vTyQqImPn21OSsJSdpVrSbjCCP6mOqrmtjOqvsgkAkj7iiXwm7zD_9QICT1hDBnRjRmOEB=
+vXxl7p_IcyGAgbEKsPfNUevKUGHHWv3peeIAJJEfF3gBFqE36awPgNVdQaks0/MM7BpPJSB081V=
+mk8BVibNBurIAG0KVN1/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targ=
+et=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bo=
+rder-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: =
+solid; background-color: #ccc;">sue companies</a>, or require <a href=3D"ht=
+tps://links.message.bloomberg.com/s/c/8JY7YXUTQTXyD7OCZ2hX5gkRE__Xic2FM14To=
+fLhyuZhsq3wksBS3jZLnL_INohiBtkC-Wg3_RMpf7eRwzPkqekyuK4-0-jKcrhIda331kr82YKD=
+-4uxeO47DZtQym2lckQj4MbwfuiYsyb14csEZmgLmTp8RJv9ROKZcPDWTriknPeYmdL4vAH0aQH=
+y2hEenmXGAC601kz3RYlC3DArsRv2e-F8p41LdZ1bBG-L8aEPyJEbe5FuYUqArOM_UMAzHMgCoG=
+hOyBKgyyfEu5XU50Jyp2Nl6lQkTutNaNCOp3Bk-q2MtBAPV-rmo2b8U5S_hzgY44tXHhAdPPDWV=
+PbhvJvATHJKyGKAuQgMi4CHCIeZvd5kRcoRLqGJ3WU/nchCFzCGpj4Y5s215HKVJKllC2FZEg0z=
+/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=
+=3D"color: #000000; text-decoration: none !important; border-bottom-width: =
+1px; border-bottom-color: #000000; border-bottom-style: solid; background-c=
+olor: #ccc;">less public reporting</a>. The SEC is doing a lot of this. =E2=
+=80=9CMake IPOs Great Again=E2=80=9D is <a href=3D"https://links.message.bl=
+oomberg.com/s/c/Rmq-nZSCFpP-5qbQot6y49Dkj7alf5zvrkLF4MevJ5bdgejdKpRA769syQI=
+S4REBX9EZMkjKkHgwOFj4qa1n7lyyA52AS9KjPxSgtRLHO1QKhNrqO73dgoA2sb54Kfh6oBUnlY=
+TNPyJa8wYWn9J_QPDJ3fTqW_YKlEK39kOniZrog2LLwogSXDju2g6-d6TxTYy9fvnXFiyVCMWmv=
+yWe2WRIyCveEmbiQpplSaN-iAaNB5TIxHra0HsXol93oGxNuth4wHUh4GYH71wQd0jwQ7Afmf0l=
+50W9adJd6Q-jxFp4Rr4IUgub8-EbLNiCJRdfYoAT4rIPYLPf57s09hpVtYjHfK465TPddIeRqYb=
+YJ9JpVTZ2CCtiux_zQbg/8zt2NKbqAewPlDdDI25oMvgjQDsr3Y7s/25" itemprop=3D"Story=
+Link" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; te=
+xt-decoration: none !important; border-bottom-width: 1px; border-bottom-col=
+or: #000000; border-bottom-style: solid; background-color: #ccc;">the sloga=
+n</a> for this approach.</p> <p style=3D"margin: 16px 0;">Another approach,=
+ conversely, is just to let regular retail investors invest in private comp=
+anies. The SEC is working on this too, and&nbsp;yesterday=E2=80=99s announc=
+ement included new =E2=80=9Caccredited investor=E2=80=9D proposals that we =
+will discuss below. But you can only go so far with this: Just saying =E2=
+=80=9Cregular investors can buy any private stocks they want=E2=80=9D effec=
+tively <a href=3D"https://links.message.bloomberg.com/s/c/GPrQ4-y00XxkrbW9c=
+ZDLTccX1Ba0GQPNIfGfNL_yEx6oVU8xwUUk0uCtTZ6AI8LY2RKKua0Ogbngi4QqS75-ay-3eaRO=
+Gx9w-VS1nAl3dxN1vCaN-jLdfV_5YU4mICawM9gZZpt06oH56LiE49nAe8Lw4f0gHx-cDM3ffg_=
+jolFqjN6BBPJgytaQ94PVxgALUpjsiTERk1RoOpcDKPzH1NaqMdbwlyHFxvejiBsZ0lzeMmFMkm=
+OP2QG2-zIDmukriyT43I5qVRxCnoZYUvSPhxIK-f371UlE_wvgPnI6XPjj4cdErIrNienW9v7k9=
+eomTCF6WOkI4mlzZje8Zsy3DxVp6kSbE8Vudl1BTVZb9kJKSGsLvt76FDfUjfY/TZSYJnjLZKB1=
+-JbiErPqBXkwh1TbyQSm/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" tar=
+get=3D"_blank" style=3D"color: #000000; text-decoration: none !important; b=
+order-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style:=
+ solid; background-color: #ccc;">means&nbsp;<em>getting rid of&nbsp;</em>th=
+e US=E2=80=99s securities disclosure rules</a>, which have largely worked w=
+ell for almost a century. Plus regular investors&nbsp;couldn=E2=80=99t&nbsp=
+;actually buy <em>any </em>private stocks they want:&nbsp;Maybe the best pr=
+ivate companies would raise large checks from the best institutional invest=
+ors, the worst private companies would raise small checks from dentists, an=
+d <a href=3D"https://links.message.bloomberg.com/s/c/rC9rR2KMcTi5Vk_Ti843ZV=
+UdbKm_Lcd1iMSjc_Pvh-sl2M5Yz4Z9HjEI4K-39X5D_a3VHVH_oaUAmagkpW43NlpckJlTY3QHF=
+B1DB8k4DfI0ZK_c5Xdz0SSzxvnXzWL-CO0to3_xH1IljiQ_BJtBTPxro9JxPpAEOb0QxKlPlfL9=
+3BcN-Nxqw54GE5b44U-k_IQUR-qWEgFh9UFcynnWrbfxDJMA_z9cj1utngtTcKwt5acdppF3r0U=
+yMQw35GrjSlM3v03qonwj77ecGWhTOJxGwrQEUNbcmQyuiUj2hYRSewG37lBKyMRzGJLTkKNCk0=
+i5CZRCqZyrilqMoCzODLf22xjPZ50Ve6Qq76cgGDo-Bo7gPssm5tzFxIE/MWlKk5BwZRviuoFUm=
+ixF4rfdizrnvCAb/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;">retail would be adversely selected</a>.</p> <=
+p style=3D"margin: 16px 0;">The third approach, and the main focus of yeste=
+rday=E2=80=99s proposals, is to make it easier for individual investors to =
+invest in private markets through&nbsp;<em>funds</em>. Private markets woul=
+d still be open mostly to institutional investors, but those institutional =
+investors would include funds that raise money from&nbsp;retail investors. =
+Retail investors would get access to private markets, but not directly; the=
+y wouldn=E2=80=99t buy private companies themselves. But institutional fund=
+ managers who invest in private companies would have an easier time, under =
+the new rules, raising money from retail investors.</p> <p style=3D"margin:=
+ 16px 0;">One <a href=3D"https://links.message.bloomberg.com/s/c/_e1jfjMuXP=
+sL34Eokin7xxjAiEO5fR58SDGTe_QzI_FC4YpcIKQrGZt8ldAoTL-uzeDB4iwhMXf9uLTQXIJT3=
+G1PqrwVZVIfk6m7zm_UKUGcvFJObv7khmV4PbeVaiyNAPBGW93e-k3Y8rb4S7W9qKPRj7HeHAwm=
+BQpAzTvw18FNXeE5zT7W9gfz1Zvg9Q1RcMZiz6h5DMf4_lq0kzB50j0-a5e5-o6ow3FlzoFIPLC=
+jo-z8GDqHEBl7iAfYxn44TCHbaApf40GP9-7_E1LqcQVjxSPEkb2-HoFbpsrAESybhlD5uk1-kL=
+lUsLKQwIEw1yg-vaOeRrj9GxC9ZILTKyJAaYDJPJPFfcCvuFp-ShjJ9yH7voRMzpvmO98/7903E=
+FDT0XEVLkTHZI9tE0Juf1sCSIA2/25" itemprop=3D"StoryLink" itemscope=3D"itemsco=
+pe" target=3D"_blank" style=3D"color: #000000; text-decoration: none !impor=
+tant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom=
+-style: solid; background-color: #ccc;">set of rules</a> is about =E2=80=9C=
+<a href=3D"https://links.message.bloomberg.com/s/c/msS23BuHuDPcxf0CPGOoakO_=
+Wr7ygK0k4JorGuQXiJnd31YxRNyHVRf-iuYIBekFB75_FHaynEBobwHzsc7Gl28pB8h6Lu4YIwR=
+pkF5G8a1hawU6Q3lOyIiIcbevZPSmN9wyV4d1imt5PQDPBI1DBjUFelI8kqu5x-57sMljROg7d5=
+rvdsVFOFuyps8Z4K3tNIaqe7pSEBgkeFC5YoTZwEM5C-huvfLIbMFWZkS3xyE-qJrp_7ixKL2qe=
+rJttikta1BYT9_Niu3B4HiDcXTzJ6LaExVhKaS47_HS__H36GqPv83nq9A8q8DujCy3vVT5iH1l=
+k1PhzVjRqlDLp_G3h2CIbR2iI3NmBxWP50icfJXJ8b0H0rur26ixzpQ/8SmJpgbOAEQFvDWYcry=
+Rwpt6kFzrRS_7/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"=
+_blank" style=3D"color: #000000; text-decoration: none !important; border-b=
+ottom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid;=
+ background-color: #ccc;">interval fund modernization</a>.=E2=80=9D Private=
+ markets are less liquid than public markets. Public-market mutual funds ge=
+nerally offer daily liquidity: If you have money in a mutual fund, you can =
+take it out with one day=E2=80=99s notice. This is pretty easy for the mutu=
+al fund to handle: If you take your money out, it can sell some stock to pa=
+y you. It=E2=80=99s harder, though, for a private equity fund. The SEC <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/_gA8eh3Q1EQEjE49RTxp0tkLuIUA=
+TUPqcKt90iMv8I6NLWKpBZj6DDdfpPAsj4NML7UbUh9W5vpQHvUyngJScBMcehysTPcS5FuL5eq=
+U7b38Jst6KDX3yr_N5VW24ut5RcJ8KOyB8RUsXJ9mIItIUoLw_MRF2LGAl-JKA3TODskfz21AUi=
+cKWNWjbils-3tya1FNGhRbg5CIrygGe5o_qXlBpbQLJsJEqiwLzgk760neQYxxCWi2goD_d7LWt=
+xf_dQa_-qiP8NQBiWEFSG9teZPDj73Lz2iBrd7TQHk8qn5qrWGmt44NipdXMEqKrVVO4GDMIHfS=
+R9RMCsoNTzFX_g0sUYnVxwHbYpLlVzxbSYSP2PT7XqRuo_xKApw/Ofo_YSEAQrRzP839VRk1Qf2=
+Iw3eBzRRH/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_bla=
+nk" style=3D"color: #000000; text-decoration: none !important; border-botto=
+m-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; bac=
+kground-color: #ccc;">has rules</a> for =E2=80=9Cinterval funds,=E2=80=9D p=
+ublic funds that invest in private securities and offer limited quarterly l=
+iquidity. If you want to take your&nbsp;money out of an interval fund, you =
+can do it once per quarter and in limited amounts, sort of like the <a href=
+=3D"https://links.message.bloomberg.com/s/c/T-LqrZ_kPiGHnGGiDBBse5WSteFgyq0=
+xWm0VjJFO-9QU6SMZb0CryEDKYIu5sve8089lGyvDeIqqtSqvbGFLkIuIEH1ZFEskJhmP3LmUNl=
+l_BUoRCviLabUUBcBe_28Ve3vQsPZ8vAnmffjqvvGxZ_-3oxUUF8nLa8nfgkyluxi4Fk-LXNPxy=
+Ol5vsnlI_KAsPyv7SL6bqGJT2g7CaXrsMpe0ce6cN-l-hWuDolvIdI5GAJfb9ivyASHTcAFEPpi=
+WBy_-YSVi7Er63D4BPoRRbcupFYT-b9EdyA2_I7DUYdzaI7H4KmqQNOWfOk9vccMF71ukMXYHEJ=
+l6OzCySRLO7PX1C_MY-2lG_vyzRmu1iYGnqKYDMZs3QfeMzU/pRlWKhhAW3DZrydlQlcDsz9s7J=
+icUULp/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgr=
+ound-color: #ccc;"> non-traded business development companies</a> that have=
+ run into trouble this year. The SEC=E2=80=99s new rules will give interval=
+ funds more flexibility (to offer monthly instead of quarterly liquidity, f=
+or instance), to make it easier to run and market them.</p> <p style=3D"mar=
+gin: 16px 0;">The other <a href=3D"https://links.message.bloomberg.com/s/c/=
+Xj2iCU_6LR5Bgq-SvGpZsOEoqd81V4h3S3flYHdGJ_UkqJUDlHfJiGqTLF-jibVuIsnJAnsU_RC=
+0un18XkEDmF5LAnQ0FoqZOhYjioET7fTS7bYqjIMoWq5ZTRj6TaLDcUUZvoQnDldTCaQZ0OPLeJ=
+e9GvHBZZNp7fCIApOq4LIBrL6DPjYqzcab9RmGeaAlAqGWXTFKZWlJG-I3hltUezETDq-5MxLp3=
+OPaenIgyb0YE3ICd-balvgcCieAB3QIcTQ18o-bNsgY_RuRG93ptFY-vZaPX1C8HVFKTfmSwCew=
+eFdVYKXktwuXVyNkk5oSrXnu6vXLzEx7qNRCxk2Q2VbTukILqpYm7fR7pFWQzFIxIcp0vY_T98l=
+6srI/AHfAzdxAyacMFFiiHbI2nWd0z7p15HFm/25" itemprop=3D"StoryLink" itemscope=
+=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: =
+none !important; border-bottom-width: 1px; border-bottom-color: #000000; bo=
+rder-bottom-style: solid; background-color: #ccc;">set of rules</a> is abou=
+t <a href=3D"https://links.message.bloomberg.com/s/c/eYsvuG5Zdj-QyhZgjEU88r=
+0gc9zhd5FT-NkY-Op0Eg9vokEcVSUYeAsbJV0hAtLPje6jsJfkKcwXHnc10eO2UyXeRWPxmZUqq=
+5HDta1UZ-jf7ScI81BubzB7ypk4CKj3PNw1M2Enisy0KGowZhUPnNRInmYTVKL3n0nExJBs6rdO=
+GwAnPgokph8cyrqZ2SvPUmXF5D7TeQMe_kJ_CDWM06pmTQyvtj3Quer6eNSJj2eH6aYyDp0-I6l=
+RxdhFi9lRGPJfMVfJd9-fL8RHWqrKodrOG7Yzjlwc5aDa-QH7bKXzuCl5JX9RC6w9aqQUyDZx2m=
+GxaFo29ylTeYrI2Dtso4rdjomNSMpdHVhm0VQ51dJ-RJPU-zMeWLw3h9Q/wNEyIVGt-QlkQf9lU=
+I-_oyByy6S4YWPK/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;">performance fees</a>. Basically: Now you=E2=
+=80=99ll be allowed to charge performance fees (up to 20% of returns) to re=
+tail clients. The SEC says:</p> <blockquote><p style=3D"margin: 16px 0;">Th=
+e use of performance-based compensation has long been a common and defining=
+ characteristic of investment strategies that are associated with private f=
+unds, such as hedge fund, private equity, and venture capital strategies. B=
+ecause performance=E2=80=91based arrangements have traditionally been assoc=
+iated with private funds, access to these strategies, as a practical matter=
+, has been limited to a narrow group of eligible investors. By permitting s=
+imilar incentives to, for example, advisers to regulated funds, such advise=
+rs may be more likely to offer private market strategies to regulated funds=
+.</p></blockquote> <p style=3D"margin: 16px 0;">If the good investment mana=
+gers can charge retail clients the good fees, the thinking goes, maybe they=
+ will sell them the good products.&nbsp;</p> <p style=3D"margin: 16px 0;">T=
+his is not the only possible analysis, of course. The <a href=3D"https://li=
+nks.message.bloomberg.com/s/c/UC9S1DL8uRm6T6Cu4PEjYVSo7fjy2CeQpzOFeZ5LZB7Ip=
+e1MOGyKeuXIKFBKhpwp38XYpm4QOoe9oWbp6fKmtNQPueMV7xwZUk36VZCanfLZoTTTZpllLIQj=
+a76vFWTGbLdWN__PQ6QxlZjDhokLk2xknI8_W9-iMgXFEvxDzpV3Q0gbft5omQJ3lZyJFmfIYLE=
+3gBnJ50E8GiWpBrYkgVmYLX1tlN7vxYAfaY2laS5Q2K5YHjGgDyKs0eqUkNHP-E47Nmd_2iIDWx=
+OnWshIygLxjc9wZV9Qut7ACU1STDSG1w1VO6UfNIcylg5Sr-vx3vwMIhmJ18SakhaL-1jgt5fAD=
+NJo15KlNd5A7ysHz76v0mAXj-HJLjTwaNQ/Yqhe12KYDoVRS4YVxUisUYSg99mlaL1f/25" ite=
+mprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"colo=
+r: #000000; text-decoration: none !important; border-bottom-width: 1px; bor=
+der-bottom-color: #000000; border-bottom-style: solid; background-color: #c=
+cc;">Wall Street Journal notes</a>:</p> <blockquote> <p style=3D"margin: 16=
+px 0;">Expanding the pool of potential investors is a priority of the priva=
+te-equity industry at a time when many institutions such as pension funds a=
+nd endowments are pulling back from the asset class. The industry=E2=80=99s=
+ main problem has been its inability to unload companies at attractive pric=
+es, leaving a huge backlog of unsold assets.</p> <p style=3D"margin: 16px 0=
+;">Private-equity fundraising has declined every year since 2023, a trend =
+=E2=80=9Cdriven by underwhelming returns=E2=80=9D in the period since the f=
+rothy postpandemic years, according to data-tracking firm PitchBook. U.S. p=
+rivate-equity managers raised about $160 billion this year through June 30,=
+ roughly in line with 2025=E2=80=99s muted total, PitchBook said.</p> <p st=
+yle=3D"margin: 16px 0;">The SEC=E2=80=99s actions could help relieve the in=
+dustry=E2=80=99s challenges. =E2=80=9CWe appreciate the SEC=E2=80=99s recog=
+nition of the longstanding role private markets have played in securing Ame=
+rica=E2=80=99s public pensions=E2=80=94providing strong, stable returns and=
+ vital diversification for decades,=E2=80=9D said Will Dunham, president an=
+d chief executive of the American Investment Council, private equity=E2=80=
+=99s largest trade group.</p> </blockquote> <p style=3D"margin: 16px 0;">If=
+ the good investment managers can charge retail clients the good fees, <em>=
+maybe </em>they will sell them the good products, though right this minute =
+the actual products are arguably a little tarnished. But if the good invest=
+ment managers can charge retail clients the good fees, they will definitely=
+ charge them the good fees.</p> <table width=3D"auto" cellpadding=3D"0" cel=
+lspacing=3D"0" align=3D"center"> <tr> <td colspan=3D"2" align=3D"center" va=
+lign=3D"top" style=3D"padding:0 0px"> <a href=3D"https://links.message.bloo=
+mberg.com/s/c/WU8-5ot4NX6zhRRVwzHWcDKBj6MckMieRcajPLrmBAsyUJkMsxU0Pg0aNljrm=
+Zovt9I53vwOAkpqZAKrB7gJupAoJts53s2e2ByIns_icVdYZfzWqCd9JDO9Zs2r9ILi4CUVyOaF=
+3tz9iOCUIfHQNY_bSOHAS0S1GaRhpucym6jmWEuQhdmDcGQlq84G41h7oHctUtzqQtIUzfGiB2K=
+x2oYgOWvK6d7HnF_hmX1uTnAQNUriG4WiTOIOJHNiQevRngIrdbEoR_XSYhdxA8UNMRo_KkONy5=
+8ffpTDCb0J_ZgNULk6GabUDE9t33oBF-JCmoKre1w3J241wNL3N3LGwVpthJRwIkbMz4HpYmi7b=
+tupu8c0aTcauMazgxHyXb-PRxK66no1Adw7V-u7ZleVvE1y8b6Z0B4oIKz8FFoL_5YVUoe9am18=
+YiN9LrWLBQiTQFdaJ3RchvfB6hIsSE4cmVPPYc6ZkeRC56YuOIY6oMZWoChpohcHP72mM8EsZr3=
+zuEzmEGvPNtHGCsOkHpK8us7y5F8-SYh_yUXwW8ugs_ojvutDhDZoZ0YfBPENy3Wue5Dcy5yYkY=
+wUiCmASNmSHDOwyBQkv-TLi1EwJ0pN3Z-kcHVxU0A2r6FiFDIIuhc4nMetisaNiuIoobQJOr6Jp=
+kX9N7OmqnpviHoS1a8pwFhJOg9waJ6d4oQ-ZtXJja3brbkCrtsL-w7u1g/wZGo-LhY3X9hkJks5=
+fLU56ZOyscZQJjB/25" target=3D"_blank"> <img src=3D"https://sli.bloomberg.co=
+m/imp?s=3D868432&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_wid=
+th=3D550&amp;li=3D20157889&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=
+=3D10012026175838&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6" width=3D=
+"550" border=3D"0" style=3D"display: block; height: auto; width: 100%; max-=
+width: 550px;" alt=3D"" class=3D"lihide"> </a> </td> </tr> <tr> <td colspan=
+=3D"2" align=3D"center" valign=3D"top"> <!--[if !mso]><!--> <div style=3D"d=
+isplay:none; overflow:hidden; width:0; max-height:0; line-height:0;" class=
+=3D"lishow"> <table width=3D"auto" cellpadding=3D"0" cellspacing=3D"0" alig=
+n=3D"center"> <tr> <td align=3D"center" valign=3D"top" style=3D"padding:0 0=
+px"> <a href=3D"https://links.message.bloomberg.com/s/c/eqSP6SvSMojtoTVztj-=
+MkRRkKYaaoVVumusGBwmQGtJZj4n85UpAf7FEj-sK-jBLz74w1YyxBp-RPY1wCX8cni177sxrRA=
+IWoO8U3aqosbkWl0RlGvSj1xKZ76nuHdkQFG1SvgWjj-nr7iU101GDjWqe6S8gIn5GLVnM3qHc6=
+OyMiy--dxx-5wkL26qSNZdwfuh0CfKTip6zk_g6gOUmKN6tLMn4-IyqtrqxiVgzYufD1V_F4GvP=
+ca4r9dsQADAl3GNekyZ9GCcdoi3YT-aPmjNtIBM9MyOsul9sR-M6eXH3V5EnmKSW4DPrFsJkxbz=
+vXFp18OJ8v7ojDk3KgT7Pfm6huxUqBZqKWfFw8GrbrcophW7pOhqp1miiXKY-25bs90xNaAuUXg=
+7qhi4XUAmQw875izNo1XQfzhWKBsFNoVOA_6cGd6brsJA-owYow7kMY_hVJclxElf235Usv_AuX=
+nmn-d8aWSfR14kEzuUyJlIZz-9hjJa-ILvoyZqnPvU-Pf7oYuD6aj6xtgy6P6JoH9xhLeWl4jXv=
+heWHTETOFoRm0gl2fFwChV9K8aWVXIOUL8Rq4hQRPsAazx17i5RXoQ8gDznR-66PfWWd0CtchRJ=
+6FgNERzfPwS_tT6pxVfRSzNQGMwlaQV2g-yoMLudR0yK2zTi7u-ai-69mWMuwaHVizvurotUgaw=
+Dnut5pz7gvLE9LxtjYzYvcqA/JvI8V6v227Oz40cbD9KMwSO3guMK919x/25" target=3D"_bl=
+ank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D868432&amp;stpe=3Ddefau=
+lt&amp;li_coord=3Dmobile&amp;collapse_width=3D550&amp;li=3D20157889&amp;m=
+=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10012026175838&amp;lctg=3Da3e8b=
+6e3-e359-4066-94ef-329d1b0625a6" width=3D"100%" border=3D"0" style=3D"max-w=
+idth: 550px; display: block; height: auto;" alt=3D""> </a> </td> </tr> </ta=
+ble> </div> <!--<![endif]--> </td> </tr> </table> <table width=3D"100%" bor=
+der=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-col=
+lapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=
+=3D"font-weight: bold; font-family: &quot;Arial Black&quot;, Arial, Helveti=
+ca, sans-serif; letter-spacing: -1px; font-size: 20px; border-bottom-width:=
+ 1px; border-bottom-style: dotted; margin: 0px; padding: 16px 0px 5px;">Pri=
+vate markets are the new public markets: Certificate of Smart Investment</h=
+2> </td> </tr> </table> <p style=3D"margin: 16px 0;">Like I said,&nbsp;<em>=
+most&nbsp;</em>of what the SEC announced yesterday is about getting retail =
+investors to invest in private assets through&nbsp;<em>funds</em>. There is=
+ one exception, though. Private companies are technically allowed to raise =
+money from =E2=80=9Caccredited investors,=E2=80=9D a term that has traditio=
+nally meant (1) institutions and (2) rich individuals. Over time, this cate=
+gory has become less exclusive: The main ways to be an <a href=3D"https://l=
+inks.message.bloomberg.com/s/c/ohOvPYc-ydeexwcnDFMdWG1RPXDkTwPpqnjnKkyCM2I8=
+yohu6uTExLPgZp8BzwE7CvMzjSo7IxFd1jy0UZmVZWCdVKYhRHJt7XqIRW-wsATPyCPhqasw-Q0=
+9tRo-cCvATOQQv_2LWp3T_IjtWfarPA03wGYvCDCvesunyIxAQd1KYfi1EvE2nOGQCZp2zzu2JK=
+l14XhbNZvdH_ZvEktMOKJyqeD-Uib0Lq5qAqSP1TnaQ1Cdw_sk9-jYtTPm51kLf27zXoTayYnYg=
+F5VRD3swnSmaN_24JaJImWsFMHcWeUqVTO3neCy9YYWkQQCnt3afOd7GbYgR-q5e4zqEyzWwPVx=
+RghFw2cFHC9VehYgrzjSlXQ9_-aGtsZ9170/QSAAvKowTqYDdNfCyJ0DIm6Dlef3NKtV/25" it=
+emprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"col=
+or: #000000; text-decoration: none !important; border-bottom-width: 1px; bo=
+rder-bottom-color: #000000; border-bottom-style: solid; background-color: #=
+ccc;">accredited investor</a> are by earning more than $200,000 per year ($=
+300,000 for married couples) or having a net worth of more than $1 million.=
+<a href=3D"#footnote-4" style=3D"color: #000000; text-decoration: none !imp=
+ortant; border-bottom-width: 1px; border-bottom-color: #000000; border-bott=
+om-style: none !important; background-color: transparent !important; displa=
+y: inline-block;"> <span>[4]</span> </a>&nbsp;The rough numbers are that ab=
+out <a href=3D"https://links.message.bloomberg.com/s/c/11g-3VtMXEPlPFa-jLLs=
+v4olcpScmbXRJ5dSjVGn7IBIDX5W4-xGlNsc0cSJCx2GhovJSrELaYqsg7vOxbVl3CAnBEPNpZm=
+LRwm193fBtbWly4C8OIPhLBHFqpZ3itNCtTIUwvZ1AnkDxzQeXdLn1v7HeNw9yAtKvsEQpxrlN1=
+P18WpRDP19Yybqj__nnQuFWg5fTyOoaOu9-CrOTgZlyIqCka9QpKqYAc4KD8MKuxxqkMoXMO_SM=
+piiR9-UFZ1capItiXhxiWlFpmC6UlKN3xsrDdx74BW1WwmoCa9TcN5aPNmDt48ePA93RFuSOLdk=
+6r-gDZtShNcc0Dc4ZgPZl6ooxtpfbPPQqeZp-0mOvv_QawaZ_U4Qdw_O_q0/NH8YEBeUaQBD6G7=
+fFVqnc36b9VnfqdD1/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;">18.5%</a> of US households qualify as accredi=
+ted, while about <a href=3D"https://links.message.bloomberg.com/s/c/uE2NgO6=
+Oc00mTfNg9AkwVu0Q3C22p8uq2kJIKLaWRqd8UxH0_SULXhEYSyCJSnTRvQx1dWzbSjCGmmQgNr=
+VGaudnzXeq596i71bbXyX9QZUQaCILauACZN9tmk5KZZ3L6lhwE262fwFcTpfsOB42z48p5RTRP=
+K16OEeH6W_UWbqkYTM6nt0VYJr-f6uhk5fSv9ACkzwQl1xyvVxT-UH-xBXIJbcqf_uWnjw6jMJQ=
+f6fnMTIO8_RwJQfW4biWRR0zCIn5A00Yx-KUD-aNTdK-crnImu4yQXzYFh36OhkPBnQGLzGWANN=
+qM7zRsP2hd2ALPgXzg23yFpQebjhKYsIhL892ThRwR1bCjPWR912Gp4Zf7oVBCUZkN2EzxXI/vh=
+6T2yG2mN_s7_ObACJl9EfNf4-elQ6R/25" itemprop=3D"StoryLink" itemscope=3D"item=
+scope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !im=
+portant; border-bottom-width: 1px; border-bottom-color: #000000; border-bot=
+tom-style: solid; background-color: #ccc;">21%</a> of US households own (pu=
+blic) stocks directly (as opposed to through mutual funds). So, as I <a hre=
+f=3D"https://links.message.bloomberg.com/s/c/te5sdbs0HeKgVh6cBPj4_3gQeGm_P4=
+myNNsHOKJQ4N3MV-5DbJ7NRwDUwggjKo3dmjZYes01vx6xgKuT-hUYBQHf3T-oVFM2IEDjN7gML=
+SjSmeAuBn4hVwm14To--eBqnKZb9q8yo_RSTmvI7vcNrjL4YbmSj7g4pMoNrEziNSVKO723L4ax=
+Zwjpza5Sb1nVHhbSlrXIC4LqhIoCuxYKFbsFZPxxhVdUFnSuClg-IPwazaY71ZoYX2uuCWxXiHk=
+LBQ-lAsGYAq0UGbJKH8r1yCbIiiCiE1xvGaSTg_rWbPzwKkLB5HZJvSpVw9fBfyQXuGY_YiuwOE=
+XmnLrhEm8kCukAgYN1ye3i7rPudMDNJDdpfTZ7exOWfHltcpw/wI0n8NTWpkfFCZYtYvCyTRvnM=
+KGHtWVC/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank=
+" style=3D"color: #000000; text-decoration: none !important; border-bottom-=
+width: 1px; border-bottom-color: #000000; border-bottom-style: solid; backg=
+round-color: #ccc;">have written</a>, =E2=80=9Cthe pool of people who can b=
+uy private investments is about as big as the pool of people who do buy sto=
+cks,=E2=80=9D and the accredited investor test is not that high a bar.</p> =
+<p style=3D"margin: 16px 0;">Still, it feels very elitist to say that only =
+wealthy people can buy the good companies. The theory is that wealthier peo=
+ple (1) might be more financially sophisticated and (2) can probably afford=
+ to lose more money. But it=E2=80=99s not obvious that=E2=80=99s true, the&=
+nbsp;rule is controversial, and there is a widespread sense that even peopl=
+e who don=E2=80=99t meet the financial thresholds should be allowed to inve=
+st in private companies if they go in with their eyes wide open about the r=
+isk.</p> <p style=3D"margin: 16px 0;">What does =E2=80=9Cgo in with their e=
+yes wide open=E2=80=9D mean, though, in practice? I have, like, seven-eight=
+hs-seriously <a href=3D"https://links.message.bloomberg.com/s/c/BtiopjHMOHK=
+KW3zPEG4sReL-vWkkroOUxhI81CLagTtkavVYgyfw_w479VvYf2nap4r_uAEY-JWQe3S9h5hdRx=
+l8ZLv35cKj94GzjRzME_7WPuGOfmOzrF9fNF6kb_ejMRFxt4Kv2T53OZKGI8kVX9QsNmdxs34eU=
+McML_D76_Fpx6QxaLdEnScLCSM3MduoMbm1KWtyRusS4fSYSk8qNL8vXgk7TS29WGA7pwrCs_Uu=
+TbJoYPifAGWz0aYB3c0_ENR7qWmWDjvPhTX9z_db1pOYowJfL1eFuGmL8nknlifZnkCodRXZScF=
+o9cqldxkXzbohFC98QtlB2ak8DkZl9Tui0hsCr4jyZ5qyvHLh1GswouhwR6FqH8FB_iY/warj4t=
+1aq96rE0cs7QqArwqx6N75FtMC/25" itemprop=3D"StoryLink" itemscope=3D"itemscop=
+e" target=3D"_blank" style=3D"color: #000000; text-decoration: none !import=
+ant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-=
+style: solid; background-color: #ccc;">proposed my own non-financial test f=
+or investor accreditation</a>. In my version, if you want to buy weird priv=
+ate stuff of any kind, =E2=80=9Cyou just have to go to the local office of =
+the SEC and get a Certificate of Dumb Investment=E2=80=9D:</p> <blockquote>=
+ <p style=3D"margin: 16px 0;">To get that certificate, you sign a form. The=
+ form is one page with a lot of white space. It says in very large letters:=
+ =E2=80=9CI want to buy a dumb investment. I understand that the person sel=
+ling it will almost certainly steal all my money, and that I would almost c=
+ertainly be better off just buying index funds, but I want to do this dumb =
+thing anyway. I agree that I will never, under any circumstances, complain =
+to anyone when this investment inevitably goes wrong. I understand that vio=
+lating this agreement is a felony.=E2=80=9D</p> <p style=3D"margin: 16px 0;=
+">Then you take the form to an SEC employee, who slaps you hard across the =
+face and says =E2=80=9Creally???=E2=80=9D And if you reply =E2=80=9Cyes rea=
+lly=E2=80=9D then she gives you the certificate.</p> </blockquote> <p style=
+=3D"margin: 16px 0;">If someone sells you a dumb weird private investment w=
+ithout checking your certificate first, they go to jail. But if you get the=
+ certificate and then buy the dumb weird investment and it goes to zero, an=
+d you <em>complain</em>, <em>you </em>go to jail. Caveat extremely emptor!<=
+/p> <p style=3D"margin: 16px 0;">It is safe to say that nobody agrees with =
+me on this. Instead, everyone else thinks that the way to ensure that retai=
+l investors go into private investments with their eyes wide open is by giv=
+ing them a Certificate of&nbsp;<em>Smart&nbsp;</em>Investment. Like, you pa=
+ss a test of your investing knowledge and acumen, and then you can buy the =
+dumbest stuff imaginable, but you won=E2=80=99t, will you, because you=E2=
+=80=99re so smart. Right?&nbsp;<a href=3D"https://links.message.bloomberg.c=
+om/s/c/auwa7alDpS8xNdtLyqR6pxfV5vJuATkq8QBQlSOmnSpovwFtiRqSZUxRZFjRQKYP4CBX=
+YIuF0ljiEs7xXW8aun79cPqKW-7YuIqCZea8-01RqwnP-Y2FgHCZlwS0z7NkjiB2_85CEouKjne=
+MHZJNhUKh6W7Gi-jqqnYMSYnygsE5Dl__Q0B_rf3mrpJkq7ujmTLSLrs6j-k5wg50lzDwnTQT_J=
+eEhc4NejiulyLuGrIZloufK_1H90hVPpfcMG__23iajFTq4Q_frRbQK018NmYOsfoer1wH3bO2B=
+ManVPnIJMGuPTPsNUvQ77CT5jjnuRh_vNmwzW7fbCaBu79lmkNturGSXHz-krHdaMDnCmCwPKIl=
+vjN0TrVjfxI/Rzg2vpoO8jLdQVVSZmpf1v6tkgH5YWv_/25" itemprop=3D"StoryLink" ite=
+mscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decora=
+tion: none !important; border-bottom-width: 1px; border-bottom-color: #0000=
+00; border-bottom-style: solid; background-color: #ccc;">I once wrote</a>:<=
+/p> <blockquote><p style=3D"margin: 16px 0;">The essential point about the =
+Certificate of Dumb Investment is that it is <em>not aspirational</em>. It=
+=E2=80=99s <em>not </em>that you go to the SEC and take a test and get 100%=
+ on the test and they=E2=80=99re like =E2=80=9Ccongratulations you=E2=80=99=
+re so smart=E2=80=9D and you are like =E2=80=9CI know right=E2=80=9D and th=
+ey give you the Certificate of Being a Smart Investor Who Can Buy the Good =
+Investments Now and a little button saying =E2=80=9CSMART INVESTOR=E2=80=9D=
+ and you walk out of the SEC office wearing that button and you are absolut=
+ely <em>mobbed </em>by people selling structured notes. People selling fina=
+ncial products <em>love </em>investors who think they are sophisticated.</p=
+></blockquote> <p style=3D"margin: 16px 0;">Anyway <a href=3D"https://links=
+.message.bloomberg.com/s/c/aCylULjBprsjxg7eNbRQL7h0kQ6zmEahzpfK_XWEW7oGglJr=
+9mrk4XE0AjQdnqNOiWI2thwTZIrcmtmbtfW1_jacAGrNi4-fj4TAWhB-NbaJQFeIKqdYZucWmV0=
+TlK14f6_vYPcr37-C7M350zEwQwM1l16YvIl8adBGqiuLpCw8KXKt1GV-BNa6bFRO6jUoT2fyvE=
+vTMo6VjDVm8ey8ixYoWjnadQuf2dqyIfO38Be2UA7DWm0E6h0W33ZaOd27aEWhNC8gYAha5d-Mg=
+9loagkZYOStv2M1kK9kG7NdIKtfp0NwWlCvhrbhFK6Qnt8XVpoCb7unEJKvC2CGJqxWuMByGqtj=
+uNCrDl9DDj6q3T8g8KEPak6I9JqwhTk/PWl93j4_dx4HSQXFnpK7p_ZOo2mLNLCy/25" itempr=
+op=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: =
+#000000; text-decoration: none !important; border-bottom-width: 1px; border=
+-bottom-color: #000000; border-bottom-style: solid; background-color: #ccc;=
+">yesterday=E2=80=99s SEC announcement</a> also includes a Certificate of S=
+mart Investment:</p> <blockquote><p style=3D"margin: 16px 0;">The Commissio=
+n separately seeks comment on the potential designation of the passage of a=
+n accredited investor exam to be developed by the Financial Industry Regula=
+tory Authority (FINRA) as an additional method for investors to be accredit=
+ed investors. An exam would provide a non-financial pathway for investors t=
+o demonstrate their sophistication in the areas of securities, investing, a=
+nd financial and business matters to appropriately evaluate the merits and =
+risks of a prospective investment.</p></blockquote> <p style=3D"margin: 16p=
+x 0;">Here are <a href=3D"https://links.message.bloomberg.com/s/c/4-40gvLcu=
+3nV2hGuP8duDwhFeiq1LLo9QrawpaXmkSYUwF2xpbr97Any0LzB2TGyWSpv41Y-rRDeTuyqm5WL=
+WudjHWA46C22MnqUQ96x2EqKqiRDSF54EFI3kwjtiUSTQiB_yOhtCkXsSrs7uZiJ85yUb6QNlOi=
+dgblSy89LQwNrwtEHrMVcCAQvFAtWndCUaw8-ic5TSX8xpGRUqX9IQiwBBLol19q3pIWgiNqcuK=
+MZpNGiH_FuvP7GmK0Q__uTk5LWkx6C__nvBL5quUFCgUbmMa3unOOCIHtNA7g1Hg0t-nXG-VpS9=
+ZJkP7OOkIZ8hGgYbDBExpkcALxZv0nNgh8it35YYWN_oZf4T7XZ41Kh8f1rhdicN75VWJU/pdUR=
+rb19bXlwW0Ekkx31Q7g5NWobU7Iv/25" itemprop=3D"StoryLink" itemscope=3D"itemsc=
+ope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !impo=
+rtant; border-bottom-width: 1px; border-bottom-color: #000000; border-botto=
+m-style: solid; background-color: #ccc;">more details</a>. A sample:</p> <b=
+lockquote> <p style=3D"margin: 16px 0;">The Investment Risks section would =
+be designed to test knowledge, comprehension, and skills with respect to th=
+e risks associated with exempt offerings. For example, this section would t=
+est candidates=E2=80=99 understanding of liquidity risks (e.g., resale rest=
+rictions, redemption restrictions, and risks associated with potentially lo=
+nger investment horizons), issuer performance history (if any), concentrati=
+on risks, diversification as a risk mitigation strategy, investment specifi=
+c risks (e.g., dilution), the use of leverage and its potential to amplify =
+losses, and the impact of fees and expenses on net investment returns. =E2=
+=80=A6</p> <p style=3D"margin: 16px 0;">The Financial Statements section wo=
+uld be designed to test knowledge, comprehension,&nbsp;and skills to unders=
+tand different types of financial statements, financial statement numeracy,=
+ and investment-related ratios and metrics. For example, this section would=
+ test candidates=E2=80=99 knowledge of the different types of financial sta=
+tements (e.g., balance sheets and income statements), GAAP versus non-GAAP =
+financial measures, and valuation ratios and metrics (e.g., debt-to-equity =
+ratio, current ratio, internal rate of return, and bond calculations such a=
+s yield to maturity).</p> <p style=3D"margin: 16px 0;">The Conflicts of Int=
+erest section would be designed to test knowledge, comprehension, and skill=
+s with respect to a variety of conflicts investors may encounter in exempt =
+offerings. For example, this section would test candidates=E2=80=99 underst=
+anding of issuer and affiliate conflicts of interest, intermediary conflict=
+s of interest, insider conflicts of interest, and investor conflicts of int=
+erest (such as tiered information access and other preferential treatment f=
+or certain investors).&nbsp;</p> </blockquote> <p style=3D"margin: 16px 0;"=
+>Sounds sophisticated.</p> <table width=3D"100%" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-=
+table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bold;=
+ font-family: &quot;Arial Black&quot;, Arial, Helvetica, sans-serif; letter=
+-spacing: -1px; font-size: 20px; border-bottom-width: 1px; border-bottom-st=
+yle: dotted; margin: 0px; padding: 16px 0px 5px;">Shareholder voting</h2> <=
+/td> </tr> </table> <p style=3D"margin: 16px 0;">Every year, US public comp=
+anies ask their shareholders to vote on stuff: re-electing directors, appro=
+ving executive pay, (<a href=3D"https://links.message.bloomberg.com/s/c/D-Z=
+hxb1_RPHnlG9G_8yV98UXujjiEayiesk3FUMIjyZw_2kjkjyjdR1V4lJFeqOBlKW3CJv7xyl8AJ=
+XtQz_xyqfVHTdsWBGjOLSKD_tWaR79_TlOMLcHqtM0dhrpJ5gtSTUVyl-6qh-hLfgr1VQ2bVrFd=
+7TOXChd53_QgPUQmo65jD8F7aizYxx4jmr7KRlWaMjZ6uihAK5sFAsVCmgxEPCpaV2uzNo2Z3-V=
+zMEeaIW3sArAvmdDzE_vNS6Nv80ta80hz4QhI2wyiU-QjH1TJsCoZKETAA_n2CI16K3170UwnQD=
+1in4uC2-4SMvUrbsrdN9uLTu9umCzqjxjxBnKGPXT4e7G8L3C2STNPutdZV5QGANgD6ElHbDu7W=
+g/wdjTnKexxv68MQfGuP40OUajMGe3RQee/25" itemprop=3D"StoryLink" itemscope=3D"=
+itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none=
+ !important; border-bottom-width: 1px; border-bottom-color: #000000; border=
+-bottom-style: solid; background-color: #ccc;">until recently</a>) non-bind=
+ing shareholder proposals. Some shareholders pay attention to this stuff, a=
+nd vote. In particular, institutional asset managers tend to think that the=
+y have a fiduciary duty to pay at least some minimum quantity of attention =
+to this stuff, so they will normally vote. (Many have traditionally paid th=
+e very minimum quantity of attention, and just outsourced their voting to <=
+a href=3D"https://links.message.bloomberg.com/s/c/JkX62asfPghydNY5lAeB7ePCI=
+51JRsDaNJ9rU-mEb_uRFYloVst4HY28TSeTL60Ibmn8gOCQ6QnNT5N2xHTXS7qrJ-ZSMiBoVcz-=
+aMCjmFKD86QC5DNXH4XxOEdQ46I8nJdjJYojeTKN9KvHhaFY-5jd4jg4Hk8cwq6JqHpCMWu9GtY=
+SBam8p6veByhCdZIK4Oc7h4KEH5I1SCJBUIEJ-fyK6qTKIjJ40aJ7-34vX_P-kvF97fm0MBfs1p=
+QCQpm_AKyH4yRSAANRBz2HcIwH07dGX3mjrAI4g2xlhQ49zvFOZIwDrdgpX41Z8bbFgSqi7Z6o2=
+RsmWo430SpvORs9gu0znY7QW8aopMHX6AMCE6_ZCI54h4EUt0KefHc/xSvnZyKPMVby6gVi-2vr=
+I5QkoWq9DUD6/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_=
+blank" style=3D"color: #000000; text-decoration: none !important; border-bo=
+ttom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; =
+background-color: #ccc;">proxy advisory services</a>; these days that is a =
+bit more controversial so they <a href=3D"https://links.message.bloomberg.c=
+om/s/c/6ixFWvMcNiur4W2huFiQjMGvLX4o5eYAApm3jg-96oS2upG8UERbiKWAhppItzNMMIL7=
+a1R5woitmusvf_83bXChzxHykT8Y1M0VClE1n3Rb5Z6V9awKnWnYLJbahdzggH35qNhAaxna2kk=
+3N-abKHncwsY9rRddTfN41NZQoYkSYwB5TAC63ZD3bf2G4QvFTFq3Dxmo5IqlpWc5mEXZFrAAIe=
+YC5AfVs1WUhildhKnvlWMMw3ycVuG4TQczOEI4096REgyTGdW7uvjcBj9CfCT0mkTJB144NAMXw=
+pttabWWjCrajxsh1Vx9U0bat1ROBa5yWjTBSFSp7Q7AtXo-zC1hjXBiJDt8sofsA3HyUI0fiazo=
+H21kADuiC30/H-K1OCY79rcGV3hiOIKDm8et-DPXt3LY/25" itemprop=3D"StoryLink" ite=
+mscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decora=
+tion: none !important; border-bottom-width: 1px; border-bottom-color: #0000=
+00; border-bottom-style: solid; background-color: #ccc;">outsource it to AI=
+</a> instead.)</p> <p style=3D"margin: 16px 0;">Other shareholders don=E2=
+=80=99t pay attention, and don=E2=80=99t vote. In particular, retail shareh=
+olders stereotypically don=E2=80=99t vote. This is generally very rational =
+of them: Voting 10 shares of stock&nbsp;takes time and has essentially no b=
+enefit.&nbsp;</p> <p style=3D"margin: 16px 0;">What happens to their votes?=
+ If 40% of shareholders vote for some proposal and 30% vote against and 30%=
+ don=E2=80=99t vote, then it gets&nbsp;=E2=80=9Ca majority of votes cast=E2=
+=80=9D and probably passes. But <a href=3D"https://links.message.bloomberg.=
+com/s/c/i7QUwmfYXpM99n67rBQjTLGrQdk_tSTwSb9n8bCwHyDaWwDfPMOs8l8MKYJhlE6LDaD=
+LZ20L2gN1Q_KyGmcJNKOLYySGMfMqzuHeg-iVhkgSKI9BtVdvKlyIHIX1OmEyEcGcJKCbHnbMuv=
+lFkO12P0qh5Ci9oM7tdmE-LlTNO_33Uw-V-Bx4pGZWnaFQ5IhkazJM_3Df5zFNnwMYhuJ9uBtum=
+7OryW9rrr_1FOZLKvY_tuJHpm8T4Cyrn-9nfhTx4Lf0HIBCHqHK7D6vJI3hbGHpKQXW8ZEU5Y14=
+lZ-EdcD-YHRzxuLCyEY4Kuas83f4a7M9PrwYU_3jQ5GPl6RKqHp30LrRfTwY0fcSRjbJisXQkS2=
+v4rLfgPnIJnQ/bgRUb-biNjMNqy0NN45ps04_c4qTaxSJ/25" itemprop=3D"StoryLink" it=
+emscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decor=
+ation: none !important; border-bottom-width: 1px; border-bottom-color: #000=
+000; border-bottom-style: solid; background-color: #ccc;">some things</a> (=
+mergers, etc.) require =E2=80=9Ca majority of shares outstanding,=E2=80=9D =
+and in that case it wouldn=E2=80=99t pass. That is,&nbsp;if you don=E2=80=
+=99t vote your stock, then:</p> <ul style=3D"list-style-type: disc; padding=
+-left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">Usually yo=
+u are letting the people who&nbsp;<em>do&nbsp;</em>vote decide for you, exc=
+ept</li> <li style=3D"margin-bottom: 5px;">For some very important corporat=
+e decisions, you are effectively voting&nbsp;No.</li> </ul> <p style=3D"mar=
+gin: 16px 0;">Those are pretty intuitive outcomes! Like:</p> <ul style=3D"l=
+ist-style-type: disc; padding-left: 40px; margin: 16px 0;"> <li style=3D"ma=
+rgin-bottom: 5px;">The people who don=E2=80=99t pay attention really might =
+rationally prefer to defer to the people who do pay attention, but</li> <li=
+ style=3D"margin-bottom: 5px;">Big important fundamental changes should onl=
+y happen if a majority of shareholders pay attention and agree to them.</li=
+> </ul> <p style=3D"margin: 16px 0;">Fine. There are other possibilities, t=
+hough. We <a href=3D"https://links.message.bloomberg.com/s/c/CcrRtJQTwtr_ZP=
+Ky77WZ9I4weUZwx2hy2Toz0PTyAiRUEJIWISbJJVQnUuZc7doylPCVsqsRdxwo1txnR4nzDFNws=
+8VnAdySfvbu3TVbRHozCHzRRoixmaZXtCR8exHPc00yWXcdG-uNU4HjCw50WDr_8VX3VCXXjYGc=
+0VTmb3se5DOQyG9dNPUEKRHl8n5xG3MrzDlE1ExIfyu4XExWP_QzzF7AxJTnJv8OMwJbH_HgTFj=
+GQDQ7FNcaypH7o7kIaYPEb0z92cV0iW6Yq9q48UnvKM-ZZv9vRXxrlAQEGQ4osJPznNuiiQPUM1=
+cpTFmQbhIJJ77HImaQ3pvvs7TBxTJgJrALppQOlpiiMVCQ_eCqicSwKZxlVNNXsUg/YPT2oN2nk=
+ffr3sTioDHV7r7U2FwZjzCm/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" =
+target=3D"_blank" style=3D"color: #000000; text-decoration: none !important=
+; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-sty=
+le: solid; background-color: #ccc;">talk occasionally</a> about =E2=80=9Cre=
+tail shareholders who don=E2=80=99t care should be allowed to sell their vo=
+ting rights to people who do care,=E2=80=9D which has an obvious appeal but=
+ mostly <a href=3D"https://links.message.bloomberg.com/s/c/InCmLBt45qVECEr7=
+rz-_1spVcRNNOx3EsNwRGoVL-zRQYOlPMCmWrJg-MNO1JIumYtjBl6TYTe5jobzOpnE6S1TRyBy=
+7jOWttN2SBQOkcGEJOW2JkcK786rC0jEUcAYL5GAMk5oYgKryqjvIkCxPcX97TAC_9tnbpQP7BO=
+vdxYZzzHxeq_wBld3H_MQkHL300gVbDR1waS33BqrqAQWeZCy2s2BXnm3IHMkYAyLWt8wlRTXEP=
+6j3r5JLYMHNKvE_o0MMp1atT7U41t64556XxeBTAonna-B6jonSvEBHE9nJU2MnuUnPPv0ujnuH=
+CYi5DQK_9pAgwtnDHzbBAYh5OcoaVFiIYtUgsZFfdlBrDEjxwPzdSHcQy1s_LYQ/F0hA3x2eCw1=
+lbtjIkwUw1PCdCw5J32NY/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" ta=
+rget=3D"_blank" style=3D"color: #000000; text-decoration: none !important; =
+border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style=
+: solid; background-color: #ccc;">hasn=E2=80=99t taken off</a>. But another=
+ possibility is:</p> <ul style=3D"list-style-type: disc; padding-left: 40px=
+; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">If you don=E2=80=99t =
+vote, you should let&nbsp;<em>the company=E2=80=99s management&nbsp;</em>de=
+cide for you.</li> </ul> <p style=3D"margin: 16px 0;">That is, in some abst=
+ract model of democracy, =E2=80=9Cif you don=E2=80=99t care, you=E2=80=99re=
+ letting the people who do care decide=E2=80=9D makes sense. But if you bou=
+ght shares in a company, that might suggest =E2=80=94&nbsp;at least as a de=
+fault =E2=80=94&nbsp;that you trust the managers of the company. If you don=
+=E2=80=99t care about the details of some vote, maybe =E2=80=9Clet manageme=
+nt decide=E2=80=9D better captures your unexpressed desires than =E2=80=9Cl=
+et the shareholders who do care decide.=E2=80=9D Maybe the shareholders who=
+ do care are not representative of the ones who don=E2=80=99t; maybe manage=
+ment is.</p> <p style=3D"margin: 16px 0;">And so, if there=E2=80=99s some s=
+hareholder proposal like =E2=80=9Cthe company should write a report about c=
+limate change,=E2=80=9D and 40% vote yes and 30% vote no and 30% don=E2=80=
+=99t vote, maybe that&nbsp;<em>really&nbsp;</em>means that 40% want the com=
+pany to do something different and 60% =E2=80=94&nbsp;the nos and the nonvo=
+ters =E2=80=94&nbsp;think =E2=80=9Cmeh it=E2=80=99s fine as it is.=E2=80=9D=
+ Or if the company asks shareholders to vote to approve executive pay, and =
+30% vote yes and 40% vote no and 30% don=E2=80=99t vote, maybe that&nbsp;<e=
+m>really&nbsp;</em>means that 40% of shareholders are engaged and angry and=
+ don=E2=80=99t want the executives to get paid that much, but the other 60%=
+ are like =E2=80=9Cehh it=E2=80=99s fine, we like management.=E2=80=9D</p> =
+<p style=3D"margin: 16px 0;">I=E2=80=99m not sure that=E2=80=99s correct: R=
+etail shareholders could be pretty annoyed with management, but still not a=
+nnoyed enough to go and fill out&nbsp;proxy cards for their small holdings.=
+ But you could ask them. Bloomberg=E2=80=99s <a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/D3fi2f-zG11KndT1f-AQC9lztpdA-e9d7UiDX8MFkut6wbTMZcpi-J=
+zbogcjIIT5eMoXqTaCgQ0RV6DMMM8DOAm4b-_SY2PeALCTD_h2H0NIYA4FgzIloPObyt9sY0Bsy=
+H34nHDoB4nB9CpN-EvtkT6qS_IHMOttde6_uh6QmzVgZbD9ZMjxkCEpVJ8iJvVPDjDWXX3g6WOf=
+P1ORvyjEtR7B3_6dYXKyrJ7CcRiz01YN9M1mkzTjbL0LUEgrnWf1EPyXWWXkTrigPLDS3tgL8O7=
+yLmYLEgX6vMKiv7HtPEeIK-sSZyHYYgd3Dn2yRDyZpBLvKG1XbJs2vcHiuAkxBCWiJQMaR56EJO=
+VLKUA8hFzTVGEHQiMsQeGu6E4/ThXbRJLi6TQElxZEQEZBOLpK-wF2TPMO/25" itemprop=3D"=
+StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #00000=
+0; text-decoration: none !important; border-bottom-width: 1px; border-botto=
+m-color: #000000; border-bottom-style: solid; background-color: #ccc;">Todd=
+ Gillespie reported Monday</a>:</p> <blockquote> <p style=3D"margin: 16px 0=
+;">Goldman Sachs Group Inc. plans to give individual shareholders the optio=
+n of letting the board of directors decide how their votes will be cast, a =
+year after coming closer than ever to having its executive compensation pro=
+posal rejected.</p> <p style=3D"margin: 16px 0;">Regulators gave a green li=
+ght to the firm=E2=80=99s request to give retail investors the option of vo=
+ting with the board by default, according to a Securities and Exchange Comm=
+ission letter Monday. Those investors account for roughly 30% of Goldman=E2=
+=80=99s shares, according to a person familiar with the matter.</p> <p styl=
+e=3D"margin: 16px 0;">The change is likely to increase turnout in a way the=
+ boosts support for the company=E2=80=99s position on key proposals at annu=
+al general meetings, where in recent years Goldman has faced significant ob=
+jection to large pay packages for its top executives.</p> </blockquote> <p =
+style=3D"margin: 16px 0;">And Tuesday the US Securities and Exchange Commis=
+sion <a href=3D"https://links.message.bloomberg.com/s/c/oMhGzFzaZ0qtYdTRGsB=
+rNvdyBIXR5CwOPwY-9XUTXyUfGlBczWS6--ebfGq-c-knnm-HIaCrQtiQYuOOtGAfaFNmH-AQG1=
+EP-qiQHO_lA5jdfqTJK0gNHJn5u0DargsBg4AHBBTg3HMu77d5AOPpWbZRXO8CzS7aUZc5m53T6=
+3SwtpIrEbEIpL5F7KhNS5Oz7gSVb-7RAU-HUfrVRg4TyH_8l-Gvdbzwy1cB1SL4XX2xHPUxOEmx=
+HjWLxIFQBEFkW0O38Must7YHK8xso0uzSrxl1IvMu3P9SlBbWXw8JHXsJaBM57uN-PbsqMgJnmY=
+_TkonreiQWez_s8rO2wkGnc8OWTYqcdMkyTG0LDDvIVzsGbtcg393ygRFOb4/hSUIeKH5t8Stg_=
+QthH7mLVbxBzx6ZdLc/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targe=
+t=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bor=
+der-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: s=
+olid; background-color: #ccc;">granted Tesla Inc. permission</a>&nbsp;to im=
+plement a similar program in which retail investors could default to lettin=
+g Elon Musk vote their shares. I mean, not literally Elon Musk; the <a href=
+=3D"https://links.message.bloomberg.com/s/c/VB6mBO4bzjoMeGYdxPUD29YwmAL1PLU=
+EpDHSwwt2JwJNx4s1WJ6hGBsxK9kp1rKz0MBpjQ1JEVRsTC5j-J2Yml8IehOqlyxCHomZwRLn3Z=
+6x-rEym7HHd5moLyFxC00LAACGQpEGcmClOTw-drh3MYs9p8OemxBGx1FaQYAMa6nS6bZOFkEkI=
+c5EfWRAddRMt3YHA6H6TlWLUzVGkVYRo79EqlCvwqI9Cq8-TtCGlheJ6qKf5pGUAsJEsbkCPsqz=
+H-IHy6FZ4CpQXClXqjrC44s3TrogbM4k1DmUWc2EY72cJ7UVzcc4bbzS-TSZHrM8uZ8cl8tY_zj=
+n3c9ByKTe2hEO-1dhwmONhjP_ZKI4CZnc_51dfNjWqCV8Yzw/FvKtsfR6_xeDVVmCbR4ud2y758=
+LX2wWZ/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgr=
+ound-color: #ccc;">shares would be voted</a> =E2=80=9Cbased on the recommen=
+dation of the company=E2=80=99s board of directors.=E2=80=9D&nbsp;</p> <p s=
+tyle=3D"margin: 16px 0;">This approach was pioneered by ExxonMobil Corp., a=
+nd we <a href=3D"https://links.message.bloomberg.com/s/c/wSGMYSgx8cGcHk6D6C=
+gw-EOVcQV_ZMKYzggMdBpBYy3Qm-ARiLJsIvE16oMG_hqFckPetsDEVm2mNbfZWoz9sahLpRyJf=
+mnDEFqPIZhIiNe5cVqqrjLUPCZVaelGvYvrNq2sdzvTz8roQBxWKvnZBWGwQPW-9hte00M4qH_1=
+3PvFCaERweAJU9F1pLfDtR6iKxBJsyIap39nwH9ynt4rk9kXFlKLgkC6GgF164lGPiJpJXTE8VV=
+dqXZVKI4LHoLUFJdklPFcvfN2xOGkh3AcZimOTtb_Mfna7fVTNiXFaWKS7eWjg4wqWtRwnOP2Uf=
+Iwbq33TtFknmvFcAuQUXm5ps0q2pXfEoAoMI2Z_Vf-h2pf-uldmFtWmo2bmEg/P76ye76Pc2Km5=
+2LwZ0OYHyUzYPhFrJp7/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targ=
+et=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bo=
+rder-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: =
+solid; background-color: #ccc;">talked about it a few months ago</a>.&nbsp;=
+An Exxon shareholder complained that, if =E2=80=9Calways vote with the boar=
+d=E2=80=9D is an option available to shareholders, then =E2=80=9Calways vot=
+e against the board,=E2=80=9D or =E2=80=9Calways vote the way proxy adviser=
+s suggest,=E2=80=9D should also be options. I just think that=E2=80=99s wro=
+ng? I understand why this option annoys good-governance advocates, because =
+it really does have the effect of entrenching management and giving the boa=
+rd free rein to run the company. But also =E2=80=9Cgive the board free rein=
+ to run the company=E2=80=9D really is a plausible model of what inattentiv=
+e retail shareholders want. Especially at Tesla.</p> <p style=3D"margin: 16=
+px 0;">Incidentally, we <a href=3D"https://links.message.bloomberg.com/s/c/=
+X6q_J1iGkfUdZRKJzQNGn11rE-LhCrVTi6rG0Srvc07RjSR27k1eq8GCXW9fI6-hJfI9daFuQIX=
+wne02KfvF60TxWG3dBD0ETDhZkL7OaadcoVKphPUyt-hWvu2laZXjTa_oXMAYYE8vRVg4Ltreg2=
+jAFx3V30RWF61R64pmbPY14-lspT6IerQeuDM2MU8fG0iOUyoDLJ3PW78KqDw1Rx5nxhB1Deo5x=
+tWPRfh7boh7OaMjEO7BpN1dRjOzIwxwzLMu12eaCwgeobEa61iZS7hsSepY0ofMIVXEHuKdtcFQ=
+8Nmz9dYwn90iGekGV0uBDUje7BfaNzgvLADp3Za7yu87in7Xe2Leh9TXvTZNjOD7SS3NU6zfJ5P=
+MWXA/k7bMbksps0rLg3EVXD9KeKkzsJX7JarQ/25" itemprop=3D"StoryLink" itemscope=
+=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: =
+none !important; border-bottom-width: 1px; border-bottom-color: #000000; bo=
+rder-bottom-style: solid; background-color: #ccc;"> talked yesterday</a> ab=
+out the prospects that agentic artificial intelligence will eliminate retai=
+l-investor inattention. (Which will be bad for banks, which rely on inatten=
+tion, and very very good for Robinhood, which relies on attention.) I suppo=
+se you could tell some sort of related story here, like, =E2=80=9Cretail in=
+vestors will be able to actively vote all of their shares on everything by =
+instructing their AI agent on what to do.=E2=80=9D But what will they tell =
+the agent to do? =E2=80=9CVote however you think is best=E2=80=9D?&nbsp;I f=
+eel like the simplest answer is =E2=80=9Cjust re-elect the directors, appro=
+ve the pay, and don=E2=80=99t vote for any weird proposals=E2=80=9D: That i=
+s, just defer to management. And at Tesla, the retail shareholders will&nbs=
+p;<em>obviously&nbsp;</em>tell their agents =E2=80=9Cjust vote for whatever=
+ Elon wants.=E2=80=9D&nbsp;</p> <table width=3D"100%" border=3D"0" cellspac=
+ing=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: collapse; m=
+so-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bo=
+ld; font-family: &quot;Arial Black&quot;, Arial, Helvetica, sans-serif; let=
+ter-spacing: -1px; font-size: 20px; border-bottom-width: 1px; border-bottom=
+-style: dotted; margin: 0px; padding: 16px 0px 5px;">Knicks and Rangers</h2=
+> </td> </tr> </table> <p style=3D"margin: 16px 0;">There is a lot of finan=
+ce theory about conglomerates. If you have a widget company, and I have a s=
+procket company, and we merge them into one company, there are advantages a=
+nd disadvantages. Some of these are managerial (=E2=80=9Cyou can apply best=
+-in-class management skills to multiple businesses=E2=80=9D vs. =E2=80=9Cth=
+e managers are unfocused and distracted by multiple businesses=E2=80=9D) bu=
+t some are more corporate finance-y. The main financial advantages and disa=
+dvantages of conglomerates are:</p> <ul style=3D"list-style-type: disc; pad=
+ding-left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">A cong=
+lomerate that combines two uncorrelated businesses is <em>safer&nbsp;</em>t=
+han either business alone: Sometimes widget sales are down but sprocket sal=
+es are up, meaning that the company can muddle through a widget downturn wi=
+thout going bankrupt. The conglomerate is more attractive to debt investors=
+ because its risks offset each other, and debt investors hate risk.</li> <l=
+i style=3D"margin-bottom: 5px;">But =E2=80=9C<a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/a0os75B67SMVatMjfDQLf0SMT-aIcJMF9GDPyPm3Dcd2yB0S7JjFPN=
+ELK_VaBoO7gALp1UumkaR1Es5Vz-1-vEWjjH_ApBpn8RcnQSmmSRgC0FylQSFDOUUCJJQSFmtbX=
+Y7k3tyaEOEcikPusnXNHhdo4hWftvY0fMeOKPwMYpzNqY9uvZmD1rTEiW5DtWhCgywgXOysIiVt=
+QlX8E8IiVW2nZDLaTN8MH4v4Pv--tY1p7k5JxkkHLRcC3VybVZ9Q3UqINun6yEuO2MRLaQsXrHL=
+SjWJDzkNExqvUxrgjqWadTZOx4s9dFfsW1WqLtbIbdeON4R9EPWdB_xyWW08lV-8URQYk2ph-0P=
+JA6MQUQXw_tBh22tnR9n_OV3A/uThkrPfatFZ-TSH3alTxeW7LXtxD0ku5/25" itemprop=3D"=
+StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #00000=
+0; text-decoration: none !important; border-bottom-width: 1px; border-botto=
+m-color: #000000; border-bottom-style: solid; background-color: #ccc;">a ba=
+sket of options</a> is worth more than an option on a basket=E2=80=9D: Shar=
+eholders might prefer to own a widget company and a sprocket company separa=
+tely, because they get the upside on each investment but their downside is =
+floored at zero. If the widget industry dies out but the sprocket industry =
+booms, a shareholder of separate companies does well: Her widget investment=
+ goes to zero, her sprocket investment returns 1,000%, and she=E2=80=99s ha=
+ppy. But if she owns a widget/sprocket conglomerate, it might spend years l=
+osing money on widgets, subsidized by its sprocket profits; its widget loss=
+es are&nbsp;<em>not&nbsp;</em>floored at zero. The conglomerate might be le=
+ss attractive to equity investors, because its risks offset each other, and=
+ equity investors love risk.</li> </ul> <p style=3D"margin: 16px 0;">There =
+is another, related but slightly different set of investor-targeting advant=
+ages and disadvantages:</p> <ul style=3D"list-style-type: disc; padding-lef=
+t: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">Some investors=
+ might really like widgets, and some might really like sprockets. If you ru=
+n a widget/sprocket conglomerate, you might attract both sets of investors,=
+ and so appeal to more investors than either company alone.&nbsp;</li> <li =
+style=3D"margin-bottom: 5px;">Alternatively, if you run a widget/sprocket c=
+onglomerate, you might attract&nbsp;<em>neither&nbsp;</em>set of investors.=
+ There might be specialized widget investors who ignore you, and specialize=
+d sprocket investors who ignore you. If you separated into two focused comp=
+anies they might each be able to attract new investors. You&nbsp;can tell a=
+ clearer story (rather, two clearer stories) to the market.</li> <li style=
+=3D"margin-bottom: 5px;">And if an investor&nbsp;<em>did&nbsp;</em>want a d=
+iversified widgets-and-sprockets bet, she could just buy shares of both com=
+panies. You don=E2=80=99t have to give her that diversified bet at the corp=
+orate level; she can do it herself.</li> </ul> <p style=3D"margin: 16px 0;"=
+>This is pretty standard stuff. We have talked about all of it <a href=3D"h=
+ttps://links.message.bloomberg.com/s/c/b0Af-Qw5Ys96KjbDhbJLWImBvyV3Sgu2kaZl=
+1nweRtPTWLM0TqeZtGdKk-5x6CWygdUjXaQwTidVarPfyjlaLLEoYVa0QwDX9PI28fQHv26sg-3=
+gT3JMVMR5CTZm1JVNrbWkAAelX5cqv-Qmr4_zhn5MVVx7AB_Pg_23Qn3Ju-_qdazJvAv7VQds9Q=
+6gzS6AD81TxncYSzG3wo4SJywD_DvWp3czgRrfjKtW4-wEooh3I_DkCe0ns3Zq9B97b1pZHr8Lk=
+iXPpCEm-Dj4Nff9gWB32UxW0t3iAZHVW8nwnMZnB-BdMMV-Fns6RaOJoyXBLdJgEqye5MYC0krV=
+UDOt50kf42qcX0zdYZs5aCWDLPQ56CcodjmhyJzA_LI/aKtvL-Ls3zLT0KsXKhPqO6Lwa9otMjp=
+f/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" styl=
+e=3D"color: #000000; text-decoration: none !important; border-bottom-width:=
+ 1px; border-bottom-color: #000000; border-bottom-style: solid; background-=
+color: #ccc;">in connection with</a> Elon Musk=E2=80=99s conglomerating and=
+ de-conglomerating impulses.</p> <p style=3D"margin: 16px 0;">Separately, w=
+e talked a few months ago about a <a href=3D"https://links.message.bloomber=
+g.com/s/c/IKiLxJkH0INt7PHto5vWsE_eyaC-0UshBeeBYR9-isA62PXwTVRa29tdaYAY_6lhJ=
+9sSkLpoQ3_Lc-X3Xvhf-9dr8duyBYV4acPns9seOW_eHrTZ6GPKOE4XG3nqoNrKhT9YOtZ3K4GV=
+sT9FRYdKiTDF_fPFVKjPf6J7W0pURJdpkY0TIiI4EkHAHLj0zKwriUGYYDdrAL9LzhDffFYfjlV=
+hK_yRisxv68d3UmiEL5PV4DPd0vL1fPwieAtzYCkaNWYOYoIuozrSEQla-2jcMME5a3H84Of_4Z=
+0wlsSoO10uAIk1ofbx762P0rpPbwjZXhDUhgHKGB9VVUMafnr_zH2ZPMw3hFWsKuxEooXwSi3SZ=
+bC6tVznN28O3_w/d987GkFYGSBnHg2k3RTL3wGlAiuLouPg/25" itemprop=3D"StoryLink" =
+itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-dec=
+oration: none !important; border-bottom-width: 1px; border-bottom-color: #0=
+00000; border-bottom-style: solid; background-color: #ccc;">sports gambling=
+ exchange-traded fund</a>. Obviously I loved it, but I was a bit skeptical.=
+ The sports gambling ETF would manage a diversified portfolio of sports bet=
+s. This would make it less risky than a sports gambling ETF that bet only o=
+n, like, =E2=80=9Cthe Knicks will win the NBA championship.=E2=80=9D As a p=
+roduct for your retirement fund, sure, makes sense, I guess. (???) But =E2=
+=80=A6&nbsp;it=E2=80=99s =E2=80=A6&nbsp;sports =E2=80=A6&nbsp;gambling? Pre=
+sumably <em>much&nbsp;</em>of the appeal of sports gambling is, like, picki=
+ng the team you want or expect to win and betting on them? And so a sports =
+gambling ETF that is like =E2=80=9Cwe=E2=80=99ll do some sports gambling fo=
+r you and give you the proceeds=E2=80=9D is missing an&nbsp;important part =
+of the appeal of sports gambling. I=E2=80=99ve <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/a8BK9cnkYYSZKL_UvCXr__ZOKh73p_-okWJ66305T27wzKkDmYlO=
+aKUuQIXPslHSGmXuDVvENf7ebPCqSWd7GyAiNZCFXWvR0IGlOR0w36DV9MFMiV4H2p9HZAY_hIk=
+pfLod9nYKDplufgq1Nz0wFUTLRQxaf74lV8WOwOhcxVono5UnsNAVhOR89zad_dt9m7seAPmiJ2=
+rozxGAMmxJMD0KXuPmN1OVFYSIyfntQLF5JwLyoFpxeDuXMCe0ahtNcLbYXT4cc8EJlWSRJhGmH=
+Kzwzrwqken8NKAoJaQ-4peDjFLgIXFdGBadXR8PR8qDqU1gZKheKQqqAoCIa6zxkbtMshvDxOIt=
+-207N4iVpFhX8BXJZGOHhkiIDJE/Ht_eXZQsDF5UfHvrrEznZhxo5bwuMTdy/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+pointed out</a> that really what you want is, like, a Knicks ETF, because t=
+hen people who like the Knicks could bet on your ETF.</p> <p style=3D"margi=
+n: 16px 0;">The point here is, maybe, that diversification in sports bettin=
+g is bad, at the fund/product level. Some people want to bet on the Knicks,=
+ some people want to bet on the Spurs, some people want to bet on the Clipp=
+ers, but (1) very few people want a diversified bet on all of them and (2) =
+if they do, they can construct it themselves. =E2=80=9CHere=E2=80=99s a div=
+ersified sports bet=E2=80=9D is just going to appeal to fewer people than =
+=E2=80=9Chere=E2=80=99s a Knicks bet.=E2=80=9D</p> <p style=3D"margin: 16px=
+ 0;"><a href=3D"https://links.message.bloomberg.com/s/c/46r6Wd6j0LyykFc1frk=
+DUicjdCEIPcQHdF8igzp1aBmDJifJLD5mNIGQXl1U2OnvvV5flsBcimbOLkLMWAl3g3Nkqsiwtw=
+uvWjbYKCcZH1IoFIckGf_jeqhPFWj7fkNA07NPnTHmKtuwy4S6r91St5ugue4ukHG-l0vemegcz=
+2-OIUVP_WHtlo_t-9kEH0-vNdHqRgQUG9HbodakdBXmhrmVEzgjNA4Tl_ld5SXFN2mc8ZbqzQ3r=
+RuTLQrmbPcaiaHi3UHLtx_f0IM83q0I6-AIuSxQQ82c9U6np269i-aP2EMhdiXq8tX17Z2RSXER=
+fHbJOJQH41W1fkeMj9zEuUhOAHMSJ_XxZT2O43zzRUvj7X0kh9zfk4arQg3E/0dxFNPI1eAs5i_=
+BDeVaecueH-2B-Mtws/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targe=
+t=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bor=
+der-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: s=
+olid; background-color: #ccc;">Anyway</a>:</p> <blockquote> <p style=3D"mar=
+gin: 16px 0;">The New York Knicks and Rangers will soon be available for pu=
+rchase separately on the stock market.</p> <p style=3D"margin: 16px 0;">MSG=
+ Sports, which owns the NBA and NHL teams, <a href=3D"https://links.message=
+.bloomberg.com/s/c/XuDVKMUhWRTSMT0grSzg5QD_qIuW2i8n9G07xiEAPjiTWj7GncCZAqa0=
+wl8pesfCLQAhDDw6ivb4MYzifW0N5jvek-Zqb_trpowDAckrgf5cj4YZ5YfuaYO5PY-z98Ll3-K=
+cLWoxrFp1Wd_dajlqlcjzx3KbFd5EZn189n1Cxd8yrPcE-tQ-Lxzt9i6r3IYnp8GHwpgXSb9NWW=
+4TTJ5cATuzLdj2z858zUOGQ9rlxX-RyW9Y4f26afA4w_A10HuxXtXWpFRLIr8BZhGHBhohob6w5=
+yqJh2nVWzfD4YisDTQNb-vjufDjdLEvnAENsTE0YadNgBuBrWdxqrBJMX5_J2LIEIxAOx5j8UUu=
+GL8_VxfCIgTELyMnaFpHqho/BghnRTnDquPkdhsnzpkHIbjS-b9mU7V3/25" style=3D"color=
+: #000000; text-decoration: none !important; border-bottom-width: 1px; bord=
+er-bottom-color: #000000; border-bottom-style: solid; background-color: #cc=
+c;">announced Wednesday</a> that it will split the two franchises into sepa=
+rate publicly traded companies after its board of directors approved the mo=
+ve this week. The company has explored the move since earlier this year and=
+ expects to complete the transaction Oct. 26. The spin-off comes after a ye=
+ar of high-profile success for the Knicks, who won the NBA title in June, a=
+nd as the Rangers work through a rebuild after missing the playoffs the las=
+t two seasons.</p> <p style=3D"margin: 16px 0;">MSG Sports, currently a pub=
+licly traded company, will become MSG Knickerbockers Corp. It will own the =
+Knicks and Westchester Knicks (their G League team). MSG Rangers Corp. will=
+ be comprised of the Rangers, the MSG training facility and the Hartford Wo=
+lf Pack (the Rangers=E2=80=99 AHL team).</p> </blockquote> <p style=3D"marg=
+in: 16px 0;">I mean, sure. Presumably there is a market for, like, =E2=80=
+=9Chere=E2=80=99s a diversified bet on New York sports teams=E2=80=9D =E2=
+=80=94&nbsp;lots of people like the Knicks and the Rangers =E2=80=94&nbsp;b=
+ut if you want that you can just buy Knicks and Rangers shares separately. =
+That doesn=E2=80=99t give you any New York baseball, football or soccer exp=
+osure, but you can get that on Kalshi.</p> <table width=3D"100%" border=3D"=
+0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: =
+collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font=
+-weight: bold; font-family: &quot;Arial Black&quot;, Arial, Helvetica, sans=
+-serif; letter-spacing: -1px; font-size: 20px; border-bottom-width: 1px; bo=
+rder-bottom-style: dotted; margin: 0px; padding: 16px 0px 5px;">Things happ=
+en</h2> </td> </tr> </table> <p style=3D"margin: 16px 0;">US Benchmark Yiel=
+d Hits Highest Since 2002 as <a href=3D"https://links.message.bloomberg.com=
+/s/c/vOZel64ozGXrjdNMV1gIZfEXB_uFOKVUBwuNem8aSjv1zViFaRBBb6SfeDt1Odth69-0Ab=
+dKobCAXGMF2s8UJxwWb9RyTdzkkMBda0NJ1xYM8JGgdzQ9qLLi4KNIlV_SESIa-_pMGgH5vpvHw=
+g2CXKCp3UITSK5M27w1mNH-YSwLK7GlVuYq9cR365KAtcL29GCtcvuL6fJqnFnmujL2apYFBX0h=
+Jgo8eNPfv-bBXV7aXtbeW3tx0xUzoo03vH2AeUH8mDHwyqFpDpeZ0almeZO_WIDWVyLsT4q-ltr=
+teRqP1MuAg6DhTlFGlNWLoebKSqICvo75ch0qqwoLFzyyf5Mr-RzCF_GHesDUYzpVN1LUyV_K_8=
+ukjKqQU90/2U5g0378xWWTS3EkjJDW1RdGXkRr1FM7/25" itemprop=3D"StoryLink" items=
+cope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decorati=
+on: none !important; border-bottom-width: 1px; border-bottom-color: #000000=
+; border-bottom-style: solid; background-color: #ccc;"> Bonds Sell Off</a>.=
+ Who=E2=80=99s Who at <a href=3D"https://links.message.bloomberg.com/s/c/J1=
+Ld5VdCeqPDid97Loag34uIf9kE0xLUUZHs8GmWp0Vivr-iHvtbWVskCuBhIFr40s6jWugFadcqm=
+uZ84ODFlxh5EE6l0kI2JD5toK9IxdI99UmVugI85snO8FINXPnij1_ON6GCOcQXEAwg3Hb0KFZl=
+ocXyElN1cI0fz23njVIZQzPxdRmoi6ezvw72mgMDEdpryj0eVdF0ojJAsi6TlldRIqppTHbBM4u=
+nU0F4TIRlr4MEqiJn9WW9rO8ZUKGVg59blM31BJZUyh_Sn3ew360uFqRUoc9blilQ4q1DHhxPkc=
+Up1a4ZrW5FS61crLHS8FL5Wp9R9U82vppPRl6wg0p2eKyu9zD0PSPKSNrBaFvaTyFK1NElqA0iz=
+48/e81GWXbmhx_ylQGDH9ER_R04rHMw9mKR/25" itemprop=3D"StoryLink" itemscope=3D=
+"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: non=
+e !important; border-bottom-width: 1px; border-bottom-color: #000000; borde=
+r-bottom-style: solid; background-color: #ccc;"> Jane Street</a>.&nbsp;Apol=
+lo Debuts <a href=3D"https://links.message.bloomberg.com/s/c/hkgqmVQWL05OHh=
+AHyWEj7nTU4amMI4kxgXuW7MJKw9QyTsgxiIipzf8hfufzTzYywtDZb0NddnWhjbX42tTe2tcd3=
+YYaTTbqHJclYN9HJVmMrUfn3reMbB1u2StqiJP2RFEBo2DiCLYdkNIiAZXi6w44dqoAnbQNKsf0=
+YvGSNxkhScJ2o9V12qrJsoJCxNgtJOSpFB9yJ1cV1S0Hvu4UWyT0gXLJgqSawArRZKzK1A9F2yb=
+01OAIw3n-tDH4svXATY9rOgfi_3uRMLY2d1UToq2395HsT0CiwTN5Z1rhyfGFnE74aJxqSw0od-=
+YEAe-lARsLsY3HkrUf0sdZz0lVyZf2uokqFuVaaF9vN2ONpi0Dq4OkYE81MPE8-i8/3x6MRaAsB=
+TxjmSVH2twN3PzSxGHw9cHG/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" =
+target=3D"_blank" style=3D"color: #000000; text-decoration: none !important=
+; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-sty=
+le: solid; background-color: #ccc;">Daily Private Credit Marks</a> as SEC U=
+rges Vigilance.&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/rvz=
+xaO8y1SG32A04vURlBCqd28LoWMVw48ZJh0QtSJAS6NNykFwhOZ8NayP4RQ1Qr669py-p97Quaf=
+IqMroE7L2bQAcfXLB9-h5yQ5Xh70edUyii4I7-FQirl9uvNwgqYnLVSGMGzxwFoOiRiyqPnhNUZ=
+9VZFHFHB1ZJZjXKuoc8nB96_EiltgxChpN3EKotQuBd3y2HXapLOP3qLSTXgskwMuvyuIMvb2H-=
+5X5Nde6Cr0WBuZVrutcovzP4LlGyfMFKxk_RCye9eOFXEm3L6VTTqt5jxl7vFtG3qRPKdaPugt9=
+N1JYr91KXv0a_EOI8Rn-AR8ZhAWNge4c5_3KGe3oqn5oV1k04AhVhatXZB13tlB4UX-ANy_aYcG=
+0/2fjKO_EmDaKuyeVKSSR3Van-P8-QhV6j/25" itemprop=3D"StoryLink" itemscope=3D"=
+itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none=
+ !important; border-bottom-width: 1px; border-bottom-color: #000000; border=
+-bottom-style: solid; background-color: #ccc;"> Porsche SE</a> Says German =
+Court Has Dismissed $6.1 Billion Lawsuit Brought by Investors. How <a href=
+=3D"https://links.message.bloomberg.com/s/c/7rZgYRLsAqmNZMM8SeZPFRZPwDZc4ui=
+E0fypgpCGR_YnpRE-c8GpLImuJWIdsJs81dbNlmYmvgKnspqVk2tQ-BdM4WMobdxwEQswFkaI23=
+oKvDxDej8UJ-MrGjQl5FlJckdLiQLOp5qiaYk1kUA290zfrLyKp6be8mN8BeZjNUmn-vk-RyCxd=
+08b4i25MFUqf61QnfBlRSLEK3cYpzUSZVLgUVQLzfBqycQ81JYB-fXaNIGvBwv0ORVVP7Bmhuvq=
+JzWZeGXuL9CtP1CwmhiK6hUbptkhPoR8eleHErHQVmX3o9FtxTY0Occ74pjnDeotxSNU7erU5Br=
+oa5fdUYFOv5EYTtHs46HaSXGWjOIoTQ6N0HXvubx-1udT09k/es6PP75P0l5bf6OepjrlFcEXlJ=
+4Z543C/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgr=
+ound-color: #ccc;"> SpaceX=E2=80=99s AI Unit</a> Turned Itself Into an AI C=
+loud Firm.&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/1B-zpksR=
+b4cX1wpD5U-FGhSWPjyG-QT5sfbHjQbxTNklhXLdfelvdxDNLpdY6PWNcApHYF3lxqUJN3IhfWj=
+tSgjwcxDZuncgE1jjdwq76UjuJp43ZvqE2ODp_WgVyUeV5Tg3sgbI1fJuP27LaVa0boQtZsagVM=
+aNuil-Qw2ZWGWivYVPYy22pYglSgr6jqlZtqFPAKy4tjw73PGtKQUomEA1lPQlRXK-XmRzs2nge=
+OAQavH9xzl73nbS34wSPYe19GZDo6UqWcm3z40KhSLGFbNhhN8m2KtreF6jogPqqCmNORSnOo8c=
+8Ye_WD4vDBn2GiqLoloxqK_XuqA0pEez1-MwxtPvz4Yb-hQjtvQPmwJJWfbs0EDoucpTLmg/MmU=
+VS4kYx0FPmtsdugoyEbmO43bzJItc/25" itemprop=3D"StoryLink" itemscope=3D"items=
+cope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !imp=
+ortant; border-bottom-width: 1px; border-bottom-color: #000000; border-bott=
+om-style: solid; background-color: #ccc;"> Paramount=E2=80=99s</a> $41 Bill=
+ion of M&amp;A Bonds Slump as Trading Begins.&nbsp;Walgreens Owner Nears De=
+al to Sell British Pharmacy Chain <a href=3D"https://links.message.bloomber=
+g.com/s/c/hP9jw3qOLKfJMfDA43TS_pCq91PZz8gv4UL8KvrEFc34FetAi8TvSXAr9AnJ3I-70=
+aQ6ek2AtrHipqHl1bFYpOAx6btJ7cT6DgOqG_ofqw_rGi07rvOPvJZMf8r-hjFUynZZC5lII5fk=
+C_zMB5j_Y8u02GkpUhGZ7J2IYvjNUX7ys0lLzS56xTfIXc5KYiGMtvJMOjNxCruQecI0wNy840O=
+HgM7-b1vHklIF7jvf-CCtlGHnIQgZoS-DtQaRVK2AFnlCTtPJi45491PdyjcoREsg3VbDMHil3U=
+I23syVzxlElwaes4s0aHlUmJQ7Fsrm9uBsS8KObQsrBr466jz7hHwnOEWyhES80AB4G8YLG91df=
+sS_b4Cplot275s/_qBUpS5XQgkAu2v43IH7uW2YbhDdnENo/25" itemprop=3D"StoryLink" =
+itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-dec=
+oration: none !important; border-bottom-width: 1px; border-bottom-color: #0=
+00000; border-bottom-style: solid; background-color: #ccc;"> Boots</a>. Kin=
+g=E2=80=99s bank Coutts hit with new lawsuit after =E2=80=98<a href=3D"http=
+s://links.message.bloomberg.com/s/c/6H5LMYlXm-KU66cUM7zR7xKO4SGlVHUkGFQvqO1=
+YUOJ_mcUXCSS3PvKjc1eWsk4AijLN0wSwaNBB3l0o42-nmwpORrH9rMJBfpRLs-xZxF3X2bK5vs=
+9tw8s9yxP_B5FbXn0qBR5hb7vsEPWB7pjc5oMLYgTEAqpUJJmBgFo4a0OyZQRnnZv7HCKnMEiNt=
+LPfgKfONk6kPE9j7SVsPdot0_Po4mPM7iZ1ygS-FWtDwgAs8akzJeRaXzhA0JCiqnWcklAfUCVe=
+xSpj_NdIQLgTqkFVR4ceVUWunPo8ndc2WO0Q0huTl9C93fLQFSmGe7Z7BRhmNp-RG-jHmuSGqBL=
+4V7UEU3c_Kbhq7Xh7B6tJ6VtiNXRC9NayoD44bW8/ZH0TSzpvBcMaOsO9th5VZ0OyLTVbbHAC/2=
+5" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=
+=3D"color: #000000; text-decoration: none !important; border-bottom-width: =
+1px; border-bottom-color: #000000; border-bottom-style: solid; background-c=
+olor: #ccc;"> debanking</a>.=E2=80=99 UBS pushes back against investor call=
+ to <a href=3D"https://links.message.bloomberg.com/s/c/yvv6v4vaIyYFQpftrWta=
+tTvuHJPdy1LzjQ4FfyLvnjjD5vw9KT1qjxrwDJ29NKAfTLqBMvBlhvJjBjHpz7arZFlcKG56OPy=
+xg4V_2GijCJSl-L76QtH8PjUSOEzwYLRKNv6UAnQ23aYHguWvZ2TYN8NNXvhzQEWHj2hoRumt9n=
+5zIj9Q3bhB7JXnrSBLEgNABRLi9pYGsYPToWvdnJ0XtXWgWSdX_HLkey9E3nF2fsyzQwPDJO70i=
+DxjEHrdf17ti4ydNnfTpWBtFaW0HP5PKv2P3wBap_6SKMR3n5CyTwBJVpkXJriwutW5DDohFxr8=
+u4GbxgVKKc7syKjkWIVdThMfduIDM7gTO6rnBGkf6Q5IUzAsVkSKKONf2j4/-mDIpGY2quK0f48=
+820NNuSzP_wtmvJw8/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;"> leave Switzerland</a>. Tech CEOs Privately <=
+a href=3D"https://links.message.bloomberg.com/s/c/SDxxhkf-RWq-TXzS-iAVScNiU=
+hD8sBA01zLIO5hhV3ose-Q-N8P2V1aGnXC3Q_ufm30xznO0TGawhPFMtIZVJ-C7OjJ-y1QlajH7=
+rH4BxHjCVlBgLrZkWFbFcbOM2Ef49IH3kui56hFq1lZu_BFZfk8fW8lMD5oFTogDPOBu6DfoLiA=
+76KL5KGrsTloRwM2C7kq-R1a5PotJtsWOr36kYxXhSv-SC9NZxYhnflg1VXFFvNskDpqvymS2PG=
+TrXs3y9qrudY6ExRzxmZcTWLMNAdjsw5ZjMoh9sKkT752NLTrDpaHcZFoFCvbvfwc6s-fWFIXhS=
+BBKwC7Uj0209W_64dOPJlvCRd0CsUIQ6__4QNxoxvgWlJEt-HDxhAU/YkK2QfIP-d27gHxGA9qx=
+oBFHoLjd3yAE/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_=
+blank" style=3D"color: #000000; text-decoration: none !important; border-bo=
+ttom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; =
+background-color: #ccc;"> Questioned Amodei</a> for Sounding AI Alarm Bells=
+.&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/llsAYGUGBnGj2ccwf=
+_Ij0cGuaUph2w-fC8Kizt5cbfxNpBny8-Qrol_JQf9wRzKwAKENu1zB_Y7Z9IPmxkPeHJ-2YtKg=
+xEO2MqPBSMqDEwDLKx1nvsKi4nqg6PtwrKYO6DENJukeZ8u7j-fmfqz8UF6HD97RIvTKc0XoIZ_=
+X3fHJfBdAwebyaRUOKIDxA--WZV05p4GxCOidBu5ao7PHlocikQLq_5qAaWzwnqZaEBodX1Udf7=
+mCwb43S9XD85Nfvuz61rPJFK_llRn2FbxQXQsdb6-MIjwswiYJFaPm7h6fLczKLDkEYFwSsjJWF=
+5FC77JFHmT1kSE9kpN-TIFFmpQ4Buifo7aDVNgcyPiPhpd_Lgu-DpfMfF3ETaI/i-cBAtvlJyRu=
+wEd-692YGW2j2RARtOxi/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" tar=
+get=3D"_blank" style=3D"color: #000000; text-decoration: none !important; b=
+order-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style:=
+ solid; background-color: #ccc;">Bridgewater CEO</a> Warns That AI Threaten=
+s =E2=80=98Societal Breakdown.=E2=80=99&nbsp;Now We=E2=80=99re All Starting=
+ to <a href=3D"https://links.message.bloomberg.com/s/c/yZ7-LICTVwOG6sG70suU=
+cNKNqfpgIFts64W1LiUG4SYBLTyR2D4MkOy7TQooZcQwkke1kl9-NiJS1Dz7O5XCR6WIdozL3v_=
+r5ggTGbpfdo44iPaSGzR1A0r4BV6cNvPYW7TrQ1PGg3oh4Gk988s2gdQEB9xgbOueT5Cx2pCa8T=
+74MJ0Ha_7R3S0xyF_B-B7noQp4JMCf4M7LoOvwMxT5uQNibXeLtDvQQ3Gc0cEJiXGs0kVepGTpH=
+z017SRzuC_pHvVpcKQrEH_8xEXQIY_wB5KlKcJLwq95VO2NXIFyl8gBmmQAMMXniVp6zReVAk7n=
+LBIgbM-Tz9Vp3TxRK3gS8jQ4PZ0ZFCLmbKGG5kYRFgAIKWAfKJFktf_MOQk/hlg-UuvTRbdsYy9=
+X3QEZ03_jNLhNQrVv/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;"> Talk Like AI Chatbots</a> Too. Louvre boss v=
+ows to instil =E2=80=98culture of security=E2=80=99 <a href=3D"https://link=
+s.message.bloomberg.com/s/c/5sJ9yxy__WWpn8PYkQcJOv_Ttyq2cBUd3aGu9I9ZV3c6C4w=
+s8f08MoKexiht3irCWQycdGIuIh3hnHwh9VHrg2bRRF9zLM7LHunsTVZCkxiJPV6LK2WQrpO_9k=
+2a65qClT_E7b604gEM-TEgIyZkajgsAeF6AFGIfQur4PgRC_sI9-8m-ifKKHHSEJ1lEWhupTx_r=
+fZIEIbKCdJzmb7cESfn41nVM-A8ZJsyGFmRw-xYdyrd_mYS5Wby6Jhm8rJPqTkr4K68LSl8gLIR=
+-8S9Im_wxUAxBI00fjyMnrXcualgTxdJusg-7rfzrASfFwJ-d0V3775DZethhCx2JykcLnqRZvc=
+kfgL4RznVGy3J2AFeYk7KVW2La_VNpgE/zchyEY904laYHeBfsrb2xwmjgOlVF0PB/25" itemp=
+rop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color:=
+ #000000; text-decoration: none !important; border-bottom-width: 1px; borde=
+r-bottom-color: #000000; border-bottom-style: solid; background-color: #ccc=
+;"> after heist</a>. Inside the Global Market for <a href=3D"https://links.=
+message.bloomberg.com/s/c/X0L7jPINA9UX9EP6v-MXW4PE6wOCy9TEPsXy0KGu3MYjZeky7=
+mHndcRPSM3laWLhvn0QSLNoZXjHzrYW7VAu7RHlN3R1EIJJNNO7aQ-ph1Yj_5vpp6u372fyYg5z=
+wCE6Qw3ZXO7qrQW58Dp7QV4MGJ5QJ1gYPKNC-ZTRQA3d2H21U-3Fs60JZoHldWjywVtdKYFNgeS=
+vqAErpo_uJTQwdqKRmMDALT1rfeF9N_e6hWwPNXbMMBxJMtvW_oPElLESiakaB36Csed0P1p6eg=
+TWFATtz8Hi4mq41ESwb_Cue8raCloqCStgakuG3unrV9-5-CRqNOXTIa2d90-QNIFF_tEmvGRyI=
+boY3QnyonFwepCuXOL6x_dLG69stds/ZUefcRTk6fwy3ezZ8qFsVqW3ZQawYp-s/25" itempro=
+p=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #=
+000000; text-decoration: none !important; border-bottom-width: 1px; border-=
+bottom-color: #000000; border-bottom-style: solid; background-color: #ccc;"=
+> Elite $30,000 Sheepdogs</a>.</p> <p style=3D"margin: 16px 0;"><span><em>I=
+f you'd like to get&nbsp;Money&nbsp;Stuff&nbsp;in handy email form, right i=
+n your inbox, please&nbsp;<a href=3D"https://links.message.bloomberg.com/s/=
+c/mfYBuiqQx456RmQu2juMflvIZ0_r6B7g3fVGbwNkhA0ogkeZKjKdSErB2YDPkj6a5w44I18LG=
+NENIGmPvDlFfxu5EHij2UZM93nrwx8FDNLx8CHwiTVqwIMNZgA0uda6HMri4kAJ2iydEZP5MlKT=
+fQE9TZuZL9CXJZySUJXflbgfcq8LwCyD2rw0p63ISxrz_fS3gTerQC5Ro4ePa9tIJhWycq95TcF=
+KE0D6KzZOet2M7inPIH62RqFAk_KOfn0EjsMmIw4bN_Pb_1odytCRTm1OrjRGFypNZ6GonI9BCm=
+WZr7AHHGxrn9Q15lwbcUcn6TJ4vayALnfkmLSkMsyFNL1rW2ddeoTbIZqfHp_33TsmbZGHjMVG6=
+7ypTmg/XWQ0sr_LFibCgQ_vnyI0ee_WbmyIoZnU/25" target=3D"_blank" style=3D"colo=
+r: #000000; text-decoration: none !important; border-bottom-width: 1px; bor=
+der-bottom-color: #000000; border-bottom-style: solid; background-color: #c=
+cc;">subscribe at this link</a>. Or you can subscribe to Money Stuff and ot=
+her great Bloomberg newsletters <a href=3D"https://links.message.bloomberg.=
+com/s/c/WcD8oF9JqHMtN7W4uv7aCdFTsXc5BSPebhYF1sYYVa2702RH-_fMnoX5Ts87NhBpvL5=
+YrrgESPEZehp-tQxxQQzdR0doW7Lpo05qbRDBs8ddO1QRqkoqCrkQ8OMdVAr10cJoX9Jf9sWWWb=
+w3ijskzAhR_8Xle0_q_oY8iKWsUxfiDl82zm-w8oBo_fHtJ79V-zU6u3FdcmjDRBN5_p7_rBTgp=
+-ArAS55tw-pqdt0zM4qoAj-1Qf-zVSqi_vgt3j6E-ER_SQhyY3nRjt3Vxmp2vzmBJhn0Mz2zzwn=
+CL2-qyZi1dT00WgifFEXmORKkZKvUB26C305kmdO96U2i8e52g0bNAjsqHw9cpwzXjwOYco2e4S=
+hq9fs8dBb3MY/Hqv8Fy-mhYm9LYUd5vAhSGGk2o9VtZ9C/25" itemprop=3D"StoryLink" it=
+emscope=3D"itemscope" style=3D"color: #000000; text-decoration: none !impor=
+tant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom=
+-style: solid; background-color: #ccc;">here</a>. Thanks!</em></span></p> <=
+div id=3D"footnote-1" style=3D"font-style: italic;"> <p style=3D"margin: 16=
+px 0;">[1] These numbers change over time; see page 27 of <a href=3D"https:=
+//links.message.bloomberg.com/s/c/jrzzk9O_GT-g1H2TNGW5_6xdK8qkYxLgXMDmbGA7q=
+WJbqFAOpRlqX41xWJ3IZNQw6sguoW-uhCTTKFSGw4F3OfhtEicHFz0EUqnKZMtWXkWpPegCuXm_=
+GdKnzeUGzD-oolxD4iRiFh9zp-Wiki97AC9-vspPuqzOPzZDpYgaTmeoYtM9wiOPxGM8i-FnSJZ=
+e0MkcgnmWV8-aQ4ExrJHdk1upKHiorrn3zgLb0Z4XgERtLtqyloUXaCrS39-5ypzGM-iEn92yAG=
+6wh93Ns9I26jfediXT4ZiO5zpxE0NQ04qrbGk0fVg4oLp6NwWQ6OPPBX_W83CsGI3TuXbgS_GIf=
+ppzhFRtG7caYLfDfcTvhgpeWEEqgAFtJO_D3zE/MuR9jur7hgEWm_G6VWtLuZb3ubhB9EY4/25"=
+ itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"=
+color: #000000; text-decoration: none !important; border-bottom-width: 1px;=
+ border-bottom-color: #000000; border-bottom-style: solid; background-color=
+: #ccc;">the SEC proposed rule</a> for the current numbers.</p> </div> <div=
+ id=3D"footnote-2" style=3D"font-style: italic;"> <p style=3D"margin: 16px =
+0;">[2] I=E2=80=99m being cutesy in saying that private equity funds pick =
+=E2=80=9Cthe stocks that go up,=E2=80=9D but there is an obvious continuum =
+between buying some shares of a public company based on your sophisticated =
+analysis, on the one hand, and buying the whole company in a leveraged buyo=
+ut, on the other.</p> </div> <div id=3D"footnote-3" style=3D"font-style: it=
+alic;"> <p style=3D"margin: 16px 0;">[3] This is slightly loose. Like $44 b=
+illion of it went to <a href=3D"https://links.message.bloomberg.com/s/c/Wof=
+OxjiNLxUtmTZUVesx80HQJL-jXpsx1GC4nKwJJhnXmlu-TRX9LQLQeOU1GnlhHcfxauX9d2c69M=
+HUu1NauVJhBX8C5uR24TZadvoWspUlJHXPL6AABlcZrZEwKuuIxkQaqwFWBwhLZjP2xolcqg21x=
+xFvFmCpheYBdqcGZ5u6FY-2JYC0-UwZULoIbyijekjmmgBx4rLeppjxxrJ6T2uucLS7l2-gHsbJ=
+YVknB5fy9Uo0grjR15MSQzMdmK0JL7n_HAPVpKvtKawqnZLT9Ymjqtalo28n1jr-JXM76ZKbESk=
+uMccwCMiontaRlkmP4ys4-FihgN2EzxoRpIzm_8SjoweNHsu1QAkt-Pqoff_XO_A3VhQkuZDuqr=
+8/oTlez0J60Vk5joY0kE6IiT_Ti3FKD4WE/25" itemprop=3D"StoryLink" itemscope=3D"=
+itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none=
+ !important; border-bottom-width: 1px; border-bottom-color: #000000; border=
+-bottom-style: solid; background-color: #ccc;">public investors in Twitter<=
+/a>.</p> </div> <div id=3D"footnote-4" style=3D"font-style: italic;"> <p st=
+yle=3D"margin: 16px 0;">[4] Isn't it a little weird that there are so many =
+different thresholds? The accredited investor test is unrelated to, and low=
+er than, the qualified-client test for charging performance fees.</p> </div=
+> </td> </tr> </table> </td> </tr> <tr> <td style=3D"border-collapse: colla=
+pse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0px 10px;"> <ta=
+ble width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <=
+td style=3D"width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; =
+mso-table-rspace: 0pt;" width=3D"100%"> <center> <a href=3D"https://links.m=
+essage.bloomberg.com/s/c/CcQWoX61RM91kaRHzKdfpOSYIivqAGANQecMf0adX7iM2rO-4C=
+KbAkhyQgTNlu6sS5yeHZ4TbH-dghHuzQ8tY5F16RnjIj9lprgfVWI2mH_AATGE-9aZSPEq5aU7B=
+TAaBJArTPNcdMSM5hNOThvlDeOoO6yb-V_P8Mc6DCV7kK_yKscrUTUV6BPw48OVeHFsYyUIxTFX=
+p8IW-pFalp6zyADAuZih2c7zlHCHNr_RVoTMcxJZk5CZHIHCpJYAD5cVI1RIXRk0dL3Om43QCis=
+8FpDrxLwuW7nll_CWe1lkK4hQMCzmAMoilTykq-v8gvTT_24Et2jCXEhdKQxa8orkXEXO2qxgdC=
+VOkjNo2OpTXnxTsOoUv1jwkSUgDYk/3AY69z5SwAK5lyRkzfJHvtWloYvMPhYm/25" target=
+=3D"_blank"> <!--[if mso]><table width=3D"550"><tr><td><img alt=3D"Listen t=
+o the Money Stuff Podcast" src=3D"https://assets.bwbx.io/images/users/iqjWH=
+BFdfxIU/i6H.ue2bNPOA/v0/-1x-1.png" width=3D"550"/></td></tr></table> <div s=
+tyle=3D"display:none"><![endif]--><img src=3D"https://assets.bwbx.io/images=
+/users/iqjWHBFdfxIU/i6H.ue2bNPOA/v0/-1x-1.png" alt=3D"Listen to the Money S=
+tuff Podcast" style=3D"max-width: 550px; display: block; width: 100%;"><!--=
+[if mso]></div><![endif]--> </a> </center> </td> </tr> </table> </td> </tr>=
+ <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-ta=
+ble-rspace: 0pt; padding: 20px 10px;"> <table width=3D"100%" style=3D"width=
+: 100%;"> <tr> <td style=3D"border-top-width: 1px; border-top-style: dotted=
+; border-bottom-width: 1px; border-bottom-style: dotted; border-collapse: c=
+ollapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-transform: uppe=
+rcase; font-family: Arial; font-size: 12px; font-weight: normal; font-style=
+: normal; font-stretch: normal; line-height: 1.17; letter-spacing: normal; =
+padding: 9px 0;"> <span style=3D"margin-right: 4px; vertical-align: middle;=
+">Follow Us</span> <a href=3D"https://links.message.bloomberg.com/s/c/WKk8X=
+KhH0wiNMSKMvvoyg7fdIfSPiWfncp8bQcssmraZT0OoBuDw21FjtinMVEI7MAIEb0-RCh1pH9U_=
+sw1P6pr-lNsrJgI_GhhiL-Pa9s0KiGtlCc_dtJD9QoQ30s8YYR9ep6Ltz7zvmfZNIKX_8m8aZa3=
+9PyZ6oMnkDoo4ixCDSH9aTzCIsCJKgrF0Fy3VNh1hKhj8xUgjGWIwYDrQmRSoadw7B2XbpcGQwC=
+G5vKDDG43bkb3TxQCsn9tmuXEKi_ULChZRCdRoIxmt3VxnQRJ0N6Du2ojL0zlcYajhAXt5MkzWQ=
+5COUg-JYlri7gP27iS1AU1otfl7VvBeIyyZoYZgMhRZdZLyiZoGfv2KqtzhYnqFJjWXDZGrmLE/=
+SQ5GfrkHFoVfnV12GDE475g7w2rF2TQA/25" style=3D"text-decoration: none; color:=
+ #000;"> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7G4H=
+OaCfw0A/v0/-1x-1.png" width=3D"20 !important" height=3D"20 !important" styl=
+e=3D"max-width: 550px; vertical-align: middle; width: 20px !important; heig=
+ht: 20px !important;"> </a> <a href=3D"https://links.message.bloomberg.com/=
+s/c/oMIOVjAcvgc-xUCk3ctal8f_BaXz0BsMJdhYUm91Y5egfWaSqo38EKFrEvxvCgieLUYGKsq=
+f3YyeAftwgXIUwBDJ3qlOIf6uIXhRPYP3qRVI3dAQOOlozfP0be5w4oxlCk1Cg-RFpj1-4tdnbD=
+m-_Xx1qIfNCVNPlNE5N9JAawNnXifIjt-ZOqy46c5_rr6Xx6hr4AFFRYuXqqqfeB8IX9o0M9zvT=
+a5M-N-y57yqqG7rmpu7g5SQ4Z414uQnPytxorCaGFChLdILaen2xZKc4tDftnv-U78ODk7BoM8O=
+HLwINwrjwNR_Fzk92_a3WOutnQabC0lfnEvX1x7PHKdCZwK3udo1JQBJKXsNRgTKUjFq88OnR2e=
+ys__aQBk/sygVVXlY_EodFNE_FwvtyaWP8XEv5zDK/25" style=3D"text-decoration: non=
+e; color: #000;"> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdf=
+xIU/iDRduxloBOSA/v0/-1x-1.png" width=3D"20 !important" height=3D"20 !import=
+ant" style=3D"max-width: 550px; vertical-align: middle; width: 20px !import=
+ant; height: 20px !important;"> </a> <a href=3D"https://links.message.bloom=
+berg.com/s/c/pzudRhuOujEypEcaAbNCxYFreJKqXSqMBxjrpm0EmPVY4zkSoRaB5GfxG2SXkX=
+zo7sShN-K0vw9q0a-SV3l5nTD435eqQKAvJE3l9j5P-SLr9GvqCzvPmGB6m8q-bhFrKre3CVdy5=
+kX3DF4QGDT2dOfNYk268ZnHn3PfFsslMOIgpYn87o4ZweB7NxxRr5tmv6eRxL1CetEejtSd31fk=
+tRp_aWrU6vAAMkmkmAsIXEvIi8Ff9bc1LjZ4UZfm2M8NjxC9QR4aLXv6rIMmPXioRBecuLoiAJw=
+rucVw4xBang7LPoDqJCVIhU7Jt09QRRwTu5WnkSS91dTr2-y_TJF83EeNVDUSx7oUt14XXtdDem=
+i3g10chenGeJiajjs/vY4Xb2FYKS7dKud6K3i5S_XKrYPOpQ-P/25" style=3D"text-decora=
+tion: none; color: #000;"> <img src=3D"https://assets.bwbx.io/images/users/=
+iqjWHBFdfxIU/i5QE5__h22bE/v0/-1x-1.png" width=3D"20 !important" height=3D"2=
+0 !important" style=3D"max-width: 550px; vertical-align: middle; width: 20p=
+x !important; height: 20px !important;"> </a> </td> <td style=3D"border-col=
+lapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-transfo=
+rm: uppercase; font-family: Arial; font-size: 12px; font-weight: normal; fo=
+nt-style: normal; font-stretch: normal; line-height: 1.17; letter-spacing: =
+normal; padding: 9px 0 9px 3px;"></td> <td style=3D"border-top-width: 1px; =
+border-top-style: dotted; border-bottom-width: 1px; border-bottom-style: do=
+tted; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt; text-transform: uppercase; font-family: Arial; font-size: 12px; font-we=
+ight: normal; font-style: normal; font-stretch: normal; line-height: 1.17; =
+letter-spacing: normal; padding: 9px 0;"> <a href=3D"https://links.message.=
+bloomberg.com/s/c/AZDxtFglakbDDM6usF0coVpjja63Eb_r-c_yNQd4H6BL1I9-4iKfN0TTT=
+gSY3U1VdVAOHiYxnpvpvmdfykXOnFYS-niC32gTWZzCJ9RgcNgow28YBCNC6l0RvizdJ7erIUkI=
+BnBR-z2FfSZIpQKqICbQN_bno03ZBEC8BE86mjuZBKCJkfNpZMA8CX3oj4CP8oZ48OqP2JnbSea=
+-lEB68kkBivnTsGWUp_TJTNU2utF47iYFs6SGKbIpUU83u0GPbtqCVdDPuhtoDi_Zc-ilCrH29H=
+ntqZIJs-Jyl_3aY38JNk6V4UErE7Mibcorvj26nUEoIll76NC5t_b5XE5QxCABXI_wBzDknnUWc=
+Kz44zSoStp77WUWAre7NAs/V2aD0uEeqx10ecRmUAlTO8AB6ThMeNQE/25" style=3D"text-d=
+ecoration: none; color: #000;"> Get the newsletter </a> </td> </tr> </table=
+> </td> </tr> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt; padding: 0px 10px;"> <table style=3D"font-fam=
+ily: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%;"> <t=
+body> <tr> <td style=3D"padding-top: 16px; padding-bottom: 16px;"> <div></d=
+iv> <div> <p style=3D"margin: 0px;"><em><strong>Like getting this newslette=
+r? </strong><a href=3D"https://links.message.bloomberg.com/s/c/v-ZySYtY07hh=
+pkxIIlTorxl9qwGY4VJuGZUqOC1kXn4609G3u6WmZRPkJLlLmL7_0Dr5WbWHEnJeYmvttp_dpQY=
+ToJw5VOJo55DITv8e-BefFu7I6OKOJRY4Hn0Snz8rov8W6b1boyYJ7JhoNxp7fKHOI1qqwRoaVg=
+ah88HbYTyzGnQCzYMkR88Bw-sjgqqxcNLcLyFmgS0lrDumn_lAjMagoLdoiPXB3XLsekx0Azu5R=
+U1Y7B180l50XFxbijdjrInw5-X4mAwocJ79n49AgNqrlp9qzEPvRNcMU3J7bUbR7_gUu008oh3Z=
+wL9rb4myaBccpAYySm7TgodA8CE_0a25YJzjY4WIaBpxjlO8dm7NiLVkzzQ6EaHkJ60dtnnh3z6=
+HxcftsN-RBkOyzBPdCc-CS03Af6ZrvvyFCfLLwtX-O8UjLPK8wTmngB99DUzRKp-YzZYowjvyxz=
+_JtEKNZsLGWdupxHtQPD3qG-F0boAN4K1VFgcydSFMp6DuGfsQai8yRWlUb9d0SZTqCpdRmmTTE=
+klPLZx2kwqKpoY6cKysyhl1XMQbvRDxD8t4nY7boC-2xl66thRCq0nP5qWmZlkOQvnW5kmxqihX=
+IYw6QfsDbFXFr8jp2zj77pILMWXRZB64CgW8CukFpJol8vPkIQ2dKYZSvsW3xg_y5f7y_8IUNBO=
+vRoKUrlDS/zImO_x7LG5JhTjokEaFyOWh-YnlqwQ7b/25" itemprop=3D"StoryLink" items=
+cope=3D"itemscope" target=3D"_blank"> Subscribe to Bloomberg.com</a> for un=
+limited access to trusted, data-driven journalism and subscriber-only insig=
+hts.</em></p> <p style=3D"margin: 0px;"><em><strong>Before it=E2=80=99s her=
+e, it=E2=80=99s on the&nbsp;Bloomberg&nbsp;Terminal</strong>.&nbsp;Find out=
+ more about how the Terminal delivers information and analysis that financi=
+al professionals can=E2=80=99t find anywhere else.&nbsp;<a href=3D"https://=
+links.message.bloomberg.com/s/c/hOiUoyQNQVyirH_zc8Zs4Slgzve-GzYroDbnb6YZsQI=
+0tQAGnbw_W7gv_hBlsCzZmvMHGvfFbDTTcg5qcpHToYfdGGZ9E4I294nMZcS2-k6ncJ-nFPfRxe=
+BkNSs3dRPrxq3DjVzZEt3YSycN9uz2MsKsyC7khldedzg96bxzp5W3TgBhcOei-VyxF83TvQqLD=
+abWSYi50x66M2j38rT_s5ESRr4NwgKL7ItjLJQPjlN9sleHu41L5NKBOoYO2wtDaJJhSDQD458L=
+sW4T8k1Le8ATc6BReYh9jUx92149oVsSZIS-a2ntKBT07Ppp70NFvJQfGpL_6F44QxtXIX7wxYO=
+y7ef9We7VHRW-Z72Yj3uaFh10QUjHhEq8ruF7bUeQe-m9ClAfy2q0jTX-WJNb7lqiqi6mBvNjpu=
+mcERymCepFb1q9ytXZN4jzb2tyr9QU5Sc_aOs5p17Mo4hutLJujlqrNWpk4-lKim1BbadZhrh-z=
+320vDdDTBf8yQYFXawkqCV_nloKbSLQRMfOkMFO7uSMR_7mtFo7EIT_GjN1tZQk5CL9ZpshALxv=
+oNcvNR0q7oghmf5T7s1LJaKnOjxl23tOfC-emB4sNw9K_Ypj4U7FfNaKWoLwyCY3-jdlVm1QN9L=
+bMLlcnjzf5Fb4_VBf_wKhyCWzkOAnFAwdcRdVIHG88Vtxqz19GNga4Bz11-6blEwp8cAlTr_x6-=
+QIbSc7W5sNDnX8Zo6P3ThOMqOOjljyVKMQKnLppU05O0u_yzgxnZpEt8fpW5Ys2eqWMZo0EpWXd=
+eYGP8YuIj2NVDS9leG1Hg/kaIgYWmpZu6FzSNFbq_bFjdt3Ju0QgMW/25">Learn more</a>.<=
+/em></p> <p style=3D"margin: 0px;"><em><strong>Want to sponsor this newslet=
+ter?</strong> <a href=3D"https://links.message.bloomberg.com/s/c/ICwADcv5ZZ=
+DyGuGZlJg7MzUhKi2MgTVSkcRzZ8h9XqcBlz_xB15ug5gHLQ4moZtwEnmIeyKjBdtP7gbER_Ag1=
+oVGiC04gJx0Ra21gyFOSPskxOAm_lNkkSwk09j_rV-dshkPijgmp5RswBdW6HW8bDQyGfwPQgWf=
+O9C9hovKEEpNruQrpUIPRsYaUGkOEDIoCtNOVHehGRahKVLmNct7CXo4uWBUMYQDMrEsYX51FoN=
+Ldx3q1lAlorwocg57SXpAmwhA9PA1qS9faeIkLgZmB-t5LSpaOzgJoTDpFVbIvGUBcDFh1VCbEE=
+V0l1S1PvqtdFf4iyP59WSNXA8hI353vOpIj46gV8Y06zoCiq6-wpo_Y7QWe_SXwt3X3-cvhjWCG=
+NNVx63R4kDqbNxlaQq0xV0wZyEbYFRPCRsfq-GRhelXdyywSib2jf4K7fJgp92twq7Fu-36lCf-=
+hSvPXPA7m44nIH0Dqy2ZIoZVnyKRIbz23LdQQyrl2D6AmCwCmO6QJ-i3raSY9eimt0zvBo1JCG2=
+xYLaj36Xseffe7IXj0W_TX-9Blh6AzU77aN2l4KkYMIkibuLOYm0enODc/6YLIfbxofayCWsgc_=
+F4CphA9yt18rCqk/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank"> Get in touch here</a>.</em></p> </div> </td> </tr> </tbody> </=
+table> <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0"> <tr> <td align=3D"center" style=3D"font-size: 13px; fo=
+nt-family: Helvetica, Arial, sans-serif; color: #666666; border-collapse: c=
+ollapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 20px 0px 10=
+px;"> You received this message because you are subscribed to Bloomberg's M=
+oney Stuff newsletter.</td> </tr> <tr> <td align=3D"center" style=3D"font-s=
+ize: 13px; font-family: Helvetica, Arial, sans-serif; color: #666666; borde=
+r-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><a hre=
+f=3D"https://links.message.bloomberg.com/a/sc/y5Aw2ZVybc8Fp6e1omui3LF2brUzC=
+340rNHESvXkB5prB4ug3jFQEZ2FZkUIEzVvN-WBdlljuxoiuSCjtJBTok09dd09-BzgbCSMeze-=
+ZwA2zIx1gOlauicYrubx6HxbJsoHzxi9hE2p3Mwo9vnGdQVDSzCT2L2aR8jtA8NrzTMviochwu7=
+BZUEnyGRQ5_I_GL40lPUzGHLZnMH8jcwKBsdCHaM0hgsCxpGe9xj6ik0-gLiQ8DRAzYoUa_AO5q=
+TIuut6hdDqGw9QnsbasxiCZyz0bwDcYSOvuxuGbU2ORCKK2pIWN-IPMjZE7TX_xuNzziTWqmzxR=
+t1akeuLq_jYRH5vdlT8zWsz8nyoupgMatiUJ437yirBHlSFlWgEZjT3hM3cLA9_csNKvmdxCS_B=
+Z8sEgfh94XiHE_Ghw7lXuK7VcTliuDgTlg04Hvq8G8qAsQQw5hrrXgZDa43qru-hKtyMm8jS569=
+3KCF4Vld6lxMmKnzQur8t-XCoXHBJD3C2PRG1PfKG-thY5mayrEuLUzU9SOfx4gJYM44qk1LwNJ=
+8Bo7_V58fTGoU4L7S_Z224wzAnJHRO0yr1F-gR-npAI5AnUzR3cLxrN_qVcs0Y2DNuPM7CxJMG7=
+GYULwIcxUO8YhZJ140V4SywN89JBV8XAZoDQXCfMURF1sWSFcZt9tJzPa24P_wgdkMy/03Qru9Z=
+Sju_SSmckSLxUlMvK_NqpukKX/25" style=3D"color: #666666; text-decoration: non=
+e;" alias=3D"Unsubscribe">Unsubscribe</a> | <a href=3D"https://links.messag=
+e.bloomberg.com/s/c/fLU32NfTTpZV_-oa5k-FwytBMeu0n-W76x-fuAs7rqtc9x_iqU2v8Xq=
+V61bS60Z4ZZYzGysvtxG5bzmHmA3DbWkjfdDfZT-F16C-B-fpQx0QafsntCgkwee7DG4JbxGhL2=
+1N0Q5psCykqsYb1GvlGvBXG1WFnKa8mrs-lYcJ-jz9x5Ci9IXYyeaVsnU4rvUvyYmxXak8ZK5t-=
+caCWzVRUs2qZ2ic6jD8Q0bYN_z-FuY0md1SSDHHerlY6kuVulrDmQGHpGziNsoTd1BNyV_eDy8p=
+yyGE_-bEI5fokt8cR1Yn5vcoZZ9ldktkfLlD6R8ck6oqRJJtXJE3yU3gZaPd2H4tt7fc7_1A_PQ=
+2DkLtXuKMJHWrfab9ld1XeTk/rYFkmphS4OlEsIdKcUNqQl6mC97yRXaf/25" style=3D"colo=
+r: #666666; text-decoration: none;" target=3D"_blank">Bloomberg.com</a> | <=
+a href=3D"https://links.message.bloomberg.com/s/c/vPuXkKrvPoApxBuAeZCtItg7B=
+Fkbf1H2hRqLzF8-v_d5wblT1iCjm15prexolZVtBKrCodLSOHDr6JnIjkfrSBMjnsp55zsifUXR=
+CFUK964AwHJTbnf4NBiSJb1gDv0lBpgsHtK-5A8ZRT_Yq9gJDV54_-85-txK-nDHDXVj6CL9KxW=
+VKMgJuuF5ShQh8ZrrxFGo9EIiX9vcocGG3KeAoFJ9tKES52DP0pXMM63pBIzw_yQTf5rp_GcIHB=
+QlaaCDN-sCX5XorN0dJvnUn-VWAyOSspU51EQXBllRaeS7-5Nlljal28AAFYyc7UF3GncGdHvSd=
+DioRXpn_RvjtdE8lyMSxYxZ42SGFpHnnYz9iiJAGHYktGJ3g2A3mBs/sMj230VQ6Ny6nWRssUcG=
+X3ODP2XTn9QB/25" style=3D"color: #666666; text-decoration: none;" target=3D=
+"_blank">Contact Us</a></td> </tr> <tr> <td align=3D"center" style=3D"borde=
+r-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tabl=
+e> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-=
+table-rspace: 0pt;"> <a href=3D"https://links.message.bloomberg.com/s/c/PtU=
+eCQK6dXrmh4v5JiMVhOcmiNyNR6mp7qZmFL3XyMEN-Xq2I2oZKca53AifSbsZ3hV8AqxfVKgwuY=
+cXDXmVMokT9EWDR1vZrSG4hrAwessvLioeSuxE0v4WAyOkjRv2GDQ8bKNFtlcP8aQEolakkPX_H=
+HIW4zkDdPUNYerAFrriDYOhwM4iCZ9xi_ejuul3fnyQWPcmtZZD55UeForP_8l1AtkLc_VNdOqJ=
+IUO8jJ8aJGALTre-wn7rMib6LikxucOJN7JhmwLMwBCVhoC-OEy_BmcFDY-WekywFncGPhMiBYY=
+l8kMjV381KaBUPil4yafv3BmJdAg7al-0m2eJTzmaAIj5HHhyoX9tWLUg_Py9wB0GyV5e6tjQEi=
+8/sxGRPT2gSeF2njDBC5hBwiznROf2UD2f/25" target=3D"_blank"> <img height=3D"18=
+ !important" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7ESRv=
+r8wb2g/v0/-1x-1.png" border=3D"0" alt=3D"Ads Powered By Liveintent" style=
+=3D"max-width: 550px; height: 18px !important;"> </a> </td> <td style=3D"fo=
+nt-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #666666; b=
+order-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> |=
+ </td> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt;"> <a href=3D"https://links.message.bloomberg.com/s/c/-u5V=
+t7JHv0rz4ioUDyTBErfpR-UiX9LgvGKMjTIkobfGgrdc1xTXD9Pzb-HVyDw_XezGFkWyVsxgliU=
+jE35oz01B7B8doKxknqQqNfCPeMMizEJGulzqKLwAJF3y1RgfK2cjbSm1cadXm_cEk6NAQdlDmN=
+g7M_K34FGA8KgqC84uzndcz_2wTqzzsKJH0COay6N6eHjxVc1KANmCtMikDsK1CJj9iBV9Mp-Vi=
+9MMH0xJwf05wPjNGS7YYkNxJGctibtkmk4_ks1T4tbjP_2ToO8Hx4OJA6E4GeTTJD4JdaoQWs2o=
+YmJa9S9hCAEsxfFe2beGuIANSJCByMalrH6niWRTh39HyPva1JgqosXqmpvUa9GtcYpOM2yjjoY=
+/xcCc7AWLp7aI5p6WttPn5UTl-7NWKGiA/25" target=3D"_blank"> <img height=3D"18 =
+!important" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iHu0Lhj=
+yABMM/v0/-1x-1.png" border=3D"0" alt=3D"Ad Choices" style=3D"max-width: 550=
+px; height: 18px !important;"> </a> </td> </tr> </table> </td> </tr> <tr> <=
+td height=3D"20" align=3D"center" style=3D"font-size: 13px; font-family: He=
+lvetica, Arial, sans-serif; color: #666666; border-collapse: collapse; mso-=
+table-lspace: 0pt; mso-table-rspace: 0pt;">Bloomberg L.P. 731 Lexington, Ne=
+w York, NY, 10022</td> </tr> </table> </td> </tr> <!--[if mso]></td></tr> <=
+/table> </center><![endif]--> </table> </body> </html> <a style=3D"display:=
+ none" href=3D"https://links.message.bloomberg.com/s/eh/UOnbazXWcfizAub0P3A=
+YpmJjuca427Ef-dq1Py7Ig6ViOZRr9uObMedXgh3Mx8F2MriFwMUgYZXM-Q7VLDC-REHcdzUV5B=
+JZPHfyQstPl5T9MHDWCRnykzNVgDlCBwnRFTQgU327LI-tt0hcXGICf0l7w7YfPLQwKeGG1solY=
+sbdgZanSBYmzoh1Qs_W_I3LGLtKOt4aQ6X2kObtXOPhD49DYv7s_YXI-fiVozKSYg32vng-An6Y=
+KP3F7cX8mL4yqnvC-tgIgplWSjxuHLbCDBkI-wmGXrp1efua9Sxv5OEK4x1b_eRwSoUOT8E_Smw=
+bR41IB_7uy2YsQhf8vpbaGhw6GC76QOZIrLc/QUgk3y5iyLxJRIoXlcXQbZMUcnCFehTy/25"><=
+/a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/A5rM7cMMcJk6bgVT3tQONQ~~/AARGbBA~/76XWhv7i2ut7aGVtsu3UVgT=
+Pr0dlgQnadI8kV-4ZN6naFDwoe7G0km9lOOIgzPjlURupxNN-9x1UP9mW5N2CjQ~~">
+
+--_----T1AQTdjDOtbJP1qU/jbiWw===_44/B1-28241-E4F9EBA6--

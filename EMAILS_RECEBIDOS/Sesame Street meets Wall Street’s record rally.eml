@@ -1,0 +1,1427 @@
+Received: from DM8PR02MB8071.namprd02.prod.outlook.com (2603:10b6:8:18::9) by
+ SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Wed, 7 Oct 2026 04:00:27
+ +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=t89E4hcdboTJAvo5Sm2ywgNsDBlpzEJnmmkQ4Kbd62tkIPNpjUv1kOlop9SbVAFsNXJbvtiut4YXIP8lAmqguxgclvo7UV+z545TFlXD+B/c0PR8F5rDGmt0YIDQYd5nzC4OvEYNi2qxYESUDcZcmvpkU4CKilipAtcz0D2/Yz85pQ2CFTQjbgIoXzR8HvRUV4ppx98uHXyPZ6DUWQzFXOiHJOYQM7DuK1m5oP3a6krLG2pJfta7yui3xwtDVb++vnm+sRTr2V5VS9bZXKxIQ6HlYyw4ZLbA7u9QRfQbnMldpC1EMK2CHjwDoa5S7GWPJs2VfPjz/cKmF4uYtWW+RA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LMJDngvn8to9lEghQPFZXdqjm7hKZLS/UaBusLV6X58=;
+ b=nqr3M5B37B8rZCVWoJhqsUmcJjudQyLGQiyRgw3wRiGv7oVd6boXo0FHgCOVPRPu8yt6cPsxAKzEKTGk2z8zLVE114FQ715d4u6Ff2sOpOwD1rYFMg+gj1thIdnxDb1uHlEnQ1sACwp9r+tk5kwCSNvZCPshavRlefzX9qBC2fKxWMcB1x8Kipx6jYt/ZYmoXZbbW9NcUQ5NaoUpOSHwdx7x23vtxfr32LLRulZjiArquWbWiJnjZlZi3Pb6JhVCGPtWdVUjfvOKCHetDXjpjs4vzroo0/FmuXJAJUwxFFCm1orMgvJ7vfN2R5Ho46jbDnBzr78G77/dD9cbpVjcNQ==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 209.85.219.52) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from BN9P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::10)
+ by DM8PR02MB8071.namprd02.prod.outlook.com (2603:10b6:8:18::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.20; Wed, 7 Oct 2026 04:00:25 +0000
+Received: from BN1PEPF00018547.namprd05.prod.outlook.com
+ (2603:10b6:408:10c:cafe::53) by BN9P222CA0005.outlook.office365.com
+ (2603:10b6:408:10c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
+ Oct 2026 04:00:25 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 209.85.219.52) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 209.85.219.52 as permitted sender) receiver=protection.outlook.com;
+ client-ip=209.85.219.52; helo=mail-qv1-f52.google.com; pr=C
+Received: from mail-qv1-f52.google.com (209.85.219.52) by
+ BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Wed, 7 Oct 2026 04:00:25 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:9665CAC9454DEE8222D7435219D3265009566F5C70605435C14118DCD00A5BB8;UpperCasedChecksum:82CFA7194A16DCEAA09B41D0EE0242F8D1DF33E217DEC26EF0CB7DA4C00CC535;SizeAsReceived:8718;Count:37
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91957ec41e1so20709566d6.0
+        for <carlos-andrade@outlook.com.br>; Tue, 06 Oct 2026 21:00:25 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791345625; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=J1Bx1+oLF5A916E5pNDFguW3PJ75cRgT3GvxIu7n7PhFz8yqvEk07+2W9f/0HHqP27
+         fSxxyEDM+crONGBTei+BFFmzlJvii2BOw4ebjmIZnadJCPIaOg034nm669Q3hzz7zEVD
+         tm47ehRwkrKabUOTOXNhNQEC1GMH0jO1qj2vYXsv6uJ71zSmTjTLpBk0jBRIns2gmocA
+         4PR572sV6J2ttNS6mePikeyopgGVO64gZMEUuAXE+1LXP+g7d4sh/i3GCLVkcjEHxOUh
+         kbwNEdm3HvYKQzoRAlh2QKCahVmBJHK9rW+n/j8z0k6bGx95AEjh7VNfE7pBYPLr1wAy
+         +vHQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=LMJDngvn8to9lEghQPFZXdqjm7hKZLS/UaBusLV6X58=;
+        fh=XARI+4VgnO1w4ZXfUA9i43idKa6tKUPqhQb9Y1yUIf0=;
+        b=VXimHfihE8b3pyVSB+tdWtP03Kei3T2gA+PG//AD2a9CHXpNVGw+gc29Brv4j0JYdC
+         iJ635c2km6lssCiSYOyNXm5AMdyoU1A1vzbndPzpN7hCSx1K7nHydwd3rZATh3yzfJMW
+         4+ePLH1jMaVe2xh69kO69+TNhrjqV6lfTd7IrubdtnUe0mdToDrjnSULrwIi5F+shcSJ
+         2q3pQHsXBsp7MmnetuiYa/qe+i7C+R7i4MsVbqLt499BvPnSBHKMhe8tLv9aYtiwTu6N
+         FWvXu9yx+C6y1kMhYNq0P1vpZbzydteV3C6vuVhUzxpT5k2r55Y46iw0uXcfC17SQfgM
+         0cdw==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=klSPygPQ;
+       spf=pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791345625; x=1791950425;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LMJDngvn8to9lEghQPFZXdqjm7hKZLS/UaBusLV6X58=;
+        b=wjAfS4nTOeUY7wykAQeiCWGkCe/5FnR8RbruEuffqCSkQKKnGksz6lN8503AxLZ+14
+         y3sGCRdgDor4EhL8OtiI/7dMelpOv+arH+xLv6IYvKdxTV6T49GUIPzeFlzsTyVz2icK
+         s0OZY+EVAnPFNKXOdje36QeQuUiZcT88ATn19K6f1ozsF93jrQov/VIJufCdXFK3uZYW
+         HkxG7NYJTC0m0wv5UBP2ByjUjmmNRdcEab2RplxAhryxMNTkewOkcVMJV0VTb/0SkT95
+         3jml6paVWSLXWAp1JEgt1eeMHNM8KSbahG3aeZdI1NaQf0PwBAVzVwaWaBKdu7UUneuC
+         eopw==
+X-Forwarded-Encrypted: i=2; AKwUvBzGeM+A/IK3oLHiliDeJwuiiO/PTwpNab7Uk9FxISsXWo/0tJSkUmqBih18u/Xtj2aaHaN3np/Uy1Th8KGDsA==@outlook.com.br
+X-Gm-Message-State: AFuF++kzglYR/Lv3sn0moEAo/ilCEdZ6/PtJ7k7J/KYS5aiS76+R2V0L
+	sABVd2uIdWJJw3a68pRZwFf7oD/QtXustfCf4RTLHjNvK6cTYoPiRYZ/voqod09KlYtrvIhtu+l
+	3A3beAs4ctzdcpC1L9z6QJAPMlbPL9196YIa3AWh7+hmIW65/P5rldo5wjlCoIg==
+X-Received: by 2002:a05:6214:468b:b0:919:952f:43f1 with SMTP id 6a1803df08f44-91997859992mr21916806d6.52.1791345624547;
+        Tue, 06 Oct 2026 21:00:24 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a05:6214:61c3:10b0:919:6d51:f1df with SMTP id k3-n1csp2471323qvb;
+        Tue, 6 Oct 2026 21:00:19 -0700 (PDT)
+X-Received: by 2002:a05:6830:44a4:b0:81c:292f:97a1 with SMTP id 46e09a7af769-82acc85b6dbmr2135738a34.2.1791345617793;
+        Tue, 06 Oct 2026 21:00:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791345617; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ClNBnj5jP7BgybTD9wFVje9AYO1571Qy8L41rO/w0GghTEFi4HVU7ufzOOrN4Ka97X
+         Yd5nf6T9AkrjOWvQJmkNqJYsWBYxGkvXc2IYp7O2zBUcmQcQwyDrDnRpyYRjYjFfQqXi
+         +zVmccq55PSKnpEeJrOjVl9KvRo5yDPjjYC7lhBFd+pIIt7lrdvrjr2tMajlB+CeXfe3
+         I/LaHph+5oHsJMEYbzSHNLLs7ZhGZNzhL5zd7n4m486oG2wDCHc2gv3SRPIw1L9l7UYE
+         LvF4f9FGRt4OGercKrdV9IIpohUC4SzjhRXvqplq4e1jGrRnzvngY8jZLu1jIRMcZp7Y
+         yNkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=LMJDngvn8to9lEghQPFZXdqjm7hKZLS/UaBusLV6X58=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=ggbx52qwhhhuMSOxWTAl6vPg5N6IlgqhbXGnzhmabUZTDaNZw/y/2OcCMtMko+lCzC
+         SlFDFg/vMNo2thuWz47AUJdWiqB2sB29Csxo6MM+q9xAlL1ZKeCQ2VUcm5KRPl4OsqO/
+         Uaf9rXYlYKzmszYueoqZQa++BAe6TY44ROkhLLEmjHCTtNSA9EZKgHK4T0q/k6ORltp2
+         jCpAyyljtcSiYtdrocy/zp/hampBQrmNI1xfMiznloPm6urzaBAfvs03lKsGjiYVydKl
+         8M+RriHVJKDTGzKGq30NrllEVGCrdLst80lxG8mYu4ieP3ttVJujHzqYM3iF+cdptsWC
+         etMQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=klSPygPQ;
+       spf=pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-21.sparkpostmail.com (mta-203-32-21.sparkpostmail.com. [168.203.32.21])
+        by mx.google.com with ESMTPS id 46e09a7af769-82ada8e0373si2505092a34.10.2026.10.06.21.00.16
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 06 Oct 2026 21:00:17 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) client-ip=168.203.32.21;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=klSPygPQ;
+       spf=pass (google.com: domain of
+ msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.21 as permitted sender)
+ smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: vJryUOS3TXf7NIKFijS3NoPi60/gztNVxY2rdukxcR0=|eyJ0ZW5hbnRfaWQiOiJ
+	zcGMiLCJyIjoiY2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbSIsImN1c3RvbWVyX2l
+	kIjoiMjgwMTcyIiwibWVzc2FnZV9pZCI6IjZhYzVjZWMzYzU2YTdiMDc2NmFlIiw
+	ic3ViYWNjb3VudF9pZCI6IjE3ODEifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1791345614; i=@news.bloomberg.com;
+	bh=LMJDngvn8to9lEghQPFZXdqjm7hKZLS/UaBusLV6X58=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=klSPygPQs59IRfYVfNoNR2oa7vJYMrW0wCfwSp+heK1UxAkaqm3tlMKflshMlIJ+E
+	 CEI3L7IeHqZaB8Q4Kg1P6wSBWO3WF01Xr4aGtTHI7Mmr/tjnEPxLwv/RBmD1seenOq
+	 2NNSmawHof/ok2MXMGnPEpocFzUvUzlR6KMQYumkTbUkj+2wSOQ073jOin06ruellY
+	 /SQwJOYhSJbaOv9+2ppWAIYpBUbXtoUJoFSRceZEJwKB1D2PCsbiSCPKdZ8OvyY9f2
+	 /DmESt6vlpQ03d5yGaCjrzo+EohDivOjfInf+1QdjIEujjM/MDIkCwO207RPcxOawy
+	 UJiCYiLXZwIOw==
+Received: from [10.90.36.54] ([10.90.36.54])
+	by i-05374ac7ba4e0e518.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76471 r(msys-ecelerity:tags/5.3.0.24)) with REST
+	id EA/66-07512-EC3C5CA6; Wed, 07 Oct 2026 04:00:14 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <EA.66.07512.EC3C5CA6@i-05374ac7ba4e0e518.mta1vrest.sd.prd.sparkpost>
+Date: Wed, 07 Oct 2026 04:00:14 +0000
+Content-Type: multipart/alternative; boundary="_----pnFFwyLHy+nrlBQjMLPD7w===_AA/66-07512-EC3C5CA6"
+X-Campaign-ID: 20249854
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20249854+26739047@unsubscribe.iterable.com>
+X-Message-ID: 2fb2ec96fe744a54af8d2e6d797f52ad
+X-Feedback-ID: 26739047:20249854:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: =?utf-8?B?U2VzYW1lIFN0cmVldCBtZWV0cyBXYWxsIFN0cmVldOKAmXMgcmVj?=
+	=?utf-8?B?b3JkIHJhbGx5?=
+From: "John Authers at Bloomberg" <noreply@news.bloomberg.com>
+Feedback-ID: 26739047:20249854:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 07 Oct 2026 04:00:25.2258
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: a115e53f-57cd-4403-0ac8-08df24278453
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|DM8PR02MB8071:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/7/2026 12:41:39 AM
+X-MS-Office365-Filtering-Correlation-Id: a115e53f-57cd-4403-0ac8-08df24278453
+X-Sender-IP: 209.85.219.52
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|3069299007|2120399003|5149299006|36140799009|10300799038|7099299003|260928210016899003|68400799013|9020799019|9400799043|35120799009|5139299004|9000799056|1680799066|260826003000599003|56899033|4302099013|3412199025|440099028|1380799030|1360799030|1370799030|1602099012|2607281247196008|30041999003|2006899018|2406899039|6406899015|311199032;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 04:00:25.1956
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a115e53f-57cd-4403-0ac8-08df24278453
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR02MB8071
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.9396170
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aGNDRmtiNjBHc2FTUjNjZWlQK1hlZjk3c0RKMnMyOEVpc1B6NWpsR2tHT3Vk?=
+ =?utf-8?B?NiszMWh5RXZZdkM5VUx4alpxa1pBSDJkT2Rmell6ekVVcFU4RElaMzBrbjJz?=
+ =?utf-8?B?cVgrYjl3MFBYOXRHL0xhcnBxb3Frc1pjbGlBbmJEMVBYOVloVDkxTEIxd3Fw?=
+ =?utf-8?B?UWVUWDIvZTFpUk9naVRPV0hOSms5bExObjNCQlNhNzNHTERzaWpVNXdXT2dY?=
+ =?utf-8?B?dHdIbExQTHNUTzBVMHl0U0pqTnNWRTE2SVN3RmZkRmZxT3VKTjNSR0ZpYTVx?=
+ =?utf-8?B?NjJVdDNnQzFDdlpwc3YrL0RJRUw0ZDI1ZU9uVnZ4MWNpc2NjQzVuUmpLMzFF?=
+ =?utf-8?B?MEswWEtsckh5YTA5cjU0L0VJbXJNVzRjMmNQdXQ0SnlCdGllUWtQc3VDRitN?=
+ =?utf-8?B?NkZwc2N2cEMreDVpbHNPekRMVkhRbXd4d09tOTU3ei9yL29IeDJjRHBVbEJL?=
+ =?utf-8?B?aHlWQjE4Tkc5V2F3OVFHbndOT01WQjhJbC9heDg2WC9NQ0JmY0JjNERjbU9H?=
+ =?utf-8?B?RituY2ZLc1ppVkZMbWk5RHlNMmpuSDI5NVpsRkQvMk9UU1BTK2ZFblQwbWx4?=
+ =?utf-8?B?OE90eEhrbldja1RnRjZWQ0Z6UTMrbUhMQlRGMGtmMS9Ya2xnRFJhL0VjVDFZ?=
+ =?utf-8?B?eWQ1ODJCU2JRYWRxaUZrdTZIVnNpVFQvbzUrT29DZkFlVTZ4ZFpSdUh5cGRJ?=
+ =?utf-8?B?OFFKVmQweFQ0UkhrUFFiOURwOG5vWnZVb2hSbGtzSWdoRTgrUy9WVGNHV3NI?=
+ =?utf-8?B?bXhPS2FHeFdJbkoycVFjbk90NnNpWE9MQ0dIcjFRQTdjcWZnbzhXSDhwc2RL?=
+ =?utf-8?B?aVIyeExhNnFydVJpMUJ2ellEcjd6eVZQb0QzSnlyQjluQXV1a29NMkJoUnJL?=
+ =?utf-8?B?eVpJN1ZIeG9XbGRHb0lSNDdNVDY2OWdCZ21kU211UUxiNHAyWG1GRWVTYTVW?=
+ =?utf-8?B?dXpTeThRUlhNQldWL0hkL2R6Zm1SQlYzWWhxWTdXQXVsbnkxUGlVRTk4VlFJ?=
+ =?utf-8?B?RW1xY3RmVHlyNCtyZHAxWXdCTXhuNEhHdytNdmdwMlpmMXAwbGQrQzhXZm4y?=
+ =?utf-8?B?bklOMDR4S082emtxNUhnMWVDV0NKbDBLVXJMV01Yb2dSdDNYNS90ckNwUTZB?=
+ =?utf-8?B?emd0VVd6SHpjb2FCckpReEpaa2hoUE5KQVhhNUxBeWNxZVRQWDBBVW1mRHRI?=
+ =?utf-8?B?SG0zTGlzU2FscWhEUHRoN2czRzRRd0Z4Z1E5Sk5PS0c3a0Yrd1Z5TzJPMUND?=
+ =?utf-8?B?YnVpREpNMUQvUmMvNm01RjZoUkcvSWduVXNMNE1PcWQ2T3pTWmtMOTF0ckhX?=
+ =?utf-8?B?eE1mL3E1bHVPenRtcGduRVB0bUNMeWFPSmwwUmVkTUVJaUFIRi9yTlV3RFB5?=
+ =?utf-8?B?Z1FiaWY4RGo4dm8wQjBRWTBzUkE3ZmlQN05wVm9jcTRYMTU3d3RYSE51U1pJ?=
+ =?utf-8?B?Vmg3cHJabEloRGxHU2VueUlTNXVkMkYrUUQyUjIzYXBUYS9DakFkUFZIL2cw?=
+ =?utf-8?B?amt5RnNIQzg0ek5qZVRZQkM1M0hTVWtFZVFad3NOcjNFazNIS1pRNzJRUWJr?=
+ =?utf-8?B?UUpyNHJFWTB5dytQZjV3djRPem43MzdwK1ZKbFVoV2o3RnkxbGFhUVhoSWth?=
+ =?utf-8?B?dTRyckc4ajlFREwzdGxqVzJKQnpTMlBzNktXVnJCbi9vQkdXNkIwZ1ZQQnZ2?=
+ =?utf-8?B?SGJIM2RQMUFGRGtnQ3p0NUplU2d1UDl3WDJheFpkaUlqTXlzSlFCemtZRGdQ?=
+ =?utf-8?B?RGd2UTRmcWJzVzJNR216S09uc1o5ZW1aL0VOOG95U1JSaC9yM1JWeit2NVps?=
+ =?utf-8?B?b3RCbmdMcXBtMGYxNVpGY2I3QVVIVldtZnc5d01ib2o5eDVCVktoMUgzK0Nn?=
+ =?utf-8?B?ZHF1bmsxUEQ2a2xMRHRwN2RERW41dHMyaS9yTTdkUUpEVEFYbHVlYjJRWUZx?=
+ =?utf-8?B?SXl4R0E4eXVKZStBalVXUHdxMXI3Q0lFOTlxWG9pNUVuc05rV2U1bjRrUnpP?=
+ =?utf-8?B?NWJSZW1yMk0rT2NPNTUvY1UwbmFwYWdMcTByQmt5eDNMM2c5MXQrYWpxSDN5?=
+ =?utf-8?B?cm5EdzFzY2YyNWwrb3hOZ2poU2sxUUdJMmswVEJmdGdNQTM0RFdmTDJNSWhW?=
+ =?utf-8?B?SlA1R1E2L0dmdVZFWWU1T25sYk1nSWE5NWZiSnNHZzkvZVo2bDNuMDZSRVVU?=
+ =?utf-8?B?WG4rN3N2MDY3V3BET1k5ZVV2aWFPNnBZZXM5T1FUb1M2dmEweTZzT1pSdFRQ?=
+ =?utf-8?B?dDg4eU1QZEs5RkZVZDdkT1dINlFlQjl1NEpzU1pjSkVmS1FlbEx6cU9NWVRZ?=
+ =?utf-8?B?RERvdW1lSzU2NFFQL0tKRWIvcnowNXN4c3cxeGF2bzlnOHZ4TEpUb3l6NFZO?=
+ =?utf-8?B?Y3N6MnUxa1ZqVXZ6Y1VrdjI4dHA5N21rWGd0S1ZMb0FkNk9NT1V5ekZBbWFM?=
+ =?utf-8?B?Sk4vRVVYRzZoZHpwLzE5RzFxb2Q5WE1tT2ljODZUWFBVdmx6REIybGFIbHBN?=
+ =?utf-8?B?NDY2OW4vYmplckIrR0Fja3VlenY4d0s1UkUzVzhSMWdnMTdpcUUyeC9GeG9Q?=
+ =?utf-8?B?YnFoeDhGR0VmQ1ZrNmM0dk1ZUVg0aDRWTG1lRkduOWxMbE9VR3IxTmNuNm15?=
+ =?utf-8?B?WWEzVkswdGk1d1ZEaGZDSWd6enJ5bFFNcXNBb0lwbTc4cTJ4ck9ockxmWTdY?=
+ =?utf-8?B?TkNRV2FXYVZZWmJtaUNkeG0vZGlhWGZKbG8ybVZFT1V3QWN3YWJxeHhhYWhm?=
+ =?utf-8?B?eEJydm9qaTMwTTZZV2FTVVdsZWVLT2xqdlpOcTJnNTdOUjByaDNQVDVQZTk5?=
+ =?utf-8?B?Ui91ZGNLMVFkNHFUbTc3YlIrSE9SYkFPcE9GdU45NWErQnhzWXI4b09BaW1D?=
+ =?utf-8?B?cE1KYTVqVnVGRVNmeTdiZENLQT09?=
+MIME-Version: 1.0
+
+--_----pnFFwyLHy+nrlBQjMLPD7w===_AA/66-07512-EC3C5CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Sesame Street Meets Wall Street=E2=80=99s Record Rally=0AThis record has be=
+en brought to you by the letters A and I. =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C=0ARea=
+d in browser =0A<https://www.bloomberg.com/opinion/newsletters/2026-10-07/s=
+esame-street-has-two-letters-for-the-record-us-stock-rally=3Fcmpid=3DBBD100=
+726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&u=
+tm_term=3D261007&utm_content=3D9779>=0A=0A=0A =0A<https://sli.bloomberg.com=
+/click=3Fs=3D1149014&li=3D20249854&m=3Dbb4a280bebb1586390b9615b8886024a&p=
+=3D10072026040014&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&stpe=3Ddefaul=
+t>=0A =0A<https://sli.bloomberg.com/click=3Fs=3D1149014&li=3D20249854&m=3Db=
+b4a280bebb1586390b9615b8886024a&p=3D10072026040014&lctg=3Da3e8b6e3-e359-406=
+6-94ef-329d1b0625a6&stpe=3Ddefault>=0ATo get John Authers=E2=80=99 newslett=
+er delivered directly to your inbox, sign up here =0A<https://www.bloomberg=
+.com/account/newsletters/points-of-return=3Fcmpid=3DBBD100726_AUT&utm_camp=
+aign=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007=
+&utm_content=3D9779>=0A. To join us for a live event in New York,register h=
+ere =0A<https://events.bloombergevents.com/event/4e6fd078-e068-4762-a38c-f4=
+3bc3028758/summary=3FRefId=3DNewsletters&rt=3D-dIa2X6WIUCzNNZ8Hvk6Sw>=0A.=
+=0A=0AToday=E2=80=99s Points:=0A=0A * The S&P 500 =0A<https://www.bloomberg=
+.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-ral=
+lies-markets-wrap-muvv94wz=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&u=
+tm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9=
+779>=0A is at a new all-time high (despite everything);=0A * IPOs =0A<https=
+://www.bloomberg.com/opinion/articles/2026-10-06/anthropic-ipo-prospectus-i=
+s-long-on-flash-short-on-information=3Fcmpid=3DBBD100726_AUT&utm_campaign=
+=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm=
+_content=3D9779>=0A will make it harder to set new records;=0A * French yie=
+ld spreads retreated after Le Pen vowed to cut the deficit =0A<https://www.=
+bloomberg.com/news/articles/2026-10-06/le-pen-aims-to-bring-french-deficit-=
+below-3-in-2032-at-latest=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&ut=
+m_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D97=
+79>=0A;=0A * Deeply distressed loans =0A<https://www.bloomberg.com/news/art=
+icles/2026-10-06/deeply-distressed-us-loans-rise-to-highest-level-since-pan=
+demic=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm=
+_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9779>=0A are the highe=
+st since the pandemic;=0A * AND: A new business book reading list =0A<https=
+://www.ft.com/content/d0b2bf57-56c9-4d49-b721-611fc11df7a4=3Fsyn-25a6b1a6=
+=3D1>=0A.=0ATo the Victors the Spoils=0A=0AIt=E2=80=99s getting repetitive.=
+ The S&P 500 closed Tuesday at an all-time high, its =0Afirst since August.=
+ The trends driving this are well-known (inSesame Street =0Aterms, this rec=
+ord has been brought to us by the lettersA =0A<https://youtu.be/fwdL6gC7kVQ=
+=3Ft=3D8> and I =0A<https://www.youtube.com/watch=3Fv=3D6uAbZ8Brtqk&list=3D=
+RD6uAbZ8Brtqk&start_radio=3D1>=0A), as is the fact that the advance grows e=
+ver narrower.=0A=0ASmaller companies have now lost almost all their outperf=
+ormance versus =0Amega-caps since the start of the year (as measured by the=
+ Russell Top 50 and =0A2000 indexes), while value stocks (bought because th=
+ey were cheap) have reached =0Aa fresh nadir for the decade compared to gro=
+wth, according to S&P 500 indexes:=0A=0ABear in mind that orthodox market t=
+heory recognizes both a =E2=80=9Csize=E2=80=9D and a =0A=E2=80=9Cvalue=E2=
+=80=9D anomaly =0A<https://static1.squarespace.com/static/5e6033a4ea02d801f=
+37e15bb/t/5f5aa60971907a7a732c83e7/1599776266330/Fama_French_size_value_mom=
+entum_JFE.pdf>=0A - over the long term, small companies and cheap stocks ar=
+e expected to =0Aoutperform. So this is very unusual. Putting these trends =
+together, the gap =0Abetween large growth stocks and small-cap value that h=
+as opened since the =0Alaunch of ChatGPT is now yawning:=0A=0AEarnings, of =
+course, justify this. Growth companies should be expected to grow =0Atheir =
+profits by definition, but the way their earnings outstripped those of =0Av=
+alue companies in the second quarter was unprecedented in recent history:=
+=0A=0ATime will tell if the AI companies=E2=80=99 profits are being made at=
+ the expense of =0Aeveryone else - in which case this cannot continue - or =
+are the prelude to =0Astronger profitability for everyone. The latter would=
+ be nice. Third-quarter =0Aearnings season, starting next week, should give=
+ us the download of evidence on =0Awhich is more likely.=0A=0A =0A<https://=
+sli.bloomberg.com/click=3Fs=3D868532&stpe=3Ddefault&li=3D20249854&m=3Dbb4a2=
+80bebb1586390b9615b8886024a&p=3D10072026040014&lctg=3Da3e8b6e3-e359-4066-94=
+ef-329d1b0625a6>=0A=0A =0A<https://sli.bloomberg.com/click=3Fs=3D868532&stp=
+e=3Ddefault&li=3D20249854&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10072026=
+040014&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6>=0ARiding the IPO Wave=
+=0A=0AAnthropic PBC=E2=80=99s imminent initial public offering =0A<https://=
+www.bloomberg.com/opinion/articles/2026-10-06/anthropic-ipo-prospectus-is-l=
+ong-on-flash-short-on-information=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dau=
+thers&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_cont=
+ent=3D9779>=0A (IPO) is shaping up to be the next big test for artificial i=
+ntelligence =0Afollowing SpaceX=E2=80=99s offering, which was the biggest o=
+n record, this summer. =0AGlobal listings have raked in almost $230 billion=
+ in proceeds year-to-date, =0Amore than 45% above the total recorded last y=
+ear. But even accounting for =0AAnthropic, expected by Thanksgiving, we=E2=
+=80=99ll need a remarkable burst of activity =0Ato surpass the $373 billion=
+ raised in the boom year of 2021:=0A=0AThe macro backdrop is structurally d=
+ifferent this time around. Higher rates, =0Awhich helped end the last big I=
+PO wave, are back. With elevated long-end real =0Ayields and tighter financ=
+ial conditions narrowing the gap between what private =0Avaluations imply a=
+nd what public markets will pay, it=E2=80=99s plausible that the 2021 =0Are=
+cord remains.=0A=0AThis year is also different because proceeds are concent=
+rated in a relatively =0Asmall number of companies. That=E2=80=99s partly d=
+ue to multiples, as illustrated by =0Athe wearable device makerOura, which =
+postponed its IPO =0A<https://www.bloomberg.com/news/articles/2026-09-29/sm=
+art-ring-maker-oura-postpones-ipo-due-to-market-uncertainty=3Fcmpid=3DBBD10=
+0726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&=
+utm_term=3D261007&utm_content=3D9779>=0A amid investor concern about the di=
+fference between its target price and the =0Aperceived fundamental value.=
+=0A=0ABeyond the valuation gaps, it=E2=80=99s worth looking at how business=
+es have fared =0Aafter going public. BCA Research=E2=80=99s Noah Weisberger=
+ notes that while =0Apost-listing IPO market capitalization is about $2.7 t=
+rillion, nearly twice =0Aprevious peaks in real terms, when scaled to total=
+ S&P 500 market cap, that =0Anumber is much more modest at 4.3%. This sits =
+below the 1990s=E2=80=99 peak of over 10%:=0A=0AWeisberger points out that =
+while that appears massive, it=E2=80=99s highly =0Aconcentrated, largely th=
+anks to SpaceX. Only about 200 companies came to market =0Aover the past 12=
+ months, roughly one-third of previous peaks.=0A=0AThis raises questions ab=
+out how equities can absorb the additional supply. In =0Athispaper =0A<http=
+s://www.gmo.com/americas/research-library/a-catalyst-for-the-ai-bubble-brea=
+k_gmoquarterlyletter/>=0A, probing possible catalysts for a burst AI bubble=
+, Ben Inker and John Pease of =0AGMO argue that the stock market is growing=
+ more sensitive to the surge in =0Aissuance. That makes it a credible threa=
+t, even before excessive capital =0Aexpenditures outstrip plausible demand =
+for AI services:=0AOur guess is that, in the end, demand will fail to keep =
+up with supply and the =0Areturn on investment from the AI build-out will p=
+rove disappointing. But much =0Aless has been written about why the stock m=
+arket has become ever more sensitive =0Ato changes in supply and demand for=
+ shares.=0ARising issuance does appear to be weighing on S&P 500 valuations=
+. This year, =0Aas earnings have risen, forward multiples have compressed =
+by about three =0Apoints. Capex skepticism and higher rates might also, Wei=
+sberger says, =0Acontribute to lower multiples:=0A=0AIt remains true that c=
+ompanies try to time their IPOs when conditions are =0Agood. As BCA Researc=
+h illustrates, a rise in IPO supply typically weighs on the =0Amarket=E2=80=
+=99s ability to advance - there is a positive correlation between past S&P =
+=0A500 returns and future IPO issuance, and a negative correlation with fut=
+ure S&P =0A500 returns. Weisberger sums up the dynamic as: =E2=80=9CThe big=
+ger the wave, the =0Abigger the hit to returns and multiples:=E2=80=9D=0A=
+=0AWhat are the prospects for Anthropic=E2=80=99s listing=3F So far, invest=
+ors have =0Aabsorbed SpaceXalbeit not without some turbulence =0A<https://w=
+ww.bloomberg.com/news/articles/2026-07-28/spacex-falls-20-below-ipo-price-e=
+rasing-1-2-trillion-value=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&ut=
+m_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D97=
+79>=0A. While Anthropic=E2=80=99s will dominate the headlines, the release =
+of $2 trillion =0Aworth of SpaceX shares when the lock-up period expires ne=
+xt summer could be far =0Amore of a problem for valuations:=0A=0AOpenAI=E2=
+=80=99s IPO won=E2=80=99t now happen this year. When it does, it stands to =
+be a =0Amoment of truth.=0A=0A=E2=80=94Richard Abbey=0A=0ACatching a Fallin=
+g Guillotine=0A=0AFrench government bonds are under attack in a way unseen =
+since the sovereign =0Adebt crisis that roiled the euro zone from 2010 to 2=
+012. And yet this week, =0Ainvestors have proved willing to try to catch af=
+alling guillotine blade =0A<https://www.youtube.com/watch=3Fv=3D5HgqPpjIH5c=
+> (to use an analogy from TS =0ALombard=E2=80=99s Davide Oneglia). In two d=
+ays, the spread of French over German =0A10-year yields has retreated from =
+141 to 127 basis points, while the 2-year =0Aspread has dropped from 65 to =
+44 basis points.=0A=0AThis doesn=E2=80=99t mean that confidence is back, bu=
+t it=E2=80=99s certainly a welcome =0Arespite - particularly asFrench stude=
+nts take to the streets =0A<https://www.nytimes.com/live/2026/10/06/world/f=
+rance-protests-students-schools>=0A again. Marine Le Pen, leader of France=
+=E2=80=99s nationalist right and frontrunner in =0Anext year=E2=80=99s pres=
+idential election, helped by vowing to cut the deficit by three =0Apercenta=
+ge points =0A<https://www.bloomberg.com/news/articles/2026-10-06/le-pen-aim=
+s-to-bring-french-deficit-below-3-in-2032-at-latest=3Fcmpid=3DBBD100726_AUT=
+&utm_campaign=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=
+=3D261007&utm_content=3D9779>=0A. The steady rise in her party=E2=80=99s ch=
+ances certainly contributed to the ramp up =0Ain French yields:=0A=0AIs thi=
+s just a pause, or can we catch the falling guillotine=3F The selloff in =
+=0AFrench stocks compared to the rest of the euro zone suggests things may =
+have =0Agone too far. Bear in mind that many of the companies are multinati=
+onals and =0Atheir direct exposure to France=E2=80=99s economy is limited:=
+=0A=0AFurther, the last crisis, famously ended by Mario Draghi=E2=80=99s pr=
+omise that the =0AEuropean Central Bank would =E2=80=9Cdo whatever it takes=
+,=E2=80=9D provides a template. =0AInvestors believe the ECB wouldn=E2=80=
+=99t wait for things to get so bad again before =0Afinally taking action.=
+=0A=0AFurther, while France is currently trading in line with its worst spr=
+ead from =0A2012, it=E2=80=99s nowhere near what happened to Spanish bonds =
+back then:=0A=0AIt remains hugely significant that France is now regarded a=
+s a riskier credit =0Athan Spain. Oneglia of TS Lombard argues that the sli=
+de has run its course for =0Anow:=0AA parabolic move like last week=E2=80=
+=99s tends to exhaust itself, while market rumors =0Asuggest some leveraged=
+ investors were forced to close their long OAT positions. =0AMeanwhile, 150=
+bps has long been seen by consensus as the lower-bound of the =0Aarea where=
+ markets begin to expect some policymakers=E2=80=99 reaction, especially =
+=0Agiven the speed of the move.=0AIn other words, betting on spreads to get=
+ to 150 basis points wasn=E2=80=99t too =0Arisky, but positioning for them =
+to widen further looks much trickier.Bob =0AElliott of the Nonconsensus new=
+sletter =0A<https://bobeunlimited.substack.com/p/eurozone-debt-crisis-flash=
+backs=3Futm_source=3Dpost-email-title&publication_id=3D4487154&post_id=3D21=
+8913658&utm_campaign=3Demail-post-title&isFreemail=3Dfalse&r=3D1tnx7&triedR=
+edirect=3Dtrue&utm_medium=3Demail>=0A similarly argues that =E2=80=9Cthe co=
+nditions here just aren=E2=80=99t close to what we saw =0Aback in the previ=
+ous euro-zone crisis period.=E2=80=9D It=E2=80=99s more of a relative bond =
+=0Asupply issue, which can be sorted out via price changes, according to El=
+liott.=0A=0AInvestors are also calmed by the experience of Giorgia Meloni, =
+another =0Aright-wing firebrand, who has proved pragmatic in power in Italy=
+. Italian =0Agovernment bonds known as BTPs now trade at a lower yield tha=
+n French OATs. The =0Amere fact that she felt compelled to make the announc=
+ement suggests that Le Pen =0Aacknowledges the need for a similar moderatio=
+n.=0A=0AHowever, Nico Fitzroy of Signum Global Advisors cautions she may no=
+t be =0A=E2=80=9Canother Meloni.=E2=80=9D Meloni was part of a coalition, a=
+nd the bond market had =0Aalready felled one Italian prime minister, Silvio=
+ Berlusconi - Le Pen doesn=E2=80=99t =0Ahave those restraints and has been =
+moving in a more populist direction of late. =0AHer deficit-reduction propo=
+sal revolves around cutting contributions to the =0AEuropean Union, which i=
+s unrealistic.=0A=0AViktor Shvets of Macquarie asserts that investors shoul=
+d =E2=80=9Cignore RN=E2=80=99s promise =0Ato lower deficits by more than 3%=
+ (mythical arguments of lower EU contributions =0Aand spending on immigrant=
+s),=E2=80=9D but that there is a consensus to rein in spending.=0A=0AHe add=
+s that France is largely funded with long-term debt, with an average =0Adur=
+ation above eight years - longer than for the US, Germany or Italy. Greece,=
+ =0Athe epicenter of the last crisis, relied on very short-term funding. Fr=
+ench =0Aproductivity remains ahead of Italy, Spain, the UK and Japan, even =
+if it lags =0Athe US, Shvets says.=0A=0APolitics still creates a lot of ris=
+k that cannot be resolved until the =0Apresidential election and the legisl=
+ative elections that would likely follow. =0AOn the opposite wing of politi=
+cs, prediction markets give a 12% presidential =0Ashot to Jean-Luc Melencho=
+n, standard-bearer of the populist left, who=E2=80=99sargued =0Ato cancel F=
+rench debt =0A<https://www.bloomberg.com/news/articles/2026-09-10/melenchon=
+-s-plan-to-cancel-france-s-debt-would-backfire-be-says=3Fcmpid=3DBBD100726_=
+AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm_source=3Dnewsletter&utm_t=
+erm=3D261007&utm_content=3D9779>=0A. That wouldn=E2=80=99t help.=0A=0ACorre=
+ction=0A=0AThe units were wrong in yesterday=E2=80=99s chart of food prices=
+. We apologize for the =0Aerror. Here is the corrected chart:=0A=0ASurviva=
+l Tips=0A=0ASome reading recommendations. My old buddies at the Financial T=
+imes have just =0Apublished thesix-book shortlist for the Business Book of =
+the Year Award =0A<https://businessbook.live.ft.com/page/5504709/the-shortl=
+ist=3Fxnpe_tifc=3Dh.b8xfe.4DQL4Fo7bdoJxjpJVdUZMds_O.V8h.Q.b._Xtfod4doA4keu4=
+Nl84FU.tI17OFxp4.b8hIVX4MXDxunZxkx8OfH74Fx8bdQu&utm_source=3Dexponea&utm_me=
+dium=3Demail>=0A,which these days is co-sponsored by Standard Chartered Plc=
+. Full disclosure: I =0Ahaven=E2=80=99t read any of them - although I did =
+hear a fascinating talk by Sebastian =0AMallaby onThe Infinity Machine =0A<=
+https://www.penguinrandomhouse.com/books/752231/the-infinity-machine-by-seb=
+astian-mallaby/>=0A, his book about DeepMind founder Demis Hassabis. The fu=
+ll list with links is=0Ahere =0A<https://www.ft.com/content/d0b2bf57-56c9-4=
+d49-b721-611fc11df7a4=3Fsyn-25a6b1a6=3D1>=0A, and they all look very intere=
+sting, perhaps particularly Liaquat Ahamed=E2=80=99s1873 =0A<https://www.pe=
+nguinrandomhouse.com/books/306461/1873-by-liaquat-ahamed/> about =0Athe Rot=
+hschilds=E2=80=99 role in the first Great Depression. Thelonglist  =0A<http=
+s://businessbook.live.ft.com/page/5504710/the-longlist=3Fxnpe_tifc=3Dh.b8xf=
+e.4DQL4Fo7bdoJxjpJVdUZMds_O.V8h.Q.b._Xtfod4doA4keu4Nl84FU.tI17OFxp4.b8hIVX4=
+MXDxunZxkx8OfH74Fx8bdQu&utm_source=3Dexponea&utm_medium=3Demail>=0Ashould g=
+ive you some more ideas. Might make for a well-spent flight.=0A=0AMore From=
+ Bloomberg Opinion=0A=0A * What Anthropic=E2=80=99s =E2=80=98Existential Ri=
+sks=E2=80=99 Tell IPO Investors =0A<https://www.bloomberg.com/opinion/artic=
+les/2026-10-06/anthropic-ipo-prospectus-is-long-on-flash-short-on-informati=
+on=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm_so=
+urce=3Dnewsletter&utm_term=3D261007&utm_content=3D9779>=0A: Aaron Brown=0A =
+* Japan=E2=80=99s Massive Bond Rotation =0A<https://www.bloomberg.com/opini=
+on/articles/2026-10-05/japan-s-massive-bond-rotation-is-france-s-nightmare=
+=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail&utm_sour=
+ce=3Dnewsletter&utm_term=3D261007&utm_content=3D9779>=0A Is France=E2=80=99=
+s Nightmare: Shuli Ren=0A * FROGS  =0A<https://www.bloomberg.com/opinion/ar=
+ticles/2026-10-05/france-and-the-euro-frogs-is-the-name-of-the-latest-eu-de=
+bt-crisis=3Fcmpid=3DBBD100726_AUT&utm_campaign=3Dauthers&utm_medium=3Demail=
+&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9779>=0AIs the Nam=
+e of Europe=E2=80=99s Latest Debt Crisis: Lionel Laurent=0AWant more Bloomb=
+erg Opinion=3F OPIN <bbg://screens/opin>. Or you can subscribe to=0Aour dai=
+ly newsletter =0A<https://www.bloomberg.com/account/newsletters/bloomberg-o=
+pinion-today=3Futm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dau=
+thers&cmpid=3DBBD100726_AUT&utm_term=3D261007&utm_content=3D9779>=0A.=0A=0A=
+Like Bloomberg=E2=80=99s Points of Return=3F Subscribe for unlimited access=
+ =0A<https://www.bloomberg.com/subscriptions=3Futm_source=3Dnewsletter&utm_=
+medium=3Demail&utm_campaign=3Dauthers&cmpid=3DBBD100726_AUT&utm_term=3D2610=
+07&utm_content=3D9779>=0A to trusted, data-based journalism in 120 countrie=
+s around the world and gain =0Aexpert analysis from exclusive daily newslet=
+ters likeMarkets Daily =0A<https://www.bloomberg.com/account/newsletters/ma=
+rkets-daily=3Futm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Daut=
+hers&cmpid=3DBBD100726_AUT&utm_term=3D261007&utm_content=3D9779>=0A orOdd L=
+ots =0A<https://www.bloomberg.com/account/newsletters/odd-lots=3Futm_medium=
+=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dauthers&cmpid=3DBBD100726_A=
+UT&utm_term=3D261007&utm_content=3D9779>=0A.=0A=0AFollow Us=0A=0A <https://=
+www.instagram.com/bloombergopinion/> =0A<https://www.tiktok.com/@bloombergo=
+pinion> =0A<https://bsky.app/profile/opinion.bloomberg.com> =0A<https://www=
+.linkedin.com/showcase/bloomberg-opinion/>=0A <https://www.liveintent.com/=
+powered-by>| =0A<https://www.liveintent.com/ad-choices> =0A<https://links.m=
+essage.bloomberg.com/s/eh/LOYoYMkRyl0Rb582WsiFGEtAT6YdVvOV4IEQUoo2IrrRlX99X=
+81MaPTffHGKJQx2cFN79RP2O5EyCCiQf0oX5IAfPROTHC1TrymhbXT7Qe5v6llCwnkk5BYQeYH_=
+b2nkKDi6oTjYRbBEUYtoq3ngRVlWFDilfvmaoCS58dYeXVEsTNmJQRrBzGzhkw6ueKTA-NlFMVc=
+HdUa_WMGbMNailkf_MBOBKZ1Z9zCIp85WJLmKc0evFps1KgPIa5NsuWXELFwNOtVvv2o5yf0GSi=
+hRJ58esgZNEbUyp8IzKYo2Xa9lldZlDFKpYUjo-q5AtFwk7Ub79ORNC7KzWWpz6N2WH4YhlUEgU=
+L0_oUQ/JgW3KufpIyHqUAGAhySBARqSNVTY_6B2/25>
+--_----pnFFwyLHy+nrlBQjMLPD7w===_AA/66-07512-EC3C5CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><m=
+eta name=3D"viewport" content=3D"initial-scale=3D1"><title>Sesame Street Me=
+ets Wall Street=E2=80=99s Record Rally</title><style>@media only screen and=
+ (max-width:480px),only screen and (max-device-width:480px){.mq-lihide{disp=
+lay:none!important}.mq-lishow{display:block!important;width:auto!important;=
+overflow:visible!important;float:none!important;max-height:inherit!importan=
+t;line-height:inherit!important}}</style></head><body>
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/3AgBuHV=
+DtuLKyhEKbFeC6A~~/AARGbBA~/ckE08xWaz5cg1fhThv-sWNNpGKIZmvy5j3S5mx6MdxsnY4tF=
+kEYHvUngtCq94yeYefpwjG3OvnVzqOVfFbDilA~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/lB2tzDueFcbdnwLbRWNm6-CfAds-77f3doMX5TmNT479E5B1GOGBposSF2_M=
+8ESO7To99HPw_sc0zPgeJarLa3I8d2nos26Vi2usNC1it5kRWpbMa9RtcwtbNOw9jtlvjaZJ4gC=
+tuMTGAfDmf1xDJvgG7y1KmznC0GXyZzfUnSrerCaNa-IIXfUdyyZn-jCvQB-jFtiO_NkQMe9O27=
+tijaUW_UpoQVuZEcJT/HGx2Fel8Tv5DtRLW7-lDYwLYpnENjP1B/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"><table width=3D"100%" align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-w=
+idth:580px;width:100%"><tbody><tr><td><div style=3D"display:none;max-height=
+:0;overflow:hidden">This record has been brought to you by the letters A an=
+d I.&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C</div></td></tr><tr><td align=3D"center" style=3D"padding-top:20px"><=
+a href=3D"https://links.message.bloomberg.com/a/sc/7NNoqokqDeqLcBhP0dfWfeQg=
+r8IBDUhXwSbORUk4CMbyfdyTubUG5XeyWzI7UCkQ5i0f_dae5JJx2TWNp_gGMN3C3sYUlKJdwRF=
+VhyIgGkICbBHMiSJwSj_3m2gNMEXw_nwkMFrXudLUdysLLwYdbhWKUTmAGgZ-3UNqrb3z_fSFST=
+uF6Ut1AOhfK4Qe_IOrsJmqCm4aG9p1M91IRw1-6m4r-MWljqo4Wz0Zj_ZPwbSDvu2I1uyFQdK92=
+ms8skLY3q7jVAKJZQcEr8_zXu826auwj_iUuHQfQgri9qKHgyCFEVoz_MMYtDiVYoSLolT-Fbno=
+9lvLhnlO1l_9OG9p6GM8O9i819t0pXItgxVAMefS8mYxStcQsVao8ze8XYrFY2HIOWpZHUx53q3=
+VyBjxhrR49eMGdyQmquhiyylZvVWI-BahCu7n-Qmj_Oixb8aBWFof2qljSsHkOuTIGk6RKJj4iw=
+EHvyoxauza5KjhrW9AGdcyHzRiW2tjl43m649bcJgwP69obNEl8F96-Pzdj-KU2hgMxSesj8DLZ=
+lQQjoYy4A/4IsQx4H0MNuEQ8cLHnAsBH-HDR1C6WzZ/25" style=3D"font-family:'Helvet=
+ica Neue',Helvetica,Arial,sans-serif;text-decoration:underline;font-size:12=
+px;color:#767676 !important">Read in browser</a></td></tr><tr><td style=3D"=
+font-size:16px;line-height:1.4;font-family:'Helvetica Neue',Helvetica,Arial=
+,sans-serif;-webkit-font-smoothing:antialiased;padding:8px"><figure style=
+=3D"margin:20px 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><t=
+d><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iaZQ_VpyNEFo=
+/v0/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div style=3D"disp=
+lay:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/users/iqjW=
+HBFdfxIU/iaZQ_VpyNEFo/v0/-1x-1.png" alt=3D"" style=3D"width:100%;display:bl=
+ock;margin-bottom:4px;max-width:580px"><!--[if mso]></div><![endif]--></fig=
+ure><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0=
+" data-lt-version=3D"3.0.0"><tr><td align=3D"center" style=3D"line-height:1=
+px"><img src=3D"https://sli.bloomberg.com/imp?s=3D1149014&amp;li=3D20249854=
+&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10072026040014&amp;lctg=
+=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Dstatic" border=3D"0" sty=
+le=3D"display:block;max-height:12px !important"></td></tr><tr class=3D"mq-l=
+ihide"><td style=3D"line-height:1px"><a href=3D"https://links.message.bloom=
+berg.com/s/c/POXTSI6QhzpLWy8jWtUON3HDADNrWeHd_lsJE5ywutaUDMykS0_zPvLdmD-rop=
+pBWw10Ag0EHOB8tdUSaMx5gTjx1pwtIvP61wLa-qP-u74B-soU-m-6TWuGKq8BSQ_Kk33qPLZGA=
+LQdoJYQZB1lIAviWkRuCBARUhaKW2jpyHcGM_jYfmkpSsqMe_bk9Wj20KQ3d2h7G299J_28vlw1=
+jSCcB_dVQ4NGBt0iNRn3j_p4cskIHS5lmJBL2CV8VhGfx05ust2clymUf2epzUklmb7XftI_QKW=
+KCfl6yR_RjPesukCFViRAzwjb001WUiZFKH8iL0uA_6hfppfj5_bX7hi5tMPVwDbhuTLhZ715_e=
+deuUxmB2te9GrNlbeqoVgi4lPbL0akcg5IkI9x1HO0U0PhB3PS0Fg0I1TXNwJstBcJTdJGfUIHQ=
+DtMo8KhJcW43xc8cUSCBwvzGCmyLw/SqddzlT_WjSg_z5W4GOD-oIVFw64tu3u/25" rel=3D"n=
+ofollow" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decor=
+ation-line:underline;text-decoration-style:solid"><img src=3D"https://sli.b=
+loomberg.com/imp?s=3D1149014&amp;li=3D20249854&amp;m=3Dbb4a280bebb1586390b9=
+615b8886024a&amp;p=3D10072026040014&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d=
+1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=3D550=
+" border=3D"0" width=3D"550" style=3D"display:block;width:100% !important;m=
+ax-width:550px !important"></a></td></tr><!--[if !mso]>--><tr style=3D"disp=
+lay:none" class=3D"mq-lishow"><td style=3D"line-height:1px"><a href=3D"http=
+s://links.message.bloomberg.com/s/c/Y6oQbRZVZZvRf_x9QU1EX89m5AoodpZQ4za-S1Y=
+wrkEC05ONXFuu8zERu4K6qhYDeqG9KUAby6wYm435jsPQ6q3hZNgCUAtChXljhnDFRdWEFIShTa=
+kCEIfeWaCyBIDIoUOj_-dsimzS8ERjupXmMvL7TD7NOSm_Icr7nuHKaYLYnfFPTTm7G96mu7lzW=
+5vdPgoTQ7YwVMXfMrml3kzANagh5DzqRiybmjeQiXBZZo3Mwp20jpEznXL9gQm0I7dFkWEXBJ_P=
+lYpxg4HZfo-G7hKmfiY5ym_DyM-azW8UqZ-6JPiKMefdF2xAU-frDtNexkutZHvjwQI_VQNjRg4=
+b6Z3uIpW37ZbCWhHczS99oO27fToP3VxGUehxSucipDHW1Y62p0j0uEDqD-bC2ZwgEm5qwLsCjr=
+984dxBPpnw_MLkF4liHOz-43pEBQ0Hc3N00C1NKQLmUKmPQQwwIg/V1vSzOma_Y787giU9Kaeod=
+JXhiQzE_6T/25" rel=3D"nofollow" target=3D"_blank" style=3D"font-size:inheri=
+t;color:#00e;text-decoration-line:underline;text-decoration-style:solid"><i=
+mg src=3D"https://sli.bloomberg.com/imp?s=3D1149014&amp;li=3D20249854&amp;m=
+=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10072026040014&amp;lctg=3Da3e8b=
+6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Dmobile&am=
+p;collapse_width=3D550" border=3D"0" width=3D"550" style=3D"display:block !=
+important;width:100% !important;max-width:550px !important"></a></td></tr><=
+!--<![endif]--></table><figure style=3D"margin:20px 0;max-width:580px"><!--=
+[if mso]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/im=
+ages/users/iqjWHBFdfxIU/iIQwYV5esDuo/v0/-1x-1.png" alt=3D"" width=3D"580"/>=
+</td></tr></table><div style=3D"display:none"><![endif]--> <img src=3D"http=
+s://assets.bwbx.io/images/users/iqjWHBFdfxIU/iIQwYV5esDuo/v0/-1x-1.png" alt=
+=3D"" style=3D"width:100%;display:block;margin-bottom:4px;max-width:580px">=
+<!--[if mso]></div><![endif]--></figure><p style=3D"margin-top:24px;font-si=
+ze:16px"><em style=3D"font-size:16px">To get John Authers=E2=80=99 newslett=
+er delivered directly to your inbox, </em><a href=3D"https://links.message.=
+bloomberg.com/a/sc/VmMNUeHntpH_dDxB_vZQADNowN0c7s8sHhtHKwauVjBLFQyCYSSVO4Av=
+dWiPqFT_MWVvmPYsbZpyESCZC52eqKO2pEoQ8Noj5VzR1YiSUkmZXMOGdTjVlXsyK2V5ogJy_D0=
+YSIQJbUyDMpL8MuHZQJG_0wlj7yJ3m3cQmKBT3OxP1Y-7YTyZqnlyY-WUz5DITnwH-Z3sq00Tbu=
+471LSyprTIFfWj3mKS9w0ZUHFhznwzWX80ftrAzBbcX0WGyXs7_OkPnEqU1UTvzhNGOIEFGB6sg=
+eNGVawsV-RPeZemQaHxFyCdY9lw18BXhvp-hM8ko1_TBtVmY88fkXh7bGKUbgGZqbVg0SiEAl1v=
+aDJuX9OocRTDyuDXX16Eiw43QKT7CNANGqhjsfRcB0hLeoc0kEZJKQWB2kNmr1Zz09-3QI18htT=
+CF5GnsvaMIbwX1Vch30lPzgsu0cPlxNq5b4AaAiEbvgagnaGx36P2bQ/iOpsBJtiPgAdhYTwICV=
+uj7SElHyPl0rI/25" rel=3D"noopener noreferrer" title=3D"Points of Return" ta=
+rget=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:=
+underline;text-decoration-style:solid"><em style=3D"font-size:16px">sign up=
+ here</em></a><em style=3D"font-size:16px">. To join us for a live event in=
+ New York, </em><a href=3D"https://links.message.bloomberg.com/s/c/HfAfFxIh=
+GdYrCj3CIL-tfYN1MHIoShFqqSNVeeRXnqhMJHJBoPPEwIntKigXT2hl0XVGOUyn4Etx2OeXTdK=
+SY88NmDyix4wNc8zR-gy-p5rgNcaNHKn78Ai_u1CqGFqDNIbFuUWrHQoxJEDeFtA_nfs2PrZC49=
+wH4ghq9RgGTfDShL1GCV395oVKR1_AT5mLqdJV-rWDfez8LfAGrJb1o8V0rqRbtI_OrILfgNwQP=
+Lot7hBqSyAnb002kEjvxoe7x1k-txWIN2ThAYu9e4jxS1TUESq1uy3W_vTNM6Xr-apK_tjkfSKz=
+QB-6gYPKbkL351fAkNoG3z26ZzsD5qZ60A-_6lR5oUZYDtHbpYkZ3hMF3BPJOXWnW-6OrHZZIhZ=
+UmrVMYXPLKevVKliXZQcd9d7nHR3hvSr2m8OP8_Gb/HMCdWaKo_Kmh1GZ1Z1QKTyL0obc6o-qE/=
+25" rel=3D"noopener noreferrer" target=3D"_blank" style=3D"font-size:inheri=
+t;color:#00e;text-decoration-line:underline;text-decoration-style:solid"><e=
+m style=3D"font-size:16px">register here</em></a><em style=3D"font-size:16p=
+x">.</em></p><h3 style=3D"font-size:24px;line-height:30px;font-weight:700;p=
+adding-top:12px;border-top:1px solid;margin-top:40px">Today=E2=80=99s Point=
+s:</h3><ul style=3D"margin-top:24px;padding-inline-start:24px"><li style=3D=
+"font-style:normal;font-weight:400;line-height:1.4;font-size:16px">The <a h=
+ref=3D"https://links.message.bloomberg.com/a/sc/3fI--EGKvPpx32XEMxiW2g8SJQQ=
+BevUF_tsfUkqjPBalA5nYZ8Bmg4v_tVBjJv95r4ZBgbW6CrO8Z3OPJd0R4KRGFZ9Oy32OBs8-J7=
+OZloc3gPxlV8ib6TTRCHFQlA7T7uv5loXU-WxT8ZZ1hqttQ-eWgzrKWsE_j_h5RPtQp5r0koRRe=
+YQDI3NktqmpgyW1q2IqQ3mUjzTdOtxX5bzlOBzlSKLRXJATA-mJAJ97sLBnufdBsDrA7iGOJnSC=
+hkk-xGcAZRKl4v2rSfVNDzc8O6VNSgtO_tMxAd3RDXRxb1sa5rso9x95hMaFbk_8D_7RQw5Ri0V=
+x-7Hh_cyv0_P5KQ42eLl2Gt1KAKXY_3lbVFfPg4JkbtMVtcOsxi46iqDgZGcCJfMFF5l8C-HAcX=
+iv_rZdsTseX_5TNPTYPqPxn5cpWKvqI6hAqwxogNJ1akHQMpCCS2hjyiOUP4jVh8aVqg1MidrkE=
+7gNSDXNvKxrygXiuOjseNMkaBNcFxZkDZssJL1ehDD3Xlizn-NoUqSDDQWoAt_TQn-rxvTzti1E=
+XsNH45LTDvb4/c2J74mOu4ssf2hoMUVBUOKQ44QnF72T_/25" rel=3D"noopener noreferre=
+r" title=3D"S&amp;amp;P 500 Climbs to Record High on Earnings Optimism: Mar=
+kets Wrap" target=3D"_blank" style=3D"color:#00e;text-decoration-line:under=
+line;text-decoration-style:solid;font-size:16px">S&amp;P 500</a> is at a ne=
+w all-time high (despite everything);</li><li style=3D"font-style:normal;fo=
+nt-weight:400;line-height:1.4;font-size:16px"><a href=3D"https://links.mess=
+age.bloomberg.com/a/sc/4bwCJu77o_GuqvJLpCEFWY7cfNhDWskydDQEmqqC0sA4TRJsEdn3=
+gAREqkXRuiTZmPmaJJrWRo0yLCa2LBdDsB9eaRsTnYjBbd6UStXmncRMYUnJdxEddMoAMqDVTWD=
+Z8EjcOD2n5BYqLnnFbm5F_V3XCoQX8OteAuoefq_nXR_iJ0kZv6EdKNzdV1lBNnyKvHMwK2udPw=
+lflNtEHdP4K6CIJRFUrAHuch29Hsh8h816kNg0Iw716wTXasuFrHvOG9PhjtssGQ9bHEO9xqpnm=
+SQUS_-qdqlVoL_-8s-IHPKOJh4nXmKaU9enyZtKaWOje-u9yhWJL6IH4nGyQ6Pj-7g3GJ-BEEZ_=
+BqIsXt7zF2DXlaZbkvpzVSkjgppkkMvpYpFH6s6txJKwBUKOZykomNr7H-pDgGUo2y1W2U9IZYz=
+XafaIAhgmaelZkyoiEDA-DzWttsuCLXxdnKb6uuvqAnNdnJmGyAGLbN0zbsmerl0R9rnCUyzV5S=
+c6hvFs3B2VLWRYoyPVZCw6Bn-AmM6F1-6ke12LprqLggSJGrdeVfsT1w/VPZom21Fj1pbq8czss=
+zZtThOLsXsA1gk/25" rel=3D"noopener noreferrer" title=3D"What Anthropic=E2=
+=80=99s =E2=80=98Existential Risks=E2=80=99 Tell&nbsp;IPO Investors" target=
+=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;text-decorat=
+ion-style:solid;font-size:16px">IPOs</a> will make it harder to set new rec=
+ords;</li><li style=3D"font-style:normal;font-weight:400;line-height:1.4;fo=
+nt-size:16px">French yield spreads retreated after <a href=3D"https://links=
+.message.bloomberg.com/a/sc/MS1kqAUDy_o7kfZVwgFz3glW4YYrVhohB2vw42KefzSUe7e=
+21YCJ7f0_X6lxisCgo-IGUzK-JCvAoHtF9gtfQQLqqCJw1sbtpj-UwD3mt-DRCksclI1Of_b6XZ=
+aoUGqKJr3YOSWwhL_323YLK6gN08zZGQsa4RdqDICyVOrgUTHuiOMNTfeeeKm3N6oc3J1uwZlyZ=
+rDABzIm0bYSr5UcfmAIpP3GHMMlhkQ3yLgfIRdV4Oj4D0DeJpzRLyf96WkPYuh6s8bZaRH3Bgri=
+9k26VUJA-h8zEcsxSUJBF8WtahNo_2ysF24JY81MRxuTWrq-HtAzfyrMeGvg4fv4XytEVQJD8_P=
+_5QZ7NOgoxOmpipEXVtPAX4hylc6xymrq-Y1jyK90B5mgzNIqICpIB8UGvSrIG2JJl14mhNpGX-=
+n1ktA_vpnjJvdxzS3nOWrV0OSgzfVArqXm4Fq2aRAS4GiW3cog6ZusYV7qQWiRNiXSvtluNpqjc=
+ncr2S0tJa5M6Bt6lvu4O5le06j_F9F0EU62o2B-WDogbF9KFn-dc8VJ/5LvMEBaB4HVcAddKyuE=
+wrSL-W583qyE6/25" rel=3D"noopener noreferrer" title=3D"Le Pen Vows to Cut F=
+rench Deficit, Calls on ECB to Intervene" target=3D"_blank" style=3D"color:=
+#00e;text-decoration-line:underline;text-decoration-style:solid;font-size:1=
+6px">Le Pen vowed to cut the deficit</a>;</li><li style=3D"font-style:norma=
+l;font-weight:400;line-height:1.4;font-size:16px"><a href=3D"https://links.=
+message.bloomberg.com/a/sc/xc1ECHiFOPnnf9E-_iCIzOp0rK7aubZnEVLg_a0bpHEHzM_2=
+1vg-ETjeBy-6OEedpmSAorBzLe3gAWUT3k7pXCg_hKsW0-lPqVPvZFTzBhHkLP2sEpASg_HoErz=
+U5zLle_y4--1oKedTMauR2CWr29rruVQ3eDaXtKUL75HT933hDZD7dl5jTn00PkkQbWvG3yxuBc=
+471pJl771T46yf5avxhDLVKYIyjL3VI0qdpQWue_AXwWEXhUY4kU1XZAaXMwHXnc1dG-a0NBMJw=
+UQNZtGAbhgi-T6i6jzxVrh-I44jIfjtK8fBvYKed71lgq1yeH94CwpfOpnnuZaox8TRRmOm_7Le=
+J2e4TuYhIDL2vPonQ5bGHLS_VFQJRzX9H4WR3nOPncbx3d1ND2o5hHqhm-65xKusjTOb-AfXHzw=
+xIVibbrKDdMbqisAFlEVX21mFTDaB5PH7WZ0dkR9HpnKmaHYh40GO0PiNaQIh6gR7dH8mOmWBAq=
+IgBVMN09fzXsFYrmfI_q8iHz7bvJQA3Zu5TwK-_-m_LJYzTOsBgcYWPHo/0PI40xR8NenyFi_E8=
+JMIDQTL4QvmR3Mb/25" rel=3D"noopener noreferrer" title=3D"Deeply Distressed =
+US Loans Rise to Highest Level Since Pandemic" target=3D"_blank" style=3D"c=
+olor:#00e;text-decoration-line:underline;text-decoration-style:solid;font-s=
+ize:16px">Deeply distressed loans</a> are the highest since the pandemic;</=
+li><li style=3D"font-style:normal;font-weight:400;line-height:1.4;font-size=
+:16px">AND: A new business book <a href=3D"https://links.message.bloomberg.=
+com/s/c/pWU2lNg-7aD4FkWPvBc7ne8jnOuM4xpGwgg4Eijqsv50aWFPDHcUeY4Vl2EgCjYa1YH=
+4WlY6yUYNzSkjAyYOL9YMiGRlN-HPkZbkZFCGPuoAPxtKAHU0kOevRHX92KzLVEUeEK3sPxh_q4=
+xdW2sIh_8Gp8sYbHoCu8aV0TJAIyJgdTbhtuQj5yfsgYya4p1aB93eFHjkFpvolXlNKnR-z8TjR=
+VWX2jgE0McklRvjpGG2tiERe_bbX-tqBMR8GjGZE7Yk3rVqYD13FuugSrprEDp6PD309BgnBq8u=
+-Gmd2gKh_WgeuOdVM4EgNrKgrNAwEWQr2S9miCIMr__i71ifqSlGBU3PV_xn_k_C/Yb0FASzgyo=
+ou3AywdgGTzzOnrbNBvf2e/25" rel=3D"noopener noreferrer" title=3D"FT and Stan=
+dard Chartered Business Book of the Year Award 2026 =E2=80=94 the shortlist=
+" target=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;text=
+-decoration-style:solid;font-size:16px">reading list</a>.</li></ul><h3 styl=
+e=3D"font-size:24px;line-height:30px;font-weight:700;padding-top:12px;borde=
+r-top:1px solid;margin-top:40px">To the Victors the Spoils</h3><p style=3D"=
+margin-top:24px;font-size:16px">It=E2=80=99s getting repetitive. The S&amp;=
+P 500 closed Tuesday at an all-time high, its first since August. The trend=
+s driving this are well-known (in <em style=3D"font-size:16px">Sesame Stree=
+t</em> terms, this record has been brought to us by the letters <a href=3D"=
+https://links.message.bloomberg.com/s/c/QSIzqz6pSSMc8ZBB10UjIbICMWug1tZ3bJK=
+-5tbshqwtbPczDBrBNDkJrcdR--xrSd416m8Z2KZu4U4jxbOFAKd6S99YRzuRTbTK3YABjgfgHO=
+LeMT4iRLbvbCb-ni8XColEUVkE_r3bocuY4PmZagZa9y48jKvzJ6mVA_nFYYxH4OSleJLW9O5e4=
+WKd4I18apDGFuMHPB8iJ415LegZTVaEH8Di020DveyE9LiuZKYzK1fFoH6W5zKkJBjQUrnjQKpW=
+1dozFxs4ze913pp8SdYkqbhWBTzMWYwz5m0/pCeV5c9-pDVE7jAcqEEoyzyXdRL3sasO/25" re=
+l=3D"noopener noreferrer" title=3D"Sesame Street Letter A" target=3D"_blank=
+" style=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text=
+-decoration-style:solid">A</a> and <a href=3D"https://links.message.bloombe=
+rg.com/s/c/hXd4m7WsWy-TVil1XX1Dkvy76VdIWxBAlx1Jdsp-LCtMAfKmhcZ9gJNY9XOXF-o-=
+bia_n1cyUa_JuMAYTWzWqZunifLMCF-DHzZM15NmiunQKU-GXcUDR6n2o9zT52oGkoPtmvdtrYQ=
+PrgRenPEM3JOueoHrUDflBykmpOApUHq6Eslrb2gWzojKr7LfPx6WKi-SJ3D4RMWz1neJqCBsE1=
+O-5xOWeGvkBZ0wQmJReqjw9WaX3G0EyrCpAjRnFB0CvXODyGYntX0Ph6L_2_G08jpFgfwZ9Nm15=
+_dKv-13gZoKi3jmIJhr4ZI_hjQfwf8ABuhSyiePAVF-LTs3rHz_YdHc8l1MQYNv5g/0iVIlC2rD=
+6xk2SfY8uSRDgvb4Dpl7cNh/25" rel=3D"noopener noreferrer" title=3D"Sesame Str=
+eet: Letter I (Letter of the Day)" target=3D"_blank" style=3D"font-size:inh=
+erit;color:#00e;text-decoration-line:underline;text-decoration-style:solid"=
+>I</a>), as is the fact that the advance grows ever narrower.</p><p style=
+=3D"margin-top:24px;font-size:16px">Smaller companies have now lost almost =
+all their outperformance versus mega-caps since the start of the year (as m=
+easured by the Russell Top 50 and 2000 indexes), while value stocks (bought=
+ because they were cheap) have reached a fresh nadir for the decade compare=
+d to growth, according to S&amp;P 500 indexes:</p><figure style=3D"margin:2=
+0px 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><td><img src=
+=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ibrT6.q1_uQA/v3/pidjEf=
+PlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D"580"/>=
+</td></tr></table><div style=3D"display:none"><![endif]--> <img src=3D"http=
+s://assets.bwbx.io/images/users/iqjWHBFdfxIU/ibrT6.q1_uQA/v3/pidjEfPlU1QWZo=
+p3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" style=3D"width:100%;dis=
+play:block;margin-bottom:4px;max-width:580px"><!--[if mso]></div><![endif]-=
+-></figure><p style=3D"margin-top:24px;font-size:16px">Bear in mind that <a=
+ href=3D"https://links.message.bloomberg.com/s/c/nFANoIwqpKgR69Npx5TE3IIBzj=
+lFmSNQptxYsNQvjtOHql_KrE8nYH7lX8uRkM9Ck9LLuLMhcZbOtSypjCBOjzHUNRFMcP_8xlJ09=
+7fHHpM0Pr1whU51yFfY7s5suw0kWAtirErzRkbA6DZM8VX6lh2LWJQi1vpZvKQzgJxrtebl6GsQ=
+6QwhqKMtK7YhPmFM0_b7r-YQ-ZGmAlAuqpxCHZmxUGsTIDG0hW64xEd7vjRwQ--E26GakbXcFew=
+blKDZ2dC6P1vUyyNjqijux2XCJue7WfsS9MRX-HnlyGUkDl0GfrYSBiwazbv3MQ70gVhqh57Mdm=
+pRhF6yNT_dTTNO0vUqSNM3SV6mUefn_R50h8RyDLQXalEdUuHmYq-aQ9rPPf2VpKH9y6xXAJ1EE=
+j81dsoffv0JVZ2fcFOa8XCL2e6FJt4SvNVqkFNdva7A/QOOd3jj3Mebq1Qn05v4ylV5r9iIhr3Q=
+w/25" rel=3D"noopener noreferrer" target=3D"_blank" style=3D"font-size:inhe=
+rit;color:#00e;text-decoration-line:underline;text-decoration-style:solid">=
+orthodox market theory recognizes both a =E2=80=9Csize=E2=80=9D and a =E2=
+=80=9Cvalue=E2=80=9D anomaly</a> - over the long term, small companies and =
+cheap stocks are expected to outperform. So this is very unusual. Putting t=
+hese trends together, the gap between large growth stocks and small-cap val=
+ue that has opened since the launch of ChatGPT is now yawning:</p><figure s=
+tyle=3D"margin:20px 0;max-width:580px"><!--[if mso]><table width=3D"580"><t=
+r><td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i0m9lnAN=
+4tTE/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" w=
+idth=3D"580"/></td></tr></table><div style=3D"display:none"><![endif]--> <i=
+mg src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i0m9lnAN4tTE/v3/=
+pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" style=3D"=
+width:100%;display:block;margin-bottom:4px;max-width:580px"><!--[if mso]></=
+div><![endif]--></figure><p style=3D"margin-top:24px;font-size:16px">Earnin=
+gs, of course, justify this. Growth companies should be expected to grow th=
+eir profits by definition, but the way their earnings outstripped those of =
+value companies in the second quarter was unprecedented in recent history:<=
+/p><figure style=3D"margin:20px 0;max-width:580px"><!--[if mso]><table widt=
+h=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdf=
+xIU/ii5rjFbJm3rc/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png=
+" alt=3D"" width=3D"580"/></td></tr></table><div style=3D"display:none"><![=
+endif]--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ii5r=
+jFbJm3rc/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D=
+"" style=3D"width:100%;display:block;margin-bottom:4px;max-width:580px"><!-=
+-[if mso]></div><![endif]--></figure><p style=3D"margin-top:24px;font-size:=
+16px">Time will tell if the AI companies=E2=80=99 profits are being made at=
+ the expense of everyone else - in which case this cannot continue - or are=
+ the prelude to stronger profitability for everyone. The latter would be ni=
+ce. Third-quarter earnings season, starting next week, should give us the d=
+ownload of evidence on which is more likely.</p><table width=3D"auto" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"margin-top:20px"><=
+tr><td align=3D"center" valign=3D"top" style=3D"padding:0"><a href=3D"https=
+://links.message.bloomberg.com/s/c/KGFpaVDL20-PJ8gkim-NwvX1KmJD5_2ZaSyNA8bR=
+8ix3SkspQdnGgGb932YLehTly5YPDmdnJeYHIJ456goow8tY8HWQcc3YikV9e0a4rLnO-q6s83t=
+HJmiaM604uEGoyNv-ybz_KCgCIenzTgyIrbvUCNw-havSobTDg-nIQmgHVJUTSYYdI04PIdLZOD=
+TjmBmFRe1bTFr8yFNpnK-WS327TAUK99MLVujcTUN-LWYs7ueIVsYsTsS0gi235S0HtO0mHQt1H=
+dL3rSDqW3kBLT8sBvtnoS_0jg8y9RXe7ymmwfkKDLq49uQSVagwnW-mLul5O68WgmQ8C-xcQ7P1=
+Ypd9FH237GRU3NiPXC02IJIpkKwvzuH1BDRnnmhX70Us2kGKKmPE8imwG51k5X5kU8R10QP_lNX=
+mSMNJFfzeC6X-Qc0x3sK4b7OD_U6RbB0PBKKoQswl9TbjEPkH/PfVJddvVs1Fo3RM6B93opOdGy=
+CKaWyyd/25" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-de=
+coration-line:underline;text-decoration-style:solid"><img src=3D"https://sl=
+i.bloomberg.com/imp?s=3D868532&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&am=
+p;collapse_width=3D550&amp;li=3D20249854&amp;m=3Dbb4a280bebb1586390b9615b88=
+86024a&amp;p=3D10072026040014&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625=
+a6" width=3D"550" border=3D"0" style=3D"display:block;height:auto;width:100=
+%;max-width:550px" alt=3D"" class=3D"mq-lihide"></a></td></tr><tr><td align=
+=3D"center" valign=3D"top"><!--[if !mso]><!--><div style=3D"display:none;ov=
+erflow:hidden;width:0;max-height:0;line-height:0" class=3D"mq-lishow"><tabl=
+e width=3D"auto" cellpadding=3D"0" cellspacing=3D"0" align=3D"center"><tr><=
+td align=3D"center" valign=3D"top" style=3D"padding:0 0"><a href=3D"https:/=
+/links.message.bloomberg.com/s/c/YiHF8ZGLvUfJ-qEk5-mA786KVh0kB4UAVUsOVfSSKX=
+288ORILZGgeCeJp8BjTxePeiPdPKup-lyMwcmNQI4IlZD9-ZHN5cGHjqHf1fLRdnPAXO_WCQAlM=
+AQc0Vw8KpFQMfz9_m1HvdMxy5pgPSg5TpTwuZ5x99xJZdZ786SdqfM0oO9gPGQkd_FDjTf7sIdA=
+leWyZk_4RGUojYwLuFjDeq-H-Vm930Ti0OJLMIt_1wxQnFTRLABhRT5O9MkcD0c1ytvXqqeET3P=
+gkqKsaV_fBG9z0EefJg0efSwDrhNa2A6ZYJ40KXjCiGDzD-ZionOJe5rn6UJoWco6XbUodLTWz9=
+79LlUarP32TX7ul-3jDWys_kqh0BL-ODreUk0AvXlZ68THwwyBLWXA6VO0wOOl9gCFnXIq9lU8R=
+2iJMXojtHHZ-NtkkR-K_C9_zy7sobmmUz4GlaTW7d_8YtKb/1rn0TTzta82b7hP2pmroUFOsszx=
+dTDGg/25" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-deco=
+ration-line:underline;text-decoration-style:solid"><img src=3D"https://sli.=
+bloomberg.com/imp?s=3D868532&amp;stpe=3Ddefault&amp;li_coord=3Dmobile&amp;c=
+ollapse_width=3D550&amp;li=3D20249854&amp;m=3Dbb4a280bebb1586390b9615b88860=
+24a&amp;p=3D10072026040014&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6"=
+ width=3D"100%" border=3D"0" style=3D"display:block;height:auto" alt=3D""><=
+/a></td></tr></table></div><!--<![endif]--></td></tr></table><h3 style=3D"f=
+ont-size:24px;line-height:30px;font-weight:700;padding-top:12px;border-top:=
+1px solid;margin-top:40px">Riding the IPO Wave</h3><p style=3D"margin-top:2=
+4px;font-size:16px">Anthropic PBC=E2=80=99s <a href=3D"https://links.messag=
+e.bloomberg.com/a/sc/RIZ4xv1sTLLMuRtCkApEEwFaOEhzBasTKBv5ScKO8CRmVHkhc3CE51=
+FkPY7yKcop6zq__EVh0xKQ8yyX4Jen0sGfaOdeSurX4vEvInU9wpPMDzmOFO2enJOPDxwXOLdzr=
+OIqOmToXRfGXOq08BHSV_I2ELz_LZZKmQzcjjLAWuPQw_55DCqHdIoU01GeOGAPvWnYJEfl9FWn=
+o4nevU-63yhoLxbCK2yBBQGRjRlnV9i5nv9s4ZC73PDT6Fa7J2eDusBjJl7gMbUU-dtdMnN06py=
+Twl2yHjUpuMP3tqMJ55VMg63Rx_zd30VkvK0J_w5p3ZmXo3XaD5xltPtT9PCwWddTd72GTl-Ksx=
+aUIl088WoEOgfgtDz5ERzJt6i_b5a2hlXwcMR6ePMxEcuq9lbkueZwMewzZU0CkNtodXLTH5M2c=
+qadvLFYkLbyrHZGy6MHjsR8O3V3AfSBxCe4-KK9KZn7_bA4KQcko8Kf68-y4UYz--0-Y4lXrV_x=
+jVQxuDclnI_Ei9HIrXp363US54w9xkBvv2d06fRSU-UrVuSl72fElQ/NYasj9xnRaczh4rfNhBp=
+OpM12xiK8Web/25" rel=3D"noopener noreferrer" title=3D"What Anthropic=E2=80=
+=99s =E2=80=98Existential Risks=E2=80=99 Tell&nbsp;IPO Investors" target=3D=
+"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underli=
+ne;text-decoration-style:solid">imminent initial public offering</a> (IPO) =
+is shaping up to be the next big test for artificial intelligence following=
+ SpaceX=E2=80=99s offering, which was the biggest on record, this summer. G=
+lobal listings have raked in almost $230 billion in proceeds year-to-date, =
+more than 45% above the total recorded last year. But even accounting for A=
+nthropic, expected by Thanksgiving, we=E2=80=99ll need a remarkable burst o=
+f activity to surpass the $373 billion raised in the boom year of 2021:</p>=
+<figure style=3D"margin:20px 0;max-width:580px"><!--[if mso]><table width=
+=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfx=
+IU/iZS3Mvom3lH8/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png"=
+ alt=3D"" width=3D"580"/></td></tr></table><div style=3D"display:none"><![e=
+ndif]--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZS3M=
+vom3lH8/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"=
+" style=3D"width:100%;display:block;margin-bottom:4px;max-width:580px"><!--=
+[if mso]></div><![endif]--></figure><p style=3D"margin-top:24px;font-size:1=
+6px">The macro backdrop is structurally different this time around. Higher =
+rates, which helped end the last big IPO wave, are back. With elevated long=
+-end real yields and tighter financial conditions narrowing the gap between=
+ what private valuations imply and what public markets will pay, it=E2=80=
+=99s plausible that the 2021 record remains.&nbsp;</p><p style=3D"margin-to=
+p:24px;font-size:16px">This year is also different because proceeds are con=
+centrated in a relatively small number of companies. That=E2=80=99s partly =
+due to multiples, as illustrated by the wearable device maker <a href=3D"ht=
+tps://links.message.bloomberg.com/a/sc/bPrli-cJu8HkpHW0gB1C6prZmnQ-0aLggCgu=
+avx20Zx679cpIgcMQAT7wRblUOOoU62ADoSt-yjCfK7-OwPLsokTsxIS179_LkD-M8vMkVFaU_B=
+Wnb52BBdW4bJqIw3gDJ11oSt996m2BzscG3LjS1YaEyWyLZ70UhO0fAd88klTEXVcIIg5nHhfRd=
+uBURq2wHL1MBzTFU5XMXH0bpDp88eI5xNmEF4WEgxawjl_CLdK0urY6CKod4aEdzta4Pm6seK3Q=
+bcBzVom17PGOPdzFzoi0EmbUCo0p1-B6h4UfkBHt6SNQl8kOTzHAwZ2xdgQz5ITe3BbeCwcvfCk=
+j6I5f7YDxTZoRCQo14KFQNb-XbF2oK_ceL89hzrrkRcH3gCLmOCpNLHyZLAeW3ZuTWH3A22RxIo=
+IKwUkuA5YL9NzhdouPbCNOwyZmtqF2lM2ulpXg4cbDHlA__jZLBnv-4RZfJ7-kuuqfPjxKPhx2N=
+kqfN-653cTxrsCdBVNRnE1wgK8bbe7qJpMiI7do9HEpJ9ACtC2FZZzX7kLeDjTjINA/RPcEAUH5=
+pAJ_7IF5evRzaAVS6DVVfwy3/25" rel=3D"noopener noreferrer" title=3D"Smart Rin=
+g Maker Oura Becomes Latest Company to Delay US IPO" target=3D"_blank" styl=
+e=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-decor=
+ation-style:solid">Oura, which postponed its IPO</a> amid investor concern =
+about the difference between its target price and the perceived fundamental=
+ value.&nbsp;</p><p style=3D"margin-top:24px;font-size:16px">Beyond the val=
+uation gaps, it=E2=80=99s worth looking at how businesses have fared after =
+going public. BCA Research=E2=80=99s Noah Weisberger notes that while post-=
+listing IPO market capitalization is about $2.7 trillion, nearly twice prev=
+ious peaks in real terms, when scaled to total S&amp;P 500 market cap, that=
+ number is much more modest at 4.3%. This sits below the 1990s=E2=80=99 pea=
+k of over 10%:</p><figure style=3D"margin:20px 0;max-width:580px"><!--[if m=
+so]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/images/=
+users/iqjWHBFdfxIU/iSe.pdrsPW7w/v0/-1x-1.jpg" alt=3D"" width=3D"580"/></td>=
+</tr></table><div style=3D"display:none"><![endif]--> <img src=3D"https://a=
+ssets.bwbx.io/images/users/iqjWHBFdfxIU/iSe.pdrsPW7w/v0/-1x-1.jpg" alt=3D""=
+ style=3D"width:100%;display:block;margin-bottom:4px;max-width:580px"><!--[=
+if mso]></div><![endif]--></figure><p style=3D"margin-top:24px;font-size:16=
+px">Weisberger points out that while that appears massive, it=E2=80=99s hig=
+hly concentrated, largely thanks to SpaceX. Only about 200 companies came t=
+o market over the past 12 months, roughly one-third of previous peaks. &nbs=
+p;</p><p style=3D"margin-top:24px;font-size:16px">This raises questions abo=
+ut how equities can absorb the additional supply. In this <a href=3D"https:=
+//links.message.bloomberg.com/s/c/Ndx0nK-I2AbKHnglnYC_9qLqTS88n_iJ7TKxxsA4f=
+ikevejH1ao1eyfyiLthdovt1i4pk0alYbOoGFQzEdd1tj4ttg0myxxXK8-oP6Qvlyp7h-0NXu6O=
+Tn9aRQG5LmOsS2FZmRj_EfLSc41YLnxwFVhLbIB7o6Wjqz-Rbr1MJZLMfx6kNj3LqRG9QLYWCsQ=
+WDE6K7t-C5vX29tVTCc854bcFv45LECFl0BvQgXpS3U1XWh_OMIJ24xdBUnOFrgi7bhA-cHwmY7=
+kRuXJMD12VtlyKoywXQ-kdJaUBBSqGiTYKEqpGCZus3gHb7T-m4TfrMMTUo-SIEYoHEX0-uvIZI=
+egJqTGHcI9cU2yG69uEY3IC-Ief3o3EiNU8bkFs9o2hdQ/LgS1wsENeF9opWuj87ZfAXYrU8Arv=
+N0_/25" rel=3D"noopener noreferrer" title=3D"A Catalyst for the AI Bubble B=
+reak" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decorati=
+on-line:underline;text-decoration-style:solid">paper</a>, probing possible =
+catalysts for a burst AI bubble, Ben Inker and John Pease of GMO argue that=
+ the stock market is growing more sensitive to the surge in issuance. That =
+makes it a credible threat, even before excessive capital expenditures outs=
+trip plausible demand for AI services:</p><blockquote style=3D"margin:24px =
+40px 16px 40px;color:#52525b;font-size:16px;font-weight:400;font-style:norm=
+al;line-height:1.4"><em>Our guess is that, in the end, demand will fail to =
+keep up with supply and the return on investment from the AI build-out will=
+ prove disappointing. But much less has been written about why the stock ma=
+rket has become ever more sensitive to changes in supply and demand for sha=
+res.</em></blockquote><p style=3D"margin-top:24px;font-size:16px">Rising is=
+suance does appear to be weighing on S&amp;P 500 valuations. This year, as =
+earnings have risen, forward multiples have compressed by about three point=
+s. Capex skepticism and higher rates might also, Weisberger says, contribut=
+e to lower multiples:</p><figure style=3D"margin:20px 0;max-width:580px"><!=
+--[if mso]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/=
+images/users/iqjWHBFdfxIU/iAf0dAZU8Oyw/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirG=
+Yh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div styl=
+e=3D"display:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/u=
+sers/iqjWHBFdfxIU/iAf0dAZU8Oyw/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw=
+44kE/-1x-1.png" alt=3D"" style=3D"width:100%;display:block;margin-bottom:4p=
+x;max-width:580px"><!--[if mso]></div><![endif]--></figure><p style=3D"marg=
+in-top:24px;font-size:16px">It remains true that companies try to time thei=
+r IPOs when conditions are good. As BCA Research illustrates, a rise in IPO=
+ supply typically weighs on the market=E2=80=99s ability to advance - there=
+ is a positive correlation between past S&amp;P 500 returns and future IPO =
+issuance, and a negative correlation with future S&amp;P 500 returns. Weisb=
+erger sums up the dynamic as: =E2=80=9CThe bigger the wave, the bigger the =
+hit to returns and multiples:=E2=80=9D</p><figure style=3D"margin:20px 0;ma=
+x-width:580px"><!--[if mso]><table width=3D"580"><tr><td><img src=3D"https:=
+//assets.bwbx.io/images/users/iqjWHBFdfxIU/ikzTObW7ucNo/v0/-1x-1.jpg" alt=
+=3D"" width=3D"580"/></td></tr></table><div style=3D"display:none"><![endif=
+]--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ikzTObW7u=
+cNo/v0/-1x-1.jpg" alt=3D"" style=3D"width:100%;display:block;margin-bottom:=
+4px;max-width:580px"><!--[if mso]></div><![endif]--></figure><p style=3D"ma=
+rgin-top:24px;font-size:16px">What are the prospects for Anthropic=E2=80=99=
+s listing? So far, investors have absorbed SpaceX <a href=3D"https://links.=
+message.bloomberg.com/a/sc/KK8JjHuJApMFx4-M_bji8ZKBE--F7Sz41QAjOehQ-Y4mbjKQ=
+3LGI9IMLxZSIRJDxfHlpTPD0z8cXs4y5SEXlAm_aKW56tc5HGM-8AbXCjhohNOcn7Rakgt4jewR=
+6nmRbcrr60qWdsqhudNWIVcJfuUjZGlsRTBb5Y0ei_vf52TiPY7aCp8fqPWA_jzKo6X27LpL0by=
+ipmXbI5hfbFwFeDNz3VL2a7z9OKeCB8rDThIwYDLF-7ftsckY25eGPfEbj5IfWWorCzYicj9wOn=
+yXtqyFl1Crp6nS0hHkak0o8WRj1B6_SwU25Frs02eUm31lluQelnqXRQSiVk3kOfWDMSrFEDYFb=
+9JrcMCqIrkpXNGN0MyY6AHeeoZiK4DxSIXT73PnLXhUDoTbVc0h66wqC9n94E_u9v9nGEOZ8pqv=
+-x4xYFB7wYCdasko_wG9UDsxVu67nJQGRyy39qbgpM4VjmVtMH4S28ZK6vxwfU3_R6SR9FidGyY=
+XT7duPSROme30M59YZKio87hGCmZ8_eBYAhczPK0heMBs38Nnr/8prI3_TUUJE4lmNsVnqkLC6S=
+62uj8Bjd/25" rel=3D"noopener noreferrer" title=3D"SpaceX Rebounds After Bri=
+efly Plunging 20% Below IPO Price" target=3D"_blank" style=3D"font-size:inh=
+erit;color:#00e;text-decoration-line:underline;text-decoration-style:solid"=
+>albeit not without some turbulence</a>. While Anthropic=E2=80=99s will dom=
+inate the headlines, the release of $2 trillion worth of SpaceX shares when=
+ the lock-up period expires next summer could be far more of a problem for =
+valuations:</p><figure style=3D"margin:20px 0;max-width:580px"><!--[if mso]=
+><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/images/use=
+rs/iqjWHBFdfxIU/ilGh3RICHNls/v0/-1x-1.jpg" alt=3D"" width=3D"580"/></td></t=
+r></table><div style=3D"display:none"><![endif]--> <img src=3D"https://asse=
+ts.bwbx.io/images/users/iqjWHBFdfxIU/ilGh3RICHNls/v0/-1x-1.jpg" alt=3D"" st=
+yle=3D"width:100%;display:block;margin-bottom:4px;max-width:580px"><!--[if =
+mso]></div><![endif]--></figure><p style=3D"margin-top:24px;font-size:16px"=
+>OpenAI=E2=80=99s IPO won=E2=80=99t now happen this year. When it does, it =
+stands to be a moment of truth.</p><p style=3D"margin-top:24px;font-size:16=
+px"><strong style=3D"font-size:16px"><em style=3D"font-size:16px">=E2=80=94=
+Richard Abbey</em></strong></p><h3 style=3D"font-size:24px;line-height:30px=
+;font-weight:700;padding-top:12px;border-top:1px solid;margin-top:40px">Cat=
+ching a Falling Guillotine</h3><p style=3D"margin-top:24px;font-size:16px">=
+French government bonds are under attack in a way unseen since the sovereig=
+n debt crisis that roiled the euro zone from 2010 to 2012. And yet this wee=
+k, investors have proved willing to try to catch a <a href=3D"https://links=
+.message.bloomberg.com/s/c/mZP196VAzBInDS0r3gDtywSfzJ9vGcUHBBAybYI2lIe2PKSv=
+_eI_wFiwocPwAQR-Z6xbF9TU573R2UaXzN0t3GLWk85wX8_Cndg7t31axxQlcdcoBvHkLeZKISy=
+THxD7mXGlqPChgiv9knpywv0btIH2vgKnpnqKjKIk43SW3iZJ1YYPQdVOtF72tb8FxUn63-BEYB=
+OX0dHrul7Hy2IQkPang7ghvMt6NwVGNyuOknK1rQ1V1Mi7UjQd5xPUUFjw1eLSnJbrY2Sug-7v_=
+IcO3ajfS9EzW6FO7Ft3pxFBMmTcqn1enmZkJA/a11AmxNMWWWY0hjAyPhXn7JNzCVWd3fv/25" =
+rel=3D"noopener noreferrer" title=3D"Berlioz : Symphonie Fantastique" targe=
+t=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:und=
+erline;text-decoration-style:solid">falling guillotine blade</a> (to use an=
+ analogy from TS Lombard=E2=80=99s Davide Oneglia). In two days, the spread=
+ of French over German 10-year yields has retreated from 141 to 127 basis p=
+oints, while the 2-year spread has dropped from 65 to 44 basis points.</p><=
+p style=3D"margin-top:24px;font-size:16px">This doesn=E2=80=99t mean that c=
+onfidence is back, but it=E2=80=99s certainly a welcome respite - particula=
+rly as <a href=3D"https://links.message.bloomberg.com/s/c/XVKVFPN4rQu7Xh-Fd=
+PCEMnqtkhQXQADZZU6mSpLxNaX0YzNFXrC54Va9MOV7HC29KvlmjuvaoRDPRPQ7TBoEEmzKlnMk=
+FT9LXBPpIDiasJZxCGoqM-MFt8_cmzY_28esKHNLrKdBf3q12oI8qmn-nmUiDbQ4ISfYR7fX2Ft=
+I4uq6APT5YV6fwACS_Z4do3vE2vzy7ZcIG0LsW5SIo1HcwXNczKgnlWh0N3ijcGVVlUoUAzzSAf=
+VcUQ_jCponLZa_TvTxNQ2kLfb9sgaPGDgJgfJ4aLCCQoHFPc05rCrpzJGYMRPgJMLSF8b5LRE8R=
+5gg5ZHMllmp9ixhZcWecXigslLV41KLswD1lDya/bY06pLZrxmkK62H8o-xqYRPwaBU-zCJP/25=
+" rel=3D"noopener noreferrer" title=3D"Student Protests Expand to More Than=
+ 40 French Cities" target=3D"_blank" style=3D"font-size:inherit;color:#00e;=
+text-decoration-line:underline;text-decoration-style:solid">French students=
+ take to the streets</a> again. Marine Le Pen, leader of France=E2=80=99s n=
+ationalist right and frontrunner in next year=E2=80=99s presidential electi=
+on, helped by<strong style=3D"font-size:16px"> </strong><a href=3D"https://=
+links.message.bloomberg.com/a/sc/JbzxHlVh_INHi6voORIUdUd9oEfBGlPg5JHAkSSzQE=
+hIsCqQWOE950RfbWScIxO11PErcT1ckXNLJgBU69LM5rEV1UwWtZWQEBQyyiNl5h5o-DYLgmcOz=
+cwRbn_9ehBtThSKHqebIhIRFA-hYLOfnG5PGYOwxMwtcXfc8sq6MjKdi5CUPNf0vaK3dOCwwM_x=
+BjFkIHPjmy2IJAo47couzPOdL8WMPQhqwrvOiHUrS39McS_cLFck_1oWo6W_6SqdeW4fPt1gR1J=
+pFbIwc-Tcty-KI0J0RRU8fCj6l1M8-ReyKtlEbBIYlTSe3Nu2y2SibqK3QumUDIaifd30gUOC7w=
+KweY7pT1zrb7W_n6K7iTV490BRx-IbAmnmZ_WX4HQ3efgZ2ffLMyTPkK4izXjS8sG9T7YJqqjDS=
+yvHYmk-Uop8UB3e6or8gNM-xMmHdJltYjwosXB30wtgEK4Aqp3N7HV1VewaHWfLR5CpaGCDiyln=
+oKNOEOJJ7XvN5RNu3SJvcN1KkAO68o96CXqkakIVfnu9eHidNfCSx9kuB6kW/LkpeRs147weez6=
+dk4dhwUkj-WLH0U3Xp/25" rel=3D"noopener noreferrer" title=3D"Le Pen Vows to =
+Cut French Deficit, Calls on ECB to Intervene" target=3D"_blank" style=3D"f=
+ont-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-=
+style:solid">vowing to cut the deficit by three percentage points</a>. The =
+steady rise in her party=E2=80=99s chances certainly contributed to the ram=
+p up in French yields:</p><figure style=3D"margin:20px 0;max-width:580px"><=
+!--[if mso]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io=
+/images/users/iqjWHBFdfxIU/iV9DKDIdgHk8/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWir=
+GYh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div sty=
+le=3D"display:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/=
+users/iqjWHBFdfxIU/iV9DKDIdgHk8/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgE=
+w44kE/-1x-1.png" alt=3D"" style=3D"width:100%;display:block;margin-bottom:4=
+px;max-width:580px"><!--[if mso]></div><![endif]--></figure><p style=3D"mar=
+gin-top:24px;font-size:16px">Is this just a pause, or can we catch the fall=
+ing guillotine? The selloff in French stocks compared to the rest of the eu=
+ro zone suggests things may have gone too far. Bear in mind that many of th=
+e companies are multinationals and their direct exposure to France=E2=80=99=
+s economy is limited:</p><figure style=3D"margin:20px 0;max-width:580px"><!=
+--[if mso]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/=
+images/users/iqjWHBFdfxIU/iyJlJbbSBeME/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirG=
+Yh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div styl=
+e=3D"display:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/u=
+sers/iqjWHBFdfxIU/iyJlJbbSBeME/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw=
+44kE/-1x-1.png" alt=3D"" style=3D"width:100%;display:block;margin-bottom:4p=
+x;max-width:580px"><!--[if mso]></div><![endif]--></figure><p style=3D"marg=
+in-top:24px;font-size:16px">Further, the last crisis, famously ended by Mar=
+io Draghi=E2=80=99s promise that the European Central Bank would =E2=80=9Cd=
+o whatever it takes,=E2=80=9D provides a template. Investors believe the EC=
+B wouldn=E2=80=99t wait for things to get so bad again before finally takin=
+g action.</p><p style=3D"margin-top:24px;font-size:16px">Further, while Fra=
+nce is currently trading in line with its worst spread from 2012, it=E2=80=
+=99s nowhere near what happened to Spanish bonds back then:</p><figure styl=
+e=3D"margin:20px 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><=
+td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9GyxX.2qlT=
+A/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" widt=
+h=3D"580"/></td></tr></table><div style=3D"display:none"><![endif]--> <img =
+src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9GyxX.2qlTA/v3/pid=
+jEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" style=3D"wid=
+th:100%;display:block;margin-bottom:4px;max-width:580px"><!--[if mso]></div=
+><![endif]--></figure><p style=3D"margin-top:24px;font-size:16px">It remain=
+s hugely significant that France is now regarded as a riskier credit than S=
+pain. Oneglia of TS Lombard argues that the slide has run its course for no=
+w:</p><blockquote style=3D"margin:24px 40px 16px 40px;color:#52525b;font-si=
+ze:16px;font-weight:400;font-style:normal;line-height:1.4"><em>A parabolic =
+move like last week=E2=80=99s tends to exhaust itself, while market rumors =
+suggest some leveraged investors were forced to close their long OAT positi=
+ons. Meanwhile, 150bps has long been seen by consensus as the lower-bound o=
+f the area where markets begin to expect some policymakers=E2=80=99 reactio=
+n, especially given the speed of the move.</em></blockquote><p style=3D"mar=
+gin-top:24px;font-size:16px">In other words, betting on spreads to get to 1=
+50 basis points wasn=E2=80=99t too risky, but positioning for them to widen=
+ further looks much trickier. <a href=3D"https://links.message.bloomberg.co=
+m/s/c/QQsrhjpjLdmDLsXHPRfRu1mTJQkgIrcM3jhVQIy9PfvTPPR4oi84L-fhS_2T8VG98iLz6=
+CK3wLnxfFhiK1WVmHY7EDFaHhwJEucw9U2EufXvWWeHTzd_ifhgmPeyoOTDrp5dHY4ntnkqwHR4=
+2y8qjw6xs39VzzPfxV3k8UgfM1eK0rFXo37q4w_NGZ1d61xsNNS2F0u-g7HYCLD8BHJsTwozkYx=
+W-TShEZ6_VDHBzZ0131fNNLCoCnaG8e6ur263i9c5HVO7WLSAXwT3lHX0IedxZGlUfaG9PV3eJp=
+az4EBYYFkWsTU7Ky79_3Ar8pQ5fH9NXThT05tYFQsSd6qCdEngTfVyAcKF7M-zyk43-esIMA2gG=
+YgHngzE1yBcPIxLx0GgA5EINLOHnnmaZF1Z8AtzBWTAz-k2wKtF2pQD5jm6yu6zOi83DqJru_OG=
+OgLe9-zQMuM2sQrjIn6J-Tt71q7Pzx1ogXn7CGlmdT6PdDJdOk8xB0yKZ539WkFfU-AaCzUJZZf=
+uB709rpr9K_BhjuVnI6sL_vehQVy_Q3mC0lpW/OSAhX9PmQIdJi1jxNhAP0E2BJbvuJdfp/25" =
+rel=3D"noopener noreferrer" title=3D"Eurozone Debt Crisis Flashbacks" targe=
+t=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:und=
+erline;text-decoration-style:solid">Bob Elliott of the Nonconsensus newslet=
+ter</a> similarly argues that =E2=80=9Cthe conditions here just aren=E2=80=
+=99t close to what we saw back in the previous euro-zone crisis period.=E2=
+=80=9D It=E2=80=99s more of a relative bond supply issue, which can be sort=
+ed out via price changes, according to Elliott.</p><p style=3D"margin-top:2=
+4px;font-size:16px">Investors are also calmed by the experience of Giorgia =
+Meloni, another right-wing firebrand, who has proved pragmatic in power in =
+Italy. Italian government bonds known as BTPs now trade at a lower yield th=
+an French OATs. The mere fact that she felt compelled<strong style=3D"font-=
+size:16px"> </strong>to make the announcement suggests that Le Pen acknowle=
+dges the need<strong style=3D"font-size:16px"> </strong>for a similar moder=
+ation.</p><p style=3D"margin-top:24px;font-size:16px">However, Nico Fitzroy=
+ of Signum Global Advisors cautions she may not be =E2=80=9Canother Meloni.=
+=E2=80=9D Meloni was part of a coalition, and the bond market had already f=
+elled one Italian prime minister, Silvio Berlusconi - Le Pen doesn=E2=80=99=
+t have those restraints and has been moving in a more populist direction of=
+ late. Her deficit-reduction proposal revolves around cutting contributions=
+ to the European Union, which is unrealistic.</p><p style=3D"margin-top:24p=
+x;font-size:16px">Viktor Shvets of Macquarie asserts that investors should =
+=E2=80=9Cignore RN=E2=80=99s promise to lower deficits by more than 3% (myt=
+hical arguments of lower EU contributions and spending on immigrants),=E2=
+=80=9D but that there is a consensus to rein in spending.</p><p style=3D"ma=
+rgin-top:24px;font-size:16px">He adds that France is largely funded with lo=
+ng-term debt, with an average duration above eight years - longer than for =
+the US, Germany or Italy. Greece, the epicenter of the last crisis, relied =
+on very short-term funding. French productivity remains ahead of Italy, Spa=
+in, the UK and Japan, even if it lags the US, Shvets says.</p><p style=3D"m=
+argin-top:24px;font-size:16px">Politics still creates a lot of risk that ca=
+nnot be resolved until the presidential election and the legislative electi=
+ons that would likely follow. On the opposite wing of politics, prediction =
+markets give a 12% presidential shot to Jean-Luc Melenchon, standard-bearer=
+ of the populist left, who=E2=80=99s <a href=3D"https://links.message.bloom=
+berg.com/a/sc/ivsOHYJah-Fdd2fnllq__m7m2LZWmtnDT78r9rxrWhMATHWGX_w3VFgPd_1go=
+5PzhrjVbTzwFS4cDc03pvkJZ5UAx7MbYvCdNUDCENUZc8Y-8WVKday6ZGJrOmguHt8PuxcAkLvo=
+dHC3VVuqY2IQti4iFI3anW3p8ShU2jW4y2v0grYhYd6zeb1AFUSktNKQU-ZpU4KrXKa9_7XH3uR=
+IVnEf1O6wLMHeN2e3L-XpGF3WB3ma9jiZ4cyA34JkeGrlpz20EGfY3weOxRS5Q0o82L-gvxEROd=
+TARBQjOvbAgktyNGmhVn5lkaeeSIvzEk_rE3DRRmwTy0BLvqlUfjIUSzI8q6kXVHCpfaFncqhm6=
+9QIoBu7BWG0A92OU9angitWhsshg8ZRw0Rj3elaFFGBPh4GE0bOucjJo4XtwEcG0Qmn8NrDrs1C=
+6IFDcUVs-engq90kYBrniCAB5-_nJkorgA5qByGA_DIERZe0TB50Y49T5hkkJFTa_QpiLo_VGMS=
+voRS6Pe_EK7LfysFfYVX4VbdStgribmjNcSgpurtaQAs/H74LujNBdB-dGEjVFCy6n-YcPD5036=
+7J/25" rel=3D"noopener noreferrer" title=3D"M=C3=A9lenchon=E2=80=99s Plan t=
+o Cancel France=E2=80=99s Debt Would Backfire, BE Says" target=3D"_blank" s=
+tyle=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-de=
+coration-style:solid">argued to cancel French debt</a>. That wouldn=E2=80=
+=99t help.</p><h3 style=3D"font-size:24px;line-height:30px;font-weight:700;=
+padding-top:12px;border-top:1px solid;margin-top:40px">Correction</h3><p st=
+yle=3D"margin-top:24px;font-size:16px">The units were wrong in yesterday=E2=
+=80=99s chart of food prices. We apologize for the error. Here is the corre=
+cted chart:</p><figure style=3D"margin:20px 0;max-width:580px"><!--[if mso]=
+><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/images/use=
+rs/iqjWHBFdfxIU/i1B.03yQ0W8k/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44=
+kE/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div style=3D"displ=
+ay:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/users/iqjWH=
+BFdfxIU/i1B.03yQ0W8k/v3/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1=
+.png" alt=3D"" style=3D"width:100%;display:block;margin-bottom:4px;max-widt=
+h:580px"><!--[if mso]></div><![endif]--></figure><h3 style=3D"font-size:24p=
+x;line-height:30px;font-weight:700;padding-top:12px;border-top:1px solid;ma=
+rgin-top:40px">Survival Tips</h3><p style=3D"margin-top:24px;font-size:16px=
+">Some reading recommendations. My old buddies at the Financial Times have =
+just published the <a href=3D"https://links.message.bloomberg.com/s/c/HIQZZ=
+j7tWOCk7YH651HFikq32jXrLLgDCkxi9Z_0mBMNPwE_Z3VxWeCUrFDJJpiuq2JDO8YTYy4J91sb=
+oJoYCsWZCoMxiUYfaxe1mEM2_tCpwSrVkptgCXXsexeJGV7npi3qtltWzjHcl6nuVOWnH_F24qv=
+6LMsCCKXNuhCCfeqIzY_4LzrelQGXS0ZCaizIQqT4dwTo3c3REwmXIueHa67xP7u0iXe29YBWBU=
+aBbu2beZyOp87f9CbRMLQE_Um6jm9LNaIy_P6Vuk6wemRw9Slt6P9_-plXS6OkSg8jF_2wcC6fn=
+-zLYAEC3QjbDmMLWR78eW1FThD8r48kpN2OxEA6kWc0O-qQZ3-Mb6PXcA4145Nz4r3RCA9gEmmn=
+TvIVmWlBUxxmJ-p36PdSBrwkS_WWfO43vabn8LV50YSPzGXK62mPxPhq_hMAyvWKqmwXzZNbVOw=
+W9M-QjrRUMcohdJFz5sv24ZCaSngtXS2dTMmWvWq2QBxGz_PH5KyCiKt-q7Ctl0SuZnn8anwD48=
+5O/RbS7X2ZpTygPGbUTH897PMAojpVF70kn/25" rel=3D"noopener noreferrer" title=
+=3D"Business Book of the Year 2026 =E2=80=93 Winner announcement" target=3D=
+"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underli=
+ne;text-decoration-style:solid">six-book shortlist for the Business Book of=
+ the Year Award</a><strong style=3D"font-size:16px">, </strong>which these =
+days is co-sponsored by Standard Chartered Plc. Full disclosure: I haven=E2=
+=80=99t read any of them - although I did hear a fascinating talk by Sebast=
+ian Mallaby on <a href=3D"https://links.message.bloomberg.com/s/c/o8N120EiO=
+RNjXkfmBogJdKnJy--7RNLeR7lNOKumTRTRw-Ip7pD4aTrEBWIh5Nc8o15c0tz3wtSSMZKN42Y0=
+T8T5tmu4CpdsbwOajOMaqE8nlEzXPBvGfcR_hNcTL27NjTJf7DPvZdS6N72gtWTVcso24VG1ZFV=
+5xNgq_4cLIrEE5ikteTS9lYtHfsIdEo8Uwg1e2ma6u5ZwURFJwlBlZhlKbUorNS4mb35TDdorbg=
+jQAAg9jO_WwDZl0fxD9NGHT1PRZZmUt5rFXwg1ghUMCZ2mk4KEguSr17B9bGDjywiOyk-vHy4Mh=
+C9psHC0qzni0psfwn4pNPW84-WZuNge5tl4K6AJLeK7P1b8zjypZZH95U23BUOo/jftuj2-ycHa=
+tQ8jNqtkeR_57Xj-pJjjv/25" rel=3D"noopener noreferrer" title=3D"The Infinity=
+ Machine by Sebastian Mallaby: 9780593831847 | PenguinRandomHouse.com: Book=
+s" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-=
+line:underline;text-decoration-style:solid"><em style=3D"font-size:16px">Th=
+e Infinity Machine</em></a>, his book about DeepMind founder Demis Hassabis=
+. The full list with links is <a href=3D"https://links.message.bloomberg.co=
+m/s/c/Ybz76dD60zDXtaTtZS87Sdlmvdts8Ru8FKz7TPJ_rKGBOTUegww2xObjkZfzfjEb7DzgZ=
+FGVj0Geoot7FZN41yvFCOv2NmYjL2hHTku-GqTBXEYc2S69i8pgddgD_hk2OEx88nUCqIZDpZZT=
+l8dlvanzkQZANP0TS-ZwkJuhzPgZ59pdbMH1nOVFqPv_WP5rORswrUsw5ucpQIB3IPKS_UyGfbg=
+Pn6Lny4SVN41_vsl6jXw_vScfXt1dbrUo5u9mE9qRLvezWJ2OTUGVVA_l7v9PJ04IcyQN6ALMA3=
+cW7dCquyTS0l77Zh2fuHvUqRSiEvy5BD7jiXoegP3FoAwB8cHF7lhiOcuP1cwM/l0u9iI_-pzZO=
+NKcBV6XYrSmLKytaAR5C/25" rel=3D"noopener noreferrer" title=3D"FT and Standa=
+rd Chartered Business Book of the Year Award 2026 =E2=80=94 the shortlist" =
+target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-lin=
+e:underline;text-decoration-style:solid">here</a>, and they all look very i=
+nteresting, perhaps particularly Liaquat Ahamed=E2=80=99s <a href=3D"https:=
+//links.message.bloomberg.com/s/c/BkGHEJXx9ELKQeg-gmHdxFnBXfUk6GyB-VK9lZ6at=
+FNB-KWyYRi0W99uJzT_o_dBHPLxMykGyuwROWzeI5SCk7Bp8byX7qHOOV56qGEzBhJpnlYBjz1K=
+_ZW6L-NtJhiIiE-m-cRSEut78EXUJG-tQJ_UVgXmC-BM-0DdrTd8hXHg70DMWJ6YGBZDdMP-RPo=
+gvQwxKY3l55eF2-TeZA0fOugkfEtNmjgg6vhqKGYlUR8mGSoiaYnLrZPa83xv2XgOv9MvJ0fu8w=
+2m5e_oxGQY065NLeeomHBdHll3Rc0nW7ig69tJEfuXDSf5qT0VxmJmunFK3QKxJIAxFk0KgFirZ=
+zIoCYM/IVPS64xf24f0DokhMUdpZNEzNkVUI7xf/25" rel=3D"noopener noreferrer" tit=
+le=3D"1873 by Liaquat Ahamed: 9781594204173 | PenguinRandomHouse.com: Books=
+" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-l=
+ine:underline;text-decoration-style:solid"><em style=3D"font-size:16px">187=
+3</em></a> about the Rothschilds=E2=80=99 role in the first Great Depressio=
+n. The <a href=3D"https://links.message.bloomberg.com/s/c/Bo6tXqiCQlLqvwW3H=
+Z4o5cpokdz8KJZwebxRcHzvhmW0hIGqE1KK_SBYyDuOVZ8kBwXHlXllL1OY8wco-HdL2OjFiKel=
+zINq0v_rbDqhKxB1M72-cY79r6A2UOIJqe1icjMIzgh5bTMI8RD_olUKvYAt9PvtqLfI__JxEnb=
+JmSLNZAXYcscw0K4dAnW7Rb1ac4j4X0Ds4DVzWg8xkwdFeX-czmNo1BzMfe5hOovu5MUhKbtMdT=
+F87WwkwBsoS0c0Ua0OFccJx58qdy1iyIitS0-ClzDdo1IsdhmCqQkpU3Dz7USCW6wma8H63qOSa=
+JNjdAYlFzNCr0-oTtumMqp3j6NpSO27CMw6oSucr0l85Cg5tgJjzvwIfn89oaLprhcl2btCOOQP=
+FH_2w7nC85igaXO25pgLZKp1fp67o0Lg3styQuX0JHPsx0jg2-gLfCjpWsxwzP0SbO0fa-7yx16=
+C4WJWY71LyIVDfnO0FDcC1WnH-htxEjiMM-k3rW0OvH1tfIrIl3C5d71zy5w6034/-0ZhPQvJdW=
+0byn6e_bLh_JUn0k_TGAE6/25" rel=3D"noopener noreferrer" title=3D"Business Bo=
+ok of the Year 2026 =E2=80=93 Winner announcement" target=3D"_blank" style=
+=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-decora=
+tion-style:solid">longlist </a>should give you some more ideas. Might make =
+for a well-spent flight.</p><p style=3D"margin-top:24px;font-size:16px"><st=
+rong style=3D"font-size:16px">More From Bloomberg Opinion</strong></p><ul s=
+tyle=3D"margin-top:24px;padding-inline-start:24px"><li style=3D"font-style:=
+normal;font-weight:400;line-height:1.4;font-size:16px">What Anthropic=E2=80=
+=99s =E2=80=98Existential Risks=E2=80=99 Tell&nbsp;<a href=3D"https://links=
+.message.bloomberg.com/a/sc/4mE5HxVzArTpioym1bEgg3D2JqWsgOzEANZhpjDi3xduV4w=
+mu2PzEhdlGq8KR3GClHpx8vGDqYDqKiQchq-i65M_cI4OVZxldS-oxDZjAbxx7wxrotcZ2wJy3l=
+1GZHrwD56cwp_DSaQUVr6WHLhsysNUXTthJATKfURhaNeYVyTxTzDgymzRKj4g9iZA4zZ01MHxu=
+ifzDyQyei9owblR6DJM6-elDPZ_oNzPaU69STHrtLDxQ_3X486h6XybC30ElDTUF6mGFoQVO-dN=
+FeZmUelZ8ajks5bsuNbwyUlFxm_NeUSD6lMVyGK3Xrg86bR3QArDMfDor3cNynW6Wo0MUjWjqYV=
+1y9QeI1iSYLAxFRLCSGGDkfuUpwYSfBBeeC85tTIHwuZh7YKNuPrbK8EamgYeMfb5adtszshp1d=
+vXfwGJBcAlSc9VFF6ANBZtEi1fhdZXui8IafFX5Lm_SD1LOLql0svaZnJms1pACPBf-EsafqqtA=
+2csZkNR5QK7PRfu0e-KipGGCkFY8py4rI7TH_dDQ9GYv3rKpnPkBDJpBHrQRA/RuQj57uc4XB9J=
+klCG6B8GmZXxAqLUIgg/25" rel=3D"noopener noreferrer" title=3D"What Anthropic=
+=E2=80=99s =E2=80=98Existential Risks=E2=80=99 Tell&nbsp;IPO Investors" tar=
+get=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;text-deco=
+ration-style:solid;font-size:16px">IPO Investors</a>: Aaron Brown</li><li s=
+tyle=3D"font-style:normal;font-weight:400;line-height:1.4;font-size:16px">J=
+apan=E2=80=99s <a href=3D"https://links.message.bloomberg.com/a/sc/3nyHPbXW=
+yjOEqR4YIrs3xlGojqhpEJwbHK3aIDO6l4QwY4hVNLtg4pzHcI1ROu-TfMZEiYJaBwitPupqaDQ=
+r82lmoiON6W_1c-UEZz4zQxPsplzGzTu-VCBrqgbxrEkQyX_su_iIWmMe7DbdXyKYyimONLb1iZ=
+FvlgDJiah9aCNKLvp-iLP6ChelVtmxHVPrFtfNp8KW-8Q-A5cC50LpO-t1iropphDSzP4o_dBCW=
+rzlQXgmlG39hezI8WN1wWF8P5ufIdBA51ygxA5GSrSRc7YIWvaJAFE7DJGL7V_DyvwIsBwkLWq3=
+_8WvmfxAd90sH-MqNcyK6oimo3KDH07fRRnnurVfa6rdmko_CzCwBpM8lLajHXyiLh_kMEVzW3f=
+Vq8r2-zPoVgAKFGk_IRC0tbaQQXtWwvV_BDB8o8VbLd0OisR4WNcdsA4fIrhNv5mcDVyZZ0wlyd=
+p_-hLJcMJ7rOhkuQhVlIz4DeetRHN1FNKDZyVxk-WfIWqTfcCx0FJ-7P-A-SSHUMgNMlFj7y-_r=
+030zXmtz-4/vMqgrrvLSQG9U27vkQtHu8zBLLzVEIpR/25" rel=3D"noopener noreferrer"=
+ title=3D"Japan=E2=80=99s Massive Bond Rotation Is France=E2=80=99s Nightma=
+re" target=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;te=
+xt-decoration-style:solid;font-size:16px">Massive Bond Rotation</a> Is Fran=
+ce=E2=80=99s Nightmare: Shuli Ren</li><li style=3D"font-style:normal;font-w=
+eight:400;line-height:1.4;font-size:16px"><a href=3D"https://links.message.=
+bloomberg.com/a/sc/G3BMc77COFz6InNARKSLIulcypwsC4rqtlMasfKl3XHrH1P0d-i-K_2W=
+PStKVwTobqxBAOVkMjayIkx5P3rCLwbfYfFP3CfNDldMgJ5NcOVZNu2QV3isoXCKL5Bd5rGXDGT=
+bU8CtT5a-7HfA54W1TN-_t1i04jl-p6DvowGZLx4eU7a_qukJRPo7iOPePYIJBbbRHp-wItw-S_=
+JDCO84g2nMaO8NqhvTHRB25rAWsl0eHKmyNlpGtVIIzchug7VKrRaR91E3uM5dpiAQvvKDix4X9=
+y0HeU8ZoIKsTrDY2GbKvYNk2XwAJsOqFsDezAbSNaPbELt_ItDLeHb1em8vaos02MEBInO-zrAs=
+-pS6AEzF36JRMToktVO4UaOGKiYkCvmIeLdhzZkJC6EeSYrrOpv6zjZ6ITh_Eb_txTGDTbCEYPX=
+4hx7BaSU0vGilGf0gprWbX8FjKW00mYxSJIXZeZx2M6j7QJIQLkq4Bik0KE0_q0Gv1vB8Y4Cbb-=
+lLtMxJRHpV9oBYnFLmSeYRvZsyKSa_ha6yTTFDy1Pqk46stCCs_PxSjQ4/mDlXLXW0Coi0NudTE=
+sTgx6grnxhnswdx/25" rel=3D"noopener noreferrer" title=3D"FROGS Is the Name =
+of Europe=E2=80=99s Latest Debt Crisis" target=3D"_blank" style=3D"color:#0=
+0e;text-decoration-line:underline;text-decoration-style:solid;font-size:16p=
+x">FROGS </a>Is the Name of Europe=E2=80=99s Latest Debt Crisis: Lionel Lau=
+rent</li></ul><p style=3D"margin-top:24px;font-size:16px"><strong style=3D"=
+font-size:16px">Want more Bloomberg Opinion? </strong><a href=3D"bbg://scre=
+ens/opin" rel=3D"noopener noreferrer" target=3D"_blank" style=3D"font-size:=
+inherit;color:#00e;text-decoration-line:underline;text-decoration-style:sol=
+id"><strong style=3D"font-size:16px">OPIN</strong></a><strong style=3D"font=
+-size:16px">. Or you can subscribe to </strong><a href=3D"https://links.mes=
+sage.bloomberg.com/a/sc/fGLDgQHPIIKUrIU3Y4E059XsFxZeMuIhg2Qo_o24HbMENglfJz6=
+xQf1Ozk_OjZb_VFwgpCYDyzlTBNPsH0pqHREh2DFveeKFfeF24b29KkRLqb6K9Q8lR4iRtutTJu=
+JZ53BG4OINmcS2PbGWVuOQ4BFlwjEI17bBf1c9wCprSCoxL-2ahCd4rms0lTHg21XXi0ZanJq6j=
+op4cy_aNhKlpIGxm7KjNXgRXvJsFfq6Lkh_ml3WLv7AR9QtYsdV3nTtJob4NJNSnjePzqEueyjS=
+OSAmgKiTKN9dcMZ5AUzgzT2rqEsuCzj4Fwdp9bHgnkSxQLPCS3bDZQrObBzWQXSXN6Ky-uLuMpX=
+jmhuxpJi8-wfMJjwGzG07UtVpu0l7H6FHyfTu39CsvRnZPyXvwSPDELh8ayv3drph6gjTthnNAg=
+SaKLtl7Y9UfTkqsXyLucykHuPE29ehIVta1xgISjZnnptFFN6Y9d5tA0ykmpKI1YMPFfo/bzewt=
+Fj4irE895yKDJh9EmotzdAz2dRC/25" rel=3D"noopener noreferrer" title=3D"Opinio=
+n Today" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decor=
+ation-line:underline;text-decoration-style:solid"><strong style=3D"font-siz=
+e:16px">our daily newsletter</strong></a><strong style=3D"font-size:16px">.=
+</strong></p><p style=3D"margin-top:24px;font-size:16px"><em style=3D"font-=
+size:16px">Like Bloomberg=E2=80=99s Points of Return? </em><a href=3D"https=
+://links.message.bloomberg.com/s/c/RNI3ObakzZCKCC-EpNZwsFdccA4uUXOKNNajP2hV=
+aTWSt4KrRnPsF4X2fP1Q_nMRbTbVOJ43BZXrd3GzzcZUxcRvbwp_wj3ME7_fIhqiqWICjJwb2eQ=
+wQjdVoL1nQZeKCmhS-xyJv_2E9u_KQt4WfGe46SKu_iXOtFl2GEZ3h-BDfxVnSdrTKbmZlLYRrz=
+kHv4pfDM0t3DTGUm65gksQzH99Ot8oBe60jRbF_BqZNCeULpCZ37p25kcMFzjCDk8VcX-565HDh=
+Q8PlZqPsxfsAn1RqLvhwxwuoyEheXJrViq5HW_V_-BPAuGW3m-1pMTwXEq2sSgZsFzvGUYd6Lhw=
+h19VN3GT-ttha1vcXKgShQK97J8VGT5-KHsrF-yUS8DP3MPGXQfafIlOP6IQORWr_VskLvELwto=
+oU5aQt3s822ucts4EtSNJcFOix5VjmyduGHn_dOQ/jnc5BXeU4o3RnTtJUU9b48jwl-SMyP8T/2=
+5" rel=3D"noopener noreferrer" title=3D"Bloomberg Subscriptions | Digital, =
+All Access, Corporate &amp; Student" target=3D"_blank" style=3D"font-size:i=
+nherit;color:#00e;text-decoration-line:underline;text-decoration-style:soli=
+d"><em style=3D"font-size:16px">Subscribe for unlimited access</em></a><em =
+style=3D"font-size:16px"> to trusted, data-based journalism in 120 countrie=
+s around the world and gain expert analysis from exclusive daily newsletter=
+s like </em><a href=3D"https://links.message.bloomberg.com/a/sc/g8P3a5OvLqc=
+P2jcJL9Y9u8yFu3PN6-QIrscfp5j9axtGqaOCweBJapxrKYusdOZV74ZhUU1swaW_4Whuax_SV4=
+1YUHDo8o1u-2dQdiib76UB5goCVR0QJTCd-Gorhih1QjFQpy-FHn6B1dJAkGrqETga3vg8-0arD=
+U5dSqPVUMObo5xjKDSN_b6azpCQKdrt2qUxhvUwgXuBpnXNzE76KxY6yt6WEIlKgQJ4T7phQoWb=
+QKKinBsInMc24C_Bf8AaeNDV93rxEMAHrZZHV_MENf0WvnNunMKBVds_1TR8196BCyclLl0oq82=
+mMXVJaRyhJFaLKIycTKJX9bocWpWHSigbtHk0y-DyfQ1Al8jvWDnivZlQ1M-jf2aiSpKfV736mE=
+wDxPzXW9y99CRLd-o92ItkhdZEfGCV-qhJx5et-DLfCvZzfesaZzqpbZyt5iKhBIWRCtbzlcuVa=
+Qwnmahuj5BmJ9eoCt8Fhw/sW4ffRThFIinW6SGap6OukS8YeH1M-Oe/25" rel=3D"noopener =
+noreferrer" title=3D"Markets Daily" target=3D"_blank" style=3D"font-size:in=
+herit;color:#00e;text-decoration-line:underline;text-decoration-style:solid=
+"><em style=3D"font-size:16px">Markets Daily</em></a><em style=3D"font-size=
+:16px"> or </em><a href=3D"https://links.message.bloomberg.com/a/sc/9e-wqXQ=
+MHwDqoYjfy0JplK5BSflhjfER-H6kSSNoU0x6yk4qpbCZtMvLC7zrljgD3Wz7O3b46oAUGAdtes=
+Ye2kSAVc4sdRSyjtIaHOnhSv9bchWHLfqnIP2SHuPB_FyJ0GFjAxWQejbCA8b5Pvs-Ned1u5TzT=
+_7lZV1FNrf3vuzaTofJ9Rcu0KowlRANglwV6qBuvGKlXHxxQeFGpfVFJFwtYVpcXnEFboFVjjLi=
+-mY-3BdymbYZESJ-CGKABIRq3knZEkn2ZPd1NhbpsCagRdTb7d-e9YfTkUwiMC3IcL4SdOkrs3B=
+5JamutxfksNfu9srE2mweDe76g6-l3e6ZTVJRN3Jrn3fiAlkSPH2wBjtSyqmwXMBVq_VGCTo6SM=
+v77Nm6fOqeFE7ZGUnMTepg81LGWb-bY5dFbgDCRSBW8nfLeK2cyLVASfE8tIzdZnNUl0J8q9oBH=
+yUoLHTpUxv5gazStjw/cXmNiDuJfzF6qoCwkEV1blO67absO5uu/25" rel=3D"noopener nor=
+eferrer" title=3D"Odd Lots" target=3D"_blank" style=3D"font-size:inherit;co=
+lor:#00e;text-decoration-line:underline;text-decoration-style:solid"><em st=
+yle=3D"font-size:16px">Odd Lots</em></a><em style=3D"font-size:16px">.</em>=
+</p><p style=3D"margin-top:64px;font-weight:700;text-align:center">Follow U=
+s</p><table align=3D"center" cellpadding=3D"0" cellspacing=3D"0" role=3D"pr=
+esentation" style=3D"margin-top:24px"><tr><td style=3D"padding:0 12px"><a h=
+ref=3D"https://links.message.bloomberg.com/s/c/lrFvJkcGf2Zi2aqMfJ8kPTyD9zH4=
+36dZecigapxZgp6I_Zq-hXLU8_yWNNvOTWSCrgcl8mfH2bQL-eW2Ua4ek0Y7lnuakHPKF1wzUM-=
+dqyAdNVZ_qt97NCXo59A-J4xVyFtTwcPVLwf8YEFp9ZjE6P3RmziM1bFkllbhFFqgAlKWyZXOVc=
+mFuTpNvBeEfqiR2REnwwCUiNTLIBmMOjVEucu-cq3V0CGjkykTGHxsoOn2uwW35p-bVK_3G3MQM=
+BwePuFU8y2fDdMzabf4j7ZxpyH4fIeYbjjWthP8JEdhNjjO46GE4aVlVw/m4YTG_EvAlwLi4UR2=
+aHciUxHFFreO7Kx/25" target=3D"_blank" rel=3D"noreferrer" style=3D"font-size=
+:inherit;color:#00e;text-decoration-line:underline;text-decoration-style:so=
+lid"><img width=3D"36" height=3D"36" src=3D"https://assets.bwbx.io/images/u=
+sers/iqjWHBFdfxIU/iDRduxloBOSA/v0/-1x-1.png" alt=3D"https://assets.bwbx.io/=
+images/users/iqjWHBFdfxIU/iDRduxloBOSA/v0/-1x-1.png icon" style=3D"display:=
+block;width:36px !important;height:36px !important"></a></td><td style=3D"p=
+adding:0 12px"><a href=3D"https://links.message.bloomberg.com/s/c/2Q0ErymYr=
+1OgITSyO6oSfpePadGfZMxJ77afO_dETVMWSMJnIqLY87ntp515HtdgF3IcrtochbGRLgln_A2d=
+dMZodl9yr47tSijAmUJYjdftJMBx23mzXI32aX4k4HWP_ni7pJM2b5hNfDsUMcbKTyg7He_3r3Y=
+pLjosCSWU55YBNayH8-71pue-4jH9pfZuSwi6IC7FS1sKQYRmy3-A7HJAnQZfsDIEI_k1oHf2aC=
+1M1dAuJk7JINrxV7FqwY_4s-hBwHbqSPXPjWY-YBo-MomAiQ96x9K36fCm18X3cqpiCBC7aw/tZ=
+p3wSkkWS1e1HAoWl56sWZ1OptKU4DM/25" target=3D"_blank" rel=3D"noreferrer" sty=
+le=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-deco=
+ration-style:solid"><img width=3D"36" height=3D"36" src=3D"https://assets.b=
+wbx.io/images/users/iqjWHBFdfxIU/izMF6uUluOIo/v0/-1x-1.png" alt=3D"https://=
+assets.bwbx.io/images/users/iqjWHBFdfxIU/izMF6uUluOIo/v0/-1x-1.png icon" st=
+yle=3D"display:block;width:36px !important;height:36px !important"></a></td=
+><td style=3D"padding:0 12px"><a href=3D"https://links.message.bloomberg.co=
+m/s/c/HQCHbwGnRToQwXQopABid3NjRVgtZ5Ma6PceR-U_1XfuUjS7b1g13VtSm7NhuI7UidBYP=
+aTd6LmCOjClxrgnujP_Kq8PzTYg4g7epwkWzqgJd9j2MzCv0T8iQ6UZMKdfMCwf8Lt_RvpAeaMc=
+IEhLurAbsA7ymnTHKwcoa00CKwenWMO5XPuduGbLfi7jDOMN4iOO50ybNLsV9WbU865LN_svZ0v=
+XmfOxwyRWfcBzUvi5VE5P2xwz0REEo-2GmgoVEGNig9omswKUwMXxW2aQXe5ejJ8dtSECY4SJ96=
+gPK7pNTMlXCJoe-Jmpvw/Dd-Lqtxa8ipQ028oU0ZAZhkMoUJs2BTh/25" target=3D"_blank"=
+ rel=3D"noreferrer" style=3D"font-size:inherit;color:#00e;text-decoration-l=
+ine:underline;text-decoration-style:solid"><img width=3D"36" height=3D"36" =
+src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i_JvbwNnmprk/v0/-1x=
+-1.png" alt=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i_JvbwNnmpr=
+k/v0/-1x-1.png icon" style=3D"display:block;width:36px !important;height:36=
+px !important"></a></td><td style=3D"padding:0 12px"><a href=3D"https://lin=
+ks.message.bloomberg.com/s/c/qrdAmgB0ZHEaGCfJsTAU45vv0EPTehR2W03bhgvbNOnc4M=
+CaaM_Zrm13_F-j-JdfEZ54ThgFKB7nh7sy3UrDGb2l_rNqkHh55wIQaIsxeKjyd2gLb7SDhsS4O=
+DuH3kycxELycNIiZUGuHbUeGMP2dEefbb-SYa-64jp1-ZYd1xgqfbSPJfBdYNGJH5GuWWGuqfaK=
+tpdBJEag0F72vRrFPIAMblTQ1w8cAh73oCCxIunLEqGxZZIJs8aKdvYA5uBxXoMUliGJOCOiPc1=
+j54YbBmeLbXWf--3iVCPVfiAWCNQt3fU76-vdOEDJIPX62nbDbg/TG3QM8k7Ya11BXq4JusXYe8=
+uzPgenz8H/25" target=3D"_blank" rel=3D"noreferrer" style=3D"font-size:inher=
+it;color:#00e;text-decoration-line:underline;text-decoration-style:solid"><=
+img width=3D"36" height=3D"36" src=3D"https://assets.bwbx.io/images/users/i=
+qjWHBFdfxIU/iiSKUb3JWcLI/v0/-1x-1.png" alt=3D"https://assets.bwbx.io/images=
+/users/iqjWHBFdfxIU/iiSKUb3JWcLI/v0/-1x-1.png icon" style=3D"display:block;=
+width:36px !important;height:36px !important"></a></td></tr></table><table =
+style=3D"margin:auto"><tr><td><a href=3D"https://links.message.bloomberg.co=
+m/s/c/ZxHn8qJJYdsxPGpdJkokUXxG6CWzKNj2hkxfRWQ5gFMo2GfntgZncfWNRIQa33mNHOvBo=
+QYo4s6hvXmexUv_CoQbXBNc-CfjgV7Ju9CNkwL1bF4idxdvdu4_ffSTgOGqrabU4SQtumm05sSD=
+MimbpuxhgS5GAZSTxm0uscJpKg6ECFSHXxHLX46d2TvDlNYWn6s0PeXaIfHgGGp1i0cQXwjkcjj=
+mpTk-_2rCfQinSwWLXJ-PC1FgRl24riyuatrIubW-ASUrDHI-us_Y3S1X4cTajhUshzoAVs7kaP=
+0WsRvSLA/1PoKnv326P_kxomuVMA6-9E7uYaEazZb/25" target=3D"_blank" style=3D"fo=
+nt-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-s=
+tyle:solid"><img height=3D"18" src=3D"https://assets.bwbx.io/images/users/i=
+qjWHBFdfxIU/i7ESRvr8wb2g/v0/-1x-1.png" border=3D"0" alt=3D"Ads Powered By L=
+iveintent" style=3D"height:18px !important"></a></td><td style=3D"font-size=
+:13px;font-family:Helvetica,Arial,sans-serif;color:#666">|</td><td><a href=
+=3D"https://links.message.bloomberg.com/s/c/M4QarbM5DFdDyMXryJ71-5Hbd90ggdg=
+pXlyqKfZLuuTbX-McL1NQnMaqZb73Jw5koVvMuDaBBIBxBR5Oz6vnAJxkavPWJdhCBgkI4mJ7ih=
+kCyK40p70x1GoZKYNY4LVdiirLRScea5_o9unUCzfCdQITJGkTsX0FD712AMNHirN21h8h930KM=
+7iI2EFLxf2G_CrKFFxrygZQsL3h3FKtg37LMNxogCbViDfq-wmM-5ijuBeCc_u-hmTigSHhUQe6=
+DCNIv9oFfUhr8fzx61FKtmDSb11yv_7K3P0CaHFbwOb00w/Sz_rX5OkQeEgKVPIKDE3B8IO4ZYH=
+6GI6/25" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decor=
+ation-line:underline;text-decoration-style:solid"><img style=3D"height:18px=
+ !important" height=3D"18" src=3D"https://assets.bwbx.io/images/users/iqjWH=
+BFdfxIU/iHu0LhjyABMM/v0/-1x-1.png" border=3D"0" alt=3D"Ad Choices"></a></td=
+></tr></table></td></tr></tbody></table></body></html> <a style=3D"display:=
+ none" href=3D"https://links.message.bloomberg.com/s/eh/K8QIedpNnlDvKr82Fgl=
+-Bxmj1JeTm3SAceT2ZjXYJJm_c5odQEeku7NYPFISWOAx7UuOj_T_Wn2EoWHWIRR1soXwXYe82e=
+WskHa2yCepNKhmps-jhYa2CbE4-axGepithw1w_W3689ERO-gudA3-MCwh2OBcGVhljg4dH8AHU=
+CMuutzZxFX1qxpmgvSrnqgT5CGUaLwfRBXyczlv283OOmasa1SU7Zc--qCS6jKqmVZbQZmD_4yj=
+tTFSMnBsmbnl1BRYUOnHdavGj-hFBQapvmbqImcbhHxRsW7kaSLb5B2KYtphl2MPGlyCnY4KRJr=
+UbQAR6B-oTa7ZEJa3dd-2Rkwtz52iL5FbnH0/_gJHxoCrTnGNCvZoMfHe7Gmxblx3G9WO/25"><=
+/a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/siB1_VmyIyqKEF_yPIdMgA~~/AARGbBA~/J61E-Ly4GvG04T9kSx-q8XS=
+f4XVNPCZheagb7I2Ekq8jK1ws0qOnkjBR3llfwSPH28Ju-oUdEwpsbB_Y58U0uA~~">
+
+--_----pnFFwyLHy+nrlBQjMLPD7w===_AA/66-07512-EC3C5CA6--

@@ -1,0 +1,978 @@
+Received: from LVUPR02MB11514.namprd02.prod.outlook.com
+ (2603:10b6:408:39b::22) by SA2PR02MB7595.namprd02.prod.outlook.com with
+ HTTPS; Thu, 1 Oct 2026 16:46:56 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=aM9kmT5Dj68ghae5/sUgfywdCEDdErVTiIT7gwihcuuQBwjiPtrQmXnI0MeiXAqyofRKF0s6K/ElVUdazfnva8sMI8dQ6PUCQtpQX7b0Z1VMXwuSxgUQyD27j7b67aGy7lwFBELCODMIPxBiRW1iPK0pS3HnXLyYgm5vZ/TCizREseB7hqz/xROMKiaiY1IkRhTgwHQEDCqHydLlXUBHorm4epfx4XB2cKMmqq8IJIxHWWAjxfN19c+2lTtZZUijJtXNWwsQzareDBb9yLUC85uWZi0hkj66rRREls9dEwp8CqYKRR7wLwHsY+kccnHdwPgPupaZAY/5OngzTkG7XA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fiCgCYgBi0mhJ52fOcAgocJ5zBtZMhzE6Ec2mKBcyVM=;
+ b=NlxUdUGiNGwhDhfXQWImY2nVugqaeL+Z/VJ4On8jiw28D8AhNyGvI+1Biiefrc9g12PmZ8PV0aLQ07M5O3Bw+3AhXNUEuhYqHn8eQCvjNPn93kEHlAkG3eZ5rax1EjpI/jFt5iTzluB+HCLHd8vR7nRQj9zP6+PblDNL9iwvYs+VlSL/c5aGpnH3lM7PjQeZz8jQfQdUbRpsQ9+TXIArc+z8lPaUOS61XrbgeIx7QS4d3IgXHTnRtcLDpQZaFzPZUnkOe/dUtqCO6s7+UHO6oJwIctn5OsP4yTWOVcG/wnuvWRnE7okh8IaJPAhhvpav8NvnX5+59eGTZuXr0JcySw==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 74.125.224.169) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=message.bloomberg.com; dkim=pass (signature was verified)
+ header.d=message.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20734ags-uegg=bounces-280172-1527@e.message.bloomberg.com]
+ dkim=[1,2,header.i=@message.bloomberg.com]
+ dmarc=[1,2,header.from=message.bloomberg.com])
+Received: from BN8PR04CA0041.namprd04.prod.outlook.com (2603:10b6:408:d4::15)
+ by LVUPR02MB11514.namprd02.prod.outlook.com (2603:10b6:408:39b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 16:46:53 +0000
+Received: from BN7PEPF00000093.namprd03.prod.outlook.com
+ (2603:10b6:408:d4:cafe::42) by BN8PR04CA0041.outlook.office365.com
+ (2603:10b6:408:d4::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 16:46:53 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 74.125.224.169) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=message.bloomberg.com;dmarc=pass action=none
+ header.from=message.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 74.125.224.169 as permitted sender) receiver=protection.outlook.com;
+ client-ip=74.125.224.169; helo=mail-yx2-f41.google.com; pr=C
+Received: from mail-yx2-f41.google.com (74.125.224.169) by
+ BN7PEPF00000093.mail.protection.outlook.com (10.167.245.71) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 16:46:53 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:A26D8CA76C27EFC93E5419A89C52A4CA4A0D58C7D92468324A27B4E314787F82;UpperCasedChecksum:9D9415C3F7E2C916DF54D4767629F00A4E96A6C9849B4F328D0DB07093B1AAB4;SizeAsReceived:8652;Count:37
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-6756acdc3a8so3366218d50.1
+        for <carlos-andrade@outlook.com.br>; Thu, 01 Oct 2026 09:46:53 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1790873213; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=b/+SEGAZG1FwligDnaVitP9k5SoCGt3pAT9trFN5PLYqGWYk0bcEGirhUe6DFS5pOW
+         NN291fKSLyBj+BIKAUlL86JDXUi03grmruRpixNE3KBeTbleVQGlIcHHbgHYB+wISRls
+         L7pX3oSnqXtZFthxN787dZhRAfsnEjVnL0fyQVaOzbY0Hxw1UFC7ipOgbYkXr4lmk25e
+         M7ttjNRyiraPy25MidV0YE/WIUZZAB1YTQAYk+mcbV12lcd/3CeU36gZXELtWTIN4nxJ
+         aUWKikV8Xiyp8ngZyJq7yQn6uYEXk+jO4IQxb5J1/G/ScebB7icAWfM/dUZyQHFDFCZJ
+         CKzw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=fiCgCYgBi0mhJ52fOcAgocJ5zBtZMhzE6Ec2mKBcyVM=;
+        fh=RkoR0Upv02vizDKY7QBcDwMYSPpz4irTcUelX1FWFJU=;
+        b=hoBVsWPf6y0SiYKogF1WzWoHNx3YAQF9MvVKSF/2xYUEZbrXFLLrZA6t1JM3rl0JZe
+         BKBvQo1jF+I7mAjbEzHXh7jTaXV14PgK/Vaj2xitnA7vdWiWkwzvf1yDc+iVu4+BY9iY
+         KxLHKqmD6/opGtcz2nfuyhn+FeglalD7lZXCJFyVO8uG2GP9W+Ar9TS3aAFTySQCgzyX
+         BCqY4P0VXwmN9apiJdUaJl0MF1wNWfEBYyeR00Vrvylz6KYVSnqXeUqtr2SIRusAakXG
+         9MgW30oJJobPZZkWb2fS8LA6hwg5TAWPYT6gcF+kqlcr+YSAUkvST0RoRK9KN4mZLITU
+         e9GQ==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@message.bloomberg.com header.s=20230726 header.b=spuo8WJ3;
+       spf=pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=message.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790873213; x=1791478013;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fiCgCYgBi0mhJ52fOcAgocJ5zBtZMhzE6Ec2mKBcyVM=;
+        b=Si/9f2Vbzdd5Of3z8M+6vGtnplvCoQ87mbVQjmbKZADNewmrU5E1xRkECg7IpFS7Df
+         fB/W5JkiyKW7FUOmFOfhKO394DEOZaRKmvZoKbHeRCbK+iOgsWxa2VkKQq8leVrOHZj9
+         uGyvcYNwm/gRMocNRrkEZYa3JbyGOAw35wBPAa8Zs6sL5kY21oKJ2ItMIkl6BqI2EmE7
+         u6OM0qN6hNtfyDizpQDxquFZ6GHJC8iDyqbIVEpBcgL7dVCGDRfZCuH6tu4gNjsoUPLT
+         jUb41EZCHhPXg5CzZakM52BxPFPKXlV1Jklyy4vMe04hjQ8qFIGW3POIHspht0+dPbhj
+         aScg==
+X-Forwarded-Encrypted: i=2; AKwUvBxjpv1fxzv7+sBeUo0RRzN2Zg/cC8Rw+fMr7nTjNL8VPkzyHE93FeFgTLTrPKtUEE829p66hh4QO75wXMw+0w==@outlook.com.br
+X-Gm-Message-State: AFq9FYL3CrgpojioYJNsEEj7oGbibSpA6ZTsHpfxrrDjrvkUc/qkWmkY
+	Qh4UeUbCoqBl0043I4IJGbDXGWt69OcMBV6EcTpQoxMqPAdGLeIjmQA9HE9iDl0X0WPhpp3/1cn
+	JrMQSZNE/BXcKm4HVjyje7dLIolZ8OoyfWEJ4jgFx3+RprQLqJAKcAhSYYQMBtw==
+X-Received: by 2002:a05:690e:c42:b0:672:99e0:ebd1 with SMTP id 956f58d0204a3-676834a445amr2209649d50.105.1790873213039;
+        Thu, 01 Oct 2026 09:46:53 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a05:6214:584e:b0:910:4097:60f7 with SMTP id ml14csp1397997qvb;
+        Thu, 1 Oct 2026 09:46:50 -0700 (PDT)
+X-Received: by 2002:a05:701b:2807:b0:14e:727b:a33 with SMTP id a92af1059eb24-14e727b0c24mr2173100c88.17.1790873210393;
+        Thu, 01 Oct 2026 09:46:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790873210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UYg95HMyMTKjXRXk1Dv06xmapaDkuHgPMcr2+r4HLy0uj6N+eHxdKFU2wHN/+vdSQQ
+         6MghvGz2iIHqet2dFgS+GPZqG/rtahlTATnP69kcpVSPtZyAh+gj3VvO/MY7nWkF22oP
+         XL9Wd3juers5BPxoOz9Ciy4EIUkto9uHZNeZ/8VEtfJZE7VYoTpV+3mSCEKlEkP5fjRl
+         RXEbBSurU42P0Usfv23CWEfd3F9Yj6zBvXGF6/jFaLFM9Ist8IqJnvjW83eEJIU5/bsI
+         uOomLInTfF24eI6Dgf78ajaL+QLcvPoT8KZ2CZkAJGaqTPWASfI2Pdv1uP6AX6f7KKTn
+         pOOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=fiCgCYgBi0mhJ52fOcAgocJ5zBtZMhzE6Ec2mKBcyVM=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=jzzyOsDumXmuKP8gretFkoVfGNpMQ9QVOPo6wfP2bwiZi2EX0G+PJ8U189rZRaZVES
+         Y2N+dpM/cbLufkf6iuAg9TfDn9K/SFtTwPBqznSklRfjnE4A7625CE4YF2MQB//cz1NG
+         1m1+mylAknGiZ1x4EjrNrm0TY8eDQkiXsTf4jk5Vh8FAwMdXlltNTrlr4qUXNSxgsZ5s
+         QrR3kPzRu7SOOsTR2nORkoifBy/+5CCKNy1hFX/9tn4peHJ12xTrkJ0AG2Hx9gRoohPI
+         RrZ4v1IjxqcJGx3OEntX/QxkulKqhNOZL+dPEOtY6d2PJTu4FrhZR6aPjJG3sDPhvxMV
+         mFiQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@message.bloomberg.com header.s=20230726 header.b=spuo8WJ3;
+       spf=pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=message.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-18.sparkpostmail.com (mta-203-32-18.sparkpostmail.com. [168.203.32.18])
+        by mx.google.com with ESMTPS id a92af1059eb24-14f26f91099si565980c88.48.2026.10.01.09.46.50
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Thu, 01 Oct 2026 09:46:50 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20734ags-uegg=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) client-ip=168.203.32.18;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@message.bloomberg.com header.s=20230726 header.b=spuo8WJ3;
+       spf=pass (google.com: domain of
+ msprvs1=20734ags-uegg=bounces-280172-1527@e.message.bloomberg.com designates
+ 168.203.32.18 as permitted sender)
+ smtp.mailfrom="msprvs1=20734aGs-UEgg=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE)
+ header.from=message.bloomberg.com
+X-MSFBL: vZZMZ+uIiVcFuP+373ul2miqNYf9an2NVBdoNFJz8vw=|eyJtZXNzYWdlX2lkIjo
+	iNmFiZDcwOGViZTZhZmI2ZTFiMzciLCJ0ZW5hbnRfaWQiOiJzcGMiLCJjdXN0b21
+	lcl9pZCI6IjI4MDE3MiIsInIiOiJjYXJsb3NhbmRyYWRlbmFAZ21haWwuY29tIiw
+	ic3ViYWNjb3VudF9pZCI6IjE1MjcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=message.bloomberg.com; s=20230726; t=1790873200;
+	i=@message.bloomberg.com;
+	bh=fiCgCYgBi0mhJ52fOcAgocJ5zBtZMhzE6Ec2mKBcyVM=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=spuo8WJ3c8OM28kFM7nwJP5GFtmSzy4SQPpsEqIUqhR1+Lt6kOzBAM9oBTIs9kdkR
+	 GFHPaD2M8lMoCHHpwkMzr/VIVaoMfVsnSgJEVzXy/jJMZ9pR3P3g4sXHi6OGx3Ekiy
+	 c0jnthehY30HWJiaqTOX42j/4Zrdm3TlelrpyPdy4chK+roi+pNhvH3KvMfMsigQr+
+	 tKwNuc3UKMDHMW9pEc6pX+AAkwHoI3IxDb4X+SK5VJbXgu1a502QDsuqEcn2+s/MXg
+	 JocGhODycyJxo3rzt4I677biDtpyvmLl7IUFkmwAumoakwRn5+NjQxNOyQQ9NR2yqu
+	 vJXKVuPt4Imhg==
+Received: from [10.90.34.183] ([10.90.34.183])
+	by i-02dde23a729d907ed.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76456 r(msys-ecelerity:tags/5.3.0.22)) with REST
+	id 73/B1-06138-07E8EBA6; Thu, 01 Oct 2026 16:46:40 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <73.B1.06138.07E8EBA6@i-02dde23a729d907ed.mta1vrest.sd.prd.sparkpost>
+Date: Thu, 01 Oct 2026 16:46:40 +0000
+Content-Type: multipart/alternative; boundary="_----r6Dj9jHpZz8Fxrj7Okeu1w===_3D/A1-06138-07E8EBA6"
+X-Campaign-ID: 20153083
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20153083+26590978@unsubscribe.iterable.com>
+X-Message-ID: 378d193156fd4889a06113dc56f71d41
+X-Feedback-ID: 26590978:20153083:86967:iterable
+Reply-To: subscriptions@bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Get ahead for 60% off
+From: "Bloomberg" <subscriptions@message.bloomberg.com>
+Feedback-ID: 26590978:20153083:86967:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 01 Oct 2026 16:46:53.6507
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: f988d41f-8bc5-4137-4853-08df1fdb9915
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000093:EE_|LVUPR02MB11514:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: BN7PEPF00000093.namprd03.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/1/2026 4:34:42 PM
+X-MS-Office365-Filtering-Correlation-Id: f988d41f-8bc5-4137-4853-08df1fdb9915
+X-Sender-IP: 74.125.224.169
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: SUBSCRIPTIONS@MESSAGE.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|9400799043|2120399003|41010799009|260928210016899003|36140799009|5149299006|5099299006|9020799019|5139299004|35120799009|260826003000599003|68400799013|9000799056|1680799066|10300799038|56899033|440099028|4302099013|3412199025|1370799030|1380799030|1360799030|1602099012|2607281247196008|30041999003|2006899018|2406899039|6106899015;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 16:46:53.5617
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f988d41f-8bc5-4137-4853-08df1fdb9915
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR02MB11514
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.2605654
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VzB6bkwwbzZoOVI1WjFoVXQxaGh0c2s2ZjBrN1MxbldVczYySjlFTW13R2RN?=
+ =?utf-8?B?akRpMGZOUHU0RWRMM0NFU1pmdU1zVzUvTDNoVWdKaFZIY3YwMlloeUNmNVJu?=
+ =?utf-8?B?eW1nblFYRm4vTEtnbnMvMUhhWUlMNGpQbUtjcUQvb3daOGpCZkwrVXBNWk91?=
+ =?utf-8?B?cm9ZUVFFaStjY0RnRWJCKy9HcytsV0dkV0FNS0tlWVRCWVEyTXE3MFh6anVp?=
+ =?utf-8?B?SEtjRFBaK21waWlCOTZ6VnBaVXhUakE1VHRZeFdwQ1loZ0FRdllwejRVZVZ0?=
+ =?utf-8?B?NlQ2aVhUaURkTVI4bTE1OVNNMjlsNnBjYWtGL0c3aVNZWEdDNGJuMUZJZDJo?=
+ =?utf-8?B?L0RnMWlWN3FmNENIa0o0Z2J5a3Q3alRtS1VIRkZMLytMNXY3VmxjbWFUeHdL?=
+ =?utf-8?B?WWtTYXltOUpXS05DRXJDa3J6MVRwai9RRTU5dHJOem5UbkV4QmRCUjZhNWYw?=
+ =?utf-8?B?djdSYndJSFJyTFBsRXFBVUhEU0V2VGEwWm0xTTBzUnFTcStsTUl2T1JCeUhT?=
+ =?utf-8?B?WE1VWWlaVjVCdkNPRjZkM1lKTXVDaGFaaG9UTUhHYklzSlJUdGdFbll2Unpn?=
+ =?utf-8?B?cFI4bEJDbU4xd2pyUDBiVGFCTTR0VDlub0I0V2JuYmlpRHM4ZmR5cCtBYiti?=
+ =?utf-8?B?elNEd1dOL25EelJmcmVtTGIwbGxOZ3FDQ0hZcUVibkk3dkMxS0p4U1NsV1dv?=
+ =?utf-8?B?MVdNVUN5bnFPRStzc1l2R0NsZmNLSE0zTkdseGExTlphSHp3Sy9vbXFGQS9s?=
+ =?utf-8?B?bWdjZTkzdzdtV09VNVRWYStLTVNuTmEwNG4rbzVCSTlrTlpaTlJOUmhoV0lE?=
+ =?utf-8?B?azVXRVNnM1JKSDl6REhiUEFsdGRwUWtaS2NtWkp2amxDczIraXJUWmQyZkla?=
+ =?utf-8?B?WHc4ajVjSGJOaC91MDBiV0JKMW9lL0ZVOUhKK0NJbXVyMm9qV0xyRzQwbDNi?=
+ =?utf-8?B?RWRmT1dmb25JQ1BpSll5K0tDUHBTbE9mOVN0VmJTZXU1Rkd2cjZCa2ZTeENn?=
+ =?utf-8?B?L1lxYXBJeE9kcnN3OTJIckQ1ZklGWEFmSmNtcXlxQk1iU1gvRmw4ZDlhVUY0?=
+ =?utf-8?B?bWFBQzRNa3NoSG95eThsaFM0ODZja2NvQ293Z1ZCQnVBY1lPdzVjT251NVJU?=
+ =?utf-8?B?MGVhcmJ2ZFZuYTRqZitBaGY4YXNHbzNvajdMMG55WnB2UzFZNEFBbllDQnVI?=
+ =?utf-8?B?dlo1TmI5azZDMUV0R3lVWTlhL2hFb2R2M25LUmZhTHFQNUNSS3JiYVBJbVFs?=
+ =?utf-8?B?ZXV0UmdiSnRHK3hKYm9mMGlqSlBjcUErY0h4aitBRmZCK1RGb2M5bTByZVFu?=
+ =?utf-8?B?Vm1DNmNBT2NndVhOMUNsSmtFczF1RHAxZTNYRmNPMkliRTR6STJ4ejh1NTVM?=
+ =?utf-8?B?YXREUWlqWXVVQVZUWnI0VksyY1l4cks5QlUwQ0xKVTg4TktsWmxuZktpV3Qx?=
+ =?utf-8?B?RzRnMTVnbWhzMVpPWXRZdFdPczMxWkVWS0ZHa3NpcUZJM2R0VDJZY3N2UEhI?=
+ =?utf-8?B?YUk2VkQzekNyNk52Z1lHL2FCakczYmtjTDRpL05DTVZZU1VwZTBvbHVMaXE4?=
+ =?utf-8?B?ZUVENnNyRjJmMWFTL3lNdnJXZXhjUkhHV3ptL0xZNGFlOXJEZm9mK0I0Ymhl?=
+ =?utf-8?B?SUVlRTdkVFpNcUVmNHdNcVFiLzErUXRRYTNicnV4RHdMYW0xVHBLMUhRRXQz?=
+ =?utf-8?B?Z2JrQmhvVW9EQk0rblppelRxNkhrUVN5dU1mdWpqNXhvSUp6SzBDNG5KV3BK?=
+ =?utf-8?B?UEswQzgrUVk2UWJTTDlBcjVYM1Z4a3Iyb0l2V0F2MHRhOGJKZTJMbE94T1Ft?=
+ =?utf-8?B?eXFHeStJRE13a1dySGd6SXRnZk9nUlcxWDhUQWc0MDN5UnBDb0pxa0FwV2Jh?=
+ =?utf-8?B?dmhMbC80enYzK2xRK1dBdFV5dTROMmpQTXlhT0NkMmhURm16cXFua2tWeWRr?=
+ =?utf-8?B?cW9rNTJRV3Y3MGpYcnROOE5KOXJYQUVKazJYbW1Pc05rck5uZEg2RVNMc0hr?=
+ =?utf-8?B?WVgzd0lhdXJTOGJGcDRRMHhsZGkrZVRuKy80cXlta1ROZ2ZJK21IcTlrWE9G?=
+ =?utf-8?B?c2hreUV4RG1qREhKek8wMEc2bGV6UkpzQnkyVk9CRG5FS0Qzb29EWXBkOUJD?=
+ =?utf-8?B?RDkvUU5xTDVHdXB6M1I5Q0dwZ29uVDU3Y1JGMWE5bFljc0Q2L2hQQTFxcHRk?=
+ =?utf-8?B?TUN5OEJjc3lNVjlTNkpnMTN0WjFyUDZXOXpNc0lMdlJ0Q0NQOXlMTEN3RW90?=
+ =?utf-8?B?bnFveUhTMGNxbW80aVRPUVJEWG51RzRIS2pSeVNDTEhXdEJPZi9rWUc1Rkto?=
+ =?utf-8?B?c0NkbFhjbk92dTJnWHR1Z25OOGV1WFpVNzZOZUxVZ2pMdnB0SDd2bkNSWmsv?=
+ =?utf-8?B?RzIxaGtpd0FxUVplSWhtV0pkVHZZOUgrOTkvV1N1MHJIS2NTRmtBZUdXWXY1?=
+ =?utf-8?B?Z3FYZ2xWaDl6NmJWZ3B6Ni93Rkg0OWdPZ1o1RlR5bVRGVHY2UmlxK3B5QzlB?=
+ =?utf-8?B?WUNmQUMyNkFEWE1rcVpZUi81eHpvRVRyTm13RTZPbE9DRnRVSjhWVS8yMGtY?=
+ =?utf-8?B?VU8vMmZHRE1YRlhJNjZpK0o0RHJ3cVdRbkJiTlV6UFFFM0h3cEQ1RlJWRXUw?=
+ =?utf-8?B?VVlVTGpNK0x0aHd5Vjk1TXVhZ3gxRXpadXNuUElNdWxDL0FhK1lkZFZ5VFND?=
+ =?utf-8?B?bDQyKzdVTXYvUW43SGtpZSs0TWdxSVd2bUdTTytpVENpbEZHU3dDWVlEUitX?=
+ =?utf-8?B?Rjk3TVQyL2hCNEdXNWloeDY5dVJ3TlRmU3dCVVl1VmpUcTNmY1RnVnV3ZHB6?=
+ =?utf-8?B?Y2tvaXRRdlJvYVQ3V25YL2gwdVlES1BXcUZ1cDV3TTkycUwyM1VrQ25qQUlk?=
+ =?utf-8?B?TnZzN2pBNTI2ZHlPdWV2azRpQT09?=
+MIME-Version: 1.0
+
+--_----r6Dj9jHpZz8Fxrj7Okeu1w===_3D/A1-06138-07E8EBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Keep up with business news and crucial analysis.  =E2=80=8C =E2=80=87 =CD=
+=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=
+=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =0A=E2=80=8C =E2=80=87 =CD=8F =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =
+=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =
+=CD=8F =E2=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =
+=CD=8F =E2=80=8C =E2=80=87 =CD=8F =0A=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =
+=E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=
+=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=
+=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=
+=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=
+=87 =E2=80=8C =E2=80=87 =CD=8F =0A=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=
+=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =
+=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =
+=CD=8F =E2=80=8C =E2=80=87 =0A=CD=8F =E2=80=8C =E2=80=87 =E2=80=8C =E2=80=
+=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =
+=E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=
+=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=
+=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=
+=8F =E2=80=8C =E2=80=87 =0A=CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=
+=80=87 =CD=8F =E2=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=
+=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =
+=E2=80=8C =E2=80=87 =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =
+=E2=80=8C =E2=80=87 =0A=CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=
+=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =
+=E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=
+=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=
+=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=
+=87 =CD=8F =0A=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=
+=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F =
+=E2=80=8C =E2=80=87 =CD=8F =E2=80=8C =E2=80=87 =CD=8F=CD=8F =0A=0A=0A=0A=0A=
+ <https://www.bloomberg.com/> =0A=0A=0A=0A =0A<https://inc.bloomberg.com/p/=
+cp/88cd07a4c7bfaba6/c=3Fmi_u=3D79621EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D20=
+153083&url=3Dhttps%3A%2F%2Finc.bloomberg.com%2Fp%2Frp%2F23c072e6e1bfebcd%2F=
+url&url_sig=3DtDznZvWnBelBQj>=0A=0A=0A=0A=0ASave 60% on business news and m=
+arkets data=0A=0AEveryone sees the headlines. Subscribers get the context.=
+=0A=0A=0A =0A<https://inc.bloomberg.com/p/cp/88cd07a4c7bfaba6/c=3Fmi_u=3D79=
+621EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D20153083&url=3Dhttps%3A%2F%2Finc.bl=
+oomberg.com%2Fp%2Frp%2F56b54017033b6112%2Furl&url_sig=3D5NISvm6AqRqseJ>=0A=
+=0A=0A=0A=0A=0ABack-to-business season starts now. Get back up to speed wit=
+h everything =0ABloomberg.com has to offer. Subscribe now and get unlimited=
+ access, just=E2=82=AC349 =0A=E2=82=AC139.=0A=0A=0A=0A=0A=0A=0A=0A=0A=0AWit=
+h a subscription, you can:=0A=0A=0A * Unlock trusted business reporting, ma=
+rkets data, and expert analysis =0A * Stream live TV, radio, and podcasts =
+=0A * Build custom watchlists to track your market moves =0A * Choose from =
+30+ exclusive newsletters =0A * Join subscriber-only events and live Q&As w=
+ith our reporters =0A=0A=0A=0A=0AGet 60% off =0A<https://inc.bloomberg.com/=
+p/cp/88cd07a4c7bfaba6/c=3Fmi_u=3D79621EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D=
+20153083&url=3Dhttps%3A%2F%2Finc.bloomberg.com%2Fp%2Frp%2F1e020354673ff726%=
+2Furl&url_sig=3DzBmny6mkm4GBvB>=0AOffer expires Oct 22, 2026 at 11:59 p.m. =
+EDT. After your first year, your =0Asubscription automatically renews annua=
+lly at the then-current annual price =0A(currently =E2=82=AC349/year) unles=
+s canceled before renewal. Cancel anytime before =0Ayour plan renews in you=
+r account settings. Price subject to change and may vary =0Aby applicable c=
+urrency.=0A=0A=0A=0A=0A=0A=0AFollow us:=0A=0A=0A <https://x.com/business>  =
+<https://www.linkedin.com/company/bloomberg-news>  =0A<https://www.instagra=
+m.com/bloombergbusiness/> =0A <https://www.tiktok.com/@bloombergbusiness>  =
+=0A<https://www.facebook.com/bloombergbusiness/>  =0A<https://www.youtube.c=
+om/channel/UChirEOpgFCupRAk5etXqPaA> =0A=0A=0AContext changes everything.=
+=0A <>  <> =0A <https://bloombergnews.onelink.me/5gZn/pvdjbidm>  =0A<https:=
+//bloombergnews.onelink.me/5gZn/zy6xqizl> =0AView in browser =0A<https://li=
+nks.message.bloomberg.com/s/vb/zwsx7m29QSkXO4FEpAwLYqGem-6Ezp83i_xLEVW8Zsx-=
+P8OcHeiPipmXW5xRLNy94EGBeu4FRMhS2CgSkIFN__tofQnse736meUUyVI_DBn1r8yE9Ds2e92=
+hT9IMSX878VSh7Wq20jIBKojcP0Joox3qyMIuYOOwgHuimg/2cZRCNRRSyxfo1VMly1KZ0LLF92=
+ClURt/25>=0A=0APricing may vary based on applicable currency. Please do not=
+ reply to this =0Amessage. It was sent from an unmonitored email address. I=
+f you received this =0Amessage in error, please contact us.=0A=0A=0A=0ACont=
+act Us <https://www.bloomberg.com/help>=0A=0A | =0A=0AAdvertise <https://ww=
+w.bloombergmedia.com/>=0A=0A | =0A=0AUnsubscribe =0A<https://links.message.=
+bloomberg.com/s/eh/-_3SMLcPqhdje5jgY1horA4v2kQT3Otcz_yJyInaQ45TlVnJ5qU1iu7X=
+HdZCS9hjroJ2XgKFaApBvxJbG8oW6ffNHKfkmqPReVOvDcvwW3TtpycQ4rEUE0UeVc6aPC-nuct=
+8H9Md77BBNTb5ljut0UQO7DU_w7EQpu5dJT9-o46cvJm2ZSz5M7V283DZlnR6B2WtoBtKdAvIC0=
+8CUMlsIxclGcOxqX2baBfTpZBD-osV4_Ld90q-461TA2ZvltBOOtbvKg9amo8XmQQo1w-cwKUNL=
+pu0gg1KnqlfSaC8ARodiOvqgM8Ip0HpOziSZ5Pf_H4yqKpSbPkPYM6dDYWaAb_ugfZnttmpOwM/=
+uJdGYmWJ6keN9LEYUxRKX81zD27gFDpR/25>=0A=0A=0ACopyright 2026 | Privacy Polic=
+y <https://www.bloomberg.com/notices/privacy/>=0A731 Lexington Avenue, New =
+York, NY 10022
+--_----r6Dj9jHpZz8Fxrj7Okeu1w===_3D/A1-06138-07E8EBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!doctype html><html lang=3D"en" xmlns=3D"http://www.w3.org/1999/xhtml" xml=
+ns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com=
+:office:office"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><s=
+cript type=3D"application/ld+json">=0A=
+      [{=0A=
+        "@context": "http://schema.org/",=0A=
+        "@type": "DiscountOffer",=0A=
+        "description": "Limited Time Offer: Get 60% off",=0A=
+       "availabilityStarts": "2026-09-15T00:01:00-04:00",=0A=
+"availabilityEnds": "2026-10-22T23:59:00-04:00",=0A=
+        "offerPageUrl": "https://inc.bloomberg.com/p/cp/88cd07a4c7bfaba6/c?=
+mi_u=3D79621EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D20153083&url=3Dhttps%3A%2F=
+%2Finc.bloomberg.com%2Fp%2Frp%2F8c4c73327e731069%2Furl&url_sig=3Dgpuc4erzel=
+md2d",=0A=
+        "merchantHomepageUrl": "https://www.bloomberg.com"=0A=
+      }]=0A=
+    </script>  <meta name=3D"viewport" content=3D"width=3Ddevice-width, ini=
+tial-scale=3D1.0"> <meta name=3D"format-detection" content=3D"telephone=3Dn=
+o, date=3Dno, address=3Dno, email=3Dno, url=3Dno"> <meta name=3D"x-apple-di=
+sable-message-reformatting"> <meta name=3D"color-scheme" content=3D"light d=
+ark"> <meta name=3D"supported-color-schemes" content=3D"light dark"> <!--Bu=
+ilt in London by the ActionRocket team - @ActionRocket --> <title></title> =
+<!-- --> <style>body{margin:0;padding:0}*{box-sizing:border-box}table{borde=
+r-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;border:0}td,tr{bo=
+rder-collapse:collapse;mso-border-alt:0;border:0;border-width:0;border-spac=
+ing:0;padding:0}.border-block{border-collapse:collapse;mso-border-alt:1px s=
+olid #999;border:1px;border-width:1px;border-spacing:1px;padding:0}u+.body =
+a{color:inherit;text-decoration:none;font-size:inherit;font-weight:inherit;=
+line-height:inherit}p,h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:0;paddin=
+g:0}li{font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16=
+px;font-weight:400;line-height:120%}</style> <!--[if mso]><style type=3D"te=
+xt/css">ul{margin:0!important}li{margin-left:30px!important}</style><![endi=
+f]--> <style>div[style*=3D'margin: 16px 0']{margin:0!important}a[x-apple-da=
+ta-detectors]{color:inherit!important;text-decoration:none!important;font-s=
+ize:inherit!important;font-family:inherit!important;font-weight:inherit!imp=
+ortant;line-height:inherit!important}input{display:none}</style> <style>.li=
+ne{border-bottom:1px solid #999!important}.cta{border-collapse:separate!imp=
+ortant;border-radius:6px!important}.label{border-collapse:separate!importan=
+t;border-radius:8px!important}</style> <style>u+.body .gmail-blend-differen=
+ce{background:#000;mix-blend-mode:difference}u+.body .gmail-blend-screen{ba=
+ckground:#000;mix-blend-mode:screen}@media screen and (max-width:640px){u+.=
+body .gmail-cta-whiteborder,u+.body .gmail-cta-whiteborder-onwhite{backgrou=
+nd:url(https://library.iterable.com/3101/20303/e4c04b78d8bb451e9237ee7ebd1b=
+3bbc-white.png) center / cover no-repeat!important;padding:2px!important;bo=
+rder-radius:14px!important}u+.body .gmail-cta-whiteborder *{border-width:no=
+ne!important;border-color:transparent!important}u+.body .gmail-cta-whitebor=
+der,u+.body .gmail-cta-whiteborder-onwhite{border-radius:8px!important}}</s=
+tyle> <style>@supports(--css:variables){.interactive{display:block!importan=
+t}.fallback{display:none!important}}@media screen and (max-width:640px){h1{=
+font-size:30px!important;line-height:105%!important}h2{font-size:24px!impor=
+tant;line-height:120%!important}h3{font-size:20px!important;line-height:120=
+%!important}.links-footer{font-size:20px!important;text-decoration:none!imp=
+ortant;line-height:1.5!important}.w100pc,.cta{width:100%!important;height:a=
+uto!important}.divider{width:100%!important}.mobpad{padding-left:24px!impor=
+tant;padding-right:24px!important}.mobpad10{padding-left:10px!important;pad=
+ding-right:10px!important}.mobmar{margin-left:24px!important;margin-right:2=
+4px!important}.w268{width:268px!important;height:auto!important}.w220{width=
+:268px!important;height:auto!important}.w100{width:100px!important;height:a=
+uto!important}.w130{width:130px!important;height:auto!important}.w50pc{widt=
+h:50%!important;height:auto!important;display:inline-block!important}.show{=
+display:block!important}.nomob{display:none!important}.float-left{width:50%=
+!important;float:left!important;display:block!important}.colsplit{width:100=
+%!important;float:left!important;display:block!important}.colsplit-top{widt=
+h:100%!important;display:table-row-group!important}.colsplit-bottom{width:1=
+00%!important;display:table-footer-group!important}.nomobpad{padding-left:0=
+!important;padding-right:0!important}.nomobmar{margin-left:0!important;marg=
+in-right:0!important}.mobcenter{text-align:center!important}.cta>tbody>tr>t=
+d{padding-left:20px!important;padding-right:20px!important}.pl-0,.px-0,.p-0=
+{padding-left:0!important}.pr-0,.px-0,.p-0{padding-right:0!important}.pt-0,=
+.py-0,.p-0{padding-top:0!important}.pb-0,.py-0,.p-0{padding-bottom:0!import=
+ant}.pb-8{padding-bottom:8px!important}.pb-30{padding-bottom:30px!important=
+}.py-60{padding-top:60px!important;padding-bottom:60px!important}.ml-4{marg=
+in-left:4px!important}.mr-4{margin-right:4px!important}.my-12{margin-top:12=
+px!important;margin-bottom:12px!important}.show-table{width:100%!important;=
+display:table!important}.menu-item{border-bottom:1px solid #d6d6d6!importan=
+t;padding-top:12px!important;padding-bottom:12px!important}.norbor{border-r=
+ight:none!important}.botbor{border-bottom:1px solid #999!important}.border-=
+footer{border-bottom:1px solid #999!important}.border-footer-top{border-top=
+:1px solid #999!important}.row-block>tbody>tr{display:block!important}.tabl=
+e{display:table!important}}</style> <style>:root{color-scheme:light dark;su=
+pported-color-schemes:light dark}[data-ogsb] .lightimage{display:none!impor=
+tant}[data-ogsb] .darkimage{display:block!important}[data-ogsb] td,[data-og=
+sb] th{background-color:#151312!important}[data-ogsb] *{color:#fff!importan=
+t}[data-ogsb] .black,[data-ogsb] .black p,[data-ogsb] .black strong{color:#=
+212121!important}[data-ogsb] td .bluebg{background-color:#0064fa!important}=
+[data-ogsb] .greybg{background-color:#efefef!important}[data-ogsb] .grey,[d=
+ata-ogsb] .grey p,[data-ogsb] .grey strong,[data-ogsb] .grey a{color:#999!i=
+mportant}[data-ogsb] .transparent{background-color:transparent!important}[d=
+ata-ogsb] .cta{border-color:transparent!important;background-color:transpar=
+ent!important}[data-ogsb] .button{background-color:#f2f0ef!important;backgr=
+ound-image:none!important;border-color:#f2f0ef!important;border-radius:6px!=
+important}[data-ogsb] .button a{color:#000!important}[data-ogsb] .border-99=
+9{border-color:#999!important}@media(prefers-color-scheme:dark){.lightimage=
+{display:none!important}.darkimage{display:block!important}.lightbg{backgro=
+und-color:#f2f0ef!important}td,th{background-color:#151312!important}td\0,t=
+h\0{background-color:inherit!important}*{color:#fff!important}.black,.black=
+ p,.black strong{color:#212121!important}td .bluebg{background-color:#0064f=
+a!important}.greybg{background-color:#efefef!important}.grey,.grey p,.grey =
+strong,.grey a{color:#999!important}.transparent{background-color:transpare=
+nt!important}.cta{border-color:transparent!important;background-color:trans=
+parent!important}.button{background-color:#f2f0ef!important;background-imag=
+e:none!important;border-color:#f2f0ef!important;border-radius:6px!important=
+}.button a{color:#000!important}.button-outline{background-color:transparen=
+t!important;border-color:#f2f0ef!important;border:1px!important;border-styl=
+e:solid!important;border-radius:6px!important}.button-outline a{color:#fff!=
+important}.border-999{border-color:#999!important}}</style> <style>u+.body =
+.click{display:none!important}u+.body .reveal{display:block}</style> <!--[i=
+f mso]><style>a{text-decoration:none}ul,li{list-style-type:none}</style> <n=
+oscript> <xml> <o:OfficeDocumentSettings> <o:PixelsPerInch>96</o:PixelsPerI=
+nch> </o:OfficeDocumentSettings> </xml> </noscript><![endif]--> </head> <bo=
+dy class=3D"body" xml:lang=3D"en" style=3D"background-color: #f3f3f3">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"http://links1.message.bloomberg.com/q/x_o=
+iwK3w934LKs2ZdZb3ew~~/AARGbBA~/ZrbG9RZaaagRc5rQuqXq-1h6Ll-8QzxnpPraSqThJ7bH=
+J9QlZmbPu-3gqxQ1fPcqaJXj5NV4D6g4RR38K_kYFw~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;">Keep up with business news and crucial analys=
+is. <div style=3D"display: none; max-height: 0px; overflow: hidden;"> =E2=
+=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=
+=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=
+=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=
+=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp;=
+ =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp;=
+ =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C=
+ &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =
+=E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =
+=CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD =
+=CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =
+=C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=
+=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nb=
+sp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =E2=80=8C &nb=
+sp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=
+=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F=
+ =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD=
+ =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87=
+ =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87=
+ =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =
+=E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C =
+&nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=
+=80=8C &nbsp; =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=
+=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=
+=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=
+=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=
+=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=
+=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp;=
+ =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C=
+ &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =
+=E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =
+=E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =
+=CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =
+=C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=
+=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nb=
+sp; =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nb=
+sp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=
+=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F=
+ =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD=
+ =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =E2=80=8C &nbsp; =E2=80=87 =C2=AD=
+ =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87=
+ =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =
+=E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C =
+&nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=
+=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=
+=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=
+=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=
+=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp;=
+ =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C=
+ &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =
+=E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =
+=CD=8F =E2=80=8C &nbsp; =E2=80=87 =C2=AD =CD=8F =E2=80=8C &nbsp; =E2=80=87 =
+=C2=AD =CD=8F=CD=8F</div></span><img src=3D"https://links.message.bloomberg=
+.com/s/eo/VKEeG91aMwMF1lC5XCiF4XybKAhTFzhCDEYg-br1sxRuhrBlxll4Vg6TSVjf5-VQo=
+BbxSyaJ3PKoIL0E9Xje4k6z3at9uAmdnrmjtnhhPqQlC3RqXKFnQyluEt2RzeV-i3eiy71b86ym=
+IdiDSWffRg_g-Aq0qKVjvGk72YM47CMrDT3ySLn-BCyWmyQzEfjc7jYva3LRzWOHOfdQRHhbMUx=
+RAtTKZPd4yZzL/egcMNxsSpEeKb7huFLEaILQz9OaAvps7/25" style=3D"border:0;width:=
+1px;height:1px;border-width:0px!important;display:none!important;line-heigh=
+t:0!important;" width=3D"1" height=3D"1"> <div dir=3D"ltr" lang=3D"en" role=
+=3D"article" style=3D"font-size: max(16px, 1rem);" aria-roledescription=3D"=
+email" aria-label=3D""><!-- --><!-- --> <table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" role=3D"none" style=3D"background-color: #f3f3f3; widt=
+h: 100%;"> <tbody> <tr> <td align=3D"center"> <table border=3D"0" cellpaddi=
+ng=3D"0" cellspacing=3D"0" class=3D"w100pc iterable-row" role=3D"none" styl=
+e=3D"background-color: #ffffff; width: 640px;"> <tbody> <tr> <td align=3D"c=
+enter"><!-- START: HEADER --> <table background=3D"https://library.iterable=
+.com/3101/20303/cfa2a3161cc44b15a687851e032cf218-black-100x100.png" border=
+=3D"1" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" s=
+tyle=3D"background-size: cover; background-repeat: no-repeat; border-collap=
+se: collapse; width: 640px; border-width: 0px; border-spacing: 0px; backgro=
+und-color: #000; mso-border-alt: 0; border: 0;"> <tbody> <tr> <td height=3D=
+"32" style=3D"height: 32px;"></td> </tr> <tr> <td align=3D"center" class=3D=
+"mobpad"> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"=
+w100pc" role=3D"none" style=3D"width: 560px;"> <tbody> <tr> <td align=3D"le=
+ft" style=3D"border: 0;"><a href=3D"https://links.message.bloomberg.com/s/c=
+/WC0u5w_mYVhZa1R2wYQzEAzMJJNtAcid6ygDgT30_6BH36o32DL_qnDa4tmRRS6f4JlBo8xi9Z=
+5Npj9HbBlGwPWcHWl-UzAMRrGcpU08yVhBnltcMrUogt4555ZKONCy-QPR3e5oby0ev5sGDkjEM=
+bSEG5iuGhd46_0Y_xu3KaQkeZZsmsS9iJHtgSkImgAlGw835vXHlwQC1WtmWKRap40-k5ZCceI6=
+j6vu4_YF2XHiSo8nNB2Z_3xL9XUNDLpt26JUUpUPScYmy1N5FofxlSTWZUenkzIxSvUxjWREzx8=
+nCapdD3qkFjZwLWkz1dT16bLk53dazoxv2mUtFG9YrTYR3AFEdTE7oI3RL1LBkzznwbPB2aShuC=
+EcgK7TsFDpufs42UU2jvsgjw6xAlePWRML3oXdcxzAqzpv1DVOe8zWliZzF1bO7UDqnhjHm-WHO=
+n3H6CcEvA_C06q43rykElLxbbL1guYqvZ4tznCLIsUNidhOxWqmh_eyoSfzUtMlrmx_ATwtYFWR=
+8mA8xh3pwIAvjCTjZEhqOOEjo26j4I2XBbG7v7RQtdGRCVg4Ti763_Z5Ds0cmKQvA-bPwhNQuw/=
+LH15qYO_bN61ChMQ0NIe4lUn56tIQggJ/25" rel=3D"noopener" target=3D"_blank"><im=
+g alt=3D"Bloomberg.com logo" class=3D"w220 lightimage" src=3D"https://libra=
+ry.iterable.com/3101/20303/ca301890e2974058b3329e0dab511f8f-bloombergcom-lo=
+go-lm.png" width=3D"288"> <!--[if !mso]><!--> <img alt=3D"Bloomberg.com log=
+o" class=3D"w220 darkimage" src=3D"https://library.iterable.com/3101/20303/=
+07ded60360d640d8b23a229fc41d9000-bloombergcom-logo-dm.png" style=3D"display=
+: none;" width=3D"286"><!--<![endif]--></a></td> </tr> </tbody> </table> </=
+td> </tr> <tr> <td height=3D"26" style=3D"height: 26px;"></td> </tr> <tr st=
+yle=3D"border: 0;"> <td style=3D"vertical-align: bottom; border: 0;" valign=
+=3D"bottom"><hr style=3D"height: 1px; border-width: 0; color: #999; backgro=
+und-color: #999; margin: 0;"></td> </tr> </tbody> </table> <!-- END: HEADER=
+ --></td> </tr> <tr> <td align=3D"center"><!-- START: FLASH SALE --> <table=
+ border=3D"1" cellpadding=3D"0" cellspacing=3D"0" role=3D"none" style=3D"bo=
+rder-collapse: collapse; width: 100%; height: 24px; border-width: 0px; bord=
+er-spacing: 0px; background-color: #faf9f6;"> <tbody> <tr> <td style=3D"bor=
+der-width: 0px; padding: 0px;"><a href=3D"https://links.message.bloomberg.c=
+om/s/c/d72QWuxlrE7IxtMts35ce-9inP9d9Z5m274oxWlSaf7fr7eN-DtrWGpiX56x9niVI9Jb=
+QfEkMtpVfk8sLqSoXblsWvMRBN1he5bdu-mYwt2MsA-Z_qbgS7MmwU1-c3XmRyDJya3u5XLGFIb=
+d4rtHbhcMdZdGwAtHcDF3Png-t1-L3mOVHFSzQNoluN83yEgd2eNNHssyfSAk46l-JkQigbipDd=
+L3UMOFOhQ0593iA7q59Yi17y5ZqPtjvWBFQRhngTweDXaV0IECoGDOrsJoeoRKZtq8NjDRaTs54=
+9DUUvefzicEy7JLk8dNHavN852j3gZZiiQMyKUa2eNCsO7e-Iu1x_TlrKQ5mPuvp8z5ZK8EfAZs=
+iHK3cYT-ZZpK9F_Af8s-hiC0ltuAP2WZ93u2eBJTFEDDD9FqEylmi4nh_xHHTMgWfSbyzzMR2w2=
+GOLI83d3OpqKeCjIq6hp7ZpI1e0pVLi55ecjR9aaYN-C3Ywv_lca3L3X3LrrdPT5F-AYN5u-EY-=
+uMzIIav4UN9Q9rbIA2USAZELFDTuIDwZyY3SVylfCLhFz_zujF0vGXSbDGQBX4_2Y0lnORmEXzR=
+H0MNwflV7_fRT1sOzOEhZhOmvJ0EevBBfi2Usee9wnXAhFvtmzzZx1I-lyb1P7GHk36LO4JUcwx=
+tsnlQmbfyZvN0Tl5Yk-DTjfDbklZEd4LSA8ulT2PPNO1xzKr0wJkO2LoTxVAMYxJiLErffW95Ky=
+HesLl1w4-9sHo0nsLbBgtoGaFsepzM6c2RsZXZtR0U9ktYsaoo6Jn_lTOTvdzypYdHUSlF09zbo=
+zqOMC9WeDZDXkVulUc8SLkeFtYGVZhlPBG8x5zBlAdc5N8B420X_0YvY_-7Zc4tIEbXrbc6KOC8=
+gAxo37um2wwSgsHuCd9906W22NboTAPIZ_rY96v08j93VvKiZuiUf0p9wPI8J0bFBNLMwv-f92m=
+RkYQsDote5GiQ0ZO2n0HUM_W9ROzOsoXLb6UcQcouBg2ya-V/9pryxtH2dX7JJfUhsdJy_ksVY1=
+iGUtXT/25" rel=3D"noopener" target=3D"_blank"><img alt=3D"Flash Sale" class=
+=3D"w100pc" src=3D"https://inc.bloomberg.com/p/rp/23c072e6e1bfebcd.png?mi_u=
+=3D79621EEEEFC0442F9888E0EB4C7EDE80&amp;mi_ign=3D20153083" style=3D"display=
+: block;" width=3D"640"></a></td> </tr> </tbody> </table> <!-- END: FLASH S=
+ALE --></td> </tr> <tr> <td align=3D"center"><!-- START: VIP DISCOUNT --> <=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" rol=
+e=3D"none" style=3D"border-collapse: collapse; width: 640px; border-spacing=
+: 0px; background-color: #334b26;"> <tbody> <tr> <td align=3D"center" class=
+=3D"mobpad" style=3D"padding: 0px;"> <table border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"width: 560px; hei=
+ght: 207.4px;"> <tbody> <tr style=3D"height: 24px;"> <td height=3D"24" styl=
+e=3D"height: 24px;"></td> </tr> <tr style=3D"height: 143.4px;"> <td align=
+=3D"left" style=3D"height: 143.4px;"> <h1 class=3D"nomobmar" style=3D"color=
+: #000000; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; fon=
+t-size: 42px; font-weight: bold; line-height: 105%; margin: 0px 0px 12px; t=
+ext-align: center;"><span style=3D"color: #ffffff;">Save 60% on business ne=
+ws and markets data</span></h1> <p class=3D"nomobmar" style=3D"color: #0000=
+00; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size:=
+ 16px; font-weight: bold; line-height: 120%; margin: 0px 0px 20px; text-ali=
+gn: center;"><span style=3D"color: #ffffff;">Everyone sees the headlines. S=
+ubscribers get the context.</span></p> <table border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"border-collapse=
+: separate;"> <tbody></tbody> </table> </td> </tr> <tr style=3D"height: 40p=
+x;"> <td height=3D"40" style=3D"height: 40px;">&nbsp;</td> </tr> </tbody> <=
+/table> </td> </tr> <tr> <td style=3D"padding: 0px;"><a href=3D"https://lin=
+ks.message.bloomberg.com/s/c/kZKxQVC1GJtFIvaTlYPnFZuzKpXuPTs1O6dAkGauGSNTRt=
+ftoKvH4BylJDd4ThIBteluQ4yHaTgWdJWT1VgdZaiZbCLLVey38Fn5EccGGp8Tm0OyR5a8wxnEg=
+JSQ8MiMoTC0oZP2d-XjMs4lYLjJsmMgVpGF6lknZM0A83WRo18fkn62Tvo4U094UMAEad88YT33=
+EvGh4mV797eo86qGMyoHyVylLJgOW8aH0kl6Nmc7FGSOw4iTbtXO5sLU8Y2znXmPhaQscB_DXPE=
+yBLCUuK5jldSz6w-biXe47gh7-ZvjUjKsZ0XEPhkXlka7Pd6_wI_ca84QAM51iyjzUZavhJNISv=
+EqDRRFliV0fhlVIePi7Z5Cm0gNr21k4mw-BbsMbANDAjzA8HKU1o_GZxSKeLUkavfiLXrzXHFf4=
+TiqM_sOtR3v4u9k4-C8mS9hsnxWrxM_mRknZUapDjAMDkjIAJM9NO-N2pY4xm8rincH5Nuzxpes=
+1h2ZiG22KWfe3vjjMLUXI8_vn0jVoo1RCCBkRH7348EbUwKtwpFkuVISsjuYMaLb7SUatPRQWxr=
+eUyGR_vcRbMv5ox_YXEG39Zwpeupb5wOn9a8ee8qlYQvv-bljZXDf0giIEOuY_P1gCRGBcZJCiv=
+9EbB14Odo0Wbo4Fgo2gTSc48qqolDLXG5aFP8pLxPu8_xy1mok8muvPBdJxqRLYV_KXF1yQKXck=
+JexG25K_S2s47O6imKF325XxDbX2x3En8Do655u_nUvWViKQIa5WOBWZPbBwXDpktXdKik49c_E=
+_axhxGXNGmTfNNEDMmnluNLPuYzrXPXgP9-FBMRqRQAvF-AORLYgX6RQlGGDJcH6hdlGLzTD184=
+EQGqsEdug-g6Ejc_zqsl0ivQFtJgesoeRQfd__c2BdTonNPkKc_4GECGmS3Uy3zawxwCpi-FTEY=
+HZLXT38D2SRJWvR132VipaNpj_tuRh_6XjeE3UrY4KkgqF8edoi3H4Caxo3TYxFmSQz3Jz/1rf7=
+a7vVJ7K35TbIYiw3F6lQUFs7js4w/25" rel=3D"noopener" target=3D"_blank"> <img a=
+lt=3D"Subscribe and save" class=3D"w100pc" src=3D"https://library.iterable.=
+com/3101/20303/f6f14229073f446dbc70ee41b2147b3e-bbg-septlto-email-1280x780-=
+e2-v2.gif" style=3D"display: block;" width=3D"640"> </a></td> </tr> </tbody=
+> </table> <!-- END: VIP DISCOUNT --></td> </tr> <tr> <td align=3D"center">=
+<!-- START: SPACER 24 --> <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"none" style=3D"background-color: #fff; width: 100%; height: =
+24px;"> <tbody> <tr> <td>&nbsp;</td> </tr> </tbody> </table> <!-- END: SPAC=
+ER 24 --></td> </tr> <tr> <td align=3D"center"><!-- START: TEXT --> <table =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"n=
+one" style=3D"background-color: #ffffff; width: 640px;"> <tbody> <tr> <td a=
+lign=3D"center" class=3D"mobpad"> <table border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"width: 560px;"> <tbo=
+dy> <tr> <td> <p class=3D"nomobmar" style=3D"color: #000000; font-family: A=
+rial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight=
+: 400; line-height: 150%; margin: 0 0 20px;">Back-to-business season starts=
+ now. Get back up to speed with everything Bloomberg.com has to offer. Subs=
+cribe now and get unlimited access, just <span style=3D"text-decoration:lin=
+e-through;mso-line-through:exactly;"><strike>=E2=82=AC349</strike></span> =
+=E2=82=AC139.</p> </td> </tr> </tbody> </table> </td> </tr> <tr> <td align=
+=3D"center" class=3D"mobpad10"></td> </tr> </tbody> </table> <!-- END: TEXT=
+ --></td> </tr> <tr> <td align=3D"center"><!-- START: SPACER 40 --><!-- END=
+: SPACER 40 --></td> </tr> <tr> <td align=3D"center"><!-- START: BULLETED L=
+IST --> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w1=
+00pc" role=3D"none" style=3D"background-color: #ffffff; width: 640px;"> <tb=
+ody> <tr> <td align=3D"center" class=3D"mobpad10"> <table border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"wid=
+th: 560px; border-radius: 12px; border: 1px solid #999; mso-border-alt: 1px=
+ solid #999; border-collapse: separate !important;"> <tbody> <tr class=3D"b=
+order-block"> <td align=3D"center" class=3D"border-block transparent"> <tab=
+le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"none"> <tbody> =
+<tr> <td class=3D"transparent" height=3D"36" style=3D"height: 36px;"></td> =
+</tr> <tr> <td align=3D"center" class=3D"mobpad transparent"> <table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" s=
+tyle=3D"width: 450px;"> <tbody> <tr> <td align=3D"left" class=3D"transparen=
+t"> <h3 class=3D"nomobmar" style=3D"color: #000000; font-family: Arial, 'He=
+lvetica Neue', Helvetica, sans-serif; font-size: 24px; font-weight: bold; l=
+ine-height: 105%; margin: 0 0 20px; text-align: left;">With a subscription,=
+ you can:</h3> </td> </tr> </tbody> </table> <!-- ITEM --> <table border=3D=
+"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" styl=
+e=3D"width: 450px;"> <tbody> <tr> <td align=3D"left"> <ul align=3D"left" st=
+yle=3D"list-style-type: square; padding: 0 0 0 20px; margin: 0 0 20px;"> <l=
+i style=3D"text-align: left; margin: 0 0 10px; color: #000000;"><span style=
+=3D"color: #000000;">Unlock trusted business reporting, markets data, and e=
+xpert analysis</span></li> <li style=3D"text-align: left; margin: 0 0 10px;=
+ color: #000000;"><span style=3D"color: #000000;">Stream live TV, radio, an=
+d podcasts</span></li> <li style=3D"text-align: left; margin: 0 0 10px; col=
+or: #000000;"><span style=3D"color: #000000;">Build custom watchlists to tr=
+ack your market moves</span></li> <li style=3D"text-align: left; margin: 0 =
+0 10px; color: #000000;"><span style=3D"color: #000000;">Choose from 30+ ex=
+clusive newsletters</span></li> <li style=3D"text-align: left; margin: 0 0 =
+10px; color: #000000;"><span style=3D"color: #000000;">Join subscriber-only=
+ events and live Q&amp;As with our reporters</span></li> </ul> </td> </tr> =
+<tr> <td height=3D"12" style=3D"height: 12px;"></td> </tr> </tbody> </table=
+> <!-- / ITEM --></td> </tr> </tbody> </table> </td> </tr> </tbody> </table=
+> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" =
+role=3D"none" style=3D"width: 560px;"> <tbody> <tr> <td height=3D"24" style=
+=3D"height: 24px;"></td> </tr> <tr> <td align=3D"center" class=3D"mobpad10"=
+> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" =
+role=3D"none" style=3D"border-collapse: separate;"> <tbody> <tr> <td class=
+=3D"gmail-cta-whiteborder"> <table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" class=3D"cta" role=3D"none" style=3D"border-collapse: separate; ms=
+o-border-alt: 0; border: 1px solid #000000; background-color: #000000;"> <t=
+body> <tr> <td align=3D"center" class=3D"button" style=3D"padding: 15px 48p=
+x;"><a href=3D"https://links.message.bloomberg.com/s/c/6jM6eXaDzW86BakhCUPz=
+BUTO3xPdeM_WU1rj3LtJ-sA90n6lZTQCzHkmaKfBCp_crOyCDGs7vc_oKKmlog5YIxUoawrnl6q=
+A1dGg5t_eUVf6vo3vxj4Wva2ftEOA1k9dTd5ONV-4rSEkvfugK44XnkwEYvb2EhaCOIidcd0bly=
+_5MC9Vhvqz58199GPacxM1nOZggjCMZjPLNb1TleAqNllF_t-SaWj3T_9kkrGvYoAYvR4ngGo65=
+9j03euNwi-VdXs0DAPrdV4YY8zfGfh1lBDkaRyBWd_0aA-U9nbjQiDICrP-BEw6Ue2yB0yDMm02=
+jA3KB8KDe6oCAbtqxclm6WWG-Z4n1fG8j4IHu1qLj8Ibcy4egTYz6mnsdbPz_wtMY9bb0kwKfh1=
+vOI_tU8A92oqh8bG4RfIlETVcKSQF-bac6MQgvYCGJ3EITMwEw1vDi1ZyqCJ-jYXLLew0qvKNVG=
+V3LKGyd2XzMvrltuIQObxEtc9VL0dsBxdPY3Q8w5kNlLs37rKisV2WwqUTkRQMNaAIlAP_qewEZ=
+7PBVu5lr3KNIR9xP9b3LvrdUIzCMSMgHE9Fz6NYqLuZxVUZAdycBeMvuDLh4S2WnwQT-QeQQLSj=
+8Pesh745I2BpcuLQVxM2xT0G7Jmx79EET3G55HYWA6Rm58bSpkLuvBm75JGoD1gEDhCELC5BC33=
+ZtoUzXvZbaeRyoABYX0jYxO2c8_cKd8_Ee8hIvsmXf8wncCiRRcxKJwpc8lg9N1Pa1XYaCIp8_m=
+g0FPv6FJh8CHw5oWdt74b4oCKP5DysuwKxMLEUwgGCvM6UW2aLiyfL6ST2rLUy2ju4XERZz4MTI=
+316efJtZ9EGneE3sQA_OkVEVTmOwNHw3iNOtc5aPj2HPghSdxPcEfldn0rMgwI8Qbmr0qxl3pkK=
+tt_w1fyGgnEd8a2__OANfXCA803T45ymtaYvFKuAH3DgsMqxSSDsF5crv8nc16D6lDmFzebS0O-=
+kqhE-WG2YYiD1MjXvMryF/ymk6cEq8Kkr6PGrwBBMviKpDd3tw0zlD/25" rel=3D"noopener"=
+ style=3D"color: #ffffff; display: block; font-family: Arial, 'Helvetica Ne=
+ue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height=
+: 1; margin: 0; text-decoration: none; text-transform: none;" target=3D"_bl=
+ank">Get 60% off</a></td> </tr> </tbody> </table> </td> </tr> </tbody> </ta=
+ble> <p class=3D"nomobmar" style=3D"color: #545454; font-family: Arial, 'He=
+lvetica Neue', Helvetica, sans-serif; font-size: 14px; font-weight: 400; li=
+ne-height: 150%; margin: 12px 0 0;"><span style=3D"color: #000000; font-siz=
+e: 12pt;">Offer expires Oct 22, 2026 at 11:59 p.m. EDT. After your first ye=
+ar, your subscription automatically renews annually at the then-current ann=
+ual price (currently =E2=82=AC349/year) unless canceled before renewal. Can=
+cel anytime before your plan renews in your account settings. Price subject=
+ to change and may vary by applicable currency.</span></p> </td> </tr> </tb=
+ody> </table> </td> </tr> </tbody> </table> <!-- END: BULLETED LIST --></td=
+> </tr> <tr> <td align=3D"center"><!-- START: SPACER 40 --> <table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"none" style=3D"backgroun=
+d-color: #fff; width: 100%; height: 40px;"> <tbody> <tr> <td>&nbsp;</td> </=
+tr> </tbody> </table> <!-- END: SPACER 40 --></td> </tr> <tr> <td align=3D"=
+center"><!-- START: FOOTER --> <table background=3D"https://library.iterabl=
+e.com/3101/20303/cfa2a3161cc44b15a687851e032cf218-black-100x100.png" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" s=
+tyle=3D"background-size: cover; background-repeat: no-repeat; border-collap=
+se: collapse; width: 640px; border-width: 0px; border-spacing: 0px; backgro=
+und-color: #000; mso-border-alt: 0; border: 0;"> <tbody> <tr> <td align=3D"=
+center"> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w=
+100pc" role=3D"none" style=3D"width: 560px;"> <tbody> <tr> <td class=3D"mob=
+pad"> <div class=3D"gmail-blend-screen"><div class=3D"gmail-blend-differenc=
+e"> <p class=3D"mobcenter" style=3D"color: #ffffff; font-family: Arial, 'He=
+lvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: 400; li=
+ne-height: 150%; margin: 40px 0 20px;">Follow us:</p> </div></div> <table b=
+order=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"no=
+ne"> <tbody> <tr> <td align=3D"center" class=3D"colsplit"> <table border=3D=
+"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"> <tbody> <tr>=
+ <td style=3D"padding: 0 20px 0 0;"><a href=3D"https://links.message.bloomb=
+erg.com/s/c/INj1wHZXjBre8p7uM6okdrcYGku8WsGjBukinxiqG4Mut5njYkkzR_4AEGtLo6F=
+Thaxjd13l2Csy67s-xGLEEsvfP9Icu3pP_K-IOFiC5UyQNsrQM0zSdenQeXGIP7WfLXk0ErbXyZ=
+iuPaq4uSR2lXQAd-FzN37CyqesmwaCOxbYNv5Eh8nb7MJ_NNvZa8PzV5YcwsfqKzUTj9Eh8xfWn=
+ecRKMQvTA2WXBLHLmZG-ITgQ0vXDoVTjufHR2o1ciU-aRnsMcK4M4r1kMjECM89wR6YILgKeqQt=
+cVbO82jSqANE7hiVTWj18ouZf-WMSwlcBKzd_nk-BhIAQXgLRtKe9djxUm_Y1qmjNVZWHAl4CA9=
+eByf6SJfuPWD_-58yRfBH0bWRkLI2h9NTPgxl3mj76FueYOgvsEvit0j-0zNjyiJpUS3Pbf1Tkf=
+ECmtoG5URal8lElowwy-qYVg_7LOm4ivigM_WjKz7h_deFIBljF3n5eS9TxpAf68YiQNFZ9XoSR=
+ZGm1JmNk4oxf4iaPEUwIhog7w3Qu3UQd2huU6DYzgKMosY10z7gWTIjQGO2SZk17ouTZwyk07U/=
+TWAWltG5EpMgKb2E6-UUckVct9dTRgrG/25" rel=3D"noopener" target=3D"_blank"> <i=
+mg alt=3D"X" class=3D"lightimage" height=3D"auto" src=3D"https://library.it=
+erable.com/3101/20303/3f9ed53ed8b447fb9b336178c07c1b17-x-lm.png" style=3D"d=
+isplay: block; height: auto;" width=3D"24"><!--[if !mso]><!--><img alt=3D"X=
+" class=3D"darkimage" height=3D"auto" src=3D"https://library.iterable.com/3=
+101/20303/bea464bb4cf5401b92ffbd809dc70c32-x-dm.png" style=3D"display: none=
+; height: auto;" width=3D"24"><!--<![endif]--> </a></td> <td style=3D"paddi=
+ng: 0 20px;"><a href=3D"https://links.message.bloomberg.com/s/c/1mnxLDDWYEz=
+PTjNjIbayT5i-sP9wa-qJiYzdqHQksRTmNyLnw2G3sGXQd0wWOYyyVPEWt4Y7hq-VwypYrd3EAF=
+v7Bxz1iET_i_UxvRMx3Og5sL2p2cee7V9Krd4oEcmAU_94CMmsQfxmrB5MbzY2Z4v_qIRSjrvBJ=
+CRE8KrYllKpqoMEgHmTt_AkaEThyDpQ2BEoSBFj_lMvi0ljx1_hKlSaxpeMK2uY7NpVD0el0TbK=
+3Uds0-Wt5g-wZqG1y6TszTF4VA_LUCG9bSzNgaQAF-LMFFgshVzHBIWp0BInkk46wBc7kWlzYgq=
+0O3-Ykytj8ViEoeFqivL6xjdRFlyXrzrOVqrb5IrVm-dOiUEgQr8R_P8yZKupBrVHiV9fbzp1Fv=
+VWIXmShsMKQxkQuhDrQMw6xN5uUPA_N86JUbF0csizsR7YJMnu9IXzHSGxkMojXTtQTITsShHxG=
+cGQolJIvL3XYIZXjzk_kvVJ7L-ufbAwmHbAaynU-qQ84oyUHo70WnFJkgE-OTah1LqF0a7EPj4x=
+ISKIa2bhlaiqLeNSayQ7JieneI2nFQCKSqQHrkBnqcRqRocX7Ywhxo__kSeNXv-l_T2i_LgaMVU=
+GW1sWD3QJZDapnOjP6rxpmIahzGSaJDe1dInch0814YjD/q0ngiG-sVXIOB5iCoa6wxbEK51K6L=
+MnR/25" rel=3D"noopener" target=3D"_blank"> <img alt=3D"" class=3D"lightima=
+ge" height=3D"auto" src=3D"https://library.iterable.com/3101/20303/4b3b3dd6=
+651d4f58b57c5918da171afc-lnin-lm.png" style=3D"display: block; height: auto=
+;" width=3D"24"><!--[if !mso]><!--><img alt=3D"" class=3D"darkimage" height=
+=3D"auto" src=3D"https://library.iterable.com/3101/20303/fa76ab1b9e2c484fa9=
+120e6a03059f0d-lnin-dm.png" style=3D"display: none; height: auto;" width=3D=
+"24"><!--<![endif]--> </a></td> <td style=3D"padding: 0 0 0 20px;"><a href=
+=3D"https://links.message.bloomberg.com/s/c/d35o0-oP96LZWOzJllwVTTNI8wi1THz=
+ckiZoLb1PdSGMLG_nYLhjzfBq5Q1n7BN2f8CSNlN-A2Q7YenRLs2gux5x-jUsujIRgIyF4djClQ=
+pIIgjJwUBPRHiMZFlvSRmoxW4r0rz39xVcg65RztTQ2Ws2PLoXO-ytW8q3YcYUfHJo1OF9ZjRYY=
+lAAcT7H0_RbF_CBJZ0t_OFLpCIAwly0fuk6g_CXMdQPd3zcC7mr-YlnmtyCQtCa495BcQEvPe4n=
+0v4vprKSNPiI1lb7JzSB22NvAwdu57VWNr8zSR-PXK2o170xrvngdu9j23OVaFA9tkASFt8_gKU=
+qCC6FZri_QmJaXLBQwYWANg-oyVxoOTfmopZMhCJZFZq1yNJNeJp_a42JVT3TTETn7vCTvWm1sv=
+y6y0M77_VKch4EVBHPsjjq5uYtz_ee1LrQigLwauUix55GcwNcWrTYZDCHywF7VmG8G6g8PfART=
+wxKisUa1EmN4FBaZ7iorYaS-4-wCXyaitXrbgRnYr2AEJRIlWb76Uc-mPCYHhzipW7OMYRj4aao=
+U2jnhhL7mI-rjiWY_BGLfye4RpDalnr-yliKvLCVIaiOaAGbGt_k2iKLjiAQoWlVAyrSd8kCtyQ=
+TQiVaCkrNL_Q3wKyX/0ZfDfpZ4Rwv7-9NHh_gLlksyQ-DHAZpV/25" rel=3D"noopener" tar=
+get=3D"_blank"> <img alt=3D"" class=3D"lightimage" height=3D"auto" src=3D"h=
+ttps://library.iterable.com/3101/20303/ddc50a47f5d240ea818413dc919d15fb-ig-=
+lm.png" style=3D"display: block; height: auto;" width=3D"24"><!--[if !mso]>=
+<!--><img alt=3D"" class=3D"darkimage" height=3D"auto" src=3D"https://libra=
+ry.iterable.com/3101/20303/2240daccc8ba4fbb85a95ef3806be401-ig-dm.png" styl=
+e=3D"display: none; height: auto;" width=3D"24"><!--<![endif]--> </a></td> =
+</tr> </tbody> </table> </td> <td class=3D"colsplit" height=3D"20" width=3D=
+"40">&nbsp;</td> <td align=3D"center" class=3D"colsplit"> <table border=3D"=
+0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"> <tbody> <tr> =
+<td style=3D"padding: 0 20px 0 0;"><a href=3D"https://links.message.bloombe=
+rg.com/s/c/qgUCaX8nODSWQrKrWTMXSROQNvPvaAAk2EYTVR46J7ViM9xTQewy6xNeyrZKOw2j=
+mWmRJ-9xadtGwO74V9zJEQmBpdOMMO7Y9KiAPhkNr49YTzPqdZ15NZriee8R0HnD35svhmPITdK=
+YxQCdmZkMs7nxHPfbFImcLCu-qcYpZlX7jBAY17bsSAzcPHC0g4CXvspEvxwcCdVUU-wkHwaebW=
+tS73cLPJp_hBIB7O8XeCAHDYSOxvK2iEGhFhlo8Jeqj1rLRrfFPz_GCWpJx-fueJd8td-Osur6y=
+hul7QK1zYv8ak7bzFGGuAfpQcgKHzMWD-zAiKLTUwGsyr6ePLdi4IAiSLkh53o1KefEY7JAqY00=
+gtz6u2Z7hgX6lqVlmfGz3nerelqAu64hu16MSfVguonGD91Ty5EmXG8q9zrheeKgWiDs_KSmJ2K=
+swETAcJW29gRX1k3A62tHDi_aiQ6Tl2pHIEpM7RumoXQz78KvHqWq8AKfsT3qcOqT19GhklWUvI=
+cAiSRKeeCok7gsB-J1e2rM82Svo2P61QeRk2fQwxmAm-m0h_v-vRKiGR5yVKoOBRIA_XOs5ocmn=
+yVqSjiLdsLUzlxlKuPsRru8vfmUWFk61MTa-rXr6hViuX-90HNB/voXcbDPvq2ahsz1e2ghWzPT=
+vPVIpm4a6/25" rel=3D"noopener" target=3D"_blank"> <img alt=3D"" class=3D"li=
+ghtimage" height=3D"auto" src=3D"https://library.iterable.com/3101/20303/cd=
+41be1cae0e440ea8f9641fab9e5c41-tt-lm.png" style=3D"display: block; height: =
+auto;" width=3D"24"><!--[if !mso]><!--><img alt=3D"" class=3D"darkimage" he=
+ight=3D"auto" src=3D"https://library.iterable.com/3101/20303/d81ac8dd5d4542=
+45a7d8a9a139fa9768-tt-dm.png" style=3D"display: none; height: auto;" width=
+=3D"24"><!--<![endif]--> </a></td> <td style=3D"padding: 0 20px;"><a href=
+=3D"https://links.message.bloomberg.com/s/c/cpJlWnMEt5BLAaeCXxoJNjy_yQAITQh=
+qzI5tSrZ911F-ay6NARVkcOlquNjT_5EDEU8X2n3CzimnYkU0FMLRP4GAlKHacphoKlsmRoaUjV=
+EkrG_-vzwZQdXhtSmj48kKw3J8x6hwcWR_K8079P8J1LGuS8NRAWwzSwshL4nZxAPCPRdPQLnXv=
+_qi8sW2VevYeHU9dZaaz5CbD7Cwm11FsnH5Dd25uFauF4WqV-h0AhGZlH9y8dg84aJ_KvVHnpNn=
+nT1a6tN4bYYbAsDL7K64YeKoce9c24KmdNr-Y-lmPeHkooUQaXg_kdi_vm_PiTFhMXCijVaFae5=
+RV7wblG78oKF-NtNBvIaa5J37F51oguaexAfUHSPxlQ3nRQo9UHNvpoXcvT1D2LHDfRychG9UHt=
+JS_yfQLiCqHtRsj_-PzuXS6BfRWWpYzZn2D__th0UteKNmeYGlngPCoNt_Bg-1lvyRCILiYhovx=
+EIxttSHiWhxK7AD6TaiX4hy8lRqBDNSV079Nn44CEbpuEko-oufR-DX0P9Rvmy-xhXXJhLseYR-=
+Y8eCajqz5DVSALVCMDrRlv2QNT1kb5qY_nGpQ9cK5HHosF20SYiTDwE4J3mGahpw4YP5tVKag5F=
+IKZ7JKTqtybX_zw/Co57rhX1Pt0pGJiJUWHP9JHAY_080oWP/25" rel=3D"noopener" targe=
+t=3D"_blank"> <img alt=3D"" class=3D"lightimage" height=3D"auto" src=3D"htt=
+ps://library.iterable.com/3101/20303/c98762b9634348b38d5c963444193160-fb-lm=
+.png" style=3D"display: block; height: auto;" width=3D"24"><!--[if !mso]><!=
+--><img alt=3D"" class=3D"darkimage" height=3D"auto" src=3D"https://library=
+.iterable.com/3101/20303/1b7a08e1e9fa4f998c6fb9c4ffb719fd-fb-dm.png" style=
+=3D"display: none; height: auto;" width=3D"24"><!--<![endif]--> </a></td> <=
+td style=3D"padding: 0 0 0 20px;"><a href=3D"https://links.message.bloomber=
+g.com/s/c/UwyQ3i3wGZnXG1FoDovMqwt8D8QxN_djMSCFzSxFhbW8xzWFTsDp3w7EmHgaotO0M=
+9bHMZ2YbzuKfYulHJrjrl9ULau6RaVb5MbyjOmp6UClBAwEjk5O5_36fdzSZ2L8Qon9IQD7fouW=
+JquMIHZUPX6Pqg-i6as66CPTKMCvz3lnvj9COxySzQm2URucv7soqquGlnL6fPKz4-HP1JbNo0-=
+HGqc9ywSDUTG6k640LhdqTIkFKbs3gNSp3hczd60wQgu66lC9HEJ1_Q9Z7snPefqs_E4unQf2Ux=
+YCOSKMi1Yasf20xtEWwJRXJ5Z-FemWthq-cPCIxwyeHfV3B4xll2ssVijlWtnhb-SBLGxEChHEj=
+6aGx0FXgA4IZwzkyI6mvrYhIf_4pTm5TdGgj6jUvBuD4-UdhsNS4S_-M2tJgiISskovxYbMC6QS=
+lsaMmHGNfhWaZeGBRQdJz6RVSm7Oj8KZfVwctlOvEzDwBJFCbNvXF7nOiCzxzZWwoI64CEphXzS=
+JiwO0drw7ZRyrMJ-dtWaln6SmMliRO3KtDvIaR1lA8Bs1kaGY1waNNlI3xv7glGB1c9iQsJ4Yq8=
+5yOcbBk9uwuJNF4ETLdoa4RySQALW2QTnLH3CXO4RN8sCwwF-tcucdv-N4XLLULpEORMAaLSUd_=
+O3dvrQGFXmnIZPN/urL25gi1E2xNjYrTFnFsxaEpjD8MmcMQ/25" rel=3D"noopener" targe=
+t=3D"_blank"> <img alt=3D"" class=3D"lightimage" height=3D"auto" src=3D"htt=
+ps://library.iterable.com/3101/20303/00a149d38a454996a98cc7dccf0c3adf-yt-lm=
+.png" style=3D"display: block; height: auto;" width=3D"24"><!--[if !mso]><!=
+--><img alt=3D"" class=3D"darkimage" height=3D"auto" src=3D"https://library=
+.iterable.com/3101/20303/cd8b7ac66b284efab01af2641efafaab-yt-dm.png" style=
+=3D"display: none; height: auto;" width=3D"24"><!--<![endif]--> </a></td> <=
+/tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td c=
+lass=3D"mobpad" style=3D"vertical-align: bottom; border-width: 0px; padding=
+: 0px;" valign=3D"bottom"> <div style=3D"height: 24px; line-height: 24px;">=
+&nbsp;</div> <hr style=3D"height: 1px; border-width: 0; color: #999; backgr=
+ound-color: #999; margin: 0;"></td> </tr> <tr> <td class=3D"mobpad"> <div c=
+lass=3D"gmail-blend-screen"><div class=3D"gmail-blend-difference"> <h3 clas=
+s=3D"nomobmar" style=3D"color: #ffffff; font-family: Arial, 'Helvetica Neue=
+', Helvetica, sans-serif; font-size: 24px; font-weight: bold; line-height: =
+120%; margin: 12px 0 24px;">Context changes everything.</h3> </div></div> <=
+a rel=3D"noopener" target=3D"_blank"> </a><a rel=3D"noopener" target=3D"_bl=
+ank"><img alt=3D"Bloomberg.com logo" class=3D"w220 lightimage" src=3D"https=
+://library.iterable.com/3101/20303/ca301890e2974058b3329e0dab511f8f-bloombe=
+rgcom-logo-lm.png" width=3D"288"> <!--[if !mso]><!--> <img alt=3D"Bloomberg=
+.com logo" class=3D"w220 darkimage" src=3D"https://library.iterable.com/310=
+1/20303/07ded60360d640d8b23a229fc41d9000-bloombergcom-logo-dm.png" style=3D=
+"display: none;" width=3D"286"><!--<![endif]--></a> <div style=3D"height: 2=
+4px; line-height: 24px;">&nbsp;</div> <table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" role=3D"none"> <tbody> <tr> <td align=3D"center"><a href=
+=3D"https://links.message.bloomberg.com/s/c/cs8-UtM0nWOfbiCAYVLo-MUUMmanzDt=
+YUZYVicJBJASf3y7FjHxoZxlWz2hBOvwzdTew06FKAfKywFvpY514gdvpBUtHlaxrFGFGa8GVb0=
+J9g017yoTCKBEf-X-xpqizBwhoaX-gqLxxljKXS05qp0nP8A7XlMrDVWEIk5kEZteibLGwK-4c5=
+ySwTQgEBG7mYQbG7u70NvBtBYMsZndubV_EqYK8WHu1s16Pk5XfTW-hNRYsn6XxgzQa_XBZeHnq=
+g4yfDmlDSJr3nFAZvOYTzDanfNGMf3CQwS08FT0sillREIFjzwWr_vEB7m78lqlvw5NZBu3gbdx=
+iB1j4IZpU-7tTS4MRzlJkYStanvvRGeTiLI5tiS7xBoQpaJz929NJl07kmPolh13IqJ_f_fIabT=
+mZvhUr7BlocQ46MAhRW03yGT0ytXL-giJT00fVU4RMjkggSMA4KbEpnWx3WgRPsrEHCgdxd8NvY=
+-zRdZvRiWKjC5SVXsLO3b6o1gOASX_tBjVj11EWolGruc2RRhOLWVzNypPGOC3QnfeoIAFgwCrT=
+VIJdKy63zFOMLBKZ35BD30_3L2XmoC9BzwlYN_Xz0OoMT7gWMp-G_i_IRSdMQaqvMa47DgBKnKW=
+IrKNA5AsEPs6xKR3eab4WDw/GEmFhFl36TVcWsQ0nX-keOnLlEZFagM6/25"><img alt=3D"Ap=
+ple app store" src=3D"https://library.iterable.com/3101/20303/5b15b6955f9d4=
+d53a21db7fe068e69d8-ios-footer.png" style=3D"display: block;" width=3D"118"=
+></a></td> <td width=3D"24">&nbsp;</td> <td align=3D"center"><a href=3D"htt=
+ps://links.message.bloomberg.com/s/c/d2cjqGDK4AFRacuwrzKzXwSV7Kw73ClB0m8yFb=
+rPHu562HFwcLgsUMg9Vw0zTLj-cnScYIXCwrzNwhmYmf4gm-PjDwltHCCIYLeWMkcf00SIXXT0k=
+4f_TVGYnFv1jP7kvDFDAqhdM5d_7b2opWy2bgXmuMo2fACHy7NQNCzjOwOTr7rx_lHMSbE2pH7U=
+REb3HoJxC-rhQKWvG_5PmbYv4YYAoS74fTsCSBClI061XQJb0uqPQ-OIWAH7ZD9T1tSTB4syoCz=
+rPkRNCvK9KovcPH5HQdqTf2GfvJC7LHTZKk5rMv-pASFua0soPhZHRn9CGQGKaw2X1hak1BJxVW=
+ih1gOy7_ZpE5We7aCcnzXdu8dvtIAcTNlnPaqy9HovOfw4biz1tdwO_v2dSPtNHAXSPnWi3un7j=
+j6iwhfwt5pDvn90g6Hh8qOM60zC5cY2rhvI9rheZYRysvzLSnanjFVDC3n7WkdXMJXEfijyMpAZ=
+a_InrzWYWuyv9JGqZKbIut_qJKPqgBG1dD-Hh_xrz6-pCZ07IRMTM4k68hx4E5vsQTQoifhiE9V=
+ocWjEJqVuSm_weZ5hkKwmKmq734waeZzXlpG-vP3bd6PPLucT6wl9-jDDZoVvzPZZ8zJb0LwOUq=
+BTzizCbfoCgOVutw/9Bt5g4uMPH2uEdOjWhbFa7kU91XatKJz/25"><img alt=3D"Google pl=
+ay store" src=3D"https://library.iterable.com/3101/20303/4d9fd77bf874447891=
+34991c12bf8ae9-android-footer.png" style=3D"display: block;" width=3D"135">=
+</a></td> </tr> </tbody> </table> <div class=3D"gmail-blend-screen"><div cl=
+ass=3D"gmail-blend-difference"> <p class=3D"nomobmar" style=3D"color: #ffff=
+ff; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size:=
+ 16px; font-weight: 400; line-height: 150%; margin: 20px 0 20px;"><a href=
+=3D"https://links.message.bloomberg.com/s/vb/zwsx7m29QSkXO4FEpAwLYqGem-6Ezp=
+83i_xLEVW8Zsx-P8OcHeiPipmXW5xRLNy94EGBeu4FRMhS2CgSkIFN__tofQnse736meUUyVI_D=
+Bn1r8yE9Ds2e92hT9IMSX878VSh7Wq20jIBKojcP0Joox3qyMIuYOOwgHuimg/2cZRCNRRSyxfo=
+1VMly1KZ0LLF92ClURt/25" rel=3D"noopener" style=3D"color: #ffffff; text-deco=
+ration: underline;" target=3D"_blank">View in browser</a></p> </div> </div>=
+ <div class=3D"gmail-blend-screen"><div class=3D"gmail-blend-difference"> <=
+p class=3D"nomobmar" style=3D"color: #ffffff; font-family: Arial, 'Helvetic=
+a Neue', Helvetica, sans-serif; font-size: 14px; font-weight: 400; line-hei=
+ght: 150%; margin: 12px 0 24px;">Pricing may vary based on applicable curre=
+ncy. Please do not reply to this message. It was sent from an unmonitored e=
+mail address. If you received this message in error, please contact us.</p>=
+ </div></div> </td> </tr> </tbody> </table> <table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"width: 560=
+px;"> <tbody> <tr> <td> <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" class=3D"w100pc" role=3D"none"> <tbody> <tr> <td align=3D"left" clas=
+s=3D"colsplit border-footer border-footer-top mobpad"> <div class=3D"gmail-=
+blend-screen"><div class=3D"gmail-blend-difference"> <p class=3D"links-foot=
+er my-12" style=3D"color: #ffffff; font-family: Arial, 'Helvetica Neue', He=
+lvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 150%; =
+margin: 0;"><a class=3D"links-footer" href=3D"https://links.message.bloombe=
+rg.com/s/c/Io4Vy6T4MxtAIiFt06GNsZvHFP6O7AYwM83-MZCzc_3IgOSidFIhGnMppeMlsiQ2=
+69twDQ8LPIjRMU8qPG-9ipx5SYqo4CoDwAFr-vZvWnHvBKrNneIw9Plg1YURaNECfhWtqDDpKS1=
+fQcKy82702iBytEao-_MfXyIZ62DIenPT_kuHbaiJuT2MEBOOlATOsxXvfTfuuiCUmUPoZAFMwt=
+5gUThszcFdsx-peW1HleA3MBQbOs41IrK52jFs9RiLQ4_tDmGopOUWCBTZwbLR4O8cIkUGi9WAm=
+XQ7OguBK9Y_F60pLc_6nH322f1Pw6PH9Rt3HBA-ZcIbH7lX20PZV1gaCDOt2GR22y80zTZFmMqQ=
+YcqVqLV5GJL9U8T393JWCzM2yYKlvXsxgUXu8-jmWJh2GL3gJ985mOiSh-89H1zmnfDo0wlcCP-=
+9tj3vr4pSGZPPfGiHCkExT05rHWvImCG-LANwUISfr3fEN-zYeyVqSh3O6oqUCyrIoMIGzdoaxF=
+efwNnCqJDKK9TqNplT8l8fFOsZehTdBd224kPinyGCYwdbS-4JRRNiLuf9NCJT1SN8NS9oIFfMf=
+opH-wsIri8fx4RfFKz_hg/KbtbS8LpxUsGI6FJ83KwYK1VD6NIYlhM/25" rel=3D"noopener"=
+ style=3D"color: #ffffff; text-decoration: underline;" target=3D"_blank">Co=
+ntact Us</a></p> </div></div> </td> <td class=3D"nomob"> <div class=3D"gmai=
+l-blend-screen"><div class=3D"gmail-blend-difference"> <p style=3D"color: #=
+ffffff; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-s=
+ize: 16px; font-weight: 400; line-height: 150%; margin: 0;">&nbsp;|&nbsp;</=
+p> </div></div> </td> <td align=3D"left" class=3D"colsplit border-footer mo=
+bpad"> <div class=3D"gmail-blend-screen"><div class=3D"gmail-blend-differen=
+ce"> <p class=3D"links-footer my-12" style=3D"color: #ffffff; font-family: =
+Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weigh=
+t: 400; line-height: 150%; margin: 0;"><a class=3D"links-footer" href=3D"ht=
+tps://links.message.bloomberg.com/s/c/6m9k_z1O2jS0vokp2cYynQQR5GMhZNOfPMlDe=
+cKiWc8XWuRX40PQDmHoswpbPc7Ox-Fvz0yHGgK2zRI2Zl3NTRbqagmHGkVslL8k-YMvKl9AkNoH=
+4O9ia3hR8QUSPkAbR7Py-ESbynz3RqXJzSDLm3pTkeJBDBpI65sPedrMCsU_9cE20_jszOrX314=
+xyg4QaQBngfjowfhzMnD0iEeg9y6_kTup6XNJpg-oNSJcMIjNIvjO78Zgqz82iB1_NXgx6O7nyy=
+VkKtu7nbB-5E-rYqb3ZIdX6yp-OXMeHPMV3KpHHON9-uHOm7Ef0OmQS44ZbOxPqSzaKhUjYNKRR=
+CsfX0YWeGgvaiVJVUIMKTvSsW9UETXknGV4ulGeQem69rxZspFqIghUmLhbIJZvJG8jR97dQ472=
+0jqeB8pMa3zz0p0Dmc7oZcxzoaA3fYawlB9cf6IycIsfvm9f0uY5jsMoRWtrdhcRyWq5mAjsB6G=
+8sT1IwO3pubvn9DnG7OrwjmegAyQz5I5GhACSxMoOtXWMPnisV0PrtmAbgixEp4C24ciguvSc6_=
+hvkeSEF8Qkvpap3nMuqYjwb5aeJCo5RHzh_q1g-k_TmTcCBlDY/euL9VX6BNZQtsnLIpT12LFNx=
+aIdO6S9f/25" rel=3D"noopener" style=3D"color: #ffffff; text-decoration: und=
+erline;" target=3D"_blank">Advertise</a></p> </div></div> </td> <td class=
+=3D"nomob"> <div class=3D"gmail-blend-screen"><div class=3D"gmail-blend-dif=
+ference"> <p style=3D"color: #ffffff; font-family: Arial, 'Helvetica Neue',=
+ Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 150=
+%; margin: 0;">&nbsp;|&nbsp;</p> </div></div> </td> <td align=3D"left" clas=
+s=3D"colsplit border-footer mobpad"> <div class=3D"gmail-blend-screen"><div=
+ class=3D"gmail-blend-difference"> <p class=3D"links-footer my-12" style=3D=
+"color: #ffffff; font-family: Arial, 'Helvetica Neue', Helvetica, sans-seri=
+f; font-size: 16px; font-weight: 400; line-height: 150%; margin: 0;"><a cla=
+ss=3D"links-footer" href=3D"https://links.message.bloomberg.com/s/eh/mqb8Td=
+u_iy8_2xHlvsWIgTrePaA4NuAkRxWIuI77DmwpvzPbwsZz3Rwhdbi1WBwS1k00h726a4GDGrJzW=
+wQRvcdBzpn1ecFhgbrr7xW1lERxRl2d2UJGWQ9HdChtgniwxRsBWZsdQBIgetmQOSdzLVbgFYZX=
+mrjZ-9JE3bTAa0q8xJo4JMz86Wm0W4ZE6V2jemzPC_IyjM4PPP9LoHk9b5TO60SxPOyNbpHgXVu=
+r15T25gPGhBBtS3zavBqbCr_RZaZcCuphgqB_bMPworbQz5U9CoWxnZuX0K_v0BKZJRqOk7qVdK=
+17DVhrAmdsoe0lUWTymJQykDVGmqch9p1Xtp0nUc-UxyaO96-Asw0U2SWeNNpWTquyWFof4DbfF=
+ELJjrk39pAREjiNYvsv2vGV7w3_KA2i4wJEToE1a3NIgzYt4wicBNmHyKbdCu4HjUA88tkyY78C=
+NE_5mLjdIxsTsmV9EqMulTNoefPGwgAnu9ts5H7gT6oCUOFD4q0SRnfYx-90wJyhR-BsZ2orNv9=
+NTggKjyWU6ZiaZOK-voDAI-EFQye1DCwX18PU6-60p3RmsPgUY05Q4gwD7zv8Vrkf2WFTiURpJR=
+oIZTU66tJ4m_UPwXnnxlcb7aCNZiCFGDChpVYma7Mm9uVU-kWLjviGA4ZG/q2u0MyDymV1ySlEh=
+I63Km5nOlEsQB9j-/25" rel=3D"noopener" style=3D"color: #ffffff; text-decorat=
+ion: underline;" target=3D"_blank">Unsubscribe</a></p> </div></div> </td> <=
+/tr> </tbody> </table> </td> </tr> </tbody> </table> <table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" class=3D"w100pc" role=3D"none" style=3D"w=
+idth: 560px;"> <tbody> <tr> <td class=3D"mobpad"> <div class=3D"gmail-blend=
+-screen"><div class=3D"gmail-blend-difference"> <p class=3D"nomobmar" style=
+=3D"color: #ffffff; font-family: Arial, 'Helvetica Neue', Helvetica, sans-s=
+erif; font-size: 14px; font-weight: 400; line-height: 150%; margin: 24px 0 =
+40px;">Copyright 2026 | <a href=3D"https://links.message.bloomberg.com/s/c/=
+kUmL-YVrv_TXHn5XD9UdiFC8c7RvSo-8zJp8nsp-Z0wZiYzBfge2fKJ484_L0zUOIi1kdWoEoVd=
+iZ4lcH8_eGG6KIOsleFCptWMF-ZrzsAuwlljXJbWsGYmWObMOVZeM6gFdSkRW21B_zjx2fDtDTv=
+nrNmXp58KGZQNOVMYpbUyrvmuMeEGxGjm3CJ1OhFbW2cxHleGOlEyTGhasYMmQfOXWjKUnQuNHR=
+v9cVMn_q6i2v3L_O0ypktU622YD-HKsFPNllI1goWday55ICNkxfrPH47TyN6oOpKVE6PHKGzic=
+U_34N6H6vIL02nhS2u3c24ASraMMI_ME82XrMkfcFxK9qV6N4mfYE2DTGwxWMFnHMJ7Z-yvIitL=
+iV99bfB81Emf0kwgtS0yJrjd3v7jc5fxykSdkofrj6GTZGGE9DB1pxlkenYgPpgzpq7ts2ijhse=
+9i9HDagjONlSumNAr2gN6vVAMPstpLSqSltWnpHtDWgxWZKBPWTEIuvRHXMZRmPyXQ4roEoTJNY=
+n4X9hjP7w8-xsyoe7ys8srmb2X68SPqCkN4K0pwevkT96wKGGBXSPsMpm2roBanrltMGE7mgMn4=
+vMcSH0X87XE4WDIrmOvjRtqpb5I1xbu1aU6NqD83BhgI/KpPMzq7GSG4xwMX25yFoVNGdW9YB2U=
+qF/25" rel=3D"noopener" style=3D"color: #ffffff; text-decoration: underline=
+;" target=3D"_blank">Privacy Policy</a><br>731 Lexington Avenue, New York, =
+NY 10022</p> </div></div> </td> </tr> </tbody> </table> </td> </tr> </tbody=
+> </table> <!-- END: FOOTER --></td> </tr> </tbody> </table> </td> </tr> </=
+tbody> </table> </div> <table border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" height=3D"1" width=3D"1"> <tbody> <tr> <td style=3D"font-size: 0px; lin=
+e-height: 0px;"><!-- MI Countdown tracker --> <img alt=3D"" height=3D"1" sr=
+c=3D"https://inc.bloomberg.com/p/cp/d55821a86b7735db/o.gif?mi_u=3D79621EEEE=
+FC0442F9888E0EB4C7EDE80" width=3D"1" aria-hidden=3D"true"> <!-- MI Top stor=
+ies tracker --> <img alt=3D"" height=3D"1" src=3D"https://inc.bloomberg.com=
+/p/cp/8b953ba692b2628e/o.gif?mi_u=3D79621EEEEFC0442F9888E0EB4C7EDE80" width=
+=3D"1" aria-hidden=3D"true"></td> </tr> </tbody> </table>=20
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"http://links1.me=
+ssage.bloomberg.com/q/wznwEmZMNPItc7TVsyUDvA~~/AARGbBA~/XVxlZSuHgMoyhPGwOza=
+7Pi5fJVOgLpJ-PNH-V8F503smFhKiLjdUm6Sja_h8zH0DhJaJ_xjnSbZ7yhOpiRnY0Q~~">
+</body> </html>=
+
+--_----r6Dj9jHpZz8Fxrj7Okeu1w===_3D/A1-06138-07E8EBA6--

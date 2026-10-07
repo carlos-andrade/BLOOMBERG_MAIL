@@ -1,0 +1,1742 @@
+Received: from CH2PR02MB6822.namprd02.prod.outlook.com (2603:10b6:610:a5::16)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Wed, 7 Oct 2026
+ 11:00:37 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=nPDppF3qQfj1tJcyDV7sJwwc1DUy0qpcl9ZfUu2U0K6dkTXgk+ilZcAPk+uUUWM0cLwEpYP6qJOAK1ftyWigemDH+JzEOidMdUSfBwnBqbimlhU+f+pRlWI8LxZrVR1WeMJF9MlNE58QVmoi6RWoZyFwRhD8Njh7TjRAUIbq6EbXogsXLCXSovrehNucZsniYTB5C91BX7ErKqB9JFKbhslsEmWdRb4EVlBcC7A7WHAbdSpmZT7OJp+GeV3bB7RNq7Bvd5cMo/LSvglRs8aKHMRWvFXPm5lCw7Q+FSwRHnzDK+SJBC/QUAANtTc5mG3RnOsxR2uwN/gcHQ0ulI35wQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vNYFlbBOMlQce0pLTO3jy+w1Iltlfnh0Ex81wma1/7g=;
+ b=ZWMoUH1Cj3CoMR2zF7BhbihhzT/LD4ekPRP0pM50OTNXQT7MjeYEbCQsFc2DKpke0kgCUPxpd+wuEn1g60JhLWu5OIFscEu+s09ea31fVc6OHp8eIfoxriHPnyXgDgC7DtHQ1ak9RGNB+o6o3NPYE0ddhZlAnkA0FJBuxcyxXQMngP6wPkZzlkW58Ng/aJoZgTVUWJLBAustHvpfB0sTbgMnc3vx7T2v3OOpS+w7Y7cjqH4DQmX4QWZzJQlMuHACFmdKAQeOnl3y4ps4QKFUrI0zFkvIzimBI2TfznV3TzoC0rQMDsAMFCKjRYqa5hqEcwaKby4eMUwpV7zi4Rc9Fw==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 209.85.219.41) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from BL1P222CA0028.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::33)
+ by CH2PR02MB6822.namprd02.prod.outlook.com (2603:10b6:610:a5::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 11:00:34 +0000
+Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::1d) by BL1P222CA0028.outlook.office365.com
+ (2603:10b6:208:2c7::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
+ Oct 2026 11:00:34 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 209.85.219.41) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 209.85.219.41 as permitted sender) receiver=protection.outlook.com;
+ client-ip=209.85.219.41; helo=mail-qv1-f41.google.com; pr=C
+Received: from mail-qv1-f41.google.com (209.85.219.41) by
+ BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Wed, 7 Oct 2026 11:00:34 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:8ABC904E480D0DDF757937C87CB399888CE341FF0DD755E640CA6D94E8F89BF3;UpperCasedChecksum:2EBC9BD622F362E535691AD87936E393AF1761B5807FCA67164D37714FDDDCE5;SizeAsReceived:8661;Count:37
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-9178aabd30dso17666606d6.1
+        for <carlos-andrade@outlook.com.br>; Wed, 07 Oct 2026 04:00:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791370834; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=kO7/Wbz1mX8bmIPx/I1TDCdtU5rn7k2Ws9+3TZCIC79gjWgA8vVUAmaJO3JcTon/Bb
+         0kQgTEysl3zQC7i/UQHaVrIQclKzRdpTQPTf8azlqBas3ZH01lie3FNFjnNARswQI5lD
+         CIykBjjLqgqvVi8OpNslU3Cd15Rb8dszMHPUc6wcY6EywTPxg69LXh1dVmUiSIg/0SEV
+         NOSABAChw5eDgBtjUo9GJg4yS/FlyWA9Xm+SX+DDqkfPApi9u0jwKwogrVZdFBb6xPgw
+         xEpo83HuPcQYpnV74twjCUc6cPKPy60lw7AMyopmdIEjElHoLgNVTDlKN1rcZqhpjIlj
+         S/1A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=vNYFlbBOMlQce0pLTO3jy+w1Iltlfnh0Ex81wma1/7g=;
+        fh=6YRAuKAZ0fd4NeoDLMmCUAkLzHRMtqi4OCLz5Wa4Z8E=;
+        b=aMzprIUTdna+QnFjCn4ebxa9uNE32BABMomVSIQQ0t1A/f57+BNtDQhQLniTUf0uXn
+         fsuoj3vGlqMYBGqOaI89AgA/cMaEVpuOSz2r1exlk2vTLH6IuWjVVdeQ7gPv4FtT2PrZ
+         o2fAsTOrWYNFRo8QPku4vfHoN19kiX4WSBjkJpbzfsLc/VvELkjqX54V0RREN/dVNMSt
+         sMboCv9ZXg6vdftBX255m86zcaSlg9TreNazY4idaLi+HfbZWvsd1TSGhAjFP1HyNGw+
+         A0GrDafb2MEOai4kbX/CUkVB+Hgev1CSgnDIbK+BlXNMjO10CuoH9X0BP1n8TdeiHNv1
+         p7uQ==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=C0BIIzwR;
+       spf=pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791370834; x=1791975634;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vNYFlbBOMlQce0pLTO3jy+w1Iltlfnh0Ex81wma1/7g=;
+        b=DI3Bh9bSf37JGZadqSmF1colzsCYTKE1J/tuTx6mYB8fUwf7UlcF5edFPj7JFVUAkX
+         KmeOlKIbez5AU287jM716tvli6oDpGg4EKfJ/kgAp7SGFmqku/p23ikQiFC+Y/dbWb66
+         dzTYyFXJzCCMpb3/ztxYJfYfgvqOsQcz1hHr2Sqgqa5l5PFPbx0o6YWQ2kVjb0+25hzt
+         p4xNIDWVoVarTT5zN7MOOJzkrnet+JjvmF/CTuLknTrJz2PxRX316L9moNp8ZYHvbQtW
+         Q8derKXLSHvhQESQ6fUn/5q0vVgnCcuS20pzjna7Hih18EnnL5/6MKKhwbAsUYsQCNg9
+         0a6Q==
+X-Forwarded-Encrypted: i=2; AKwUvBzE56IdPBYQTagMA9KrTgy6Vi5OmapG4qTFfvp/oyBHtkv/DCntOiTOIRYpXYY3r7mnyFcXZRMdsHIUu20BEg==@outlook.com.br
+X-Gm-Message-State: AFuF++nhkeodlA+5OfwfaaWnGKi4hJysd6hJvVCerw49fQSm/0tG42pz
+	eL9rphvJVYcrvIHpBvZLsLSx5ijdu19shUbgWpYG/m2nb/I3GtgHO2SvPIvqbXY8o5toY8drL+n
+	Nqk+qeiaDURgrYoNHX4SaF0pO5P3K2Z5j/54RiDL1jE+mFAgPH2LvPx04cxlM6A==
+X-Received: by 2002:ad4:5f4e:0:b0:919:952e:5886 with SMTP id 6a1803df08f44-919978b8a48mr35515216d6.49.1791370833925;
+        Wed, 07 Oct 2026 04:00:33 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:ad4:5d6d:0:b0:910:4097:60f7 with SMTP id fn13csp22806qvb;
+        Wed, 7 Oct 2026 04:00:25 -0700 (PDT)
+X-Received: by 2002:a05:7022:61a5:b0:143:2701:9198 with SMTP id a92af1059eb24-162076c4c73mr2837008c88.36.1791370825170;
+        Wed, 07 Oct 2026 04:00:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791370825; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kzwTDbvg3F9/SbKovaGAbeWsbF1tOQDbBUTLWCPcgxNViewtdHec4O5nxCghuUL0Iv
+         myJHgB6wZMBT2mHON8dNUI6jogIbq02a1HP3e5FYz1IGnN9vi1FHoxc6PU3NwBmCk2OZ
+         mn6QD+1TedVlPmcFht4xViauTID18A+kQG3R+aWC6E292FLiRm3Z5q2sK7fwd6sy+gXX
+         A/c2u7j4SU5yoLcS5CxFYi5ZyECTePhw8OB7P7uAEjrR9deRm2qENFZIYb5Cbgi6pWhf
+         Rl2cI9twqyX/Ifwb97sdqXkIKBiZkoOz9+Vf06peO5AaAa7DKFi61n9OeXsr2vEo1oaG
+         ZekQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=vNYFlbBOMlQce0pLTO3jy+w1Iltlfnh0Ex81wma1/7g=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=aBrTW/8f+UBPO/9y5bnikuSg4+/nIhIwU3baKkS8LGk5cpu2xXqK84fLnh2FbKZob/
+         UN9O1uvoj5rGUx093+zGE2WJavK/pORNMuDuPwcL5JnrirLxxMIfesEjzAI96n+7/48A
+         RXxfJBXg0vtElZUHYZm5paTqP+jwPAc1g4cSgJ4jWiMDwfDtWVdjm0NnS28ib09BllEd
+         uxfMGvaRvQfRdCi1HZ6MTrksXf2FAodcaeMt5VIkdPWiEQltNAXExG7hErMT50nDm+Bh
+         uXz5goA1nDd0IQY9l7CO2ImTUNTzbBFsiCrf4P2rF/kMEzLYCWJc0Y4KOXE2zCIg6+Pl
+         +e9A==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=C0BIIzwR;
+       spf=pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-21.sparkpostmail.com (mta-203-32-21.sparkpostmail.com. [168.203.32.21])
+        by mx.google.com with ESMTPS id a92af1059eb24-1616602c8acsi7731596c88.46.2026.10.07.04.00.24
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Wed, 07 Oct 2026 04:00:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) client-ip=168.203.32.21;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=C0BIIzwR;
+       spf=pass (google.com: domain of
+ msprvs1=20740i8iitv22=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.21 as permitted sender)
+ smtp.mailfrom="msprvs1=20740i8IItv22=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: tlSvlgPbfZksiBSiFTuS4PH604ckZaa5kc2wHXKrCQY=|eyJzdWJhY2NvdW50X2l
+	kIjoiMTc4MSIsInIiOiJjYXJsb3NhbmRyYWRlbmFAZ21haWwuY29tIiwiY3VzdG9
+	tZXJfaWQiOiIyODAxNzIiLCJ0ZW5hbnRfaWQiOiJzcGMiLCJtZXNzYWdlX2lkIjo
+	iNmFjNTQxMjZjNjZhNjUwZTQzYjYifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1791370817; i=@news.bloomberg.com;
+	bh=vNYFlbBOMlQce0pLTO3jy+w1Iltlfnh0Ex81wma1/7g=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=C0BIIzwR9r8Pn2uQhTdeg7IuoVQg6QPwrLKKOAyqIFnxUTvBHfSBGNigKYM09htBC
+	 Qs6Ii7/OtYYCmbtPctUl9NwZmXH0X4sres3jligx2smfgZUoXFR8kwmRfVGEXXf3fh
+	 NY/YGyVQ2SfbTzQ5hoGRp+ICoL9CUZuEglpcesD5sPlg7mfUhC5AJ9aRIf+3jomZi8
+	 eWk4TzZQi9K+PsFxmMWhdflMqKAxkbBiuNCETd84thK6nCHpC0f6+bxwbT82oE4NOc
+	 7dvFMs3iAGDsFVK/VdDh3geROmt1wDLbV8hIyQ5mmXNVBXmu5CSYx/cfo3ARtRUNMo
+	 ECxvl67P4viJg==
+Received: from [10.90.36.54] ([10.90.36.54])
+	by i-0dbc057149dc52253.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76471 r(msys-ecelerity:tags/5.3.0.24)) with REST
+	id 6B/3C-63857-14626CA6; Wed, 07 Oct 2026 11:00:17 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <6B.3C.63857.14626CA6@i-0dbc057149dc52253.mta1vrest.sd.prd.sparkpost>
+Date: Wed, 07 Oct 2026 11:00:17 +0000
+Content-Type: multipart/alternative; boundary="_----2BsO6VlY1hu9w64Tj4SY4Q===_C9/3C-63857-14626CA6"
+X-Campaign-ID: 20254953
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20254953+26747093@unsubscribe.iterable.com>
+X-Message-ID: 84a4a4965ed94fa7bd5d3a17b905b6e7
+X-Feedback-ID: 26747093:20254953:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: =?utf-8?B?Q3ViYeKAmXMgc3VycHJpc2Ugc29sYXIgc2F2aW9y?=
+From: "Bloomberg Green" <noreply@news.bloomberg.com>
+Feedback-ID: 26747093:20254953:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 07 Oct 2026 11:00:34.6045
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: d3f5a9c7-72fa-4b39-f426-08df24623648
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|CH2PR02MB6822:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/7/2026 10:53:48 AM
+X-MS-Office365-Filtering-Correlation-Id: d3f5a9c7-72fa-4b39-f426-08df24623648
+X-Sender-IP: 209.85.219.41
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|68400799013|9400799043|260826003000599003|9000799056|1680799066|10300799038|5149299006|3069299007|6099299003|35120799009|2120399003|23070799003|36140799009|5139299004|260928210016899003|9020799019|1602099012|30041999003|2607281247196008|56899033|3412199025|1360799030|440099028|1370799030|4302099013|1380799030|2006899018|6406899015|2406899039|311199032;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 11:00:34.5782
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3f5a9c7-72fa-4b39-f426-08df24623648
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR02MB6822
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.3895569
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0496.000
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RjhUTUMrQXRUMkFycHFmcURVbHljMFh3YXEwM3pqd0dTWTNOSTRSTkg4cW1D?=
+ =?utf-8?B?M3l0V21MZTFSai82UURGeEZveUtKMU9pNDBHeDA3ZEJua0RTbjd6UHpyQmgx?=
+ =?utf-8?B?T0lmREhIVWpaY3lURWdxVERPQzdyUGk1ajhtSFhnKzIyZEtJcmlZVkd3Vi9P?=
+ =?utf-8?B?elFVZGpBSW01cU9xamtuTkh2NFVwTi9KeU9JdnNoTXpDakxaVmxpY0lGU0lG?=
+ =?utf-8?B?Qlo4QWVtcURlR2hJRjJLVDFiNTRqTkhDNHlUTmpnYm9sRDlRUnh2UzBkTWdW?=
+ =?utf-8?B?NzVBQ3lucTJoR3BXU0Jtbnl4SXV5enZMcXZWZjkvdlZ5L2xkSmpwemlRVVU5?=
+ =?utf-8?B?aC84Sytqd2wyaFJDN3I1UHZXZjhTYS8yYlRrSTY3WHdPZ3ZzdWlLQ2prWkl5?=
+ =?utf-8?B?NnVYZkZFd2ZFVUVrWmhuNlJkZ2w0Sm8wMCtJcjJScExTTzI0VHhxWnlYOG5M?=
+ =?utf-8?B?anZwd3JsZnBZbmJ0bkU0ZmJHRzlHWTZSZ3luY20ydUt1bm9PUXlQbk50RWto?=
+ =?utf-8?B?U0t3UDQzblRjYjJsSWVCSFVOZ1EwOGJGTHM4VUlsR3VyblEvWk1IUGxYS2xW?=
+ =?utf-8?B?OEhTWkx0aldLeVlDMlk4VEM3OUNTQ1laTnk0UytiRHBvUUVFQmZLTU1LYnhI?=
+ =?utf-8?B?d2dFSndNcUVyWVdxY0U1KzRocEIzeFRXcWlsa2dld1VoS1d3ODVLTnRkenBn?=
+ =?utf-8?B?UjBjUWczelE0akxvZVBZT1EvMVpJbkIweGlMeTRTNGV4NW5BL1J3UGtIOUtK?=
+ =?utf-8?B?L1ZMb2FLZFBGRXlYU0lCdWpLckVQMTNKeHFmOTZ4dkZ0NnZvOWlobnR0dFdH?=
+ =?utf-8?B?YU85OXdsTGQ1Q0pKRUtpWnhoMENncHpWL0FlZER6VklHaGYrcGVCS1Zpcjdy?=
+ =?utf-8?B?SFFUd2ZrYStSMTdUd3VEd0pYTk5XZTU1K3VXaGRDZTRaZkNTTjUzeG5TL0Nt?=
+ =?utf-8?B?WWg2VS82Nnc3eUFxOHFscUZOT04vUVQwMmxQNVRRcWgxejhVMHNWTVZNUm1o?=
+ =?utf-8?B?MWlGRHdNcUxhYTIrK3BUaTRqenJWOVcyMXFCRXBRbERKRE5RTVZORWl6NHV3?=
+ =?utf-8?B?bjRuSkR6SHVKMW5TV1ZxbzhpRFRBYmZRaE5RdXBnRVFxdjZLYkVrdGFPL1VE?=
+ =?utf-8?B?ZWQxcURvQU91WkNHTnZONUoyb0FGNktZUVpqTVBxTEJ3T0d5aXM0QmtjWWk4?=
+ =?utf-8?B?MTFXQjJsem9WcWJ0YnlLVUowbS9kT3Myei84TlN3cDBmS2Z0NWRiWWF2TWZE?=
+ =?utf-8?B?TkxvRkV1NFAxeEFOZFU5emhac00xNUR3T0RDai9PWERNd2dJSlkvU2RXU0s5?=
+ =?utf-8?B?eHpjc3ZucDNxSko0d3hmcFV4Q2lXRDlKaDVSL2NlVGUvVndZOVNtSTYrZURm?=
+ =?utf-8?B?aWQveWpHSStNeEw1cHZXNk1CQlZZa1VDZUhhVnRyc1BNMk44eDgwaC9LYWt5?=
+ =?utf-8?B?QmIrVkJURG9qanBXMG1EWTNYYmRsOWhZSEcya0t1aGVIZ3JIdTROM0xSTzVl?=
+ =?utf-8?B?ejhLNk9vZ3hwSlljR1RwK1FsZ1FlWmVmdHgrcitlQmpMb3B1c05wVW90dXBm?=
+ =?utf-8?B?eURuMDlWcGQxS3dxRHY1UnlFelRtN3hHTjdXNzRnMThBenFubWVZemxNUmVS?=
+ =?utf-8?B?Z1lGam4remRodUIyS1hrM0hxNFQ0Q2ZXU3NoaHlCNnhZNnp5TmcyOW4wVHZh?=
+ =?utf-8?B?RHZNMnRkL2JTUFNtY2VFUWY1MGZNZXBlRjZkUTdJbjNIYnRvdFB6eVdPOWs4?=
+ =?utf-8?B?VFpXWlB6MFZuWmlxT1ZsSy9mSis0MHVjM3UzTis0WHFGZG8vVFVEeGozb25k?=
+ =?utf-8?B?U1dlbG9WOUFoWDZaa2hIZnk4M0U4RU16a0tBeExwUzdGUFYrcUJzMjBaOFRI?=
+ =?utf-8?B?ZHJqM3RqVHVFSWtMUVNQdDZwRkxNNXlxckkzNUtXYnFVVHRFWnNMb1NQQVE2?=
+ =?utf-8?B?dEh6Z1k5ME94b0p2YnQwdFhsN2pQb3grMlRmWXgvcW15cTJUOHFVMUNWU01W?=
+ =?utf-8?B?VG9SZFVjRGhGbG1PRmgzODBtZDRCRENQbi9NUkNacWJnbDl5blpPLzJwVGla?=
+ =?utf-8?B?c1ZuWml4akNkKzFjS3pzbU4yN2wzdFR1WitHYXpDK0NYRjZ0S2V6RzJlMnZh?=
+ =?utf-8?B?dGhtb092WHFJWFoxZ2hadExGRHVUNGNhL3BsclhQWEsxRWtYZWdwWTN2cHhr?=
+ =?utf-8?B?VDhET3cyM2ovaVYySm1qajU5cTVoLzZtdWFxQi9TVEpkZ1hsdFVVSHhZSFZH?=
+ =?utf-8?B?SmRlTWhCREtWa2EzYSs0WlNvbjRocXgyaHJOakM4dTFzNXRWbStTVmlmd1c2?=
+ =?utf-8?B?SVBQWno1bGYvbEtWRmdpZEx3emxDd1AyL3J1VmMxQ25oTjU3K3hYSzVXRitr?=
+ =?utf-8?B?SE5xU1ZyTHQvTWVlMXROS3EvaHNZQzlEWDduR2dHT05MRFhwWXRNY1hSOG5T?=
+ =?utf-8?B?b05uMUE5ckR2MGtlMVA4YUc3ME5QTEViY29JRXJ2TXIxUGdrVXRLak9ZR1c1?=
+ =?utf-8?B?YitONFVUdU9VRG9QQTRuWkorUjRDZnNQN3BINzlzK0E4MUJMWWFpRmlHZDEr?=
+ =?utf-8?B?aXl4em14YjlNUUdYaTg1QURWWnJvQkdlV3I4V0VSWHAzaCtWemVMa3p6WHlH?=
+ =?utf-8?B?Q0hKUGpDc2IvN3BwWE1BNnkxVlRRSURUeW9RcHpXdUtHWjhpdXUza0p3ckV2?=
+ =?utf-8?B?cUdwZks4UXlFeFpUajU5RFJZbHc4dXlObEFPanh5ejNiWjBWSFlHTjkxdzNZ?=
+ =?utf-8?B?Yk1KRWZHaVJFS2NueFg2c0tyeVV0UHdMcWMyVGpva3JyY2tJMlczV3pqZld4?=
+ =?utf-8?B?MzNBNGo1SllTUU9HazVhL1NGU2hUb0FRNTNOSnZnVFlFa1NxUE85dE1pdkVz?=
+ =?utf-8?Q?TEt2ARJIogMnyJqA6VDYAp6SdU9cFUxOpldFuWMo=3D?=
+MIME-Version: 1.0
+
+--_----2BsO6VlY1hu9w64Tj4SY4Q===_C9/3C-63857-14626CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+How US Solar Exports are Helping Ease Cuba=E2=80=99s Energy Pain=0ARising U=
+S solar exports are helping ease the island=E2=80=99s energy pain. =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =
+=E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=
+=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =E2=80=8C =0A=E2=80=8C =E2=80=
+=8C =E2=80=8C =E2=80=8C=0ARead in browser =0A<https://www.bloomberg.com/new=
+s/newsletters/2026-10-07/how-us-solar-exports-are-helping-ease-cuba-s-energ=
+y-pain=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=
+=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A =
+=0A<https://www.bloomberg.com/green=3Fcmpid=3DBBD100726_GREENDAILY&utm_camp=
+aign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261=
+007&utm_content=3D9811>=0A=0A =0A<https://sli.bloomberg.com/click=3Fs=3D114=
+9029&li=3D20254953&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10072026110017&=
+lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&stpe=3Ddefault>=0A =0A<https://=
+sli.bloomberg.com/click=3Fs=3D1149029&li=3D20254953&m=3Dbb4a280bebb1586390b=
+9615b8886024a&p=3D10072026110017&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a=
+6&stpe=3Ddefault>=0AThere=E2=80=99s an unexpected source of relief =0A<http=
+s://www.bloomberg.com/news/articles/2026-10-06/cuba-energy-crisis-solar-exp=
+orts-from-us-china-help-counter-blackouts=3Fcmpid=3DBBD100726_GREENDAILY&ut=
+m_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=
+=3D261007&utm_content=3D9811>=0A helping to mitigate at least some of the e=
+nergy chaos being experienced by =0ACuba amid widespread blackouts. Exports=
+ of solar cells and modules from the US =0Ahave surged this year.=0A=0AAlso=
+ in today=E2=80=99s edition, the EU plans to push for greater emissions cut=
+s =0A<https://www.bloomberg.com/news/articles/2026-10-06/eu-to-push-cop31-d=
+eal-to-boost-global-emission-cutting-ambitions=3Fcmpid=3DBBD100726_GREENDAI=
+LY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm=
+_term=3D261007&utm_content=3D9811>=0A at next month=E2=80=99s COP31 talks i=
+n Turkey =E2=80=94 and has flagged the bleak outlook for =0Anew climate fin=
+ance commitments. Elsewhere, BBVA says bankers heading to the =0Asummit mus=
+t find ways of mobilizing capital at greater scale.=0A=0AAnd new calculatio=
+ns by Bloomberg Intelligence show the size of the opportunity=0A =0A<https:=
+//www.bloomberg.com/news/articles/2026-10-07/floods-storms-create-500-billi=
+on-opportunity-for-industrials=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=
+=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&=
+utm_content=3D9811>=0A in the EU and UK for industrial companies as governm=
+ents lift spending to =0Aimprove infrastructure resilience.=0A=0ASubscribe =
+to Bloomberg.com =0A<https://links.message.bloomberg.com/s/c/aOC3KYqWnUWbNh=
+85X5D6x6FRWI4YXr4_mtRpT6IGCD3N59saD_KbWbBSSRPbP03EkxkDOOFbj8YnvxTVLV_HwQBgr=
+giSt_riOxXcUXJV4IoWpgPsblzG8Oxi40UntUVyXDtR4NELx8NuG24kYxTmLv9ytEgw1i0nBSkm=
+5eO2zb-0Yr0_SYzRd5rSfqMIgy4F9mhNbMXeL4rQJLWXL0_LcldOacxVJ5ksdxCToH2qlNmulhC=
+OahJM3ytyHzU34cCzhhIFiaDVirqnEJsc3Ner34xH_MtiMiwQF3TXdfj3oEhEurZvA1dC_0Lo-m=
+W211KcPVx1Bt6K_Am7ROQc3Owg97CmF-gZMzrfQAyDey3GO_7Dxq-H_UsBaTfVy1OsiJp7kKse5=
+dMAgDuq0YAe8YyK90hH3l7XSug37xZcFabvB59HM7ErQh3zreSurUB2/dJC7qNZA3-05hDJOUDc=
+GaqGTghURrsyH/24=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&u=
+tm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9=
+811>=0A forunlimited access =0A<https://links.message.bloomberg.com/s/c/r7-=
+uLMa_cdmlyVrcjlh1vgMHgq359GRsrvObMk4ri0ILQPASIQ9QNxs4e_q8dHI2mYq9LPzUKgfeHP=
+gHBhEyyt3le-v3FQSd_JY9wxPXeq2OcLAmSEsKQNOF3W8RUuYm1fM7ZiImOoMowwFDCUD6x8vg_=
+0klNrGAYEqJccESQNxhTVHrOADay6smNGrTiOO0HvBXuPCdyAva9aX_FWK5YwXWQKLCxEDIFQsZ=
+ekdFLbHbbbgkD0Ffa2Xvl6soxMSlogDcPpMIVCjudnnVkoCVrpKcmRj-3VDey8rEbhGtQbVUyMq=
+_QU-1OmW8gIIhuKR6xX2prpkWDBmTVJIDSu2V3KXB41eiL5YY-eLbRrokCrpHANq4e0hQxfsg4Z=
+zRJQkfklhxqlgzrYuN929mvLONJ6U36dBO6Qs4QbR9GQi3P8JbrLKknaoANFY2IdjAQmWMzz5eA=
+cML3aHEN91yoXBB/wJzLnj_AqZ2dMC0gA9DsA_9jxVX-oRw7/22=3Fcmpid=3DBBD100726_GRE=
+ENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewslette=
+r&utm_term=3D261007&utm_content=3D9811>=0A to all our coverage.=0A=0AKeepin=
+g the lights on=0A=0ABy Jim Wyss =0A<https://www.bloomberg.com/authors/AUuz=
+_rVBXaI/jim-wyss=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&u=
+tm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9=
+811>=0A=0AWhen Cuba suffered its seventh national blackout this year, the g=
+uests at La =0ACampana in Havana kept partying. Thanks to the event center=
+=E2=80=99s solar panels and =0Abackup batteries, they didn=E2=80=99t even r=
+ealize the lights were out.=0A=0ACuba=E2=80=99s chronic power woes =0A<http=
+s://www.bloomberg.com/news/articles/2026-08-03/cuba-suffers-fourth-nationwi=
+de-blackout-in-less-than-a-month=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaig=
+n=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007=
+&utm_content=3D9811>=0A have made life a misery on the island of 9.4 millio=
+n people. But that pain is =0Abeing mitigated by one of the fastest solar a=
+doption rates in the hemisphere. =0AAnd the US is helping keep at least som=
+e of the lights on.=0A=0AIn the first seven months of this year, the US exp=
+orted $6.3 million worth of =0Asolar cells and modules to Cuba, according t=
+o US Census data. That=E2=80=99s up 1,070% =0Aversus all of 2025, when just=
+ $538,000 worth of equipment was shipped to the =0Aisland from American por=
+ts.=0ASolar panels on private businesses in Havana=E2=80=99s Vedado neighbo=
+rhood on June 8.=0APhotographer: Pablo Porciuncula/AFP/Getty Images=0AAnd w=
+hile China remains the main supplier by far, exports from Cuba=E2=80=99s lo=
+ngtime =0Aally are dropping. By the end of July, the Asian giant had export=
+ed $19.5 =0Amillion in solar equipment to Cuba. That=E2=80=99s down 83% fro=
+m 2025=E2=80=99s full-year =0Atally, according to data compiled byBloomberg=
+NEF =0A<https://www.bnef.com/interactive-datasets/2d5d59acd9000004>.=0A=0AA=
+nother fresh donation of 5,000 solar systems =0A<https://www.infobae.com/am=
+erica/agencias/2026/09/23/cuba-recibe-un-nuevo-lote-de-5000-sistemas-fotovo=
+lticos-donados-por-china/>=0A from China arrived in September, yet it=E2=80=
+=99s US shipments that have become a =0Alifeline for average Cubans trying =
+to find a few watts to keep their phones =0Acharged or their businesses afl=
+oat. Among them is Ramiro Llovet, who runs La =0ACampana out of his home in=
+ Havana, hosting weddings, birthdays and corporate =0Agatherings for groups=
+ as small as 15 people and as large as 350.=0A=0AEven as President Donald T=
+rump squeezes Cuba hard in hopes of ousting the =0ACommunist Party that=E2=
+=80=99s held power for almost seven decades, his administration =0Ais allow=
+ing goods to be sent to entrepreneurs on the island like Llovet through =0A=
+a loophole in the longstanding trade embargo.=0A=0ATrump=E2=80=99s de-facto=
+ fuel blockade =0A<https://www.bloomberg.com/news/articles/2026-05-14/scatt=
+ered-protests-erupt-as-cuba-says-it-s-entirely-out-of-fuel=3Fcmpid=3DBBD100=
+726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dne=
+wsletter&utm_term=3D261007&utm_content=3D9811>=0A andever-tighter sanctions=
+ =0A<https://www.bloomberg.com/news/articles/2026-08-13/us-sanctions-on-cub=
+a-could-they-force-regime-change=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaig=
+n=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007=
+&utm_content=3D9811>=0A have chased away allies such as Venezuela and Mexic=
+o, dovetailing with the =0Apresident=E2=80=99s push to reassert US dominanc=
+e of the Western Hemisphere and curb =0Athe influence of China and Russia. =
+That=E2=80=99s created space for American exporters =0Ato step in, with the=
+ resultingsurge in cargo shipments =0A<https://www.bloomberg.com/graphics/2=
+026-trump-us-cuba-trade-boom/=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=
+=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&=
+utm_content=3D9811>=0A helping both to stave off a complete humanitarian co=
+llapse in Cuba and to =0Acreate a dependency on the US in the absence of ot=
+her benefactors.=0A=0AThe energy crisis is nonetheless forcing the island t=
+o dramatically ration =0Apower.=0A=0ADeputy Cuban Foreign Minister Carlos F=
+ern=C3=A1ndez de Coss=C3=ADo told Bloomberg News =0A<https://www.bloomberg.=
+com/news/videos/2026-09-25/us-sanctions-stifling-cuban-economic-reform-mini=
+ster-video=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_med=
+ium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=
+=0A that for the last eight months he=E2=80=99s only had power at his home =
+for two or =0Athree hours a day. Trump=E2=80=99s pressure campaign =E2=80=
+=9Chas successfully intimidated the =0Awhole world so it doesn=E2=80=99t ex=
+port fuel and other products=E2=80=9D to Cuba, he said. =0A=E2=80=9CThat=E2=
+=80=99s an aberration.=E2=80=9D=0A=0ARunning out of fuel and frequent break=
+downs in Cuba=E2=80=99s aging power plants have =0Amade the island increasi=
+ngly reliant on solar.=0A=0ACuba=E2=80=99s 144 solar parks now produce 1,41=
+8 megawatts of energy, or about a fifth =0Aof total national electric gener=
+ation, President Miguel D=C3=ADaz-Canel toldstate =0Aradio <https://www.you=
+tube.com/watch=3Fv=3Di96IgdCtoSk> last month. In addition, =0Athe private s=
+ector now produces 20% of its own energy needs.=0ARead more =0A<https://www=
+.bloomberg.com/news/articles/2026-10-06/cuba-energy-crisis-solar-exports-f=
+rom-us-china-help-counter-blackouts=3Fcmpid=3DBBD100726_GREENDAILY&utm_camp=
+aign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261=
+007&utm_content=3D9811>=0A =0A<https://sli.bloomberg.com/click=3Fs=3D868582=
+&stpe=3Ddefault&li=3D20254953&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D1007=
+2026110017&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6>=0A=0A =0A<https://s=
+li.bloomberg.com/click=3Fs=3D868582&stpe=3Ddefault&li=3D20254953&m=3Dbb4a28=
+0bebb1586390b9615b8886024a&p=3D10072026110017&lctg=3Da3e8b6e3-e359-4066-94e=
+f-329d1b0625a6>=0ATrade flow=0A=0A$650 million=0A=0AThe value of goods ship=
+ped to Cuba from US ports so far this year, almost half =0Afrom Port Evergl=
+ades in Florida.=0A=0AEnergy progress=0A=0A=E2=80=9CDespite the blackouts, =
+this is an area where we=E2=80=99ve made great strides.=E2=80=9D=0A=0APresi=
+dent Miguel D=C3=ADaz-Canel=0A=0ACuba=E2=80=99s leader commented on progres=
+s being made on energy self-sufficiency to =0Astate radio <https://www.yout=
+ube.com/watch=3Fv=3Di96IgdCtoSk> last month.=0A=0AEU maps out COP prioritie=
+s=0A=0ABy John Ainger =0A<https://www.bloomberg.com/authors/AS5AOj_Ky2g/joh=
+n-ainger=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_mediu=
+m=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A,=
+Ewa Krukowska =0A<https://www.bloomberg.com/authors/AOg5H97xfGE/ewa-krukows=
+ka=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Dem=
+ail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A andFra=
+nces Schwartzkopff =0A<https://www.bloomberg.com/authors/AOY6BUObWPw/france=
+s-schwartzkopff=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&ut=
+m_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D98=
+11>=0A=0AThe European Union will push for a so-called =E2=80=9Cmitigation p=
+ackage=E2=80=9D at the COP31 =0Aclimate summit next month after a recent Un=
+ited Nations report said the world =0Awould breach the key 1.5C temperature=
+ goal laid out by the Paris Agreement.=0A=0AThe EU has struggled over the p=
+ast couple of years to get the world to agree =0Aon a faster pace of emissi=
+ons cuts, or implement a commitment made in 2023 to =0Atransition away from=
+ fossil fuels. Instead the bloc has become bogged down in =0Aissues of fina=
+nce and trade, and has lost a key ally in the US after President =0ADonald =
+Trump pulled out of the Paris Agreement.=0ACOP31 signage near the Antalya E=
+xpo venue in Antalya, Turkey on Sept. 30.=0APhotographer: Goksel Yapar/AFP/=
+Getty Images=0AAt November=E2=80=99s COP31 summit in Antalya, Turkey, the E=
+U will double down on its =0Apush to cut emissions globally. Negotiators wa=
+nt to prolong a key =E2=80=9CMitigation =0AWork Programme=E2=80=9D negotiat=
+ing track =E2=80=94 a forum for discussing how to best cut =0Aemissions =E2=
+=80=94 until at least 2040, and lay the groundwork for the key Global =0ASt=
+ocktake in 2028, according to a draft document seen by Bloomberg.=0A=0AThe =
+former=E2=80=99s mandate runs until COP31, and the latter is set to track p=
+rogress =0Athat=E2=80=99s been made and outline further steps needed to cur=
+b temperature rises =0Athis century.=0A=0AAt the same time, =E2=80=9Cthere =
+is no scope=E2=80=9D for new climate finance commitments at =0ACOP31 and th=
+e focus should remain on implementing existing decisions, the EU =0Adocumen=
+t says.=0A=0AThis year=E2=80=99s summit isn=E2=80=99t expected to deliver a=
+ single major outcome. Instead =0Aof an overarching political agreement, th=
+e EU will focus on a small number of =0A=E2=80=9Ctangible priorities,=E2=80=
+=9D according to the document.=0A=0ATurkey, the president of COP31, has ann=
+ounced its ambition to boost global =0Aelectrification of final energy cons=
+umption to 35% by 2035. The EU will weigh =0Awhether such a goal is suffici=
+ent, or should be predicated on making sure =0Aelectricity should come from=
+ clean sources, the draft document said.=0A=0ASeparately, BBVA SA has warne=
+d that bankers heading to COP31 face difficult =0Atalks =0A<https://www.blo=
+omberg.com/news/articles/2026-10-06/bbva-warns-of-financial-hurdles-ahead-o=
+f-turkey-climate-talks=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreend=
+aily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_conte=
+nt=3D9811>=0A over how to scale green projects in ways that appeal to a lar=
+ger group of =0Ainvestors.=0A=0A=E2=80=9CWe need to mobilize capital at a m=
+uch greater scale,=E2=80=9D Javier Rodr=C3=ADguez Soler, =0Aglobal head of =
+sustainability and corporate and investment banking at BBVA, =0Asaid by ema=
+il. =E2=80=9CThe challenge is not simply finding capital; it is creating =
+=0Aenough bankable, scalable and replicable opportunities for that capital =
+to =0Ainvest in.=E2=80=9D=0A=0ARodr=C3=ADguez Soler is also co-chair of the=
+ COP31 Climate Finance and Investments =0AWorking Group, which operates alo=
+ngside the talks in Turkey to offer =0Arecommendations to the summit=E2=80=
+=99s presidency.=0A=0A=E2=80=9CWe are increasingly seeing sustainability dr=
+iven not only by climate =0Aobjectives, but by competitiveness, energy secu=
+rity, resilience, technology and =0Asupply-chain security,=E2=80=9D he said=
+. =E2=80=9CThese are structural economic trends.=E2=80=9D=0ARead more =0A<=
+https://www.bloomberg.com/news/articles/2026-10-06/eu-to-push-cop31-deal-to=
+-boost-global-emission-cutting-ambitions=3Fcmpid=3DBBD100726_GREENDAILY&utm=
+_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=
+=3D261007&utm_content=3D9811>=0AA $561 billion resilience market=0A=0ABy So=
+fia Gerace =0A<https://www.bloomberg.com/authors/AWY9mBDCcww/sofia-gerace=
+=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demai=
+l&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A andChloe=
+ Meley =0A<https://www.bloomberg.com/authors/AWSI4lU7XTg/chloe-meley=3Fcmpi=
+d=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_s=
+ource=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A=0AEurope=E2=80=
+=99s worsening heat waves, wildfires and floods are prompting governments =
+=0Ato increase spending on climate-resilient infrastructure, opening a lucr=
+ative =0Anew market for industrial companies.=0A=0AIndustrial equipment mak=
+ers including Schneider Electric SE =0A<https://www.bloomberg.com/quote/SU:=
+FP=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Dem=
+ail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A,ABB Lt=
+d. =0A<https://www.bloomberg.com/quote/ABB:SS=3Fcmpid=3DBBD100726_GREENDAIL=
+Y&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_=
+term=3D261007&utm_content=3D9811>=0A, andSiemens AG =0A<https://www.bloombe=
+rg.com/quote/SIE:GR=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendail=
+y&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=
+=3D9811>=0A stand to benefit from a rush to harden buildings and grids agai=
+nst =0Aincreasingly extreme weather. EU and UK government investment specif=
+ically to =0Amake infrastructure more resilient is expected to total about =
+=E2=82=AC500 billion =0A($561 billion) over the next decade, according toBl=
+oomberg Intelligence =0A<https://www.bloomberg.com/news/terminal/TLHSPIR24U=
+85=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Dem=
+ail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A.=0A=0A=
+Demand for cooling, electrical and grid equipment has been driven by =0Adat=
+a-center construction in recent years. Climate adaptation is set to provide=
+ =0Aanother growth driver, with investment targeting many of the same techn=
+ologies =0Aused in data centers, including electrical resilience, grid rein=
+forcement and =0Asystems to automate building energy use.=0A=0A=E2=80=9CInd=
+ustrials have done phenomenally well from AI-related demand, and there are =
+=0Amurmurings about whether that demand is slightly tempering out,=E2=80=9D=
+ BI analyst =0AGrace Osborne said in an interview. =E2=80=9CClimate adaptat=
+ion adds a layer of demand.=E2=80=9D=0ARead more =0A<https://www.bloomberg.=
+com/news/articles/2026-10-07/floods-storms-create-500-billion-opportunity-f=
+or-industrials=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm=
+_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D981=
+1>=0AMore from Green=0A=0AGreen=0A=0ARising Water Bills Have Added to the S=
+queeze on American Households=0A=0AWater costs increased by 62% over the pa=
+st decade, outpacing overall inflation =0Aand grocery prices, according to =
+new research by Food & Water Watch.=0ARead more =0A<https://www.bloomberg.c=
+om/news/articles/2026-10-06/rising-water-bills-have-added-to-the-squeeze-on=
+-american-households=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendai=
+ly&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=
+=3D9811>=0AAustralia Climate Ruling to Test $49 Billion Coal Export Sector=
+=0A=0AAustralia=E2=80=99s highest court ruled planning authorities weighing=
+ coal mine =0Aprojects should consider climate change impacts triggered by =
+the use of the =0Afuel, potentially adding challenges for an export sector =
+that generates A$70 =0Abillion ($49 billion).=0A =0A<https://www.bloomberg.=
+com/news/articles/2026-10-07/australia-climate-ruling-to-test-49-billion-co=
+al-export-sector=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&u=
+tm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9=
+811>=0AEU Wants to Track Potential Rogue Efforts to Block Out Sun=0A=0AThe =
+European Union has launched a =E2=82=AC35 million ($39.4 million) tender to=
+ fund =0Aresearch and coordination on, among other things, detecting rogue =
+efforts to =0Aalter the earth=E2=80=99s atmosphere by blocking out the sun.=
+=0A =0A<https://www.bloomberg.com/news/articles/2026-10-06/eu-wants-to-trac=
+k-potential-rogue-efforts-to-block-out-sun=3Fcmpid=3DBBD100726_GREENDAILY&u=
+tm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_ter=
+m=3D261007&utm_content=3D9811>=0AWildfire Haze Shuts Malaysia Schools and L=
+ooms Over Singapore F1=0A=0AWorsening air pollution driven by wildfires in =
+Indonesia prompted Malaysia to =0Atemporarily shut schools in one of its mo=
+st populated states, just as a major =0AFormula One race in neighboring Sin=
+gapore approaches.=0A =0A<https://www.bloomberg.com/news/articles/2026-10-0=
+7/malaysia-closes-schools-in-johor-as-indonesia-wildfire-haze-worsens=3Fcmp=
+id=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_=
+source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0AIndia=E2=80=99s=
+ Richest State Rations Water After Worst Monsoon in Years=0A=0AMaharashtra,=
+ India=E2=80=99s wealthiest state, will cut water supplies to homes by at =
+=0Aleast 10% after a powerful El Ni=C3=B1o left the country with its weakes=
+t monsoon in =0Amore than a decade.=0A =0A<https://www.bloomberg.com/news/a=
+rticles/2026-10-06/india-s-richest-state-rations-water-after-worst-monsoon-=
+in-years=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_mediu=
+m=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0AY=
+our Zero listen=0A=0A=0AZero=0A=0AHow China=E2=80=99s Startups Build Future=
+ of Clean Tech=0A =0A<https://www.bloomberg.com/news/audio/2026-09-30/zero-=
+how-china-s-startups-build-future-of-clean-tech-podcast=3Fcmpid=3DBBD100726=
+_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsl=
+etter&utm_term=3D261007&utm_content=3D9811>=0AChina is a hotbed of innovati=
+on, filling nearly half of the world=E2=80=99s new =0Apatents every year. M=
+uch of that work is in the world of clean tech and a whole =0Aecosystem is =
+growing to help make these breakthroughs commercial.=0A=0AThis week on Zero=
+, Akshat Rathi =0A<https://www.bloomberg.com/authors/AUdOobfNzkQ/akshat-rat=
+hi=3Fcmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily&utm_medium=3Dem=
+ail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=3D9811>=0A is joi=
+ned by Tonny Xie, chairman of Bluetech Clean Air Alliance, a China-based =
+=0Anonprofit organization that=E2=80=99s helping to grow the next era of cl=
+imate startups.=0A=0AListen now, and subscribe on Apple =0A<https://podcast=
+s.apple.com/us/podcast/zero/id1621556928>, Spotify =0A<https://open.spotify=
+.com/show/5rHwnJEjFRnivIdpWwnZyZ=3Fsi=3D985034d7e76a47a0> or =0AYouTube =
+=0A<https://www.youtube.com/playlist=3Flist=3DPLe4PRejZgr0MtnA98Xp8igGT9S3N=
+a_zDD> to =0Aget new episodes ofZero every Thursday.=0A=0AListeners=E2=80=
+=99 Choice Calling all fans of Zero! We=E2=80=99re excited to announce that=
+ =0ABloomberg Green=E2=80=99s Zero podcast has been selected as a finalist =
+for the Signal =0APodcast Awards in the Sustainability & Environment catego=
+ry. Now it=E2=80=99s up to you =0Ato helpZero win. Please vote for your fav=
+orite podcast =0A<https://vote.signalaward.com/PublicVoting#/2026/shows/gen=
+re/sustainability-environment>=0A by October 15.=0A=0AMore from Bloomberg=
+=0A=0A * Business of Food =0A<https://www.bloomberg.com/account/newsletters=
+/business-of-food=3Futm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=
+=3Dgreendaily&cmpid=3DBBD100726_GREENDAILY&utm_term=3D261007&utm_content=3D=
+9811>=0A for a weekly look at how the world feeds itself in a changing econ=
+omy and =0Aclimate, from farming to supply chains to consumer trends=0A * E=
+nergy Daily =0A<https://www.bloomberg.com/account/newsletters/energy=3Futm_=
+medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dgreendaily&cmpid=3DBB=
+D100726_GREENDAILY&utm_term=3D261007&utm_content=3D9811>=0A for a guide to =
+the energy and commodities markets that power the global economy=0A * Tech =
+In Depth =0A<https://www.bloomberg.com/account/newsletters/tech-in-depth=3F=
+utm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dgreendaily&cmpid=
+=3DBBD100726_GREENDAILY&utm_term=3D261007&utm_content=3D9811>=0A for analys=
+is and scoops about the business of technology=0AExplore all Bloomberg news=
+letters =0A<https://www.bloomberg.com/account/newsletters=3Futm_medium=3Dem=
+ail&utm_source=3Dnewsletter&utm_campaign=3Dgreendaily&cmpid=3DBBD100726_GRE=
+ENDAILY&utm_term=3D261007&utm_content=3D9811>=0A.=0A=0AWe=E2=80=99re improv=
+ing your newsletter experience and we=E2=80=99d love your feedback. If =0As=
+omething looks off, help us fine-tune your experience by reporting ithere =
+=0A<https://bmedia.iad1.qualtrics.com/jfe/form/SV_dhba7RmVMUuC9WC=3Fbconnec=
+tId=3D79621EEEEFC0442F9888E0EB4C7EDE80>=0A.=0A=0A=0A=0AFollow Us=0A=0A <htt=
+ps://www.instagram.com/bloombergbusiness/> <https://x.com/business> =0A<htt=
+ps://www.linkedin.com/company/bloomberg-news/posts/> =0A<https://bsky.app/p=
+rofile/bloomberg.com> =0A<https://whatsapp.com/channel/0029Va2h58LDeONAZNBp=
+cg09>=0AYou received this message because you are subscribed to Bloomberg=
+=E2=80=99s Green =0ADaily newsletter. If a friend forwarded you this messag=
+e,sign up here =0A<https://www.bloomberg.com/account/newsletters/green-dail=
+y=3Fsource=3DNLshare&cmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dgreendaily=
+&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_content=
+=3D9811>=0A to get it in your inbox.=0A=0AUnsubscribe =0A<https://www.bloom=
+berg.com/account/newsletters/green-daily=3Fsource=3Dnewsletter_unsub&email=
+=3Dcarlosandradena@gmail.com&hash=3D6e1e8750b026b2c4a755c098730d24d74ddad9f=
+4>=0ABloomberg.com =0A<https://www.bloomberg.com/=3Fcmpid=3DBBD100726_GREEN=
+DAILY&utm_campaign=3Dgreendaily&utm_medium=3Demail&utm_source=3Dnewsletter&=
+utm_term=3D261007&utm_content=3D9811>=0AContact Us =0A<https://www.bloomber=
+g.com/help/=3Fs=3Dnewsletters&cmpid=3DBBD100726_GREENDAILY&utm_campaign=3Dg=
+reendaily&utm_medium=3Demail&utm_source=3Dnewsletter&utm_term=3D261007&utm_=
+content=3D9811>=0ABloomberg L.P.=0A731 Lexington Avenue=0ANew York, NY 1002=
+2=0A=0A=0A=0A <https://www.liveintent.com/powered-by>| =0A<https://www.live=
+intent.com/ad-choices> =0A<https://links.message.bloomberg.com/s/eh/am-rhpy=
+SaCARzUscAoHr-AS0UyelIq8eo_y5Lb0D6yQuKNfSMsURayVkKZwvVZpT6GhNpr3WIxIXDW1klb=
+s4oKc0-fSGd4IHKFJgsU1wmH-HGZodtnpqHaULrL0vcHl5sqNU4Go071CSz0AbYjiF_gQneX1gs=
+fv7WdM0MI9T54_g50S4q6QTPJkAh44D9Mv2iRa1D7zk9Hr86l4F8rw2QanktOk_UVAriy13ZyLN=
+ozNkNwBy7rEoho6DfMD06oy8FqAgBMXncphbjPQSFc4iM-_he4k9VJ4px6kJ6y1w7F1ZQs0op49=
+USVYPbfRZ6bkMpo55LMIls-rvcJNCu9dhlyMln-mUi9ZJB6A/QoEvI2ZpoNUgcs9uyf3wKrM4lc=
+5-3J9Q/25>
+--_----2BsO6VlY1hu9w64Tj4SY4Q===_C9/3C-63857-14626CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><m=
+eta name=3D"viewport" content=3D"initial-scale=3D1"><title>How US Solar Exp=
+orts are Helping Ease Cuba=E2=80=99s Energy Pain</title><style>@media only =
+screen and (max-width:480px),only screen and (max-device-width:480px){.mq-l=
+ihide{display:none!important}.mq-lishow{display:block!important;width:auto!=
+important;overflow:visible!important;float:none!important;max-height:inheri=
+t!important;line-height:inherit!important}}</style></head><body>
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/pqDbumT=
+khrKDX1LLsFt_0A~~/AARGbBA~/zfj9xY6FP312RcwZ-8k48xCwp_dUoj5E1O01uTUNYXu40xIe=
+UjNLhlHjCu4Kpto5sRVK12TsJw2rORAq5pKleA~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/UHY6xrynBgao8nmILbf8PjqSxzqmhTveyo2BSv2gtD73eGcJcyZHScYpUZO5=
+Iy050Ff-ztdxb-WaNSwJoDphxEmJJ3CBYCOd8CgPbdqurwIUtByBhdNOWJWbPNMuMcoWVRg4NAh=
+vbLFUwqoY-67iq3NfdLFroStg_OigLGVA7_6ViRvG8O5iQJwxSMPbvaW0p8IS6G3GXcl2vz4YJR=
+zooW2ck61gm6vV2KV9/AdeDYc1YqLC3-2ZZ3-N1lJPa5S9eB6z5/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"><table width=3D"100%" align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-w=
+idth:580px;width:100%"><tbody><tr><td><div style=3D"display:none;max-height=
+:0;overflow:hidden">Rising US solar exports are helping ease the island=E2=
+=80=99s energy pain. &nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=
+=80=8C&nbsp;=E2=80=8C</div></td></tr><tr><td align=3D"center" style=3D"padd=
+ing-top:20px"><a href=3D"https://links.message.bloomberg.com/a/sc/Ve-_ALXjd=
+0afSFeIz6PkPCoZhzpWpvRU58nHb628cm-YmMGhN_S7Uw_XJQ6Kj5b45i6zsv94lPfzKjaAOVnV=
+RgFbNUpEGScPSw1CEUFsP7Pj9JcGb_0NdQks0B37GLjB_W6xgyNvZ3yWLvA_dRBtg2dnrpZaz8V=
+YYDWwIfOUfCiTSavxAAPD6AqRr5KP3-eH5y9wWGIHWEV9-4ZsILZ5nm71_oD7t9CWUqp1cbrRil=
+PROHN2OVNsmcZLzw9fl1iHabvqczZRXNMvADAj20P2_nedDHlZAvQFcMUUVbZnMWQYmROsESylr=
+bWf2iw9GNrHPJO7fCpzAf1rz-_p25aeEVVZJMwLSDncHVe4iEchHY_5J0yI9HH9W_FOjCykL261=
+M3tqSd9SGFlrWuXeYhVbFXqIEwrdlxTgRydm7NaGgSWbBIGVsiGZ68JZMWGwjlQRqfR7VlKsupS=
+WKMTQr_x1UrFyYxBylnwMjkIsy3Mu_GcFkdoBstW7iMQYD1U4B5wjhAR2OZ2Nc15an3rRzCCAQy=
+a0bYb6z3feb-iF7rhgEg_OwDu1uYc/l5Cjfi3Tz3oVFoHJC-OaVRQkCmGRZFK7/25" style=3D=
+"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:un=
+derline;font-size:12px;color:#767676 !important">Read in browser</a></td></=
+tr><tr><td style=3D"font-size:16px;line-height:1.4;font-family:'Helvetica N=
+eue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:=
+8px"><a href=3D"https://links.message.bloomberg.com/s/c/T03harJrKfuAcHpD9l2=
+siQNWq7nv9N9UFemWlqYUBTKGuzoB831tws9xQpMSII7izj0BMG3vK_rrTA7Ofzdl9I0EHZXK8e=
+M8QHsT0fQ-m_Ps45qpm0AEbPRS75trDoAFsdcG2yDzMp-LvzIpKqP6EXbWKGlvC7-EAT_tGEEBl=
+vmBP3ILMw1Bcp1zGWbaQshidiRkJwaXywZ6s9mx1jkaG2ikKLSYpBNVGUkoOWJ77pew-0woFsvm=
+LVS4iTPEyRq-67Ujy1te8uodjjkdNolzJju0mdfa9OtDTVGm3yol20t2pBRjaDLuAhx-dO2PGaQ=
+PYxoiF1ZxHfsmn-DbJ-rm1ZDIeDhViLwDC2x4lcZe8aUROTORbm-sWflr2miF2S12xXkXUiC_HG=
+CMn9Tp1ZHk8n1P3_sL1PjWIlV2AYdfZUKng4idbl4WcA0mEPmz6klLjh8eWuk_Ww/UWNGrLVqsR=
+3OsrywYDKOa-P1bO_iO9VR/25" rel=3D"noopener noreferrer" title=3D"Bloomberg G=
+reen - Bloomberg" target=3D"_blank" style=3D"font-size:inherit;color:#00e;t=
+ext-decoration-line:underline;text-decoration-style:solid"><figure style=3D=
+"margin:20px 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><td><=
+img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/itgKS6eyoOwg/v0=
+/-1x-1.png" alt=3D"" width=3D"580"/></td></tr></table><div style=3D"display=
+:none"><![endif]--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBF=
+dfxIU/itgKS6eyoOwg/v0/-1x-1.png" alt=3D"" style=3D"width:100%;display:block=
+;margin-bottom:4px;max-width:580px"><!--[if mso]></div><![endif]--></figure=
+></a><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" data-lt-version=3D"3.0.0"><tr><td align=3D"center" style=3D"line-height:=
+1px"><img src=3D"https://sli.bloomberg.com/imp?s=3D1149029&amp;li=3D2025495=
+3&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10072026110017&amp;lctg=
+=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Dstatic" border=3D"0" sty=
+le=3D"display:block;max-height:12px !important"></td></tr><tr class=3D"mq-l=
+ihide"><td style=3D"line-height:1px"><a href=3D"https://links.message.bloom=
+berg.com/s/c/OFl0ey0l39v0Qfwwd7lUC55TVZf3JWb2Sgs_hFL3GMFRWGoVKMLXIfk4BU9sz1=
+v4dpt1F_-aVi_VN6ZdACsIcQKGnRbAZsx0pyjqb1W62-nlUzHjnlYOaEWSA4xDBsw15iV9WM_DT=
+iNJ0EY3Lvxylk56K6PVrMWoH1Qpq5_UT3I2paZl9VjRs80X-v1umNQ9QYxP4DAQg5M74K4WHAfi=
+tlErck-8YRNZExB7QYEn0afbTw1o2uqKfOniK7qp1omXGHmSLjn8tkCTI9dmzKw1N_lMtdLDMmR=
+yaBgf6q1woU43sxx2txHVf-P0ZG6I3csFTZpG1a84cEuePdb8s0m0gIjgvdgyEBv0wypX3iUfjC=
+JBfqSl4lYCYB1U5GhOoL6IQad0cSnApZD9pLSrJ0Qx3Fn2BfZ1mEiuOi868QIx_lp1zC-gWjJq2=
+um7P-ID-Uc_yTnClCWF54x2fQ8Wqw/YW8I9tART7SC0a3ob98me1_KOrnTkKCC/25" rel=3D"n=
+ofollow" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decor=
+ation-line:underline;text-decoration-style:solid"><img src=3D"https://sli.b=
+loomberg.com/imp?s=3D1149029&amp;li=3D20254953&amp;m=3Dbb4a280bebb1586390b9=
+615b8886024a&amp;p=3D10072026110017&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d=
+1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=3D550=
+" border=3D"0" width=3D"550" style=3D"display:block;width:100% !important;m=
+ax-width:550px !important"></a></td></tr><!--[if !mso]>--><tr style=3D"disp=
+lay:none" class=3D"mq-lishow"><td style=3D"line-height:1px"><a href=3D"http=
+s://links.message.bloomberg.com/s/c/RvYV7z5-ghpi543Cvu0b8RRsVXziL8wMwVVLFhW=
+37Tiw0c4H9R1TSmPvywmxs6OTFYWyx3k4jOksFCG0atix25K5MwrtHba_6CP4STnUT4dbM3Xk8D=
+4M3VYUt6DmPPfkkLKPuogyC4oHck7ACPuYFbkOyLR-9vnv3mwATfut4X5ilqGm47LywX8xf0Xw9=
+Z261EL-ZAPAG4h29vWypoqK_6aUGIRVhlv094zj6RZqlYWS3PUHg7tgw99IPDtLWKDHa_rYt8VA=
+Ldu921DelzngjJ8nqumWlPRhFNzmwOMopVlefDCRv3mZ-dviSwEoNzuN1wQmU9ZGBkgmeUReQId=
+Myb5ToRe1NDDTJSlxNAtSB70GlfgtdNeKANdeJouWmNyckiZN4nQep7oo8cQHOXlNZS9FsfQSFN=
+IMRebuVsrpHc3Q6x8mr-gtfSvmJf83E1BM2JXfus1U0Uz50gynOQ/dbtUUAbNNtoGRJKl3Tu_ln=
+Oc8g5nG-mE/25" rel=3D"nofollow" target=3D"_blank" style=3D"font-size:inheri=
+t;color:#00e;text-decoration-line:underline;text-decoration-style:solid"><i=
+mg src=3D"https://sli.bloomberg.com/imp?s=3D1149029&amp;li=3D20254953&amp;m=
+=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10072026110017&amp;lctg=3Da3e8b=
+6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Dmobile&am=
+p;collapse_width=3D550" border=3D"0" width=3D"550" style=3D"display:block !=
+important;width:100% !important;max-width:550px !important"></a></td></tr><=
+!--<![endif]--></table><p style=3D"margin-top:24px;font-size:16px"><em styl=
+e=3D"font-size:16px">There=E2=80=99s an </em><a href=3D"https://links.messa=
+ge.bloomberg.com/a/sc/2TQHbz520XlzXwx7RV0YFgXhcRs0JJRj_y-ZwD7U9QB4N9RJ9kAxR=
+MqfOm6K7kWvpQt6fIy4Wg2vuDLw4QaFK31Q_p-VCB8kP_RLNaPv0L35mxgLcrpkarQ8dpZCOgrj=
+4W7h_VBVNrpEbWPFKLp79fBetL2i74L7nD7eebzJ2ogjVtyMkaL_YXCPU1BsZ9XiC9fNUwOC_d2=
+ENbtWUdFfBJQk9ZD2gad3FoahKX2r6KUmbrgMzSoHJjVRstUhibKzeGxjMJfiMbP75cOwuXp6cg=
+hICwVhbd6xovknrPuDDhkuyxe29O6R7HjO-AU7iQFabs-Va6lySKN5BQSd2DKRx-KFV1uO-4eA4=
+ygb8k613B6VWxS4abcWceNsT-cZ31IKUI2uBxLoUrv2L6nSIvYWGfyE42LgnoT1PZzQlN8UjuWx=
+krdmIhb55Cq8l_fOY_Yx1lfT8cZg97vaHHu7OjzSqFFkqwLseXICyMNYIhcwRCRKLt28r5r0_mB=
+RaihqKxjA2yd-nQsr35HESeltynwfKg65jW59Svbh9uDAudhhBHIP6ePx4XW7quhV3AwsRFUy/x=
+b3TfQZxJlLaNGiPr35-krGk__MgJ8jb/25" rel=3D"noopener noreferrer" title=3D"A =
+Surge in US Solar Exports Helps Cuba Keep Some of Its Lights On" target=3D"=
+_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underlin=
+e;text-decoration-style:solid"><em style=3D"font-size:16px">unexpected sour=
+ce of relief</em></a><em style=3D"font-size:16px"> helping to mitigate at l=
+east some of the energy chaos being experienced by Cuba amid widespread bla=
+ckouts. Exports of solar cells and modules from the US have surged this yea=
+r.</em></p><p style=3D"margin-top:24px;font-size:16px"><em style=3D"font-si=
+ze:16px">Also in today=E2=80=99s edition, the EU plans to </em><a href=3D"h=
+ttps://links.message.bloomberg.com/a/sc/aAApdE-Ehc2wz_Tn48PU9o6z8zTvm8R6ofT=
+XDxcP46IQjW8jNWhXtQ0_quH_iTCYgXjQKjq-FtgTvTvZD7PeWQU3DITGe4jBifA0aZWr7Da7o8=
+QTFNrDquLMTI9Mu0LZzUSOCTFHkoht11KbaiswJEJskCzEPaCyB4keFzmux6UjdWazvDS6irRnP=
+Sd3h1L11OcbOFvmZjcanYJzoHBCs9QMoPeFyTIgrS5vViHphVantoVwuuNm0xkSo1Xg16JGGfLP=
+gGU_mP7T_eV1Q1tz5eIYFFCenYPb1tylS_3dejnVM2-fv-sUmi6-V6OfziOwWI6l2jC7wfFKyf4=
+qjPYC3kCiU5z6sip9VYSIpS_hOlwbC4VYFeHSCCgUuUnKTYdRu1kc3SpZ5iUPcJY5wQS62ro-D3=
+z0LsO7hRe-twGYGxyBcwiOzMZvA556Sr85K-sluKC3-WwSwGEswNIBN5JM70B8PFKUljXkB9VV2=
+U0V2vF-Iiq0UlafRbIGsdp7WEl9M0D49GX-oIJ-1h12tJ1cCLpvNBG3_6vviTwqWsMwnsATFJAe=
+PerZM9fbKA/ZBAk85w01tn-5bdohqtLbSbpt4t1VUNA/25" rel=3D"noopener noreferrer"=
+ title=3D"EU to Push Global Emission-Cutting Ambitions at COP31 Summit" tar=
+get=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:u=
+nderline;text-decoration-style:solid"><em style=3D"font-size:16px">push for=
+ greater emissions cuts</em></a><em style=3D"font-size:16px"> at next month=
+=E2=80=99s COP31 talks in Turkey =E2=80=94 and has flagged the bleak outloo=
+k for new climate finance commitments. Elsewhere, BBVA says bankers heading=
+ to the summit must find ways of mobilizing capital at greater scale.</em><=
+/p><p style=3D"margin-top:24px;font-size:16px"><em style=3D"font-size:16px"=
+>And new calculations by Bloomberg Intelligence show the </em><a href=3D"ht=
+tps://links.message.bloomberg.com/a/sc/1VqP2yohKAiZBnAuNRYk4F-ZRCGpuI7uzL87=
+rbpdruIV-LHlGH-A2RNKuCeCYjZ_Q9JhJ7sGp-8CR7lvf3N84dp3eLrABJwt7_eof1mA5oPf1fC=
+MUmZLyf6sWnuNXccawOTOQpYWVBEUziQLCNTxq96_Y5JngI-zd-5IKdXU_HkZy9Qwxn0ZbyrO9H=
+zqEwgg6j7hyKu12TLVjKW7fjjYKzPUzUQdusXlBFn_MHKuiL_CHLfpcTtcHVKl0uWLHHJp9oHwq=
+OTOo-pR1ilKAMC6bmdcGpPro9xKExq3KebeAn9RGvUlrPNWwgbZpluqX4ZKvmAfQYWEo4DX1kdj=
+4AuaKE8Tr6r-LJSeALhdp_KY9HzKv451_GFSraD6nc6q742APrLW8ZwzeQ3T1AwT07C_wHqpNRC=
+2OQx1OKIOAZKviLfPNfbf3rYhNDNzrxUBtww4rSUMkLqs44rZrXx-dh-1tln-bsJ3ytnHjem1Pf=
+xXAGwsg7R2H_zqy5QN5QaXTAL2OvqEQ_ovpiYa47N_4SdmyVCnPtgA9FLn89xG-yxEizFb8Gi6j=
+mRO/rXMaK-3daHtoZxoyiBRTaEJvTPJIbPGP/25" rel=3D"noopener noreferrer" title=
+=3D"Floods, Storms Create =E2=82=AC500 Billion Opportunity for Industrials"=
+ target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-li=
+ne:underline;text-decoration-style:solid"><em style=3D"font-size:16px">size=
+ of the opportunity</em></a><em style=3D"font-size:16px"> in the EU and UK =
+for industrial companies as governments lift spending to improve infrastruc=
+ture resilience.</em><br><br><em style=3D"font-size:16px">Subscribe to </em=
+><a href=3D"https://links.message.bloomberg.com/s/c/aOC3KYqWnUWbNh85X5D6x6F=
+RWI4YXr4_mtRpT6IGCD3N59saD_KbWbBSSRPbP03EkxkDOOFbj8YnvxTVLV_HwQBgrgiSt_riOx=
+XcUXJV4IoWpgPsblzG8Oxi40UntUVyXDtR4NELx8NuG24kYxTmLv9ytEgw1i0nBSkm5eO2zb-0Y=
+r0_SYzRd5rSfqMIgy4F9mhNbMXeL4rQJLWXL0_LcldOacxVJ5ksdxCToH2qlNmulhCOahJM3yty=
+HzU34cCzhhIFiaDVirqnEJsc3Ner34xH_MtiMiwQF3TXdfj3oEhEurZvA1dC_0Lo-mW211KcPVx=
+1Bt6K_Am7ROQc3Owg97CmF-gZMzrfQAyDey3GO_7Dxq-H_UsBaTfVy1OsiJp7kKse5dMAgDuq0Y=
+Ae8YyK90hH3l7XSug37xZcFabvB59HM7ErQh3zreSurUB2/dJC7qNZA3-05hDJOUDcGaqGTghUR=
+rsyH/24?cmpid=3DBBD100726_GREENDAILY&amp;utm_campaign=3Dgreendaily&amp;utm_=
+medium=3Demail&amp;utm_source=3Dnewsletter&amp;utm_term=3D261007&amp;utm_co=
+ntent=3D9811" rel=3D"noopener noreferrer" title=3D"Bloomberg - Business New=
+s, Stock Markets, Finance, Breaking &amp; World News" target=3D"_blank" sty=
+le=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-deco=
+ration-style:solid"><em style=3D"font-size:16px">Bloomberg.com</em></a><em =
+style=3D"font-size:16px"> for </em><a href=3D"https://links.message.bloombe=
+rg.com/s/c/r7-uLMa_cdmlyVrcjlh1vgMHgq359GRsrvObMk4ri0ILQPASIQ9QNxs4e_q8dHI2=
+mYq9LPzUKgfeHPgHBhEyyt3le-v3FQSd_JY9wxPXeq2OcLAmSEsKQNOF3W8RUuYm1fM7ZiImOoM=
+owwFDCUD6x8vg_0klNrGAYEqJccESQNxhTVHrOADay6smNGrTiOO0HvBXuPCdyAva9aX_FWK5Yw=
+XWQKLCxEDIFQsZekdFLbHbbbgkD0Ffa2Xvl6soxMSlogDcPpMIVCjudnnVkoCVrpKcmRj-3VDey=
+8rEbhGtQbVUyMq_QU-1OmW8gIIhuKR6xX2prpkWDBmTVJIDSu2V3KXB41eiL5YY-eLbRrokCrpH=
+ANq4e0hQxfsg4ZzRJQkfklhxqlgzrYuN929mvLONJ6U36dBO6Qs4QbR9GQi3P8JbrLKknaoANFY=
+2IdjAQmWMzz5eAcML3aHEN91yoXBB/wJzLnj_AqZ2dMC0gA9DsA_9jxVX-oRw7/22?cmpid=3DB=
+BD100726_GREENDAILY&amp;utm_campaign=3Dgreendaily&amp;utm_medium=3Demail&am=
+p;utm_source=3Dnewsletter&amp;utm_term=3D261007&amp;utm_content=3D9811" rel=
+=3D"noopener noreferrer" title=3D"Bloomberg Subscriptions | Digital, All Ac=
+cess, Corporate &amp; Student" target=3D"_blank" style=3D"font-size:inherit=
+;color:#00e;text-decoration-line:underline;text-decoration-style:solid"><em=
+ style=3D"font-size:16px">unlimited access</em></a><em style=3D"font-size:1=
+6px"> to all our coverage.</em></p><h3 style=3D"font-size:24px;line-height:=
+30px;font-weight:700;padding-top:12px;border-top:1px solid;margin-top:40px"=
+>Keeping the lights on</h3><p style=3D"margin-top:24px;font-size:16px">By <=
+a href=3D"https://links.message.bloomberg.com/s/c/Jye2U68KOLLWt8J72EjutcNqV=
+DVvIpbeS5FWf5MO10V_7XP8vxWm_18nK6vnOnnKQMKf9equ9aQuBNGp2uSCn7oHiilJwKlmm-XK=
+AfeZ6o-guWyB5jY-Ka_MhZj4yYYYFU7x8OhZktDFpaPg_hixRLSltcaniTB6R0joNzNczLPDgbo=
+VhbnMxTU4f1VLfS-2AfdsqN98enOMg3u6SgasRUQbQRBwYI5e4MQwsGUlNspyppd8JSjC4vwsc0=
+DJdBArzbawyippGtKk-zSTJmdgs1CWlii9KNyudYbUPd1kq5VxmzvIY6X0IDvtrTNxJS04YM1dy=
+GuTGRpXI18JeqnhsOw6OYdYA2NUDP1uyP6DTn8d3hCBjcbAif8Zgm_QrQyiBkuOrzmxksK3RV_F=
+IOmuZ_3cUmqY7CmkTQGdTQSDxNgEbvDmb3aToJHV40KpgyZJR15mpRzaXWbrBjja6xPX5m-7roq=
+6kSvQpzDmvd9v/_YROmTVyqcdiFPkKUB_n7Y9yWF3xEOEO/25" rel=3D"noopener noreferr=
+er" title=3D"Jim Wyss | Bloomberg" target=3D"_blank" style=3D"font-size:inh=
+erit;color:#00e;text-decoration-line:underline;text-decoration-style:solid"=
+>Jim Wyss</a><br><br>When Cuba suffered its seventh national blackout this =
+year, the guests at La Campana in Havana kept partying. Thanks to the event=
+ center=E2=80=99s solar panels and backup batteries, they didn=E2=80=99t ev=
+en realize the lights were out.</p><p style=3D"margin-top:24px;font-size:16=
+px">Cuba=E2=80=99s <a href=3D"https://links.message.bloomberg.com/a/sc/fMqQ=
+rBPrUAXpKC_e-CFpRm7Jg9Tjr_Xh_syr3IDJ_POkCoIuZQncHTP5xcJj3XzJnJQSSXYLi_5bjy7=
+29obLpOk9Gp2Mzj-J4KsoxSk4gK2c05w0cCDTuSl8PvosnYA2aSZt6-vEhKIRYyJWy0-DzYg6Dr=
+RjLzD2ybEXYCLouYL5qQdiYCQK2D8lD3X52wDjeC1oVsgbAKQHDLeLO6qwxOuxOw1_e7u0XVxOq=
+xA__1XqRvYdlTlZ7AWZD-Z2J8Bt-4AO17l2co2pITbefZaIsGSQsAeDsdlp5AksyQQQlGSGu-o0=
+56Sqx00arC0H_DX_DklSuKvJpSEjcc3WXZ77RuX9n2hD7p7GfxVcEP2DNm3vdhlA4eI1OpWBBI9=
+7VBVxHrgH3VPjRUDJVonsnkxAp0TWVcemNerCH_zMcGZ9dTEFwE1_0ZOTANt2vyaFdOocuib4s4=
+JnzyQFpfY-2s_s_koPY-cNd_Hl_h9Q-ixCp-oj4KFr2qqvPk5Zj-iiyTyWCyCHNBQgb5Pd1SSx_=
+9WVFEBhLpTXiLOPRnOJMwsiXE9Af16Y8Z_l/GPuSFgMnWR3xvqh3Coa3jkXoUrayu1Vr/25" re=
+l=3D"noopener noreferrer" title=3D"Cuba Suffers Fourth Nationwide Blackout =
+in Less Than a Month" target=3D"_blank" style=3D"font-size:inherit;color:#0=
+0e;text-decoration-line:underline;text-decoration-style:solid">chronic powe=
+r woes</a> have made life a misery on the island of 9.4 million people. But=
+ that pain is being mitigated by one of the fastest solar adoption rates in=
+ the hemisphere. And the US is helping keep at least some of the lights on.=
+</p><p style=3D"margin-top:24px;font-size:16px">In the first seven months o=
+f this year, the US exported $6.3 million worth of solar cells and modules =
+to Cuba, according to US Census data. That=E2=80=99s up 1,070% versus all o=
+f 2025, when just $538,000 worth of equipment was shipped to the island fro=
+m American ports.</p><figure style=3D"margin:20px 0;max-width:580px"><!--[i=
+f mso]><table width=3D"580"><tr><td><img src=3D"https://assets.bwbx.io/imag=
+es/users/iqjWHBFdfxIU/iWyy24.ylubg/v1/-1x-1.jpg" alt=3D"Solar panels on pri=
+vate businesses in Havana=E2=80=99s Vedado neighborhood on June 8." width=
+=3D"580"/></td></tr></table><div style=3D"display:none"><![endif]--> <img s=
+rc=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWyy24.ylubg/v1/-1x-=
+1.jpg" alt=3D"Solar panels on private businesses in Havana=E2=80=99s Vedado=
+ neighborhood on June 8." style=3D"width:100%;display:block;margin-bottom:4=
+px;max-width:580px"><!--[if mso]></div><![endif]--><figcaption><div style=
+=3D"font-size:14px;line-height:1.4">Solar panels on private businesses in H=
+avana=E2=80=99s Vedado neighborhood on June 8.</div></figcaption><div style=
+=3D"font-size:14px;line-height:1.4;font-style:italic">Photographer: Pablo P=
+orciuncula/AFP/Getty Images</div></figure><p style=3D"margin-top:24px;font-=
+size:16px">And while China remains the main supplier by far, exports from C=
+uba=E2=80=99s longtime ally are dropping. By the end of July, the Asian gia=
+nt had exported $19.5 million in solar equipment to Cuba. That=E2=80=99s do=
+wn 83% from 2025=E2=80=99s full-year tally, according to data compiled by <=
+a href=3D"https://links.message.bloomberg.com/s/c/y2UsvOdLZR-lz_HBKGHbvbWJu=
+tYW1EH4jMPUnmw5wVeTFVYKWjHfEm9jKzwxwte0beiKiZ9DL71ij5PJ-gwPaMPE4wu_wjumoKlu=
+SnEKQPXDAEwaSQaKgtAVd5sooTvsRi8CKkYPzPKll0yiHZQmRIrOwQOavJIa1Gq03pgC8lmI6qD=
+YdPuSwbVfE1-g6J1LABzxc4ZtmLN7BrHisSa_qewoIpobBGDM2XSJ-sOAiwbvlvn9Ccb1Tf5RVn=
+oeVvqLQyozXP_og0VMOUn0pD7lEYIIj1rC0a9OYK50qXSEb-vzbTh2-44MJL1PNvnbT5HPM9c9L=
+bJQkA/2cfqmbf98vS3dYPWckTOOGdhZWTK7Zec/25" rel=3D"noopener noreferrer" titl=
+e=3D"Solar PV Equipment Supply Chain Trade" target=3D"_blank" style=3D"font=
+-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-sty=
+le:solid">BloombergNEF</a>.<br><br>Another fresh donation of <a href=3D"htt=
+ps://links.message.bloomberg.com/s/c/yNqVUlpndgX9mC2wwkC6mH0W9VBgT8p6_VX2Sr=
+IiFnp7IsY00mmkmEb458f-2-fYDqDlXlp4oEQ48GJ6elAMEU8MuuisAbUfdFWBAgOVeVupy_7FU=
+A47GaBuRv9I6Nsz3vX92iQ2P24wj4OO2DqtTU_JWDMs5BBtAHGtoH0HQmT-bw143UJrsCNe-3yK=
+GJsMkm8LLd7tqftETmVvSSG9gowdjihccADV8NhAejHQXXzI2yQZDQFHO_oKqzPSeBvMvOREPHw=
+p6VAL7HOWR6pg-JCrnSxkJeskFr9J8rJzKuahrLq4XY7A0W3p3pyUVImA5ACwbmcdFtlLKu3uTq=
+uZsgnPiQ_280TaJDKY8IQo96ybz0543PXftgse--TXMmQQx4OTnhbV3hEjeo8284lKI9jnftWCG=
+vYVN11k/EQY_z1dIbhv8VDFH_GtEdd8hSG-6Otw-/25" rel=3D"noopener noreferrer" ti=
+tle=3D"EFE: Cuba recibe un nuevo lote de 5.000 sistemas fotovolticos donado=
+s por China" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-d=
+ecoration-line:underline;text-decoration-style:solid">5,000 solar systems</=
+a> from China arrived in September, yet it=E2=80=99s US shipments that have=
+ become a lifeline for average Cubans trying to find a few watts to keep th=
+eir phones charged or their businesses afloat. Among them is Ramiro Llovet,=
+ who runs La Campana out of his home in Havana, hosting weddings, birthdays=
+ and corporate gatherings for groups as small as 15 people and as large as =
+350.</p><p style=3D"margin-top:24px;font-size:16px">Even as President Donal=
+d Trump squeezes Cuba hard in hopes of ousting the Communist Party that=E2=
+=80=99s held power for almost seven decades, his administration is allowing=
+ goods to be sent to entrepreneurs on the island like Llovet through a loop=
+hole in the longstanding trade embargo.</p><p style=3D"margin-top:24px;font=
+-size:16px">Trump=E2=80=99s <a href=3D"https://links.message.bloomberg.com/=
+a/sc/ujni19a1AOQBBm4ZPkuIQEb2JA_laDlsN31furxIHGqj1_6gW-C_A6jCPlE87glxspHXov=
+YI9MPbCe3aJoT7PwQMEc-bs3bQaJKs013_UwpEocO230XVriy6e_ooZlBTw7Z5bj0vjFLlDdV8-=
+uZqBS3fjvkylS8lowxHSuuPVToGLitCUH3F56_DO0j96Q8jxTrQ_2vmiLkdG-Wp-Pk4TdjbYkGZ=
+qb3wvQo8Qr9yQpW5i8CaSpOBEtfEtpztHCMN5nKFmY_avLS9EKbXlOQ1DrQUUhxph_xB6thSTpH=
+RKJThuCxm9JiFarzprkvlptsGbdXYG5QB9u-HQ2SCP49kJu-2JENwl3fghtGoFpwliz20NYoXgp=
+Iww62MX-XiF6IQzOPtJ5dmJxeKpMCDPZMk4dzzWpNBXIZkAJ4M-_8tZRPJhqHdZtJV0OM_bIlr1=
+Qlj2SDc2HcOVBlv0DaQKJgGZIUcgLiDGYtjigEBN7ePn-R36SNiYEPBWbwGV2_yio7LHufRNiR5=
+pu5PnEoopj5BNHEiSDdfd8wY_bTEpLQ9FHSSBsTj0JMUAvxH/LXw6H6QlrG2lB0zorT7t58V4jL=
+6YMwfN/25" rel=3D"noopener noreferrer" title=3D"Cuba Says It=E2=80=99s Enti=
+rely Out of Fuel, Sparking Rare Protests" target=3D"_blank" style=3D"font-s=
+ize:inherit;color:#00e;text-decoration-line:underline;text-decoration-style=
+:solid">de-facto fuel blockade</a> and <a href=3D"https://links.message.blo=
+omberg.com/a/sc/4vCCyrDOetXwBf3CigTQ731WcBdVeFLyq07mUFbLAUn5AhUe5k7bq_9kC7D=
+reSxAgBw-vBfFTna7qqMPPzo0AKJJvUYpep4EbKjGKN-8bMVQ5iSUAxkNenb3Su27Lnq5-jP-_C=
+KzWY5KMBY0Y8fjEpaVPU0I43TJFFUhaEgaB0BfrrEM5KOZgnf4jjJkNxjiRiLK5oX9jXgNS5T--=
+_PBQF-K0jlHo0d6U3CNt7pLtfXGbxLkQWZNd5aZ5eD0FYVAZCQWqfjvkeB89xiM6fRscoi3kC7-=
+bG44IZ3STlJKPLkAmj6y5S59-R-75WjvjuPqvsase7h8KAdgV1NWMPO0eCvbLll_4KWQMW6jpcv=
+6E9WDexfZHQsJ5qYfMXUFBEnD0fUrKsZDknX4MNnyMbdR8HVRtAVQ2Tv0Q-PFnYlXujBJfAEp4s=
+iLhvzny7JadSunwhgvVKB7xKWeP7FQnpavihfuVRpdYCQ4gC0ZcVJNeHk7Wn-CMlIl7tfQqzzF1=
+8MhUmnY-VPCsvg3dj9yoY6ff1wTIU71AbpH8qNx9glW/BdFIICYLgl9memfAw8847wEwIRt2nx5=
+O/25" rel=3D"noopener noreferrer" title=3D"What the US Would Gain, Risk Fro=
+m the Cuba Regime=E2=80=99s Collapse" target=3D"_blank" style=3D"font-size:=
+inherit;color:#00e;text-decoration-line:underline;text-decoration-style:sol=
+id">ever-tighter sanctions</a> have chased away allies such as Venezuela an=
+d Mexico, dovetailing with the president=E2=80=99s push to reassert US domi=
+nance of the Western Hemisphere and curb the influence of China and Russia.=
+ That=E2=80=99s created space for American exporters to step in, with the r=
+esulting <a href=3D"https://links.message.bloomberg.com/a/sc/iAmhXqStFhAC3l=
+QTUpf7PFYQWQA5GflyR1nZM_dpxoEF8czf94ffCwelRFNvNRqd9WmwV1M4yOWwVBTqzPHRJmsZm=
+j7U9mjM_pMaD5JI_Nlu9nOJ_Gma9RRo34hQj14n_v-By3G-WIXDx0GsQHWwdapsZJCJjByD4FVr=
+zCMtnSnc0TDC-VrkZeMBuIPLn9li194e7VHuW2kkbgvXE7QBki-MaTyaaIijH4afzZ1lu8Za0Mf=
+qGo47AFDrS9zY6WFtbOjRzt1q5eupykXe2qwOpSFAVTGJDzA-jtQfdCgeOcdeErgrLai4jUG2MI=
+llDktRGlvsK9f3SS92BXbvRkG146Pf7iyMzSCvfrIxr63h1-MA4c5x8oa7nz79V5oelm1W8OEkR=
+6lStkwle902Umzf4ZSi7VE5VsGOcXUDq_7aFsShd7Cm3v0Jb7xE8O57xWqZO6xJr49QIHoOCeS_=
+pmr5j3CVCkOICqoXJFtYui11Xiq3ZSwNYFi6lE8/3Hend3k53uBSb1s4gehVOEgal6_3gZ-W/25=
+" rel=3D"noopener noreferrer" title=3D"US Cargo Shipments to Cuba Surge Des=
+pite Trump=E2=80=99s Ever-Tighter Sanctions" target=3D"_blank" style=3D"fon=
+t-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-st=
+yle:solid">surge in cargo shipments</a> helping both to stave off a complet=
+e humanitarian collapse in Cuba and to create a dependency on the US in the=
+ absence of other benefactors.<br><br>The energy crisis is nonetheless forc=
+ing the island to dramatically ration power.</p><figure style=3D"margin:20p=
+x 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><td><img src=3D"=
+https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iHBL7zBGndoM/v3/pidjEfPlU1=
+QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D"580"/></td=
+></tr></table><div style=3D"display:none"><![endif]--> <img src=3D"https://=
+assets.bwbx.io/images/users/iqjWHBFdfxIU/iHBL7zBGndoM/v3/pidjEfPlU1QWZop3vf=
+GKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" style=3D"width:100%;display=
+:block;margin-bottom:4px;max-width:580px"><!--[if mso]></div><![endif]--></=
+figure><p style=3D"margin-top:24px;font-size:16px">Deputy Cuban Foreign Min=
+ister Carlos Fern=C3=A1ndez de Coss=C3=ADo told <a href=3D"https://links.me=
+ssage.bloomberg.com/a/sc/uIVtKAH2qd-6f7FIKBSAdHjAi9FfZYY2d-3HCyvFh4ZHzcDZMM=
+u-HYa0jkSH9Vk013dD2cUkUY41pOnN6XLQCbXA8Wf7HKHpcmTs0PsdSpuvyRoXmdW8l8oFkNaZE=
+7BmK2G8RNSN0ebNrysvGG8p57zAEMNur2zwT4_M3EGzsH-PmxC1sFg1edFINX0X7sQqqZ-hUdRM=
+uCdOgjtdTgLFwiNtKMvi_BrU6-5chB13_GvdYWYHzRFZNdwJgMUrmKpYiIUnEIoOaUDFManigJ5=
+f5QSSwm7-nnktlPNSF3mJrLEi77ATWs7QddHsOexlFDlp5wSTbfg_N2BqwD-Yqr4o0rg72N2RpO=
+d9nDJYoVc_1TP4rW04kOuJDbPxm_YAQDREtMZw5oEM7kA4_W2ej2yK7wDqZPdkGakQv01VtkxeK=
+F1eRV535SJ8TDu51xzxlXAxUJ40gBPU4Xc3OTpzTgXhfhyBRkZromzzJomBDSBgNtWh2-BO7xqd=
+2wdIqgtK8-nPccSpYxKaqUgq5cd6r-AZBNV4wyBKcuO3jo5lb3cM_sgkOAQ/TAsTEtE0twqxECE=
+Na9713CM--J7Fsdhj/25" rel=3D"noopener noreferrer" target=3D"_blank" style=
+=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-decora=
+tion-style:solid">Bloomberg News</a> that for the last eight months he=E2=
+=80=99s only had power at his home for two or three hours a day. Trump=E2=
+=80=99s pressure campaign =E2=80=9Chas successfully intimidated the whole w=
+orld so it doesn=E2=80=99t export fuel and other products=E2=80=9D to Cuba,=
+ he said. =E2=80=9CThat=E2=80=99s an aberration.=E2=80=9D<br><br>Running ou=
+t of fuel and frequent breakdowns in Cuba=E2=80=99s aging power plants have=
+ made the island increasingly reliant on solar.</p><p style=3D"margin-top:2=
+4px;font-size:16px">Cuba=E2=80=99s 144 solar parks now produce 1,418 megawa=
+tts of energy, or about a fifth of total national electric generation, Pres=
+ident Miguel D=C3=ADaz-Canel told <a href=3D"https://links.message.bloomber=
+g.com/s/c/5l9zYelkDh_w644hx7hv4Mcjxq2qQeQtgExdrH0JTduqoE-Gz5LuoDUeR-Hj_3wnR=
+rMDebfEoX4tg9SDAHBybcUTQQSpSntvqgffRsdwQyc_0XqqPpdCt6vOWGZrQrMDX6_zH47FtR2i=
+WpchYpZOTG4JJzsCG0_aL9h9M9p712Q-Vsd5QI6mugfttawsCXz9JdLRPRFKFBhKD5lHVeUPDVw=
+K2VDsmxKh8Br9XvPlKrbdkxr3CAv8dTrUlHEtqzki_BiWR259EIvuEuZ0fpUNjvNEAMFOSvvqho=
+oUhJN6qeX8PN8MWH9dPQ/d5ke7-1H5dQD1v8xk0m36DlhGLXB5QZH/25" rel=3D"noopener n=
+oreferrer" title=3D"Cada voz en Cuba importa - Criterio Compartido (EPISODI=
+O 01)" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decorat=
+ion-line:underline;text-decoration-style:solid">state radio</a> last month.=
+ In addition, the private sector now produces 20% of its own energy needs.<=
+/p><a href=3D"https://links.message.bloomberg.com/a/sc/yzWZ4k8mJ300VpAaibXA=
+0vfDzJegr2b185aEwK555tptpusYVfdi2ZXGqY4fW8Do0d02RU8QMpalDQ_rc40xUYlhOmSbDRy=
+M-axSe1ZpYSdPc3uW6ETTjoP2V81oo7Dexij4ltBlpnLRA2NPPl0Zvxwz0fBn20KE-RGxO-kmXO=
+-G5h1KNCWcLGJq3OL4F8vo9AmAAMPlEtBQjhMaFuwoIQTu6JLDypJo4IchLNwVTpD4SlDEdTbDE=
+dZnLN5pqNE2h6fl_hkGBrRobYXEiq3r5ZtlGrxqUMfOoaZs2cLKNAw_wtpR7jgmUB5UzvhVLxux=
+_RWgZLpo3Naun5TwioLtYj5haQBuytDjdaCwYGfrgqlnI3a58ta4IiUQ7yJ-Uy3wLlNFRxv2GIy=
+hBnBHatPXsKoJZW2P9wAz6xq46Ys5q_r-T4RWbG1xTD7p5EfwWcl4nB3nSzHnimlmys3mZdFMh_=
+K5rXQhM7rNvdaaZIt1usRq6eamqvhMn19gt1PatfmqaTlHgqqY2m4DH5EOg7KL7f2N_-3zOl15M=
+97nuLzbqtMK2Pd_NR5XVK_AEJrQKe-C/sgZ64Nb5fxbvwkW2u5Z0pGPEPp3X-B-b/25" rel=3D=
+"noopener noreferrer" title=3D"A Surge in US Solar Exports Helps Cuba Keep =
+Some of Its Lights On" target=3D"_blank" style=3D"font-size:inherit;color:#=
+00e;text-decoration-line:underline;text-decoration-style:solid;text-decorat=
+ion:none !important"><div style=3D"display:block;width:100%;height:40px;mar=
+gin:24px 0 0 0;border:1px solid;border-radius:8px;box-sizing:border-box;tex=
+t-align:center;line-height:40px;font-size:14px !important;color:#000 !impor=
+tant;text-decoration:none !important">Read more</div></a><table width=3D"au=
+to" cellpadding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"margin-to=
+p:20px"><tr><td align=3D"center" valign=3D"top" style=3D"padding:0"><a href=
+=3D"https://links.message.bloomberg.com/s/c/4O5YXZMHoweGMKjA48I6g6NoB1QITPZ=
+wMOl9g2E39zkLHgXtcuh3TJI2TlV7X-qlhiSwA-BJAFWOpDo1Ab_AciBVEDZykFGDJ7WwXGzaTx=
+P-frwFUwNcC57atlGauPoK8TgK7jl9HniMUMGDfBu9Clfzr1CI2iwFxZbqJuKh540WkXDJxPSCv=
+e2qy7tHo32lLGRk5s21d90WAYUDo8AiZ8ILpkgekXigFRtX3Q6AlP77eOVDz0o8u1u_UmAu8rXg=
+I6EcciFSck6FiKqCPEXIln2Tk4Bs1K2nHCGtFqM4p9MRR0Oa0Ro9JYZDOX0vpt1SqxqkS18gxtX=
+pC_j89Pp7ePZbIeC9PcaQqz7nsbFhzsdEMdk_RAb9HTxKvCjK-55GAzY1TvWp02jieNPnhs1cIy=
+RGYF8Cxy0IlsP4brgbRIh7ot06gbk20TbUETlkHJYjJQS9UXtSHTk40TkV/9DvXX_cYXBaIqwG2=
+jHHqVBOz8wFmJJiE/25" target=3D"_blank" style=3D"font-size:inherit;color:#00=
+e;text-decoration-line:underline;text-decoration-style:solid"><img src=3D"h=
+ttps://sli.bloomberg.com/imp?s=3D868582&amp;stpe=3Ddefault&amp;li_coord=3Dd=
+esktop&amp;collapse_width=3D550&amp;li=3D20254953&amp;m=3Dbb4a280bebb158639=
+0b9615b8886024a&amp;p=3D10072026110017&amp;lctg=3Da3e8b6e3-e359-4066-94ef-3=
+29d1b0625a6" width=3D"550" border=3D"0" style=3D"display:block;height:auto;=
+width:100%;max-width:550px" alt=3D"" class=3D"mq-lihide"></a></td></tr><tr>=
+<td align=3D"center" valign=3D"top"><!--[if !mso]><!--><div style=3D"displa=
+y:none;overflow:hidden;width:0;max-height:0;line-height:0" class=3D"mq-lish=
+ow"><table width=3D"auto" cellpadding=3D"0" cellspacing=3D"0" align=3D"cent=
+er"><tr><td align=3D"center" valign=3D"top" style=3D"padding:0 0"><a href=
+=3D"https://links.message.bloomberg.com/s/c/iJM4kJdai5WoXRVVlNKSgJnOzEoM8Uw=
+6LtNM66pt1X4BcPXkhbRhZJFW5bh6RYZZAuANdo4qcqfF_AfzlZvS9VJbzo9fqEM2Y8tC2JBtHo=
+JILVxKs12KZqHKtb4Lw5DZlFakJJwrqs0qwexjfWjcylXew-sUlIZqujtK4kDDwaNMR7b04XrfO=
+11NI6t42-aiVD5Ap4a2DummfKseL6mkzP-7ijxkBxnRD3wEW3X72ViR1xIok4Vu3DFmxTPtna_V=
+-5j_7bzyHdhxRgEW4oM1dLiDvrNctu5j4eTnbB0eDq9POjx1rAAUlFWUR1IGkkRY678JZDBT1fE=
+zKq-T7yeE4RtijHZvijv1FS_BSJiV07eS0LYUAS5uwJI9ZGR7ONOUcfpr68wdcQeeMEUwiceq-N=
+9xriYWLWtZXmlCOSPGlQYgbZWdh_Ml_3fUNh50a1zaq82JNp-p4wL4UeXt/MGQTAeYV7sdkaTy4=
+pUEyd70YOR0DJkly/25" target=3D"_blank" style=3D"font-size:inherit;color:#00=
+e;text-decoration-line:underline;text-decoration-style:solid"><img src=3D"h=
+ttps://sli.bloomberg.com/imp?s=3D868582&amp;stpe=3Ddefault&amp;li_coord=3Dm=
+obile&amp;collapse_width=3D550&amp;li=3D20254953&amp;m=3Dbb4a280bebb1586390=
+b9615b8886024a&amp;p=3D10072026110017&amp;lctg=3Da3e8b6e3-e359-4066-94ef-32=
+9d1b0625a6" width=3D"100%" border=3D"0" style=3D"display:block;height:auto"=
+ alt=3D""></a></td></tr></table></div><!--<![endif]--></td></tr></table><h3=
+ style=3D"font-size:24px;line-height:30px;font-weight:700;padding-top:12px;=
+border-top:1px solid;margin-top:40px">Trade flow</h3><div style=3D"margin-l=
+eft:8px;margin-right:8px"><p style=3D"margin:24px 0 0;text-align:center;fon=
+t-size:32px">$650 million</p><p style=3D"text-align:center;margin-top:8px">=
+The value of goods shipped to Cuba from US ports so far this year, almost h=
+alf from Port Everglades in Florida.</p></div><h3 style=3D"font-size:24px;l=
+ine-height:30px;font-weight:700;padding-top:12px;border-top:1px solid;margi=
+n-top:40px">Energy progress</h3><div style=3D"margin-top:24px;margin-left:8=
+px;margin-right:8px"><p style=3D"text-align:center;font-size:22px;margin:0"=
+>=E2=80=9CDespite the blackouts, this is an area where we=E2=80=99ve made g=
+reat strides.=E2=80=9D</p><p style=3D"text-align:center;font-weight:700;mar=
+gin:8px 0 0">President Miguel D=C3=ADaz-Canel</p><p style=3D"text-align:cen=
+ter;line-height:140%;margin:8px 0 0">Cuba=E2=80=99s leader commented on pro=
+gress being made on energy self-sufficiency to <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/Pymp8uuPM9oeYaN16a_-qVfFWhRwaOlFy9ae2PoeKae_EtZh2Wtj=
+qXfbXxR9f4WwzMQXkG5GNwAjj2KquWU0MwOAU6T6GqADtd9pyBjRWzJTciUsbgvI1WMlePkRUq7=
+uQUMOnuM1PD6EUW9K8tEoEbumVdBe3iNC4gPb9_lDEo8eFQ5qyd26UedeGDGznK1UlZ1CKhBhFj=
+PnziYaolBiKoy7Gd_mcwTvXinYWf-i5xvulbm9G5wK3bunkBEsYMDF2yFE7FY-KJ4KqfgCW4jwq=
+UV9tsRYKhAzwKnhoV5khqWt9dJ9Ds2P2g/EhBUJd00pPMENlH67F_QzNejp_vVVPNz/25" rel=
+=3D"noopener noreferrer" title=3D"Cada voz en Cuba importa - Criterio Compa=
+rtido (EPISODIO 01)" target=3D"_blank" style=3D"font-size:inherit;color:#00=
+e;text-decoration-line:underline;text-decoration-style:solid">state radio</=
+a> last month.</p></div><h3 style=3D"font-size:24px;line-height:30px;font-w=
+eight:700;padding-top:12px;border-top:1px solid;margin-top:40px">EU maps ou=
+t COP priorities</h3><p style=3D"margin-top:24px;font-size:16px">By <a href=
+=3D"https://links.message.bloomberg.com/s/c/6ZLGFJGKA2E_uTHxHz1Dq3f3TMEWrZ7=
+E_rz9DfdGGAcN7kwxLTcEXWy7S1w6X85E5SoQV_C8dcqvtCWenCIfZTOYCwiGKpaOWnp6UWisqf=
+2j2EmMftG9iSypBG06d9L8DQRvEWroycWUPyJmMWZUclw5wu77cK6s0ujZ1_Q9lWpRXumA1kl3h=
+rmGJNthZp3ExJUnFcW4WnWng2jwSTZLWxUY0Opyn4f6RKL0HzD1FrvIGqUf2KDA91oUf1yY_fwa=
+PSY5DoMaKY5vruFNB5ecI3e4JnGVZAKwVkP7oVAEQp85TxIRPW1IlGcjcCtgmHgEBduEXY7tBHS=
+D0FuD8gUTkNRPRwCGTx81a9zOWjr4zABoZ-X1RsqTvqIbAdJML_KO14SLnMR9-QQDO6JCD4Vhqt=
+1cjNjZaGfhUUqLHlV1DAejwyl_DOreQXqVozUKA7ioMSohEKCh1gG-gDbfKTTUD54gkjVh8l2MR=
+lnc00TB8JB6/2HG8MH8EfVTrwX-xPnOEf8jruBdPw_b1/25" rel=3D"noopener noreferrer=
+" title=3D"John Ainger - Reporter | Bloomberg" target=3D"_blank" style=3D"f=
+ont-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-=
+style:solid">John Ainger</a>, <a href=3D"https://links.message.bloomberg.co=
+m/s/c/cvJWByj3mBXI5JZTiQiIZY7xAeDP4CfTfmXdAv20dz5X3rXYGBcG9Vz3FkV9MDHm-Gp9k=
+aUcTuT2lBHTGNO5OxzlTvAKbupbJAEjEhkAm6DhtDxBZ3Pg436x0rCRcLkc5ZIHJ1UHyYL6c07_=
+QBJT5q1jJXs8aRDHKVkr1UVxzp4HPLAKsJYiwrm8H4yE6seLTrM2qhFWi_qEaE1I-vKgN93D1J3=
+ivYnW7V0DljXz97W6RftNB2bbyNnMOubZjEMmRqq8vMx8E4MVN-A7M51MdSmWuBOtebJbpaPZB0=
+z-EE_mdDawOhVJ_LFFQm_USaUEsBrh-xjDTK-5L_I6jVnOp9aRNf8ecfpqoRw3Q45OEFaZZ5ULa=
+DBMPmkOV2MW4oxK4bpT9tLLC5BsUwgJ0KMGWkiy04ST0SIzsHsP3-cg08G2a5-j7YFwJRGdmPDj=
+MXem0Pxw363daz1rZj0F4bQPaIUK-3h08vbxDUyqS4rO8ph8OdQ/ZUGL7porLF1Ckz0w_gF1lu-=
+QepeFTbJo/25" rel=3D"noopener noreferrer" title=3D"Ewa Krukowska | Bloomber=
+g" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-=
+line:underline;text-decoration-style:solid">Ewa Krukowska</a> and <a href=
+=3D"https://links.message.bloomberg.com/s/c/EJAfvOiR70sycA4luw1zNBQmIIpXXX_=
+mK3QWQ3KUkfC6Ed4B5hNc9wCc-KLBjydtZ6PGeBsA3M1ozcTZvJLqBek9qFmFf4-4W58tHa-LeK=
+VysxsUCgFHmaild-m83aLc0TPfDY4N-82iHbjJLk97gebNJjqHjC1W8QF40KuVIXxRRhfRBaVKq=
+z3iv-TmLVjCmC3EcAkn9esRT5K1RfMkdNfaNfhZURhKihsA_FmfJBEUSQ1CTclNB7fs829qeJ8M=
+qsDQ_Rzz1V50uV3CoJCTdK1Daa9NoOCn9zT1sRFBhUrROW9xlj6bM1w0djn2mnLEkGbGstgPz9t=
+2pqejlB_gMTKO58eZRUxS7OD7MKLxHjtY820TizxYaoh3-crrekjJ0eMeBhVrFCcQxD7bQLU3oq=
+ASZ-u2cBLzOs7VyRRGgtu75LkJxwMNiDYV4XiEOOiJl2ob-4f9r6poN516Ld9nSwI3ywLvi7Boz=
+66l0vBuw9bcaymY_KSwVZVemA/4wHUSpdQMpK_-0Rh0p6ZmqqVvtT9fJT1/25" rel=3D"noope=
+ner noreferrer" title=3D"Frances Schwartzkopff | Bloomberg" target=3D"_blan=
+k" style=3D"font-size:inherit;color:#00e;text-decoration-line:underline;tex=
+t-decoration-style:solid">Frances Schwartzkopff</a><br><br>The European Uni=
+on will push for a so-called =E2=80=9Cmitigation package=E2=80=9D at the CO=
+P31 climate summit next month after a recent United Nations report said the=
+ world would breach the key 1.5C temperature goal laid out by the Paris Agr=
+eement.</p><p style=3D"margin-top:24px;font-size:16px">The EU has struggled=
+ over the past couple of years to get the world to agree on a faster pace o=
+f emissions cuts, or implement a commitment made in 2023 to transition away=
+ from fossil fuels. Instead the bloc has become bogged down in issues of fi=
+nance and trade, and has lost a key ally in the US after President Donald T=
+rump pulled out of the Paris Agreement.</p><figure style=3D"margin:20px 0;m=
+ax-width:580px"><!--[if mso]><table width=3D"580"><tr><td><img src=3D"https=
+://assets.bwbx.io/images/users/iqjWHBFdfxIU/iiL0JIAK9A2M/v1/-1x-1.jpg" alt=
+=3D"COP31 signage near the Antalya Expo venue in Antalya, Turkey on Sept. 3=
+0. " width=3D"580"/></td></tr></table><div style=3D"display:none"><![endif]=
+--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iiL0JIAK9A=
+2M/v1/-1x-1.jpg" alt=3D"COP31 signage near the Antalya Expo venue in Antaly=
+a, Turkey on Sept. 30. " style=3D"width:100%;display:block;margin-bottom:4p=
+x;max-width:580px"><!--[if mso]></div><![endif]--><figcaption><div style=3D=
+"font-size:14px;line-height:1.4">COP31 signage near the Antalya Expo venue =
+in Antalya, Turkey on Sept. 30.</div></figcaption><div style=3D"font-size:1=
+4px;line-height:1.4;font-style:italic">Photographer: Goksel Yapar/AFP/Getty=
+ Images</div></figure><p style=3D"margin-top:24px;font-size:16px">At Novemb=
+er=E2=80=99s COP31 summit in Antalya, Turkey, the EU will double down on it=
+s push to cut emissions globally. Negotiators want to prolong a key =E2=80=
+=9CMitigation Work Programme=E2=80=9D negotiating track =E2=80=94 a forum f=
+or discussing how to best cut emissions =E2=80=94 until at least 2040, and =
+lay the groundwork for the key Global Stocktake in 2028, according to a dra=
+ft document seen by Bloomberg.<br><br>The former=E2=80=99s mandate runs unt=
+il COP31, and the latter is set to track progress that=E2=80=99s been made =
+and outline further steps needed to curb temperature rises this century.<br=
+><br>At the same time, =E2=80=9Cthere is no scope=E2=80=9D for new climate =
+finance commitments at COP31 and the focus should remain on implementing ex=
+isting decisions, the EU document says.<br><br>This year=E2=80=99s summit i=
+sn=E2=80=99t expected to deliver a single major outcome. Instead of an over=
+arching political agreement, the EU will focus on a small number of =E2=80=
+=9Ctangible priorities,=E2=80=9D according to the document.<br><br>Turkey, =
+the president of COP31, has announced its ambition to boost global electrif=
+ication of final energy consumption to 35% by 2035. The EU will weigh wheth=
+er such a goal is sufficient, or should be predicated on making sure electr=
+icity should come from clean sources, the draft document said.<br><br>Separ=
+ately, BBVA SA has warned that <a href=3D"https://links.message.bloomberg.c=
+om/a/sc/ZXudOvhvvY9shNVUbJG2WA4UmiVIUTCtvMH5wZLuhclb87wuSMZ74TteD3oS-xzRgy-=
+kFoVswr1O1p0Bxy4zhX7YgDc-5_5R3C4fGCkLwcxBbLYozrY6DxnF-YNCL868tnlt_Ns4O7psul=
+wkCBdwbJl3Uv5JFDpeEEcuzPW0-fUGOgxlB0voIyYa1pwRAG16LcrMjYaW2V0VKlAzs-O3421JI=
+HfdkuLlb0gOkgigbbd-RdAAv7BkDQYBS9O-C4wE0gonU4lCpNSW8oUZ_FhOhH8cj7r7McUxZ_7k=
+Wc1tPRT24dyOlxVfcPpVCtoFL5ypwZCs6-f0qO32JpQhwGrYljFdgVJ2m8a-7xM_U1Tr-k6_msu=
+o34KBMLf_SHCyPKtZ1wN02nl-y_JdLdalLzh08_w4VfbvsWYSx3c1gSYxzFPKllEF-Xh3DgpUEm=
+aF4hNVadvPYKjPVUnJotGOIJnhM6eBZa5cI0x48vqpudHjAuHoFKhi1pu8iKwlwIKxDbnR9NLiN=
+fdTwsrL3ccQJHZuNS_lev3fIvyaX1gHqp8LwmWg-5kZPgx6Mw/-REFZmVFfgavanUskYuntH-wi=
+PSC48_F/25" rel=3D"noopener noreferrer" title=3D"BBVA Warns of Financial Hu=
+rdles Ahead of Turkey Climate Talks" target=3D"_blank" style=3D"font-size:i=
+nherit;color:#00e;text-decoration-line:underline;text-decoration-style:soli=
+d">bankers heading to COP31 face difficult talks</a> over how to scale gree=
+n projects in ways that appeal to a larger group of investors.</p><p style=
+=3D"margin-top:24px;font-size:16px">=E2=80=9CWe need to mobilize capital at=
+ a much greater scale,=E2=80=9D Javier Rodr=C3=ADguez Soler, global head of=
+ sustainability and corporate and investment banking at BBVA, said by email=
+. =E2=80=9CThe challenge is not simply finding capital; it is creating enou=
+gh bankable, scalable and replicable opportunities for that capital to inve=
+st in.=E2=80=9D</p><p style=3D"margin-top:24px;font-size:16px">Rodr=C3=ADgu=
+ez Soler is also co-chair of the COP31 Climate Finance and Investments Work=
+ing Group, which operates alongside the talks in Turkey to offer recommenda=
+tions to the summit=E2=80=99s presidency.</p><p style=3D"margin-top:24px;fo=
+nt-size:16px">=E2=80=9CWe are increasingly seeing sustainability driven not=
+ only by climate objectives, but by competitiveness, energy security, resil=
+ience, technology and supply-chain security,=E2=80=9D he said. =E2=80=9CThe=
+se are structural economic trends.=E2=80=9D</p><a href=3D"https://links.mes=
+sage.bloomberg.com/a/sc/BRw1j1_-EoPYO-5dadrbr6tp5gSSY_49j6hvonLTnN1cSN-t_23=
+tmCh8uQkbezFlmvtGEsUpGJt7--zlxnYM-utiIrY0QWgy1rSPq0JbBqfjpBawAwTx_4qAYUza-0=
+vUJMQM12psT2lbMdzgMw4g2wWugqJ2URowHP6IZv8QN9bWr5tiXUgKflrYfMzeWpwSqHRx1TfIw=
+UUrU4yW4vDWK2RxYNo7p90yJr0OlsRx5w5SPU04r4ePvE16UbjMq6L6XI6e2tIVtdmuBOYf0Iqw=
+SfSYJ2325rjaCEg5cA0h1i_62OIAnBb7cQy41Nbvspb_WNBhyujallqpg9ZeLiV8hPtgYYHoqV7=
+P27rZrUorYvB90REFPjVNgHyqC6V2zf2aGWCQAvkFU3bCxxwonO70d9kmgSsB6jxD-ccFTFRAYt=
+0zcqLpe4rTkV-Pd5WfpJN4XItfgXkWnSkNr7odCsNVJA7JDTK_jx80d6njz3VbxbpvuWNgCKPih=
+fxxIgSR6adUwx0eA1s_8xH4B008hh3QSgiiIsNPWIFnbSilIsRCQFAYUs4ZaqvkJpFeMA/4kE7e=
+yv5B8EWsXL-GkbSN4HyYK3zm02Q/25" rel=3D"noopener noreferrer" title=3D"EU to =
+Push Global Emission-Cutting Ambitions at COP31 Summit" target=3D"_blank" s=
+tyle=3D"font-size:inherit;color:#00e;text-decoration-line:underline;text-de=
+coration-style:solid;text-decoration:none !important"><div style=3D"display=
+:block;width:100%;height:40px;margin:24px 0 0 0;border:1px solid;border-rad=
+ius:8px;box-sizing:border-box;text-align:center;line-height:40px;font-size:=
+14px !important;color:#000 !important;text-decoration:none !important">Read=
+ more</div></a><h3 style=3D"font-size:24px;line-height:30px;font-weight:700=
+;padding-top:12px;border-top:1px solid;margin-top:40px">A $561 billion resi=
+lience market</h3><p style=3D"margin-top:24px;font-size:16px">By <a href=3D=
+"https://links.message.bloomberg.com/s/c/i_ZuxWblXWwlLcX5efMZERAc5Tl7c-G3C8=
+CfEBFLkklFre8P64XLIzEjfFkCIJxyVIMJMnqt8y30uQ_rIXGYEyHM-0_32oaw3ewRFtYAsmYji=
+ISY55ZVz328QPNFgkaTurqNxBWqm1HzTustMGYE3r7k8Elqik4I_de03ajiZdu9kHiNhVuP12nP=
+uVGVOOC2OZrhqO4Z-LkqPBG58POf8btbT29JGC7Q_ykgUWPRSvnc6FvF0HeiwepavzOU9ONue9K=
+eIX3LNpTABFYsMLa8mcEuEUz7YLmYGb5WHSyCYi6d2iRF5DfaWp4Kq1wnp7JKRKntkpOZjmTfeN=
+52zzrJaUOvkZv9yWuvAkaxgkPKMbI2MI66Arx937YwlmhCzD_BIxUaKgZLr9Bdo3yEPYw0-QxcP=
+MajOE9lCz-stlB5l4Qbbli_XDaueE9rSQnp-CZmVhCWgngQz5hrxgGnQyNvp-tSj3GHUTx1TgTb=
+AkASVNk19g/GqQ3OISn3XDr2PVh-LsG3I6fV8I9Bvf9/25" rel=3D"noopener noreferrer"=
+ title=3D"Sofia Gerace | Bloomberg" target=3D"_blank" style=3D"font-size:in=
+herit;color:#00e;text-decoration-line:underline;text-decoration-style:solid=
+">Sofia Gerace</a> and <a href=3D"https://links.message.bloomberg.com/s/c/V=
+uaObYilmUMTAJv9HNrsGiveYVGieEBykzZNJbrUp6NUPt-eC2fv19zxPbyrWWzp4DhTdwJ4iQX4=
+SGqNCKq4m-fYboOgJIsMW5Xo--HHH_4yzIbSrm1_dbZDRrJUkF32H7RqzkjaPJniMFv6ybn5xOh=
+RgwXL90XKOrLhEj3PqoVgIgtCbHWc4qAZ9vJghYmXZaUOUMZCh0oQrk8uQsK81AMI1SHqXAwKhM=
+ZtkDHmlG9HB4L6MUQQzDyF6P0mBSHY0rkIP9QD_PpimhlMpY7EFlXTC6caBAcwgAC_PDgOl8XoB=
+SlCkcn0EtI07HK1UynlhnzSctwbZiKM2kmsIdAmY_q0AvQQQD9EPHlotL8zKIctdyGW3RU8UvAs=
+_g__BtCqWuDmTv08ENWzCeRbseXEdG-3VmKGL4awN20o-1ANlOa5KMfG17QtOq2QP-M958xMXz3=
+uy9G9JkrvBibWpjrMj38zk-HXxUUzlxTt0VMtQLo5/-BCM7k3HnSz0d2NEwNuF0u6Um_9ypqCa/=
+25" rel=3D"noopener noreferrer" title=3D"Chloe Meley | Bloomberg" target=3D=
+"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underli=
+ne;text-decoration-style:solid">Chloe Meley</a></p><p style=3D"margin-top:2=
+4px;font-size:16px">Europe=E2=80=99s worsening heat waves, wildfires and fl=
+oods are prompting governments to increase spending on climate-resilient in=
+frastructure, opening a lucrative new market for industrial companies.</p><=
+p style=3D"margin-top:24px;font-size:16px">Industrial equipment makers incl=
+uding <a href=3D"https://links.message.bloomberg.com/a/sc/JkThVNMa_1WT1hVU5=
+zu2niz7aXkUEcCwFxakzRe-Q5m_OEWOlYZCyjNq7KaQBh86_R4Wks-mjWn2_zfaAb4x4YttJgle=
+VcRptIJepv8LHOTR1RTvidmCN-qaN5VLx7_2C5WWID4_2kHURVMsqYYX4DK3j9wnXjFgwwe_Dad=
+Uj-OCv_pK7gLSgu6aBq5lzbImt3cV-nrdwoVaapv00tHq6XVA-tMlK05ecPWLXPE3zB4cg3wOKC=
+w8cRYaK9KcbWbPeyZO-zyelvv9RWRPe1vUUm9Xwm5mK535jWsWMEMozlIJ3dU0ppnmaJr4d0wSW=
+OPNNdFqtvJgq0NHlaEvukmycT9INpsicWUaSsz9nSS_w0jYbAB4Osn2L8v9N2enpSgWk6ZBdDKN=
+qH_5gddjFJwZ6meii4yuuQXafpYvcMBzOTrc7oXbU5tS3JqiQt9m0rb6otEAmq4rEcEAYbnGcw/=
+sHE8zYjI9xq2AeijUnO78IpT3fRMj4Nd/25" rel=3D"noopener noreferrer" title=3D"S=
+chneider Electric SE" target=3D"_blank" style=3D"font-size:inherit;color:#0=
+0e;text-decoration-line:underline;text-decoration-style:solid">Schneider El=
+ectric SE</a>, <a href=3D"https://links.message.bloomberg.com/a/sc/zirWRKEQ=
+UNKd7U8TzUMwzOVWQHiB6bAsCye1dyE48mMx8M4MSB5goOqoft811KwGrUvq1SjYAfXqvgBaiot=
+CtqTQRkXxy9Y55T1zzwvnnQuvR-3FVsclptbghKQfdxRLcRV0-Gg4SgIdOyofnWzgvJaURs8lQC=
+C5ErUxNSt74eEPhFEX8fGynFqjfygSEZpiKOP0K3d-7iOuf1ldfHq6nG15gVIYCuFUvUXoCfT0l=
+Kcu-MVxpLcpggOS_qCypf3ZjEOcoigONhXmmHGDht4sSiaR05MfNN6jscL_gSV-Y_8JXoA2Zz8_=
+NCUonMmcItenVj1h_Fq7unC26GrJF8BHGKodMPu-kQ-y2q6YZoCJZtgpxXJ2CoJKBveKY4YE42N=
+X3OEypx_rZdzN08nDdHBSvS2ztqVoOsJZkdHefq6Lx--bHlMX_J_Ns9k0dMUUR4YbC1zfvxcqxV=
+Awgdlbrjc/5t8GnDTmdPmleKI36e9JFdyQ3ouuEU7p/25" rel=3D"noopener noreferrer" =
+title=3D"ABB Ltd" target=3D"_blank" style=3D"font-size:inherit;color:#00e;t=
+ext-decoration-line:underline;text-decoration-style:solid">ABB Ltd.</a>, an=
+d <a href=3D"https://links.message.bloomberg.com/a/sc/oLYU2AwbxK-hKRfurRzMH=
+nuiViOy1RknbcLTCt6DePI6Jrcgr2w_-tVLlMohlIYNJLil0MziSzzGgLhvu9solNZaPWhplNbB=
+RvU7w1yDRgG7cUdgPPHPx_ZmKqgOtRH6XLal2E8WUgWdrq3UtmOYDtMDkPkihuDXTYIj-GvD7Lb=
+L6JknMwRPlPaVMcY1Oy_Wf1SKjBTmAlqAbkFIdzSGNrlXxJeRZAYWdsOZ2GSj3P-8AuTXuK5oHI=
+ZVvMos5587EksbElYo2gbKb1kWMJLE4n63ia9DH-FokgW-9QAhppa_xCuPP_knytIjrKhKIi8sX=
+VG2lHGsS2te9PmYa73gOOz8opj62Si6sJOhgUzkOE7Ddd3lRhGrNmnk8bTjdNdtgB1zOhGS_Bt8=
+4Ku64mpSt0cgucBHSvWPuHLvCtnWgm43A1XeqX2GW3lH5DbymzDnGhYOq8eei6LooTRAq8c/oR0=
+KbgLhpbIdmsTdKHJk-8wc7K04TnUs/25" rel=3D"noopener noreferrer" title=3D"Siem=
+ens AG" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decora=
+tion-line:underline;text-decoration-style:solid">Siemens AG</a> stand to be=
+nefit from a rush to harden buildings and grids against increasingly extrem=
+e weather. EU and UK government investment specifically to make infrastruct=
+ure more resilient is expected to total about =E2=82=AC500 billion ($561 bi=
+llion) over the next decade, according to <a href=3D"https://links.message.=
+bloomberg.com/s/c/5BWWV65BufaGPZzSVJLkydOaTjbzFNrFuucKCASZ2QdYk3GbWZUH1NBwy=
+cLqtZbtIFCuXyuUl8oRlf19tY5f08fA4q7SMVxiX9iUqHp6oFWSSWYY3fXsSVAYjKN84STyGDjl=
+WYfCJxWZJ-Wc1BgL5ohzjdO3oJuNOdNTs3VApYZ1NbrGo0KmGmYdCtfa55ytS0gIK-V6O5PZlke=
+U1yMR-SbiZvdD1V9bbI2X7FYXgREKUGSsWFB3xNqSiKga_sZP0yWKi_OB_FNSx84YfdT_mbrWPm=
+kIeNcnZRnlnKH8uCd7x_YIEJ1Pai6t0v4mvHmPBlpFn763VrvqJQupZk7H-TZDOmQQF8ovFr6Rs=
+NIi3WoXFnVSEcYgACXQYOAcUrNkKzJmogk8ZYtQX_vFaUjjchMnUsceDCw3tptqwzYOxNnMc6zf=
+MPmngwjO2K3oiHogKRkTMOoKMdaE_fq_wVB1DKnJyRpqg92AHOp6vQ/6obj81tu3THcnY6FlC3l=
+2KL-DRwlLbFI/25" rel=3D"noopener noreferrer" title=3D"Search" target=3D"_bl=
+ank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underline;t=
+ext-decoration-style:solid">Bloomberg Intelligence</a>.</p><figure style=3D=
+"margin:20px 0;max-width:580px"><!--[if mso]><table width=3D"580"><tr><td><=
+img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iEwUh1FbJ7t0/v3=
+/pidjEfPlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" width=3D=
+"580"/></td></tr></table><div style=3D"display:none"><![endif]--> <img src=
+=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iEwUh1FbJ7t0/v3/pidjEf=
+PlU1QWZop3vfGKsrX.ke8XuWirGYh1PKgEw44kE/-1x-1.png" alt=3D"" style=3D"width:=
+100%;display:block;margin-bottom:4px;max-width:580px"><!--[if mso]></div><!=
+[endif]--></figure><p style=3D"margin-top:24px;font-size:16px">Demand for c=
+ooling, electrical and grid equipment has been driven by data-center constr=
+uction in recent years. Climate adaptation is set to provide another growth=
+ driver, with investment targeting many of the same technologies used in da=
+ta centers, including electrical resilience, grid reinforcement and systems=
+ to automate building energy use.</p><p style=3D"margin-top:24px;font-size:=
+16px">=E2=80=9CIndustrials have done phenomenally well from AI-related dema=
+nd, and there are murmurings about whether that demand is slightly temperin=
+g out,=E2=80=9D BI analyst Grace Osborne said in an interview. =E2=80=9CCli=
+mate adaptation adds a layer of demand.=E2=80=9D</p><a href=3D"https://link=
+s.message.bloomberg.com/a/sc/6C1dbfd6qKbTGyBKZvUQ7T4if9nFesK2laBsKUSitoNCkD=
+8nmOC2tVzKSgDnAuaOoewqt_kqg55NGg9n9a2Jilw8BDF2BG4W_8JTraeoSOvNx80-R7j13kySm=
+EXEbkD2XZxLbuYCYKpWC0noli48xFYYYrEvub8grb2Lz7g29xX9TgLvSnoO9lYC-aJ8G5oNfwCo=
+dBTSFAFrr1CTrH92N7lrOPoDeEIUHfpLgY6AkqXL-Fd55smw6E0-Lxj9jT6Qytg_o5V5qTBkk3M=
+fxB3E5uNL0sPOgcB5m246JwgM82uRmn4eXNs2lLHT9sLR_cVwD8CfXuEnjjak4uY7t2t7s6ekeH=
+M4m9sS9Kv2W0YmN4uH-BvRakjJG78XNbvFmh_H3x5BJJndncSPDjMBu6rRd1cetsFgMe8OXRD2d=
+GUc4wmmnp684VJ47E0bw-CLdAi1yA2LpGbbLgknXt2kJkvMuL_eAKVFnT1N6aWN3c0qGSazKLnh=
+Ex3fTJ7Qfz30vrUjka_Mf4mYW8xlnB9oXlDggagvWe4_5PbHonQlIUqsEFmYdHV90HxM/1o7sFy=
+UaMaMr0bUeGjbkwG-Pp911ZjvZ/25" rel=3D"noopener noreferrer" title=3D"Floods,=
+ Storms Create =E2=82=AC500 Billion Opportunity for Industrials" target=3D"=
+_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:underlin=
+e;text-decoration-style:solid;text-decoration:none !important"><div style=
+=3D"display:block;width:100%;height:40px;margin:24px 0 0 0;border:1px solid=
+;border-radius:8px;box-sizing:border-box;text-align:center;line-height:40px=
+;font-size:14px !important;color:#000 !important;text-decoration:none !impo=
+rtant">Read more</div></a><h3 style=3D"font-size:24px;line-height:30px;font=
+-weight:700;padding-top:12px;border-top:1px solid;margin-top:40px">More fro=
+m Green</h3><div style=3D"max-width:580px;margin-top:24px"><a href=3D"https=
+://links.message.bloomberg.com/a/sc/_T11VFHsElMqLfIKN6aINX27CbQSqWiIA5i98Uc=
+Ypq7DA7mXOFsaDUYVcUfOsZA5NFqV2V2RzO6C-Ey6Ne3RIPuXbQwBoby_yTrWAGN3TOd64Alg2A=
+0dFlFXLBxGlgf6xJ4K63bnSv4H8eF9ATf-FuHgsTxLZqX0lMj7BBFu1wYQL686xTbUjV42OxcRK=
+iPF5pbkGe0de5pQQFlyO1Qqm_XiRW5sq3y_8DBXJFgRQm8AS9FXb6z98Jr7fwpmOUaKhaxGiDAV=
+Qh2YRpK9GHMMI7uWd1Xkvxhsdojxt-mVXMgfZ8ig7bdm9gNElTXg2cVdByodys-_LO_ujcKNtNx=
+OZJ68KNuGPAsPpPhQFmfjGfX4HyY-ZsPfpsUKCCFDgROAQeOLNuV23UxGroKNxGV1oJIsD7aO1U=
+oYdZ_ffA40C5kjTtTleaYRwvcVtaU6_i-t_ULPoMYTy2H3TFsL1zXZQ-yShOhNB9bGebnrW2z3N=
+EkmD6Gy9WfqMe770pxV6gmjCvyrrazd58fo-Bh2NCMMTKrh_WaRMCviZH3_8L6o5h3xSj4LsjWt=
+s64-A9kqPw/kvt1NeFBfSgXhxCVJg-2xUfwDT71_9fW/25" target=3D"_blank" style=3D"=
+text-decoration-line:underline;text-decoration-style:solid;font-size:inheri=
+t;color:inherit;text-decoration:none"><div><!--[if mso]><table width=3D"580=
+"><tr><td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iQYS=
+5iCulziA/v1/-1x-1.jpg" alt=3D"Image associated with story &quot;Rising Wate=
+r Bills Have Added to the Squeeze on American Households&quot;" width=3D"58=
+0"/></td></tr></table><div style=3D"display:none"><![endif]--> <img src=3D"=
+https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iQYS5iCulziA/v1/-1x-1.jpg"=
+ alt=3D"Image associated with story &quot;Rising Water Bills Have Added to =
+the Squeeze on American Households&quot;" style=3D"width:100%;max-width:580=
+px;display:block"><!--[if mso]></div><![endif]--></div><p style=3D"line-hei=
+ght:normal;margin:12px 0 0 0;color:inherit;text-decoration:none;font-size:1=
+4px !important">Green</p><h2 style=3D"line-height:normal;font-weight:700;ma=
+rgin:12px 0 0 0;font-size:20px !important">Rising Water Bills Have Added to=
+ the Squeeze on American Households</h2><p style=3D"line-height:1.4;margin:=
+12px 0 0 0;color:inherit;text-decoration:none;font-size:16px !important">Wa=
+ter costs increased by 62% over the past decade, outpacing overall inflatio=
+n and grocery prices, according to new research by Food &amp; Water Watch.<=
+/p><div style=3D"display:block;width:100%;height:40px;text-align:center;lin=
+e-height:40px;border:1px solid;border-radius:8px;box-sizing:border-box;marg=
+in:16px 0 0 0;font-size:14px !important">Read more</div></a></div><div styl=
+e=3D"max-width:580px;margin-top:24px;margin-bottom:16px"><div style=3D"padd=
+ing:16px 0;border-bottom:1px solid #ccc;padding-top:0"><a href=3D"https://l=
+inks.message.bloomberg.com/a/sc/TrE8PDsJ_kcTo-9KquFH47QdsjV269elKdbvy3AMeJf=
+WI5rzKyFJw4je6K_OkcVbmWrKj1xq-2RL59BxYJis1Vw0PwjmayEdFs9YFo6bxmuRrDfsjQTpDG=
+5Cj4KvqX1K0ddp0GzHMkf_N_lxQJPIa4cXSAkefmhOY6i7hhqgeoDV6oQE8chh6osTBhBUFETAd=
+ZBnuhk2h0WrX4Q3np42YqvAZENHTk6hhc9YGnJlJWCYoC1M0FeBpy9A5jeqY4k4Q87hhF5n2anu=
+OdvS9lRAghN0WXgfe9m5X0T8TOL7gk0XrJx85oNAOk-WZe1VEylLKvBvg6WE8N-KGpXHklMBb0H=
+aXYrmyEKjxgxP7FhOkNI7urzC8ZbtgVXZjXEA-tg9N7D6iwYD_iuLkcvuC_0I3hEK1T42tCc5qK=
+Ki-3inUcVnjAwXTOfYF0EztZKXsWqn3eQe_wHDnwS0u1GKlNxxN4ufL-JKDb4wV2YlzjH_lV2W-=
+mXQtD4fUYViMZX9voE50aZl4PHzUDpc57z-tVl-sG-uVIW0uvcToZRo4rz7kvz31rEje5aoNF0/=
+G1MoQBPfMr_N_LOg-RJCjEg0IN-iWJRJ/25" target=3D"_blank" style=3D"text-decora=
+tion-line:underline;text-decoration-style:solid;font-size:inherit;color:inh=
+erit;text-decoration:none"><div style=3D"overflow:hidden"><div style=3D"flo=
+at:right;margin-left:12px"><!--[if mso]><table width=3D"203"><tr><td><img s=
+rc=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iVnw1.r7HFqA/v0/-1x-=
+1.jpg" alt=3D"Image associated with story &quot;Australia Climate Ruling to=
+ Test $49 Billion Coal Export Sector&quot;" width=3D"203" height=3D"136"/><=
+/td></tr></table><div style=3D"display:none"><![endif]--> <img src=3D"https=
+://assets.bwbx.io/images/users/iqjWHBFdfxIU/iVnw1.r7HFqA/v0/-1x-1.jpg" alt=
+=3D"Image associated with story &quot;Australia Climate Ruling to Test $49 =
+Billion Coal Export Sector&quot;" style=3D"width:131px;height:88px;aspect-r=
+atio:131/88;display:block" width=3D"131" height=3D"88"><!--[if mso]></div><=
+![endif]--></div><p style=3D"line-height:normal;font-weight:700;margin:0;co=
+lor:inherit;text-decoration:none;font-size:18px !important">Australia Clima=
+te Ruling to Test $49 Billion Coal Export Sector</p><p style=3D"line-height=
+:1.4;margin:0;margin-top:8px;color:inherit;text-decoration:none;font-size:1=
+6px !important">Australia=E2=80=99s highest court ruled planning authoritie=
+s weighing coal mine projects should consider climate change impacts trigge=
+red by the use of the fuel, potentially adding challenges for an export sec=
+tor that generates A$70 billion ($49 billion).</p></div></a></div><div styl=
+e=3D"padding:16px 0;border-bottom:1px solid #ccc"><a href=3D"https://links.=
+message.bloomberg.com/a/sc/g8gGuvxaf6fw7cKyMJIs5yR47VZ2dGogqJpGxs3PyxZ82AQJ=
+lC1_Tpv4k5iJf_XSxuKmvQ1oATbsBGiS8Usq_tXf3Ozm6TPR8lmIkPP6Yf_Z3q97oYEVn3lXty6=
+kVLJQPd0WutHl7yO57RZEq03RAsBAxLmu4v09jKYyiV3wJjZeCOWHztWso6mpZqiFRDL9Cirs_z=
+M3Jhfoh8JvFg67bZHIXZ_Cp8UZH4iyTQLqZWAvm85HlynJwIofkyKyjLQREEHGMQsyVPKWVKg8q=
+wP15hKz2SXqTuIRFZ4_Vxj-TxDbqo8X4_KhNJY7SURRmbi1nlGhN7MM9JEcnigvsyWPIAnJpPIS=
+yXAWcdcattbQ0qNkFz6tf57BadEth8sY3YHgK97W9TAR1oz9n1ZUYlR1pGNCMYrXxxEaMx7Itmn=
+bb0sreiP5w8ctlDJfvnsa8OGkbsE2IFfiC9wkhlDPhkqXVTZF-HZw9kF5Cs-SiD1C6AXyeSsVxB=
+eRVIDKtQhWenUbdU_u7fVv6zKVYUVpAGUfJzbp9FlTxLmGSjHpmBaZjPxRCcr-ag/nW8fc5xZ81=
+HFvkEgm1hFVRIRu5oTO5k5/25" target=3D"_blank" style=3D"text-decoration-line:=
+underline;text-decoration-style:solid;font-size:inherit;color:inherit;text-=
+decoration:none"><div style=3D"overflow:hidden"><div style=3D"float:right;m=
+argin-left:12px"><!--[if mso]><table width=3D"203"><tr><td><img src=3D"http=
+s://assets.bwbx.io/images/users/iqjWHBFdfxIU/imwdWTPcWd0o/v1/-1x-1.jpg" alt=
+=3D"Image associated with story &quot;EU Wants to Track Potential Rogue Eff=
+orts to Block Out Sun&quot;" width=3D"203" height=3D"136"/></td></tr></tabl=
+e><div style=3D"display:none"><![endif]--> <img src=3D"https://assets.bwbx.=
+io/images/users/iqjWHBFdfxIU/imwdWTPcWd0o/v1/-1x-1.jpg" alt=3D"Image associ=
+ated with story &quot;EU Wants to Track Potential Rogue Efforts to Block Ou=
+t Sun&quot;" style=3D"width:131px;height:88px;aspect-ratio:131/88;display:b=
+lock" width=3D"131" height=3D"88"><!--[if mso]></div><![endif]--></div><p s=
+tyle=3D"line-height:normal;font-weight:700;margin:0;color:inherit;text-deco=
+ration:none;font-size:18px !important">EU Wants to Track Potential Rogue Ef=
+forts to Block Out Sun</p><p style=3D"line-height:1.4;margin:0;margin-top:8=
+px;color:inherit;text-decoration:none;font-size:16px !important">The Europe=
+an Union has launched a =E2=82=AC35 million ($39.4 million) tender to fund =
+research and coordination on, among other things, detecting rogue efforts t=
+o alter the earth=E2=80=99s atmosphere by blocking out the sun.</p></div></=
+a></div><div style=3D"padding:16px 0;border-bottom:1px solid #ccc"><a href=
+=3D"https://links.message.bloomberg.com/a/sc/l3RyIZFYNx9XmjoyPOzwXgZ5A02uVv=
+q9m0FOPvV1IZo5Bx0b4Ao0NJirrrnFgc3gMIMLvhjbhW-3I9X7tsu_wxscPLCQD798ghH8FOwiE=
+9Eu9wJ7RHbzRXTS-YyZvov-nvPN3UHMND6LlfgnraiTtbJg_pqgvxtWIdSVtToBotpISvFY17xO=
+J8ELZfSNLOUjwkhMJA_YvubFVp1W5381clXLULTLnmeywJrRwWCgK1dXBFUaVzy9w7PouQCptQ1=
+vDsIZKlj-6mVhsp9AwqGborOSuZqbm5o4Ciq-kpRMPccxZ_jFTaUWKDurs4-oVFW7D8QCu8O6oZ=
+b5w12OgWkxfjRS7y13uZAthlgwg_aDQzXHwpMAjozRX51kO0Xt56qiPHGORt4aiO9r7C0dKLHis=
+qflgFRhZRujGEcsQdV0Mu_sGNP9gyGq_reLiPazCqESaqJwicVWIxBIclYBrxfceKUZGFp1N-rw=
+RAk4KZV1ovXBjFyScjZRkOTvyU1JyPYhSRHC0rEhaXyxB2siZoxSrX41zBvojNlTL2eGI78DHPD=
+p9tp2z1uKZsm6sJ9zsg/cB1vW-i1Vt8C_TAdquy_iPAz2I_fM7dm/25" target=3D"_blank" =
+style=3D"text-decoration-line:underline;text-decoration-style:solid;font-si=
+ze:inherit;color:inherit;text-decoration:none"><div style=3D"overflow:hidde=
+n"><div style=3D"float:right;margin-left:12px"><!--[if mso]><table width=3D=
+"203"><tr><td><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/=
+iQqUSvPtpM4o/v0/-1x-1.jpg" alt=3D"Image associated with story &quot;Wildfir=
+e Haze Shuts Malaysia Schools and Looms Over Singapore F1&quot;" width=3D"2=
+03" height=3D"136"/></td></tr></table><div style=3D"display:none"><![endif]=
+--> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iQqUSvPtpM=
+4o/v0/-1x-1.jpg" alt=3D"Image associated with story &quot;Wildfire Haze Shu=
+ts Malaysia Schools and Looms Over Singapore F1&quot;" style=3D"width:131px=
+;height:88px;aspect-ratio:131/88;display:block" width=3D"131" height=3D"88"=
+><!--[if mso]></div><![endif]--></div><p style=3D"line-height:normal;font-w=
+eight:700;margin:0;color:inherit;text-decoration:none;font-size:18px !impor=
+tant">Wildfire Haze Shuts Malaysia Schools and Looms Over Singapore F1</p><=
+p style=3D"line-height:1.4;margin:0;margin-top:8px;color:inherit;text-decor=
+ation:none;font-size:16px !important">Worsening air pollution driven by wil=
+dfires in Indonesia prompted Malaysia to temporarily shut schools in one of=
+ its most populated states, just as a major Formula One race in neighboring=
+ Singapore approaches.</p></div></a></div><div style=3D"padding:16px 0;padd=
+ing-bottom:0 !important;border-bottom:none !important"><a href=3D"https://l=
+inks.message.bloomberg.com/a/sc/_enU35Z_X14wgavq0XU7k7FwPX_84ca7Ox7Gd_iTnbu=
+WcExodhTFZOG9nB6WytSgpVJwWAPv_so0HjiY221puIxJA0nfDssKAym9Vhs0fEzjQFn5To5iZ9=
+CgazBax8OGS5xgUU-LRQiFUO0M72w5pzSBOWAzm1X39d3CYC6lx2GBjYn36wyRIqIWx0nGVauRg=
+ySKUi0nRx0tzFIivxU7MaIenmZXMWK9ztiM7vE8MTB2cImwXLReeC-C3OoKBg60kgVv3ol-vHvs=
+_B8cp4JsPr3vp6L7YIr7q-PIYyApwZL6PJ0U6gPGMDee3f1wI_smFroLNJmRzwlM_Phgovq3IpW=
+SOwV3rfvs_FHTtkNHlDG0sIYmQLwe0U_nBDkD8ZRVWcICBljJWu8hxgCrK0D5YHAVuRb6YNDarc=
+6Qo0vIAmpoZcYi83SGLjhfqyOXbr9oNo2pB2qn9anSYec7ZDBjsP0bakwZL2SAIv1SdDQycNSWW=
+LF787IrI2FdcziM7wloV1dOGbaQk07gtBqENw5oPjjkfKeTHAf_IC5RL3CGDzQXnThcjZxSGZrC=
+NA/vCrGL2RTqlzPc4NQPXrz7hWxteHb4Tzq/25" target=3D"_blank" style=3D"text-dec=
+oration-line:underline;text-decoration-style:solid;font-size:inherit;color:=
+inherit;text-decoration:none"><div style=3D"overflow:hidden"><div style=3D"=
+float:right;margin-left:12px"><!--[if mso]><table width=3D"203"><tr><td><im=
+g src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i54J0GML8abg/v1/-=
+1x-1.jpg" alt=3D"Image associated with story &quot;India=E2=80=99s Richest =
+State Rations Water After Worst Monsoon in Years&quot;" width=3D"203" heigh=
+t=3D"136"/></td></tr></table><div style=3D"display:none"><![endif]--> <img =
+src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i54J0GML8abg/v1/-1x=
+-1.jpg" alt=3D"Image associated with story &quot;India=E2=80=99s Richest St=
+ate Rations Water After Worst Monsoon in Years&quot;" style=3D"width:131px;=
+height:88px;aspect-ratio:131/88;display:block" width=3D"131" height=3D"88">=
+<!--[if mso]></div><![endif]--></div><p style=3D"line-height:normal;font-we=
+ight:700;margin:0;color:inherit;text-decoration:none;font-size:18px !import=
+ant">India=E2=80=99s Richest State Rations Water After Worst Monsoon in Yea=
+rs</p><p style=3D"line-height:1.4;margin:0;margin-top:8px;color:inherit;tex=
+t-decoration:none;font-size:16px !important">Maharashtra, India=E2=80=99s w=
+ealthiest state, will cut water supplies to homes by at least 10% after a p=
+owerful El Ni=C3=B1o left the country with its weakest monsoon in more than=
+ a decade.</p></div></a></div></div><h3 style=3D"font-size:24px;line-height=
+:30px;font-weight:700;padding-top:12px;border-top:1px solid;margin-top:40px=
+">Your Zero listen</h3><div style=3D"margin:20px 0;max-width:580px;backgrou=
+nd-color:#f5f5f5;border-radius:12px;padding:12px"><a href=3D"https://links.=
+message.bloomberg.com/a/sc/CbmjXhLciO6bCnptCUTQMCXqqaGNyNUmGxu3A8WJM8XeAJlM=
+6s-Baj8kchrNF018_Snx1JHSl5pNOElZib8UDZ_81yOcZhe-OL9Xwye2nyW9X57JP1_bbgGRU51=
+08a9I6hEanxeoCNWZ38sc5v-0w1AJTJGCho1kc1pbOWSar9aj_FpS2xNODhIZhoyX8jFaki9xwr=
+KM00vlL-Log-Nkil4JZDThua3hWqInrmuwlbKLrz_PrwDQNoLUMSVc6d67-LbxU-EfUY66Ipnz-=
+WWc4gb2fSmq1AbbZg17sF4niZvCduFrLXY9miMWUnXSivfzYp1lyhfFcruMs3wddZ7W3jMD-7jM=
+_M8ffy5xjEfZoCyB6UEUWic4c_oa2L0qZsG6_CiQz2r5-IRaWYUrHbJhGJ6LbULJIWER38oAJ5Y=
+X9wl3MCb_jJ26rAvosz3ngK3DgdZmM9EzkvnLSit_Tfu7M2Liu93ZlQXUBKHpMnj2GyTIa2Qdqf=
+1ABgtWY32wXEFxzSkqprBO7sdLGSeWzWg0jK8ZEDBqXwUqfb-g7QSyxfdv4bqC/5E290rWK5FI8=
+TSkP3nqh2p2fczfhbGEI/25" target=3D"_blank" style=3D"font-size:inherit;text-=
+decoration-line:underline;text-decoration-style:solid;text-decoration:none;=
+color:inherit"><table role=3D"presentation" cellpadding=3D"0" cellspacing=
+=3D"0" border=3D"0" width=3D"100%" style=3D"border-collapse:collapse"><tr><=
+td width=3D"80" valign=3D"top" style=3D"border-radius:10px;overflow:hidden"=
+><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZXo3fs7PiX8/=
+v10/-1x-1.png" alt=3D"Zero" width=3D"80" height=3D"80" style=3D"display:blo=
+ck;border-radius:10px"></td><td width=3D"12"></td><td valign=3D"top"><p sty=
+le=3D"font-weight:700;line-height:1.4;margin:0;color:inherit;font-size:16px=
+ !important">Zero</p><p style=3D"line-height:1.2;margin:4px 0 0 0;color:inh=
+erit;font-size:16px !important">How China=E2=80=99s Startups Build Future o=
+f Clean Tech</p></td><td width=3D"12"></td><td width=3D"28" valign=3D"botto=
+m"><img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ihClwsFiKu8=
+o/v0/-1x-1.png" alt=3D"Listen Now" width=3D"28" height=3D"28" style=3D"disp=
+lay:block;border-radius:10px"></td></tr></table></a></div><p style=3D"margi=
+n-top:24px;font-size:16px">China is a hotbed of innovation, filling nearly =
+half of the world=E2=80=99s new patents every year. Much of that work is in=
+ the world of clean tech and a whole ecosystem is growing to help make thes=
+e breakthroughs commercial.<br><br>This week on <em style=3D"font-size:16px=
+">Zero</em>, <a href=3D"https://links.message.bloomberg.com/s/c/K02qgdfAkr0=
+48d0hPhGiC4OQAJTFAS9kQP7Rf76HXtUmY4rFECCwU0xA-p9fHc_uywf0odsVX0z5yaMDIWs4qv=
+l_UQvui3D4uXyQLSLC2A4qvm93Z6PJwyoAhW3WlC4sTGUFhRoehUd4PU5hu9_4tkB9EvydAP2bi=
+Djbk4pDEUTxTBT6_nxCc3FtxeiW-83HnFZMPFLquAFUBNBOGwNKbqg5ajarEq5iBDFHnsPqtuLQ=
+TGke41v4o4_TSL-3mRgLI-TrPjTl04qSOvtyT3GI1ZySMkCTWUeEhlj53VpADRMfGzc8n9dNwm_=
+YEa4SQT-rFLhUt5yhFr0P4lASvVeVRxobSSi_LGhc4jb4f7-CAMNDKOyCPYXHs0cBsIJBa9rDXd=
+k4VHzWdphBT52s4qOzM7gXCjMXYwgpp1ROaUZpHRCNyrqLN-g_IWW6Daf9StDlPR3NJQxjD6U4L=
+BqJsUs_JCpZwTH3elbxd0dMEstQ-nrjwQ/S3nDcANuJivjeegjDVteLHpsrrchQmh3/25" rel=
+=3D"noopener noreferrer" title=3D"Akshat Rathi - Senior Reporter:Climate | =
+Bloomberg" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-dec=
+oration-line:underline;text-decoration-style:solid">Akshat Rathi</a> is joi=
+ned by Tonny Xie, chairman of Bluetech Clean Air Alliance, a China-based no=
+nprofit organization that=E2=80=99s helping to grow the next era of climate=
+ startups.<br><br>Listen now, and subscribe on <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/f8iYrNwiscbiwysS4j5HMo836iV4enSL3So8BOWtgVtUr-alwKf4=
+mCPAqEgrICcQr5G9tUC0Pmy_rMaeKVo61pxF1tPfPpyFvXsYXusKS1I9BdilyjLMtnjjuuypVft=
+O1RC6G2v6VVf8ex_vpIB9OQJnzc1nuuBzEELcpvqqIqyhOS0KpfwM0qDC4WipUtzZ3iT6sjewZV=
+RM0wEiOFd-UCQssgCtYTz2-VzSUIQcq5NfA-nG2DEgVlNQiEM7q0dw5e2CgT7nkCwYOUQbAxAHs=
+Xri-c4KXdoh3BupDNjsuvjG2j0pBCU0CmEN3YF85Vo31T2Daw/9yXmAT9TQEtQtaDbDmV5IxQI8=
+kCc4qNo/25" rel=3D"noopener noreferrer" title=3D"Zero: The Climate Race" ta=
+rget=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decoration-line:=
+underline;text-decoration-style:solid">Apple</a>, <a href=3D"https://links.=
+message.bloomberg.com/s/c/RTtYbQGGUKh9DgoNwRQgAqRJ3b05tyGuC5JRkMw4VSRxzgKV4=
+dElxSC2Jz99nSofyvVhl2iEopTttfs0F6PmHOGuV9eexSXsB3pxhZVrRbSxQDrvzTE5Te2nXmSF=
+VFtPx3Ri3m6YHW3ePaQtxbYYWdZfGcvnZXvO65GUJXTdNYoFuxeZLx4HgFpxrhknmntoJe3FYq4=
+s68G9Te5kl3-pt5bGGqUdcTcovUXWJzu9cQ3nAil0MseE8SsiG0Lank-y4xBTmAkHwMvSvRZaZI=
+m17dIMPR3os6XmblkcCp41AvjSyys45hcPRGUQpODe_s0jo2mPdWPSL97WlbgdOEDlIKEiiDvu/=
+_w1iaf0v7It-JpXauFPxNKT3v4MnN1_4/25" rel=3D"noopener noreferrer" title=3D"Z=
+ero: The Climate Race" target=3D"_blank" style=3D"font-size:inherit;color:#=
+00e;text-decoration-line:underline;text-decoration-style:solid">Spotify</a>=
+ or <a href=3D"https://links.message.bloomberg.com/s/c/CSyu26CqPjDJjq_K1Aym=
+-dt0fDTmX8PDPyscS2MJPC3OaTQwnH_4nuhMzx_uhQu2Q5PKmFkmcrSO5TwVI_izCkviX_EVDj1=
+MFxpqdz8MFZzXViAXnyKi6Dhb3OsjQEtPTxzkgzs4ieC6tQMZlXNAVNKH627dOV-y59YFg36TcR=
+CohqOnksOxGP_aaETfdHC4JOahQztPDOFhjj1BLGjLVEqGn3XPpg-r-mo2wuVsglv9P8EA8_YZY=
+q0Vt87GO62VkzbIBwnmoV_CxUpxPf8ZWV-fJIaXdpRYOO1yTYcmYlFtFuFOBL6cjPmlBx7x8MKa=
+fkAmjKRsCd4sU5IE0EOjdCeFRFpI/Kfq19JOHekea0K9lxWyvoFM1DIImI16o/25" rel=3D"no=
+opener noreferrer" title=3D"Zero: The Climate Race (Audio)" target=3D"_blan=
+k" style=3D"font-size:inherit;color:#00e;text-decoration-line:underline;tex=
+t-decoration-style:solid">YouTube</a> to get new episodes of <em style=3D"f=
+ont-size:16px">Zero </em>every Thursday.<br><br><strong style=3D"font-size:=
+16px">Listeners=E2=80=99 Choice </strong>Calling all fans of <em style=3D"f=
+ont-size:16px">Zero</em>! We=E2=80=99re excited to announce that <em style=
+=3D"font-size:16px">Bloomberg Green</em>=E2=80=99s<em style=3D"font-size:16=
+px"> Zero</em> podcast has been selected as a finalist for the Signal Podca=
+st Awards in the Sustainability &amp; Environment category. Now it=E2=80=99=
+s up to you to help <em style=3D"font-size:16px">Zero</em> win. Please <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/OM5mlVGmT4GVGYYstdZD7nuDmyxC=
+AC_T336mYpxt9Tx_-vzDHMmAyYuSY3RGRETURLfCTsF5ZnoxP-zEPpxgN-dbxrkUnNEgiu095IQ=
+jY2xnbn7WJnyxwz4_k4ZU4MufxsSZYxdbIg8DHN-LHY7ijJTCAuMy6pNaLuL54FJ6h91S7_HbYl=
+HNquTHlU3GyuxyVNKTW1T5lY1jJLqb0D9X3F9rPiHUPIv8TnzvBCdtF6DYayoGMpcUUlUAg5p6K=
+QVfj-hc8Rez67lZ6bfm0EPe0AL8iAHjl0ubO6jsjN5-RNRotxhho-MczdgANN1EB8Z0SvMriND0=
+DCBjJuW20bkt3BihQMgLAwaefuYJKp2xoUnyKR0/yTVqDO9rT4Bm1KSqeuwWk3a68qJMBzTg/25=
+" rel=3D"noopener noreferrer" title=3D"The Signal Listener's Choice Award n=
+eeds YOU" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-deco=
+ration-line:underline;text-decoration-style:solid">vote for your favorite p=
+odcast</a> by October 15.</p><h3 style=3D"font-size:24px;line-height:30px;f=
+ont-weight:700;padding-top:12px;border-top:1px solid;margin-top:40px">More =
+from Bloomberg</h3><ul style=3D"margin-top:24px;padding-inline-start:24px">=
+<li style=3D"font-style:normal;font-weight:400;line-height:1.4;font-size:16=
+px"><a href=3D"https://links.message.bloomberg.com/a/sc/-7Bqchoan1pymv6r5uy=
+drkHpDE0TL9RdFarp-4qop4lqsCnpqP4np_Q20WVAhL75lw_lQt4ysSbdjF8P31EvnhW9rMKlQi=
+ycgjuoDmSuVpeS9HTvEgwEYrvIcLkZTIRfeD3iNp7915jV09Cmd0Ywjagldf4V5FZjfEPadSeyJ=
+9bNhkWNxABjBMW-4Df2UrF6VdhKZfhnHckfTZwIY9qKVKP0UV1VvRsOKKnKq-Cj4epyv9-MEW09=
+WhchXWsf3Xnbvp2DbbIJANsgIjflWm51m6DpmITV5FYZMHeo7EruY2zdHRjM-2o4dGY84OVyDnA=
+EQ3EhFEOVOGj_pA6zY6pI2YYB6ZbP2UcF4A7gwv_aZS5LQ3SAE9PltpKLhlIMNuO8I15p2QG3VS=
+d5eckPN9yrKuivyJ-FiOXdXI1rT50ARjJDe8QxEGgzavT3E9igzc1FGp59KmGr8h9daikbwk71e=
+PShCnJ8CAPkR4dV6vQkvoQTEVbqAUg/XvYJivg-_4pRh_WWZN4O646kqziUIXub/25" rel=3D"=
+noopener noreferrer" target=3D"_blank" style=3D"color:#00e;text-decoration-=
+line:underline;text-decoration-style:solid;font-size:16px">Business of Food=
+</a> for a weekly look at how the world feeds itself in a changing economy =
+and climate, from farming to supply chains to consumer trends</li><li style=
+=3D"font-style:normal;font-weight:400;line-height:1.4;font-size:16px"><a hr=
+ef=3D"https://links.message.bloomberg.com/a/sc/nj5FDrQ5NZd-g4VlP0ATKSbw5jM8=
+eoJng6424qfo8WU5TVvRBwuxqOQkKAAljUDLY46VaWx72G1247V10jPu-AnOjviZGsqGse2fzZD=
+jnlI23Ew8u_fRENJwUcSorvrWoSYklqXbA9Fvb0bFvRx9B8WhZ0Wz4g4yKFY52nAmv6C1beprdQ=
+jKgRTcAM9Og9XjpFleq0DGC1c7GuRnm6sAn-RhWopuRC0SpNyhem5unse5yciD8yz2P2ug_6VGS=
+U1xIrKWfd52RKbJuGfP_JJKFrqDpPsFTud8qoUWcFD9GTHzsf48mW3JPb-RKAQH3XwH_NU8Y40X=
+imbrvkzXQsrjv-oeTMxkY6WkyX2kKqePHHM08gGjY_cWdia6dpaPQJExTpYjsDUrYzPHBmQZlZW=
+HYJhbhykiKnZvGX8ix6iosE7eEFcWvURgvVZAUM9V20SSvL384O5cg-0DZkQuTmYOe7Mx_cFD6K=
+narPyo1Q/PlPQMXMuxzHQB27UUM3MN8oPNEnp_oco/25" rel=3D"noopener noreferrer" t=
+arget=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;text-de=
+coration-style:solid;font-size:16px">Energy Daily</a> for a guide to the en=
+ergy and commodities markets that power the global economy</li><li style=3D=
+"font-style:normal;font-weight:400;line-height:1.4;font-size:16px"><a href=
+=3D"https://links.message.bloomberg.com/a/sc/ar9N5BGEU13AcsPXLhXiQ35HmmIoop=
+Qv5Xxy3ZWvDYwdxvzAeg3ucxcb0RHpPAcmtEH_Ilh-JieAn8JXNDcsiJ-0r6_WnimwyUpq7oCXu=
+f3-C92e4GE88wL0RuCy_uVIxctadmFSSiDr5zMXp0Loqf0EwefbuWtN9wELRZaUDvoGehjgsRt8=
+ruVeuDNL0QAY3KuGeZVm9PVDXuqE33e8eAjLFNV27W64j3HJmo4Gg-Vs7MEGFrZAh1hZF1VU09r=
+7KrmIPc56vt8HlBNHVA37RS3khwKUWVOHDCaGT8_MASTd2yG_N1e36gHhf8ahl1CguDNEx5NBwv=
+ShwpiWo5NFQOC9a2wEQlaVIBpaOJ9xyX9NGTSXLUMfxMuS8bjDENBcY6U-oe1NpPAOJjpeZcSlM=
+NghjV3xOgYu5EoVqafn6zEOD4njqahfz1YUzlObsZLQcQeMIHV8RAwSyZCfIWOL5B4j6ghAdtkc=
+tVMq20S5G5rJPQQ/8_9xj0tej0-ONix52eYjIJEscvA4Pw0G/25" rel=3D"noopener norefe=
+rrer" target=3D"_blank" style=3D"color:#00e;text-decoration-line:underline;=
+text-decoration-style:solid;font-size:16px">Tech In Depth</a> for analysis =
+and scoops about the business of technology</li></ul><p style=3D"margin-top=
+:24px;font-size:16px"><a href=3D"https://links.message.bloomberg.com/s/c/Ps=
+i2ZvAnoYce7SCtAHL62MHyaN_FXLdz2d8snNhuhctgS8RaLzvDA7d_27eBrSkGrO903_bxj8TEB=
+hF16qKCvdUjXboABz5MhK2Fq5hUmOrT-n-hOzDrKiDSjjXrA3Jg6RX9DKe9DC9z5ps7a9qAw5dw=
+87vcrjbCcmt3MkkutjuIxm2mUCpuW5vdnw1oWEWqmlEZKG0lUjRus7ZmqR-7JotBOLyfYRSnsMb=
+cOy1vuHUOaW04PwNMXrnvBR85yDsNa_vIaHX_5Cz7QAFHztIFho6xyvf_Qxp4w7DVeHfUitdkgz=
+o98s_4761Onf1uA5I1QDCnrsfLv5gm129EsP-qbVCr_78WseL6FGQkbdcbz4e6a_S5-3_RUg8I6=
+I2iNaVmAgiMoOaustAWg5m9CyI05k818LpBFfpZ8l-CxDa-GUmexAq8f3t6MsNcF_R4QtOQulwI=
+-5Nn14tUvn7ffuz37f07Tbg-/hG9HKTXhi83yBB7yYed42RdsYsHDMHYq/25" rel=3D"noopen=
+er noreferrer" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text=
+-decoration-line:underline;text-decoration-style:solid">Explore all Bloombe=
+rg newsletters</a>.</p><p style=3D"margin-top:24px;font-size:16px"><strong =
+style=3D"font-size:16px"><em style=3D"font-size:16px">We=E2=80=99re improvi=
+ng your newsletter experience and we=E2=80=99d love your feedback. </em></s=
+trong><em style=3D"font-size:16px">If something looks off, help us fine-tun=
+e your experience by reporting it </em><a href=3D"https://links.message.blo=
+omberg.com/s/c/dYsHBcMe9iE9hp2cU9MyuE-wFMdyZ6lDHv2tmP5OMH3Ss3cYNbTYkZV1toK5=
+tgMmghd3RF_rldVPzJfNNyxcFHmUEQ26fHiaqAWbypBgh5RhmcBdWsBmVlglJfEnTXsKSQmrqM_=
+uPWaeBG65JFxg1ikoihHTSu29ldBfEA_JY92ZaA93xWcmdPxm3kXp9v5WLFuiXmX7QbE2Zza-Ux=
+VLpy71SppPUvaUBAOA0H9zUF2-RFkGRNyGDgz8rsSwvmcts-INFAcgDxrxEhc-WWleHcoVocZ27=
+eD-nYg4raf4vs1smPDSPVOg0WRQmOrVG0nKaxD1OWQTk-FxJz46C0PoQlfPfcpcz9aaIMEuuGEY=
+eGgtLYpE7pNygL2h4koNEzeRADCxBUtQ/E10t1UBix9x6QwbHGUgCu3f_mRTBfTus/25" rel=
+=3D"noopener noreferrer" target=3D"_blank" style=3D"font-size:inherit;color=
+:#00e;text-decoration-line:underline;text-decoration-style:solid"><em style=
+=3D"font-size:16px">here</em></a><em style=3D"font-size:16px">.</em></p><p =
+style=3D"margin-top:24px;font-size:16px"></p><p style=3D"margin-top:64px;fo=
+nt-weight:700;text-align:center">Follow Us</p><table align=3D"center" cellp=
+adding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"margin-top:24=
+px"><tr><td style=3D"padding:0 12px"><a href=3D"https://links.message.bloom=
+berg.com/s/c/Gd4kAT0vV9BbuXCNJWXrSGpgXO7shtnTY9JhvEj5jlm2RlDJVqxLqT34boyrxd=
+I1AzBbFC3-nBOLJ1XY9x0MbOnsKGwWEjGOUBIMKSDnW1eI-Eh-4HJsQJisgIh57W3nbJelsyL8E=
+O--gygDEjPwCUAejLzVYH-HxEzfdoKKFzuBUvBk5CLBXMqFA7he0bgV4pZkBOTSvTkLjNPKt5Yh=
+Jbbyy-VkjJRbsYjhFuyiaTjHdzszDZ09FIR4tbBbshpJnmEeba8Np9EyCxeyc-L9r-CvNfFkaVz=
+gawk_ZvQOQ0g2JN4Ys6m3m3g/zDOV2_v_g7ceSlbCMb-Fo6EuGvFoiUDH/25" target=3D"_bl=
+ank" rel=3D"noreferrer" style=3D"font-size:inherit;color:#00e;text-decorati=
+on-line:underline;text-decoration-style:solid"><img width=3D"36" height=3D"=
+36" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iDRduxloBOSA/v0=
+/-1x-1.png" alt=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iDRduxl=
+oBOSA/v0/-1x-1.png icon" style=3D"display:block;width:36px !important;heigh=
+t:36px !important"></a></td><td style=3D"padding:0 12px"><a href=3D"https:/=
+/links.message.bloomberg.com/s/c/sIQcXCiVABzs1b94Zf0UM60ML_NV7UHJd9e2hpnluh=
+3RA94SQorHPQvT9f6_4hW1VvlkNhkxV_2W9OCtSk_YGLrM96cWUX4ZYUuZx9_5acCHGX2dwlk3y=
+L8E0Dmc03Mka5g3r_VQUXZQfTnCeZnyEfyvg-RwFaa2nLAmg5yj2uZ6CDB0z9JAFbWRqPTviW5f=
+l4sXcUzgeZLhWpVgSrXiFXZasIg4QWvFHOKsmlxYx84OO0jXnBCbv6LXBzztbIYBfbGblGRnC1s=
+c7aQVGnQXTXQ/LOpw0D0ZOYQ-Ys01OrWUYOp1f5H9o3oG/25" target=3D"_blank" rel=3D"=
+noreferrer" style=3D"font-size:inherit;color:#00e;text-decoration-line:unde=
+rline;text-decoration-style:solid"><img width=3D"36" height=3D"36" src=3D"h=
+ttps://assets.bwbx.io/images/users/iqjWHBFdfxIU/i5QE5__h22bE/v0/-1x-1.png" =
+alt=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i5QE5__h22bE/v0/-1x=
+-1.png icon" style=3D"display:block;width:36px !important;height:36px !impo=
+rtant"></a></td><td style=3D"padding:0 12px"><a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/aRk1gw7Gw151TFF4Cbv1_2M4Q6Y5P35EAKYdUdz7ZmJiF-s-XdNMWa=
+l_o-oga7cl5HyesdfCAd2bSfOG15YLHEvPoeewBNYy9oxgMFfdYJg1V5TR1jfauvRMp_TF_7Klt=
+3SOUCs-ZDKbvhxNZplkZH7FyKhm_GUBjK2VdUiUX2_lKXzc0Ev7h9sRLXXbaANR8yhe8nCmmpUr=
+U97Q-n4qUFQfMwy9NOspNyRV1GAeU23eiHXfwDU-eJSygsW8Nj2bzFkjFyQcVfw5P9F7X9hPS6z=
+yNiKPRrK6qYzcTMOkJ9ojbJz2orJNl9cwnp_5E0IBWoPD/u0wKIq6WWzwbQ_hckQavumwWbVSnb=
+vre/25" target=3D"_blank" rel=3D"noreferrer" style=3D"font-size:inherit;col=
+or:#00e;text-decoration-line:underline;text-decoration-style:solid"><img wi=
+dth=3D"36" height=3D"36" src=3D"https://assets.bwbx.io/images/users/iqjWHBF=
+dfxIU/iiSKUb3JWcLI/v0/-1x-1.png" alt=3D"https://assets.bwbx.io/images/users=
+/iqjWHBFdfxIU/iiSKUb3JWcLI/v0/-1x-1.png icon" style=3D"display:block;width:=
+36px !important;height:36px !important"></a></td><td style=3D"padding:0 12p=
+x"><a href=3D"https://links.message.bloomberg.com/s/c/iAUs5pbo0Y8nzdBluXnUl=
+7Dy0-CX_iD9IBA7u4c2u9yiaxbxSyTCE1YEGuL06uuXoxbistNga1Gg9qX0gn415mmY_noU3gdo=
+kWewv4B_D2iC4klS-vUnlLu7FpBETwuywQEz8kwNh5Yo5bvjuY9g1Falo4UZPy8mTkn5RBZGD0g=
+zNlTsZDtqb4A3r2yfIcmsCp7eePgPrzV7AC9WcYNKfn_9x4CcXSJyDIR1I2A15as0J-ZFl_ZsNY=
+vV6GU5FtVgEgcZqIqppM3NSsppDRklDNh8No5PKHRg-rsrrKVlVr45ji0/IWDgv_DRz_ZwpI61p=
+mEEb4CtR000VSxd/25" target=3D"_blank" rel=3D"noreferrer" style=3D"font-size=
+:inherit;color:#00e;text-decoration-line:underline;text-decoration-style:so=
+lid"><img width=3D"36" height=3D"36" src=3D"https://assets.bwbx.io/images/u=
+sers/iqjWHBFdfxIU/i_JvbwNnmprk/v0/-1x-1.png" alt=3D"https://assets.bwbx.io/=
+images/users/iqjWHBFdfxIU/i_JvbwNnmprk/v0/-1x-1.png icon" style=3D"display:=
+block;width:36px !important;height:36px !important"></a></td><td style=3D"p=
+adding:0 12px"><a href=3D"https://links.message.bloomberg.com/s/c/N_WGTw0bi=
+XwjKLsv0n2SWZ_yRL0iEQnrnLp6FZgBt4HeTfpLvPL235bnCmmZP0USJNe0Tz2vzJUNiZZ0akb1=
+MWvs2FhMltp8mGJCwh1q7gzvwKG0hWu_GEvzi8v6QqXK6AMWYCiS1XVM0qYl_ivft5rdEgMoczq=
+d9g3Jv47OCY9RncPVIhn2ZEeCJnrfx82d9P9ln0zxbLbZZ1EtUhNZ3Wm92961sRkj8Eutfxd3JY=
+hz4hHWV38Yk2yAVvnXzbGigf0EdoJDWBJwjIHlq6jTeNP5xcXO92nloewKT4Usr8-Hms7kLBUVT=
+hEv66cCE5ow_SY/s4nfE6Bjm6rnD_OuIWzWqi4dPHy-b3MA/25" target=3D"_blank" rel=
+=3D"noreferrer" style=3D"font-size:inherit;color:#00e;text-decoration-line:=
+underline;text-decoration-style:solid"><img width=3D"36" height=3D"36" src=
+=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iXt_II64P_EM/v0/-1x-1.=
+png" alt=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iXt_II64P_EM/v=
+0/-1x-1.png icon" style=3D"display:block;width:36px !important;height:36px =
+!important"></a></td></tr></table><p style=3D"font-size:14px;line-height:1.=
+6;margin-top:64px">You received this message because you are subscribed to =
+Bloomberg=E2=80=99s Green Daily newsletter. If a friend forwarded you this =
+message, <a href=3D"https://links.message.bloomberg.com/a/sc/6nbUl0KABV-Ls0=
+XfwL-48V0hUp28fYBK6lwMoVJb6G7M0ychrq_8OSgLk7zDEHNPHP5NyKL8gDbxx0MFNdGag6kGR=
+QMdIJTIhKVYPB9oQYF5EpdCJBXS_6nX8ihGMvwKS1tC5vbqitW1Npzf577kEUsMZtjNoyv1LuLQ=
+rz6h3lr_P50Qn5ME_Zhgm22U4VxuGud25W4Flg3n_XSoLBRBXk6gk5xA4qEQ8iDx4Nxlf0SuWXp=
+D3_F2UcDQUaEGe5wBAGJUiRdRulZcNonOGqO6KM2UeVyftryX_TCD5NM5sImAb2bjmOA8rl0H0L=
+1QXUGC6Dw4gpRExvk_IhrQ2PLDnqFurI6-2Q3oAm7c6PQ26LoIesO8aEWtpeoCKY1XsayHO1pTm=
+e0XB1yfhWE-_AcdXPkRbZj84Mak8MlMerrFCRB3Sh-Iih8NfKYSiU8iAjlD7O5R_uFJatLQpiIF=
+j-7Bi9pG0pAb6CLy0qy-v9vZOedcNHSi3fpikL146f84CLKs/UGpbJJzQq6b-9rxCVewoZJLl_d=
+4XSapk/25" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"color:#00=
+e;text-decoration-line:underline;text-decoration-style:solid;font-size:14px=
+;line-height:1.6">sign up here</a> to get it in your inbox.</p><table width=
+=3D"100%" style=3D"margin-top:24px;width:100%;height:78px" height=3D"78"><t=
+body><tr><td valign=3D"bottom" style=3D"font-size:14px;line-height:1.6"><a =
+href=3D"https://links.message.bloomberg.com/a/sc/sshIvPe1XjUP-2onkPIqrERzIS=
+sWLGjqWhhQg9WGqstbrYdkllvuKtsYXn9oC_5AOF_SCd0PLmEo8sTRQMp7qy1krZrVCqS5iU1hV=
+b-gS2xxqJDoWLRFJPpA56tkkOUyk5LsrvUFX0pzvtBQAG-dTQzodhrb-nddaZNVNZo2bDrJe2Tq=
+4B4033LiLsmBamrZ4cI5Vx7uf5hOVtl2hv4Z7c-dCPUK_CLWIGUqDqM9e6cYchIFtBYyZeRdQIG=
+UPYVhi-H2yaIAzcdRVV6Og9vJUvcD_8a7RLzwBxb10h96rrvxqlaT5MPrO9aNl1veErr80lq6DS=
+p-sjsP-67DlXceoJDIMiQUolWZvbE8bjgV8eMh-zLi4-HPsuQqL8lwhhHIC7D0P4S-Kx6bDs45P=
+xSG5wQZ5JncW0j5HLzV4ZhCj7XTaSDCbfoqQQ1qmcyPFsVCOcNILYi2ANToxdfsHjg/bR4Z0uFV=
+0HgKLgLianYeKqAyUiRpsbl9/25" target=3D"_blank" rel=3D"noreferrer" style=3D"=
+color:#00e;text-decoration-line:underline;text-decoration-style:solid;font-=
+size:14px;line-height:1.6">Unsubscribe</a><br><a href=3D"https://links.mess=
+age.bloomberg.com/s/c/zaNQbSI-9HZZ2dR2ATaW5XGZSCm0x8DLicHtgZ9X7zjS-82lthI4h=
+B4DBZC4J4OL-YLirXWAyDpCh-Un8FbkdjDapbn_rZWyrhPLgeLaeuQhjCReI0udAEd1UEgogv3c=
+rbdLrQiWCq-dlrpHHh4zJpFQEgIadwS9PReOA8PyvtV3Nb08H8f-xkVbOT-zEtWYTEaWIlO7clI=
+18O9xsPD8sFenAB-Cvu9uQq_LVt1z0tcc0Vx9h354-QphYBG4punxEkkbUot7sjFmA9iUCY0Zyx=
+d1l6mAUVL_0uRLqGH_qcCZetJkhklsQhitRoksUkaTSsQ8hglcZKIc_6C0NcagNiNGJYKQ2tdgP=
+oHp8mxeIocAnxFwMhZ8TH5yIFdqfyF8M7u3_Q5yzXYo9fjdBfROAxIt4oa-vVpgD90_AidhBxq6=
+dcT4DgbKprYRnwoOov2LUbY/_7lrKHdIPu6vMSvrD3esnX8V9VZkC4hK/25" target=3D"_bla=
+nk" rel=3D"noreferrer" style=3D"color:#00e;text-decoration-line:underline;t=
+ext-decoration-style:solid;font-size:14px;line-height:1.6">Bloomberg.com</a=
+><br><a href=3D"https://links.message.bloomberg.com/s/c/KomQpgYArUhUef199AS=
+UjoReoY9Z17o2io3ZDaXOozJVN2GSve1qxWC5NlDMDWW5Nf3aHSsFr_IRgwFvqB7NYGMHPyMc6N=
+TcrKdPL4JREJMC4wgoBGEnraus1943OfzSXYmE-Hz5dhJIaNezFNwQpulQkdVMiq5aH_57HORzS=
+kRZXQ0nzSP_3NFIwGwie4YVOlUjFaP7txRVcVwZLAjivFv3cN2SR_l34Ng8DRvfWjgC0JlIT_Am=
+4cyIV1KEoYCn3k-7ohdooQtRbJDHtgwMxqMhq2WmMXwY97PrtZZnGBJJdPyclu192nMPqohWQS2=
+bW4mAR_CSWo2dfl5863g41uYtOTNU5PtfinWUoRMbPdmOzUxzSYIEqi6qnQBc1yObeXpuG5WYIC=
+v9PUsbp_j6w5JYCmeraf1HJawtSO1DWpMFkDjLwAVFAwde9Q1Qxh9c-yn_OtzFF5dr-1G1QSTlV=
+5r45PGF/5Y1tzArYTptSmV2UU5R0owgl_A8WetZQ/25" target=3D"_blank" rel=3D"noref=
+errer" style=3D"color:#00e;text-decoration-line:underline;text-decoration-s=
+tyle:solid;font-size:14px;line-height:1.6">Contact Us</a></td><td align=3D"=
+left" style=3D"font-size:14px;line-height:1.6">Bloomberg L.P.<br>731 Lexing=
+ton Avenue<br>New York, NY 10022<br></td></tr></tbody></table><p></p><table=
+ style=3D"margin:auto"><tr><td><a href=3D"https://links.message.bloomberg.c=
+om/s/c/XOquGvphBD5wvbN36iOr6Q-o8e_ls6613lUIngayjHMdvVyICThAkhEmoKewyvBT7ezs=
+B8uIQf-O6ko8jQ17cTQTREPb4Oe-QxLU8sln8bXhlr5pboEAn8Q7-nKyYIKatQONSrwpRH78QfJ=
+THt7sF_-YDnWy5fNybrkrYdFBjGobiG27AmZ8MW5p3mVD9B_b7ShCuCsRHYun2tFl6K2krAoz3G=
+cDZZ8FONwSu4xTiaAtAzI07Fhi_ti1Eq9V35YwZ6NWogBaEpHLpuw_rJQF4K7RpxU1q_bYXo-rO=
+opXVgRlcw/YjRn_8gRiaY6jwlt45NSU0qUN8x-oyJe/25" target=3D"_blank" style=3D"f=
+ont-size:inherit;color:#00e;text-decoration-line:underline;text-decoration-=
+style:solid"><img height=3D"18" src=3D"https://assets.bwbx.io/images/users/=
+iqjWHBFdfxIU/i7ESRvr8wb2g/v0/-1x-1.png" border=3D"0" alt=3D"Ads Powered By =
+Liveintent" style=3D"height:18px !important"></a></td><td style=3D"font-siz=
+e:13px;font-family:Helvetica,Arial,sans-serif;color:#666">|</td><td><a href=
+=3D"https://links.message.bloomberg.com/s/c/DZEymhl18Lm1ThJZ-plDhlL_EAY6NO8=
+Grp8S0dS4l0--cjYT22pb6ftrmDntNVBKIBCPt0rjlyCoqnh-QMtTaYWsVtp9uwzQH1GyRHf5qB=
+XHeyobKhIzurRpkhMUlDblQfCGewH4u-QPaaJWF4VqF5yjmadD-UfNgIn1ZG_oQI48PhpiXcsXw=
+z1oUO-bBdwqSDU4tA7R1AdmS8smQDB3vo6jdcbKjAJjIwgV_DjyITPCM1CnrxxtanKKmegngxGs=
+CwuiKMs2SobsnztHhRNyKmUJir5hUA_BcOZa_K0e8B-kXQ/53b8k8_dFA5NRuHRdNjbc46WpHIx=
+ds-y/25" target=3D"_blank" style=3D"font-size:inherit;color:#00e;text-decor=
+ation-line:underline;text-decoration-style:solid"><img style=3D"height:18px=
+ !important" height=3D"18" src=3D"https://assets.bwbx.io/images/users/iqjWH=
+BFdfxIU/iHu0LhjyABMM/v0/-1x-1.png" border=3D"0" alt=3D"Ad Choices"></a></td=
+></tr></table></td></tr></tbody></table></body></html> <a style=3D"display:=
+ none" href=3D"https://links.message.bloomberg.com/s/eh/w9vGuLoZAC0u7uYnkZZ=
+LaP2Jjfn0BKj426AYehI1pc1ccpgeaO1v6zYP6LuFtD3fayqMcF1NvrVdSxfgFBz9GOjCRIbf4P=
+UfJJuCMka9pdVN5j0Am-cdhaCdXiV_fOjnPweDs0o-ipm9Vxcqe9F_fy5RYn2ldfBibWhLYZ4TV=
+00BFqegiEeTU1_HqFhR8q0rGh-rY4glN7D9cmzLex3Dol-sGSMjjsIWJUkD_f8gJ6TR9ulDwFyk=
+2PD14nIsRSXAWM1-29Guz_BVlTMntGaS6YfWi3PwNHqNjxhs6lNvrVy1VoOz3KvAnmxaUSNGK3l=
+lxWKmuIzztoQ4ohOrVnlH4m-EFaPYBtDBspU/EAldUuApZJJ8ou61CAJyzIDskGAiG--k/25"><=
+/a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/rQv2SbBYPCfkRDp71rEWyg~~/AARGbBA~/QA_aLPpG02hZhffbemtTyxO=
+FrxtC2f3DxJTBafMKZfUIXPptec1B1e-Txh_-rauo1TwsjtTUhegpmPEsLUlYBw~~">
+
+--_----2BsO6VlY1hu9w64Tj4SY4Q===_C9/3C-63857-14626CA6--

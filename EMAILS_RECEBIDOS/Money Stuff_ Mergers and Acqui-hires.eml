@@ -1,0 +1,2039 @@
+Received: from SJ2PR02MB9344.namprd02.prod.outlook.com (2603:10b6:a03:4d1::9)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Mon, 5 Oct 2026
+ 18:12:18 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=Neoi4n+9jKPb89gvcPi0vDVQaL7T4DXv6b1nG/rCkUm5MVIAlYPakbRW6M+pSomovR4omB0PmmQzblCM9tG2G/wpAR3DXZT97ZTiPT8bWV3uRjNivDvIBYXIgQZ3/qMOv/5SrMbOUO88qzQsDWMbfB9MYobyMd67zdNZnUrLwPJCv9r8u33oOzaO1Ius3mUkirIErniuZLCrGUUK/L+VSsS4M41KRXAwT5FjR5ueOQIcoJu25EwJhD49StzI1HUpvu45mapGNKuW384t9WOIQwhgBtqU53MONZpRI7LlB8YsXqfpZkAbbToh25DyUA6zUTJQs+/X2vLqgC1wmi79lg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qaASLcK5/M55V/oWkguXMHY9V/llJzHrCa3tqwWB0fU=;
+ b=W3d9h3Wxlrs6JBqGMcrGXfoNoFtdz6DH5VeenRCjc8fXxc+1O0adclWguCWoyi9H7cSVUQgT/pPhA/pyzbbIanKcEa1L0yZE4ieoZ2VBmwbuTrivAgAQad/4j0SEHPgPqjaHh67rGLDVTXm5b8dMZKTHat8M3vCeBaEWYr8lzqARUZVnwVx78fDD/Nmeg95z2xzaXQ15XGbzgZZmEzFK4O1Kfh40n2i51zYP1E0O8CwyqVe4laAB+JxYSWW/8Hs4yA5/3geGKC6CQYIFqyKqucZ4JTgRkj9f4Y6miKg79c8+Phi2sV2izRhcy1PfdOno0AkkA+u3+NBkwXVowiZgYA==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 74.125.230.205) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from BN9PR03CA0242.namprd03.prod.outlook.com (2603:10b6:408:ff::7)
+ by SJ2PR02MB9344.namprd02.prod.outlook.com (2603:10b6:a03:4d1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 5 Oct
+ 2026 18:12:13 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::6b) by BN9PR03CA0242.outlook.office365.com
+ (2603:10b6:408:ff::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 18:12:12 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 74.125.230.205) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 74.125.230.205 as permitted sender) receiver=protection.outlook.com;
+ client-ip=74.125.230.205; helo=mail-qk2-f13.google.com; pr=C
+Received: from mail-qk2-f13.google.com (74.125.230.205) by
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Mon, 5 Oct 2026 18:12:12 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:39489426424B69D7AC0ECCC8AE8D24972040102A75BD9F2E352465FE97021683;UpperCasedChecksum:ED93C04DDAD9B47D77D173B703F80C39D7A5452D9AD20B0BE7AB22504AC1219E;SizeAsReceived:8647;Count:37
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ad20d4so203554085a.3
+        for <carlos-andrade@outlook.com.br>; Mon, 05 Oct 2026 11:12:12 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791223932; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=l/QDsUc8f/gbzhQhuHgsXValwyY54MDAkEwLU67SovhgQ/fpossuY1k3HqAuAJlqEA
+         FQRH+SY6aQLaBAz2NHVDbz+IbObLGa026x5UI7oD+zRaRPkrBH/NZnGF+ypE9NSdmztV
+         cAmm+USJwEm6zOHxMtdYpwVOK9s/V/Rlxyx5fkbq42TeUhvpeDAncr9CAdV06BVXIIV1
+         6N+Wpj5Osk953XEfJayJha2TdDOs80Q3/KYmSZa8ithrJPnU9NbECamlZSD2xn/aDH9u
+         Lora9jM0mlG0fHO+6zVeQ1ZKKmjyaLwlHIqKVcREwDTthkqNqKdZo5jswh4TTYC5NJ50
+         76ng==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=qaASLcK5/M55V/oWkguXMHY9V/llJzHrCa3tqwWB0fU=;
+        fh=/JHUZQI6JnyfYEQG2WHbjbuyRV0M0F9M35s0depZiXM=;
+        b=HH2S5wLKpc7GdArNY3iOmXXGCDjDHrff+6AWX+GthEdGeE03xF07GY08s7DobCBSCt
+         yfrxbUzP0vRwA+TGvpq9SN7RNvIXIHpRZOBTNGxh3wzcJKcsIYJ3Tlzl6G4ONqjn1eVB
+         P6Lth8tmpdSoX2wjBmewsfDNNLoE/O1EtTbet9vHws5Lojv+PpjiGPu1go0meKchA1/x
+         mDQLAiRWuTHWlUOcd1uPZhY6jDiZWi1/o3Ohx58KerdSb+00+7hQlC3TN0ED3CHaif3y
+         g8haGfMjiRgCZ/YqcqfqnBS+8ZDFFiNosLk0OVmLlvNCN3NBEcBERlMP4wBY+q3YfDtU
+         8w1A==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=QS4O4DgS;
+       spf=pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791223932; x=1791828732;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qaASLcK5/M55V/oWkguXMHY9V/llJzHrCa3tqwWB0fU=;
+        b=z66g6SFFI7X/2EeXsodDJBRh3fsnvwHi6zhdsMsiw0JSIccJUIqms2y62MUHNtsRLt
+         u50Oh5PH9+ErJWnq5/PnWeNg+wcbX+OFUAFqTFUXP7Nw0Rf+Sca/5JJGwAkWICdOJNPh
+         obN5nZyQq4GlHZ3MRjzs76PatXm68NQaQ2I5h5FV2M+vAN18HkBoJK2v/D710Wa4MM/S
+         /KyzNcvMf2HQWcO6yEgNLujGaNJRAD2Dqw68m2AfoHVNKuq1EFfdM/UjIr/Rm5Ohz7p+
+         PtsgHOvX9lVA8WAMmba+0C5BGsxnHlxNniwBqvTdXeszXIQuMyAz/sjU9QXN7IkhOaZs
+         XZiQ==
+X-Forwarded-Encrypted: i=2; AKwUvBxo0YotGVzMgf/uPBDjdvURHNi6lNvU8TSE591CwAcN8mAypKVLH522U2y8bPVTkeog0xljfjy6mAHtC4erKg==@outlook.com.br
+X-Gm-Message-State: AFuF++nnjkvg0iy+J/RTgVnZ/vIOJgfAmQ5JkHGNcFt8++S8Em1Xuhkd
+	cuqKtzbDVph+1yt3hrjB2jmvaRUOyWvUPk9o93nh7cGP4+UHO2AkOanThWwx4CI05z4ZPFS8kTh
+	+taqWhCfA77w6DYQLruE6tDnkRmTdGkbAF4ILaqj+iVkWQP/bU6C/UcNgjuJF4g==
+X-Received: by 2002:a05:620a:2607:b0:937:27fb:96f8 with SMTP id af79cd13be357-93cf1751aecmr2005295985a.41.1791223931953;
+        Mon, 05 Oct 2026 11:12:11 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a0c:f784:0:b0:910:4097:60f7 with SMTP id s4csp2262107qvn;
+        Mon, 5 Oct 2026 11:12:07 -0700 (PDT)
+X-Received: by 2002:a05:6808:4fcc:b0:4f1:5068:b95a with SMTP id 5614622812f47-4f529a18fc7mr11536658b6e.23.1791223927189;
+        Mon, 05 Oct 2026 11:12:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791223927; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bfR7Clx9sMihf/zVyWivjw3ZxN0aKEmna2K89/cvYKuQPSRyU7LpQHmW/bCmRsBZj8
+         jfN4IaIRXCEKeIl7YGX+hTUbrJz8WMBjY5pUpTl5WP4z9PKOkawSGtKrFqxvZkzY/tjt
+         LDZHTbDPqC0KQBQXGkMVAvj8wZch4fRRi1mePNqRiaH+FysX4HUiMJbfJilrHliJLpN+
+         XE3MjXMnjeCPNMZpFQrLUJrBOJlb5hDVIRTv0LvdfweY0ck9jdhUfmSqRbVlJ/d6jA2m
+         fYqcENmJGPXb5cnNd5SUIjrkiS3DEn7au5HD+ZojoSWK22ndBrDupAwGAw1QeVthbbLW
+         R5iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=qaASLcK5/M55V/oWkguXMHY9V/llJzHrCa3tqwWB0fU=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=g3MsEBtyFyfIoa062tc3jD4oIisdu2GPzf5g1ELkzMsjj2UFsSCz6BkKv2Er31v2v8
+         CGgw1Wx8GOQFR76OBKDZVOJi7IX3SI2o24y2bTqXxTC3djnia28sRMQtzXmM7cDs1lZn
+         LQEhQ3E5sQFeDot/6SFqW+Xac3Tq7wF6+9HaZPa32Quy7md6IrOJoKcDNR8XMrctyb5Q
+         G0aig3EtffUdeyOJMqjwIrtt5hzFOdizmXmIpk9+PXjKT34fIMqdGTtko203wga8XOz5
+         HjXS6o9blV/5r7pODaXvHq7vgu3ed4ebCIcKw7uGHCH1Vox8JFd8fCvM+FY0nyLZXnzx
+         /U0w==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=QS4O4DgS;
+       spf=pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-19.sparkpostmail.com (mta-203-32-19.sparkpostmail.com. [168.203.32.19])
+        by mx.google.com with ESMTPS id 5614622812f47-4facb58c57fsi137975b6e.66.2026.10.05.11.12.06
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 05 Oct 2026 11:12:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) client-ip=168.203.32.19;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=QS4O4DgS;
+       spf=pass (google.com: domain of
+ msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.19 as permitted sender)
+ smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: rtGRKUvL1L9BANE98ovDPBCKmvAJoBAf9xWmXF6FrPE=|eyJtZXNzYWdlX2lkIjo
+	iNmFiZTc2ZThjMzZhZTY5ODY3YmMiLCJyIjoiY2FybG9zYW5kcmFkZW5hQGdtYWl
+	sLmNvbSIsInN1YmFjY291bnRfaWQiOiIxNzgxIiwiY3VzdG9tZXJfaWQiOiIyODA
+	xNzIiLCJ0ZW5hbnRfaWQiOiJzcGMifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1791223926; i=@news.bloomberg.com;
+	bh=qaASLcK5/M55V/oWkguXMHY9V/llJzHrCa3tqwWB0fU=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=QS4O4DgSHMZVWkLYq51UUwUhC9zc/wPwDeIXThKjdaHi7HTHYRg2yobWk9nb/JJlB
+	 FzwETPOPcsZmPUiWJGmnP1z1BhkoV85tKgeUzOU7BnR/cgLsOFXS+tiNmSSZT5Vls4
+	 Y8DpKn/cg1p8AMeAbEOjtV/BARKdXc2uQE0+jO4qGkaUNEhq6kSwe/Lk3aBqHE8yMy
+	 sMlRERemLP8IJdNlVHfzgmjxzeq9OkbYUUqUV8zPVe8A+rW+Z6t0d02PH4cU/FCjs2
+	 DMAlESgajMXaJD0qQ88zXUYXKPL2DFsojlGuC14SJlj/9MuVVTV5dVxaoSBz0GZLq0
+	 D3qduInLnMqoA==
+Received: from [10.90.25.125] ([10.90.25.125])
+	by i-090f125a089c6813a.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76435 r(msys-ecelerity:tags/5.3.0.19)) with REST
+	id CB/7E-06411-678E3CA6; Mon, 05 Oct 2026 18:12:06 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <CB.7E.06411.678E3CA6@i-090f125a089c6813a.mta1vrest.sd.prd.sparkpost>
+Date: Mon, 05 Oct 2026 18:12:06 +0000
+Content-Type: multipart/alternative; boundary="_----4Y7knF9pVHvn5H7BpmAKUA===_3B/7E-06411-678E3CA6"
+X-Campaign-ID: 20221520
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20221520+26694157@unsubscribe.iterable.com>
+X-Message-ID: 9c7a784a5eb348f198af3f194ae3594e
+X-Feedback-ID: 26694157:20221520:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Money Stuff: Mergers and Acqui-hires
+From: "Matt Levine" <noreply@news.bloomberg.com>
+Feedback-ID: 26694157:20221520:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 05 Oct 2026 18:12:12.6865
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 32133152-a4c4-4ad4-2707-08df230c2deb
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|SJ2PR02MB9344:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/5/2026 6:01:34 PM
+X-MS-Office365-Filtering-Correlation-Id: 32133152-a4c4-4ad4-2707-08df230c2deb
+X-Sender-IP: 74.125.230.205
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|2120399003|3069299007|9400799043|9020799019|6099299003|5149299006|260928210016899003|10300799038|35120799009|5139299004|36140799009|260826003000599003|9000799056|68400799013|1680799066|3412199025|4302099013|440099028|1380799030|1360799030|1370799030|1602099012|30041999003|2607281247196008|56899033|6406899015|2006899018|2406899039;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:12:12.6527
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32133152-a4c4-4ad4-2707-08df230c2deb
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR02MB9344
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:05.3791336
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TVp3bXdMM1hBU3dqdVlwa3dJa2RQdUc2b2d6OGxoNWhaRmRVc1JPZnRBem4w?=
+ =?utf-8?B?bXIrOEMwVllDUmpiSnVCOGhGT2htcExrbHJtODB3UnJjcERVb0hGMDVwUWZ3?=
+ =?utf-8?B?Q3JkaDVJbVB6b1Fja2VMWlluYmR5UHFpUHAwa2V5VGFsRWRVWGVYUk1FU0Fh?=
+ =?utf-8?B?RmJvUXI2MUNsQ1VYcElZZjhZQ2d1ZGhROVk3dFNHdWpoL0VuNEk5SWN3K2JU?=
+ =?utf-8?B?THhMc1NCbkZKRElvRWpYdDRvL25kYU9KRXAwc2t5b3p6UHFEVmQ3bHBiQ3lj?=
+ =?utf-8?B?M0JSSTFwYWljd1N6Q3VqWFc1NW0wSFRaempObXBOMGZVZ1B0V0hRL1A5VHMz?=
+ =?utf-8?B?Z09DdnJlbXlaMkVCcjZvMGY2NW53eVZkVTA3My9oTjBsZHhQUGlWNVlxUEM1?=
+ =?utf-8?B?cHlFSC9WSlNJZTdveDdDQnZ6RGdRWFI2ZzB3a0wxbHJMb2RzY2VISXYyTHpB?=
+ =?utf-8?B?WnU4S1hFMXJVRnlIUjhYS3MwSlhOQjMzZXBEcGlYL2thdmdidDRzL20xaWZD?=
+ =?utf-8?B?ZWpHdThnZlB5U3V6eTgrTno3U0lxZUMzV2h2QTF2Z2RNL2ViNWhGS3RpNE5w?=
+ =?utf-8?B?RnJjNzFTVG4wS2NtdzR1TkgvQUJWM1I4WStseDJLT1lteDQ2Z01QZklrZGdm?=
+ =?utf-8?B?dTg5RHkrM09GY1VjMTQ0ZzJaQlg5eTRhcjhoSy9iM1RZMW1jQ2ttemJBdU9k?=
+ =?utf-8?B?bE1Zczh0RWlib1lQS3hDY0U4Qmg5QktsNXFtWWwwRW9sZmJhTmlFV3lCY1d3?=
+ =?utf-8?B?TmpmNlo5bCtPVExhaE16YkZPNXRxZTJuMGUyTEVGS3kyd1A4VWg2RFluWkUw?=
+ =?utf-8?B?SjhLcEZPbWwwczR2VGlNTWZJbWF4dEQzcm9PTmgwdloxTy9IK3lHZ3dPU0hi?=
+ =?utf-8?B?aE81MFA0V3p1RzFPZ1ZKQ0hqYVh0bERJTVIzc2N1S3gzUkt6RkRic2RURmUw?=
+ =?utf-8?B?ZDNBc0N5WEhxZXpFSnY3OXJwbjl3citzQjlxWkkzNjI1SlRZZ0hleDFZRU5R?=
+ =?utf-8?B?c24weW13T2F6TlNDNmE4VGJVenozT1FNUkg1STV4cmxXZ25DR0lRZzYxSHBn?=
+ =?utf-8?B?bTZ3MVM5M1ZmdytCZ2FvTzJGTGg1OEFOdllkM2g2YTNNSmROVDhjZjhsR2Er?=
+ =?utf-8?B?czVvTmdZMjk4R2FldUw3djhkdk9NQzlNRmZkbGo1WFNHNGlORTc4aHplQXNZ?=
+ =?utf-8?B?QXpITmdSN1krR0xrYlFMY29mU1pNQmFOMXJIcjkvMldXSmpBVlNlcGRGZ3JT?=
+ =?utf-8?B?UWg4WmtvZXAxM3J5RnQ1eHZabm9xQlU1TlA1NU1XWEZTWC81Z2dONDNaWmRQ?=
+ =?utf-8?B?dU5hSEh1NWNxZEREaGtUYjZ4d0ZoeEJBWnYxeG0wVzNKLzZ6UkFna0pFVm5Q?=
+ =?utf-8?B?a0FjVkMrcjdpdTZQTHNZVDRNQVdZZXc1NHZXdngxRHIyQ2ZCcFRRT0tsTjBx?=
+ =?utf-8?B?QkVHbFR4a0hiditCeFpPaXRsL1FhOURrRjlHa1Rhd0swZXgrOFUvcFpmdVpQ?=
+ =?utf-8?B?MVdzQWNtMWcrM1RoM0RQSy9rVGpxVDBlczVCc0ZlWkE4VnRLMDh3U08vVXpQ?=
+ =?utf-8?B?M042SnVVMk0zMytLUXN1NDlTditIeDhsRWVWa1A0ZUdJcTh1YUVNSG12bDlp?=
+ =?utf-8?B?ZzlYRzVXWFp6VGZvUXNDRGtGRUFqdVcrSU4xZmQ1bHc0eU1TcEtFNXpFYW9k?=
+ =?utf-8?B?QnhTYnFuNWpkTlNBOVQxZmlqaUVDLytiWm1KTDl2Y0dEUEwxTUlRdGl5NEJ6?=
+ =?utf-8?B?NXN6ekdiL3Zkc3BTcXVZS3JIRFh6K0lPYnFESm56cjhlR2kvanNWRDRwK0xW?=
+ =?utf-8?B?NzkwVDFMMUpaTmtSZDBvVTJoSU56dmV5eWxDSHZuNjVTRERzN3AvRzlkWnpO?=
+ =?utf-8?B?OFlGaEE2NWVRdXB2U25yMmVaYXEwaTF0a1JSVlZpdTdUbHBYL3BqVGJOb0Ft?=
+ =?utf-8?B?NndzZk5GdHNNRHNxVmNuQ0I0UXJsS2hFRnBReFFvMU81WEEwaG5vN3I5Y09j?=
+ =?utf-8?B?UFg0ZHZEbzhONzRzbXVPVE5LZ3FhMzdsQkJPa2NEVzJrSGtyWHR1ZW5WaUk2?=
+ =?utf-8?B?SmVpS3BOT21FalVzU1F3Q044UGlzUVY0Mno5WHJocktSQjFUMi93bHlCWHl1?=
+ =?utf-8?B?THFxZld2NWUrdEM1MjdoaStseG9XQXJ2L083RTM3dXhESDMrNzBWT0xxb0Np?=
+ =?utf-8?B?UE1MREk5NTRaaWlkaFRZNWxvK21XSUlaUHZOVTliWnM1TDNvL0xwTGYzakFr?=
+ =?utf-8?B?WU90Vjk3cFBSU3BVbGI1cHQxZGZjbWZGOGZ5Q084c2ZnVk1kTUFrV0dWRGdK?=
+ =?utf-8?B?bjV0U0lKL1BsK25GZm05T2VuaW1NWE5hNzFNcjc3K3N4UHRnL1B3LzRLUS9N?=
+ =?utf-8?B?cHk0QTllRHdLN01PMG0xUFRKMlYvYWEwZ3krei80UUU4YnBPYU85TzFMRzJk?=
+ =?utf-8?B?VlpaL0tIY1NBZ3JucmVnYlkzVCtxOWFTRTZxZUJDQ2hxWEVQQk55Y0tCWDFS?=
+ =?utf-8?B?U3JRMjE4TUFyZDZBZ0MyQWtTM3JkWURVYThEMmZWNDlFc3VEa2hKTjF5VENP?=
+ =?utf-8?B?RkcrN2kySk1vYzBoaWMyWTZYemNsVDdIaUlJR1NIekw2OHZwcUVONjB6L3hJ?=
+ =?utf-8?B?dzFHejlzWEtTV3JxUitCQmNiQTFGd29PQStmUmhjTXJWdWdNaVJIcWxRUGdI?=
+ =?utf-8?B?UURLQytlNUcxQUFveXNWdnAydENZRys3TkNvdm1UWGxLeUhjZlFIQ2dNTFZi?=
+ =?utf-8?B?K05CdTFyM2FQSFB1aGh2Z3JCSlI4VmxEUSszRTcrT0crS3BmRWFTNnF4NHBr?=
+ =?utf-8?B?bW5RUWY0aGNsV3BWTVNWaWRwT01UTWtjU1ZML09xLytncW5tUjRsWU92SkhI?=
+ =?utf-8?B?MlRCWUVQL083ajJlNUt3dGxsdz09?=
+MIME-Version: 1.0
+
+--_----4Y7knF9pVHvn5H7BpmAKUA===_3B/7E-06411-678E3CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Money Stuff =0A Groq, charity, analysts, train fare. =0A=0AView in browser =
+<https://bloom.bg/3TMjz3R> =0A <https://bloom.bg/4hx56C4> =0A=0A =0A<https:=
+//sli.bloomberg.com/click=3Fs=3D1149004&li=3D20221520&m=3Dbb4a280bebb158639=
+0b9615b8886024a&p=3D10052026181206&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b062=
+5a6&stpe=3Ddefault>=0A =0A<https://sli.bloomberg.com/click=3Fs=3D1149004&li=
+=3D20221520&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10052026181206&lctg=3D=
+a3e8b6e3-e359-4066-94ef-329d1b0625a6&stpe=3Ddefault>=0A=0A=0A=0AReverse acq=
+ui-hire=0A=0AIn recent years, the US technology industry invented a new kin=
+d of =0Amergers-and-acquisitions transaction. Traditionally there were two =
+main sorts =0Aof M&A transaction:=0A=0A * The acquirer buys the target comp=
+any, in a merger or stock purchase; the =0Ashareholders of the target compa=
+ny get something (cash, acquirer stock) in =0Aexchange for their shares of =
+the target, and the acquirer ends up owning the =0Atarget corporate entity.=
+ =0A * The acquirer buys the assets of the company, in an asset purchase; t=
+he =0Atarget company gets something (cash, acquirer stock) in exchange for =
+its =0Abusiness. If the target is sellingall of its assets, it will be left=
+ as an =0Aempty shell, and will probably distribute the cash or stock to it=
+s shareholders =0Aand liquidate. =0AThese are both pretty normal transactio=
+ns, and many rules are set up to treat =0Athem similarly. So, for instance,=
+ Delaware corporate law requires a shareholder =0Avote for amerger <https:/=
+/bloom.bg/3VkzUgH>, or for a sale =0A<https://bloom.bg/4hEotJv> of =E2=80=
+=9Call or substantially all=E2=80=9D of a company=E2=80=99s assets. =0AUSan=
+titrust law <https://bloom.bg/4AQNcSd> requires <https://bloom.bg/4AH2dG6> =
+=0Aa =E2=80=9CHart-Scott-Rodino premerger notification report=E2=80=9D =E2=
+=80=94 where the acquirertells =0Aantitrust regulators about the deal <http=
+s://bloom.bg/4ALSFtD> and gives them =0Athe opportunity to object =E2=80=94=
+ for any acquisition of more than$133.9 million worth=0A <https://bloom.bg/=
+47Alo74> of stock or assets. You might get different =0Aaccounting or tax t=
+reatment for different deal structures, but many of the =0Abig-picture effe=
+cts are the same however you structure the deal.=0A=0AThe antitrust part is=
+ important. The big tech companies are very big, there is =0Aa lot of polit=
+ical and regulatory worry that they are monopolists, and there is =0Aat lea=
+st some winner-takes-all flavor to the AI race. Meta or Alphabet or =0ANvid=
+ia might really want to do a $20 billion AI acquisition here or there, but =
+=0Athat might be risky from an antitrust perspective. So they=E2=80=99re in=
+ the market for =0Aways to do acquisitions without, technically, doing acqu=
+isitions.=0A=0AMany early-stage artificial intelligence startups consist mo=
+stly of (1) people =0Aand (2) ideas. The startup has some AI researchers, a=
+nd they=E2=80=99ve come up with =0Asome model or harness or chip design or =
+robot or whatever, and it=E2=80=99s pretty =0Apromising. But the startup do=
+esn=E2=80=99t have, like, a giant portfolio of data-center =0Areal estate, =
+or a robot assembly line, or a bunch of customer contracts.=0A=0AIf a big t=
+ech company wants to acquire a startup like that, it could buy it in =0Aa m=
+erger, or buy all of its assets. But the new structure is:=0A=0A * The acqu=
+irer hires the target=E2=80=99s employees, or most of them, or at least the=
+ =0Apeople who are critical to its valuable ideas. =0A * The acquirer gets =
+a waiver, from the target=E2=80=99s board of directors, allowing =0Ait to d=
+o all that hiring. (California doesn=E2=80=99t enforce non-compete agreemen=
+ts, =0Abut if you are going to, like, have the chief executive officer of t=
+he target =0Aemail all of the target=E2=80=99s employees from her work emai=
+l saying =E2=80=9Chey come with =0Ame to the acquirer; we=E2=80=99ll match =
+your salary,=E2=80=9D then it=E2=80=99s probably good to get =0Athe target=
+=E2=80=99s board=E2=80=99s permission.) =0A * The acquirer licenses the tar=
+get=E2=80=99s intellectual property: The target enters =0Ainto a nonexclusi=
+ve license allowing the acquirer to use the target=E2=80=99s ideas, =0Apate=
+nts, chip designs, etc., for its own purposes. =0A * In exchange for the wa=
+iver (Step 2) and license (Step 3), the acquirer pays =0Athe target a big p=
+ile of cash. =0A * The target is now more or less an empty shell. It has lo=
+st most of its =0Aemployees, or at least the ones who know about the stuff =
+that made it valuable. =0AIt still technically owns its intellectual proper=
+ty =E2=80=94 it gave the acquirer a =0Anon-exclusive license =E2=80=94 but =
+everyone who knows anything about that intellectual =0Aproperty has decampe=
+d for the acquirer, so it can=E2=80=99t do anything useful with it. =0AIt=
+=E2=80=99s just a collection of miscellany, plus the big pile of cash that =
+it got =0Afrom the acquirer. =0A * So the target pays out the cash to its e=
+mployees. Then maybe it shuts down, =0Aor maybe it keeps going in some less=
+ ambitious form. =0AThis structure is called a =E2=80=9Creverse acqui-hire.=
+=E2=80=9D [1]  <>=0A=0AThis structure has some disadvantages, compared to a=
+ traditional merger. It is =0Anot especially tax-efficient; the target pays=
+ tax on the licensing fee. [2]  <> =0ABecause it leaves the target as an in=
+dependent company, and gives the acquirer =0Aonly a nonexclusive license, i=
+t is not quite as good as a merger from a =0Acompetitive perspective: What =
+if your biggest competitor manages to strike its =0Aown licensing deal with=
+ the stub target company=3F=0A=0ABut it has some pretty important advantage=
+s. For one thing, it probably =0Adoesn=E2=80=99t require a vote of the targ=
+et=E2=80=99s shareholders. (Just the board of =0Adirectors.) This allows it=
+ to happen more quickly than a merger. Itmight also =0Aallow the reverse ac=
+qui-hire to happen over the objections of a majority of =0Ashareholders, th=
+ough that=E2=80=99s probably not a big factor. (The big shareholders of =0A=
+an early-stage AI startup will probably be mostly (1) venture capitalists w=
+ho =0Aare represented on the board and (2) co-founders and other employees =
+who have =0Asome leverage over getting acqui-hired.) But in theory, a rever=
+se acqui-hire =0Athat is good for the employees and bad for the outside sha=
+reholders might be =0Adoable, whereas a merger that is good for employees a=
+nd bad for outside =0Ashareholders would be harder to pull off. [3]  <>=0A=
+=0AThe main advantage, though, is probably antitrust. If it=E2=80=99s not a=
+ stock or =0Aasset acquisition, it doesn=E2=80=99t require an HSR filing, w=
+hich means you can close =0Athe deal before the antitrust regulators can do=
+ anything to stop it. Ionce =0Aexplained this deal structure <https://bloom=
+.bg/4y1EGNu> with a thought =0Aexperiment: =E2=80=9CImagine if mergers and=
+ acquisitions were illegal.=E2=80=9D The reverse =0Aaqui-hire is a way to d=
+o a merger without the legal trouble of antitrust review.=0A=0AThis is all =
+pretty controversial, for more or less the reasons that you=E2=80=99d =0Aex=
+pect. If you think of a reverse acqui-hire as a deal structure that was =0A=
+invented to avoid antitrust scrutiny, then it will obviously annoy people w=
+ho =0Awant more antitrust scrutiny. Bloomberg Newsreported earlier this yea=
+r =0A<https://bloom.bg/3W7yciQ>:=0A=0AThe US Federal Trade Commission is ta=
+king a closer look at moves by major tech =0Acompanies to hire away the emp=
+loyees of a startup instead of buying the venture =0Aoutright, the agency=
+=E2=80=99s Chairman Andrew Ferguson said, addressing a growing =0Apractice =
+seen as a way to avoid antitrust review.=0A=0A=E2=80=9CWe are beginning to =
+examine these acqui-hires to make sure they are not an =0Aattempt to get ar=
+ound=E2=80=9D the agency=E2=80=99s merger review process, Ferguson said ...=
+ in =0Aan interview on Bloomberg Television.=0A=0AAnd the New York Times re=
+ported last month <https://bloom.bg/4dl3d91>:=0A=0AThe Justice Department i=
+s investigating whether Nvidia tried to skirt =0Aantitrust scrutiny of a de=
+al it struck with the artificial intelligence =0Achipmaker Groq last year, =
+according to two people with knowledge of the inquiry.=0A=0AGroq described =
+the deal at the time as a =E2=80=9Cnonexclusive licensing agreement=E2=80=
+=9D =0Athat gave Nvidia access to Groq=E2=80=99s chips, which are custom-bu=
+ilt for running =0AA.I. As part of the arrangement, Groq=E2=80=99s chief ex=
+ecutive, Jonathan Ross, and its =0Achief operating officer, Sunny Madra, jo=
+ined Nvidia. ...=0A=0AGovernment officials have considered whether these de=
+als should receive more =0Ascrutiny while they grapple with the way a small=
+ number of companies have =0Aconsolidated power over A.I.=0A=0AConceptually=
+, if reverse acqui-hires are another sort of M&A transaction, then =0Atheys=
+hould be covered by antitrust law. There are some line-drawing problems =0A=
+there =E2=80=94 justhiring someone probably shouldn=E2=80=99t trigger antit=
+rust review =E2=80=94 but =0Ayou can see why the regulators are interested.=
+=0A=0ASimilarly, though, if reverse acqui-hires are another sort of M&A tra=
+nsaction, =0Athen they should be treated that way undercorporate law. A mer=
+ger, or a sale of =0Aall of a company=E2=80=99s assets, triggers certain co=
+rporate requirements: Directors =0Ahave a fiduciary duty to maximize value =
+in a sale, [4]  <> and the shareholders =0Ahave to vote to approve the deal=
+. If a reverse acqui-hire effectively means =0Aselling all of a company=E2=
+=80=99s assets for cash =E2=80=94 because its assets are basically =0Aits p=
+eople and ideas =E2=80=94 then shouldn=E2=80=99t that trigger the same requ=
+irements=3F=0A=0AThe Financial Times reports <https://bloom.bg/4hIARGW>:=0A=
+=0ANvidia=E2=80=99s $20bn licensing deal with Groq fleeced employees who we=
+re left out of =0Athe transaction, according to a lawsuit filed by two engi=
+neers who owned shares =0Ain the start-up.=0A=0AThe legal complaint filed o=
+n Friday in a Delaware corporate law court alleges =0Athat Groq=E2=80=99s b=
+oard improperly sold the company=E2=80=99s core assets and top employees =
+=0Ato the $5tn tech titan in 2025, consigning those left behind to a hollow=
+ed-out =0Ashell.=0A=0AThe transaction was framed by Nvidia at the time as a=
+ =E2=80=9Cnon-exclusive=E2=80=9D =0Alicensing arrangement, with Groq remain=
+ing as an independent and functioning =0Acompany.=0A=0ABut, according to th=
+e lawsuit, the Groq board was riven with conflicts of =0Ainterest and faile=
+d to observe its legal obligation to get the best price and =0Astructure fo=
+r all shareholders, not allowing some of them to vote on the =0Atransaction=
+.=0A=0AHere is the complaint <https://bloom.bg/4i3Miub>, whose basic point=
+ is =E2=80=9Coh =0Acome on this is a merger=E2=80=9D:=0A=0AGroq=E2=80=99s b=
+oard of directors (the =E2=80=9CBoard=E2=80=9D) sold the Company to NVIDIA =
+without the =0Astockholder vote Delaware law requires and without any proce=
+ss designed to test =0Aor maximize the value of what NVIDIA bought. A major=
+ity of the Board was =0Aconflicted. It handed NVIDIA Groq=E2=80=99s valuabl=
+e technology and the engineers who =0Abuilt Groq, took billions of dollars =
+in benefits for itself, senior management, =0Aand affiliated funds that it =
+did not share with Groq=E2=80=99s other stockholders, and =0Athen squeezed =
+out those stockholders at a lowball price it set itself. =E2=80=A6=0A=0ABut=
+ a merger that avoids antitrust rules:=0A=0AA stock or asset acquisition wa=
+s unattractive because, given NVIDIA=E2=80=99s market =0Ashare, a Groq merg=
+er would have faced serious antitrust scrutiny. =E2=80=A6=0A=0ABecause the =
+buyer acquires neither voting securities nor assets, the =0Atransaction fal=
+ls outside the federal antitrust regulators=E2=80=99 premerger =0Anotificat=
+ion regime. ... The structure has become increasingly common in recent =0Ay=
+ears, promoted by venture investors and savvy transactional attorneys. =E2=
+=80=A6=0A=0ANVIDIA had reason to prize that avoidance. A prior attempt to a=
+cquire Arm =0AHoldings from SoftBank drew sustained multi-jurisdictional an=
+titrust scrutiny =0Aand NVIDIA ultimately abandoned the transaction without=
+ closing. An acquirer =0Athat has watched a headline acquisition of a semic=
+onductor licensor collapse =0Aunder regulatory pressure has a powerful inst=
+itutional incentive to design its =0Anext acquisition so that no filing is =
+required.=0A=0AThe complaint also argues that, while technically the licens=
+e to Nvidia was =0Anon-exclusive and Groq continued as an independent compa=
+ny, in practice there =0Awas nothing left:=0A=0AThe supposedly =E2=80=9Cnon=
+-exclusive=E2=80=9D license grant was substantively an asset =0Atransfer. =
+=E2=80=A6=0A=0ANo rational third-party licensee will pay significant value =
+for a =0Anon-exclusive right to technology that the world=E2=80=99s dominan=
+t AI chip company =0Aalready holds on the same or broader terms ... and tha=
+t it is updating daily =0Awith the very workforce that created the underlyi=
+ng intellectual property. The =0Acanvass of 36 parties produced no compelli=
+ng bid [for the remainder of the =0Acompany] for that reason: once Groq=E2=
+=80=99s Board agreed to let NVIDIA develop the =0Aassets, whatever interest=
+ Groq retained in them ceased to have independent =0Amarket value.=0A=0AThi=
+s all seems about right to me, but I=E2=80=99m not sure where it gets you. =
+Part of =0Athe argument here is that the reverse acqui-hire is a novel form=
+ of M&A that =0Ashould be treated like other forms of M&A, and should have =
+to be fair to =0Ashareholders.=0A=0ABut the other part of the argument is t=
+hat this deal wasn=E2=80=99t fair to =0Ashareholders, and I=E2=80=99m not s=
+ure. Groq=E2=80=99s shareholders =E2=80=94 including the plaintiffs =0Ain t=
+his lawsuit =E2=80=94 weren=E2=80=99tzeroed in the transaction. Nvidia paid=
+ $17 billion to =0AGroq, in cash, for the license, and most of that money h=
+as been paid out to =0Ashareholders. [5]  <> Their complaint is that other =
+shareholders =E2=80=94 the founders =0Aand employees who went to Nvidia =E2=
+=80=94 got more. The headline value of the Nvidia =0Aacqui-hirewas $20 bill=
+ion <https://bloom.bg/4y3Dqtg>, that is, the $17 billion =0Apaid to Groq pl=
+us $3 billion paid to employees for joining Nvidia. The lawsuit =0Aobjects:=
+=0A=0A[Jonathan] Ross=E2=80=99s position illustrates the conflict. He was s=
+imultaneously a =0AGroq stockholder, Groq=E2=80=99s Chief Executive Officer=
+, a Groq director, the =0Aprincipal negotiator of the Company=E2=80=99s sid=
+e of the License, and the individual =0ANVIDIA most wanted to hire. He rece=
+ived NVIDIA equity compensation from the $3 =0Abillion pool on top of the p=
+roceeds of his Groq ownership. An ordinary common =0Astockholder could mone=
+tize the value surrendered to NVIDIA only through the =0Aconsideration allo=
+cated to her shares; she could not take a discount on those =0Ashares and b=
+e paid separately for following the technology to NVIDIA. Ross =0Acould, an=
+d did.=0A=0AYeah but that=E2=80=99s true in any merger where the CEO keeps =
+his job. The value of =0AGroq was largely in its employees, and Groq=E2=80=
+=99s shareholders cleared $17 billion =0Aby selling the rights to those emp=
+loyees to Nvidia. Of course the employees =0Aalso got paid.=0A=0A =0A<https=
+://sli.bloomberg.com/click=3Fs=3D868432&stpe=3Ddefault&li=3D20221520&m=3Dbb=
+4a280bebb1586390b9615b8886024a&p=3D10052026181206&lctg=3Da3e8b6e3-e359-4066=
+-94ef-329d1b0625a6>=0A=0A =0A<https://sli.bloomberg.com/click=3Fs=3D868432&=
+stpe=3Ddefault&li=3D20221520&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10052=
+026181206&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6>=0A=0AAnthropic chari=
+table giving=0A=0AFrontier artificial intelligence labs are locked in bitte=
+r competition for the =0Abest researchers: The lab with the best researcher=
+s will build the best model =0Aand make a zillion dollars; the lab with the=
+ second-best researchers might =0Afail. It is critical, for normal sharehol=
+der-value-creation reasons as well as =0Amore fancifulsave/destroy-the-worl=
+d <https://bloom.bg/4dgPgsI> reasons, to hire =0Athe best researchers. And =
+so this competition largely takes the normal form: =0ABig AI labs pay their=
+ researchers lots of money.=0A=0ABut that=E2=80=99s not the only form it ca=
+n take. There seems to be a  strong =0Aempirical correlation <https://bloom=
+.bg/4y3cava> between (1) being a good AI =0Aresearcher and (2) being inter=
+ested ineffective altruism =0A<https://bloom.bg/4AQvNJe>. (You might wonder=
+ if this is a historical accident: =0AEarly AI research was an obscure subc=
+ulture with a lot of overlap with EA, but =0Anow that =E2=80=9CAI researche=
+r=E2=80=9D is a highly legible and lucrative career path, maybe =0Athe corr=
+elation will weaken. Or maybe not; maybe there is some inherent =0Aconnecti=
+on between being good at AI and having EA views.)=0A=0AAnd so a lot of rese=
+archers at top AI labs have some =E2=80=9Cearning to give =0A<https://bloom=
+.bg/3VtOCSy>=E2=80=9D tendencies, donating large portions of their =0Amass=
+ive paychecks to charities. (Because they are EA-oriented, many of them =0A=
+give to charities whose mission is to stop their employers from building =
+=0Asuperintelligent AI.Is that =E2=80=A6 effective <https://bloom.bg/4AV86Q=
+m>=3F) =0A=0AIf you ran an AI lab, you might design your compensation pract=
+ices around =0Athese facts. You might recruit researchers by offering to pa=
+y them a =0Acompetitive headline number =E2=80=94 like, $20 million a year =
+=E2=80=94 but split into (1) $5 =0Amillion paid directly to them and (2) $1=
+5 million paid directly to the charity =0Aof their choice. This compensatio=
+n design has several key advantages:=0A=0A * It will appeal to EA types, an=
+d a lot of good AI researchers are EA types. =0AYou will maximize sharehold=
+er value by recruiting the best AI researchers. =0A(Again, perhaps this lin=
+k is weakening over time.) =0A * If you=E2=80=99re the founder of an AI lab=
+, you might be an EA type yourself, and =0Ayou might prefer to hire employe=
+es who funnel their large paychecks to charity =0Arather than to yachts. =
+=0A * Relatedly, we often <https://bloom.bg/4hH831D> discuss =0A<https://bl=
+oom.bg/4hNk5Xr> the <https://bloom.bg/4AOusTf> fact =0A<https://bloom.bg/4r=
+LwUGh> that the competitive salary for many AI researchers =0Ais enough to =
+retire on immediately. You do not want to hire researchers who =0Aretire im=
+mediately. You want them to keep working. Making sure that most of =0Atheir=
+ paycheck goes to charity, rather than to savings, is helpful for =0Aretent=
+ion and thus maximizes shareholder value. =0A * If you are paying the chari=
+table donations directly, rather than through =0Athe employees, it is possi=
+ble that (1) you can refuse to direct the donations =0Ato Stop AI Labs From=
+ Doing AI charities and/or (2) the Stop AI Labs From Doing =0AAI charities =
+will refuse to take donations from you, which is maybe also =0Ahelpful for =
+shareholder value. [6]  <> =0AAt the Information, Cory Weinberg reports <ht=
+tps://bloom.bg/47B7QrZ> that =0AAnthropic does in fact have more or less th=
+is compensation structure, which =0Amakes for slightly unintuitive accounti=
+ng and disclosure:=0A=0AWhen Anthropic shared financial figures recently wi=
+th prospective investors in =0Aits planned initial public offering, it incl=
+uded a surprising glimpse of the =0Aenormous riches about to hit nonprofits=
+ and philanthropies=E2=80=94and the cost to =0Ashareholders.=0A=0AThe compa=
+ny reported a non-cash expense of more than $660 million for stock =0Aused =
+to match employees=E2=80=99 charitable contributions in the six months from=
+ =0AOctober 2025 to March 2026, investors said. That expense, which is alre=
+ady =0Aunusually large, will likely balloon into the billions of dollars in=
+ the coming =0Aquarters, after an IPO expected to create what could be an u=
+nprecedented wave =0Aof corporate donations.=0A=0AThe charges are tied to s=
+tock awards to employees that they pledge to =0Acharities that Anthropic ma=
+tches with stock of its own. Anthropic executives =0Ahave said the unusuall=
+y generous matching program is an important recruiting =0Atool, and they ha=
+ve emphasized how it underlines its public benefit mission. =0AAnd it has b=
+ecome particularly valuable because of Anthropic=E2=80=99s rapidly rising =
+=0Aprivate stock value. =E2=80=A6=0A=0AAnthropic excluded the expense, alon=
+g with stock-based compensation and a =0Alarge legal settlement, from its a=
+djusted operating profit for the periods. =0ACompanies typically present in=
+vestors with adjusted profit metrics that exclude =0Aexpenses they don=E2=
+=80=99t pay in cash or aren=E2=80=99t likely to recur.=0A=0AThe charitable =
+expense that Anthropic excluded was far larger than any large =0Apublicly t=
+raded firm that excluded a similar expense from their adjusted profit =0Ame=
+trics. =E2=80=9CThe adjustment for charitable contributions is not common a=
+t all,=E2=80=9D =0Asaid Calcbench=E2=80=99s Ghai.=0A=0ANo, right, of course=
+, most companies do not report adjusted earnings that =0Aadjust out non-cas=
+h charitable giving, because =E2=80=9Cnon-cash charitable giving=E2=80=9D i=
+s =0Anot a big thing at most companies. But tech companies oftendo adjust o=
+ut =0Astock-basedemployee compensation, [7]  <> and that=E2=80=99s obviousl=
+y what=E2=80=99s going on =0Ahere. It=E2=80=99s just that the way Anthropic=
+ compensates employees is through =0Acharitable giving.=0A=0AAlso, here=E2=
+=80=99s evidence that the AI/EA correlation might be weakening over time:=
+=0A=0AThe company matched stock earmarked for charities on a 3-to-1 basis f=
+or early =0Aemployees, who joined in 2024 or earlier. Employees had the opt=
+ion to donate up =0Ato half their stock to charity as part of the program. =
+For employees hired more =0Arecently, the company matches donations of up t=
+o a quarter of their stock on a =0A1-to-1 basis.=0A=0AIf you joined Anthrop=
+ic in 2023, there was a high probability that you cared a =0Alot about funn=
+eling your potential AI riches to effective charities. In 2025, =0Aless. Ev=
+entually, after the IPO, they=E2=80=99ll probably phase it out.=0A=0A=0AAna=
+lyst programs=0A=0ASure fine <https://bloom.bg/4hvV97T>:=0A=0ACitigroup Inc=
+. is slashing the time its investment-banking analysts need to =0Await to =
+advance to associate level, part of a push by the bank to attract and =0Are=
+tain top talent in a fierce job market that=E2=80=99s seen buyout firms poa=
+ch =0Aaggressively from Wall Street.=0A=0AThe move will cut the analyst pro=
+gram to two years from three for Citi=E2=80=99s =0Ajunior bankers, accelera=
+ting their route to seniority at the firm and bringing =0Athe company in li=
+ne with some competitors, David Friedland, co-head of North =0AAmerica inve=
+stment banking, said in an interview.=0A=0AI thought a two-year path to ass=
+ociate was pretty standard these days. I=E2=80=99m =0Aalso not quite sure h=
+ow this works to compete with private equity. Like the =0Atimeline is:=0A=
+=0A * You start your analyst program at Citi in summer 2026. =0A * In about=
+ January 2027 <https://bloom.bg/3Tlf0NR>, give or take, the big =0Aprivate =
+equity firms start interviewing investment bank analysts to start in =0Apri=
+vate equity in fall 2028. =0A * You interview and get an offer. =0A * What,=
+ you say no because you might get promoted to associate in 2028=3F =0AMaybe=
+ =E2=80=94 maybe banking is a more attractive long-term proposition =0A<htt=
+ps://bloom.bg/4i2J75U> than private equity these days =E2=80=94 but there=
+=E2=80=99s still =0Athat timing mismatch. You still get your private equity=
+ offer way, way, way =0Abefore you get your associate promotion.=0A=0ABy th=
+e way, that Citi story goes on:=0A=0AThe move revives a discussion around j=
+unior-banker retention that arose last =0Ayear, when bank executives pushed=
+ back at private equity firms for bringing =0Aforward their hiring cycles. =
+...=0A=0AJPMorgan said it would fire any analyst who accepted an outside j=
+ob offer =0Awithin 18 months of joining the firm.=0A=0AWhat ever happened t=
+o that=3F JPMorgan really did say <https://bloom.bg/4AUFxCw>=0A, in June 20=
+25, that it would fire analysts if they accepted an outside job =0Aoffer wi=
+thin 18 months of starting. That really didhave the effect of delaying =0A<=
+https://bloom.bg/4dimIPA> private equity =E2=80=9Con-cycle recruiting=E2=80=
+=9D: No private =0Aequity firm wanted to incur Jamie Dimon=E2=80=99s wrath,=
+ so they all waited longer than =0Athey usually did to recruit associates f=
+or 2027. But only a few months longer: =0APrivate equity recruiting for 202=
+7kicked off <https://bloom.bg/3Tlf0NR> in =0AJanuary 2026. By my math, if y=
+ou are an investment banking analyst at JPMorgan, =0Ayou started in June 20=
+25, and you took a private equity offer in January 2026, =0Athen you had be=
+en at JPMorgan for about seven months. That=E2=80=99s a lot longer than =0A=
+in previous cycles, but it=E2=80=99s a lot less than 18 months. Did no one =
+at JPMorgan =0Atake a private equity offer for 2027=3F Did they all get fir=
+ed=3F Are they all =0Ahiding their offers=3F Has JPMorgan given up on this=
+=3F Does Dimon know=3F=0A=0A=0ADoughnutting=0A=0AA lot of finance is about =
+finding tricky ways through the rules. We talked =0Alast week <https://bloo=
+m.bg/4y4fAxB> about 351 exchange traded funds, which =0Arely on creatively =
+splicing together non-taxable transactions to make it so =0Aanyone can trad=
+e stocks without incurring taxes. Someone had to notice that =0Apossibility=
+ and splice together the pieces. People who can do that sort of =0Anoticing=
+ are in high demand at law firms and investment banks and hedge funds.=0A=
+=0AAnd so there is a certain amount of lore about financial firms being del=
+ighted =0Ato hire people based on their track record of finding tricks. Las=
+t year the =0AWall Street Journalrecounted a story <https://bloom.bg/4jzoob=
+a> about Marshall =0AWace, the hedge fund:=0A=0A[Co-founder Ian Wace] once =
+challenged a group of prospective hires to visit =0Athe most countries in E=
+urope, using as many forms of transportation and as =0Acheaply as possible=
+=E2=80=94within 24 hours.=0A=0A=E2=80=9CI wanted to see to what extent some=
+one could think pretty creatively. I =0Awanted to see, if you exhausted the=
+m, what would happen,=E2=80=9D Wace said. Among the =0Anotable results=3F O=
+ne made it to the far side of Poland =E2=80=9Con something like 30 =0Adiffe=
+rent forms of transport,=E2=80=9D Wace recalled. Another stayed local, trav=
+ersing =0ALondon=E2=80=99s many embassies.=0A=0AThat candidate is at the fi=
+rm now. =E2=80=9CHe=E2=80=99s actually very clever,=E2=80=9D Wace said. =0A=
+But, as he saw it, =E2=80=9Cit was a bit too cute.=E2=80=9D=0A=0A=E2=80=9CI=
+t was a bit too cute,=E2=80=9D he said, but he didn=E2=80=99t mean that, be=
+cause he hired =0Athe guy. Exploiting technicalities in team-building chall=
+enges is a very good =0Asign for your future in the financial industry. But=
+ you cannot take this too =0Afar. The Financial Times reports <https://bloo=
+m.bg/4xYZPbn>:=0A=0AA former HSBC banker has been banned from working in fi=
+nancial services by the =0AUK watchdog after being convicted of fraud over =
+a =E2=80=9Cdoughnutting=E2=80=9D scam he =0Adevised to dodge almost =C2=A36=
+,000 of train fares. =E2=80=A6=0A=0AThe 53-year-old devised a =E2=80=9Cdoug=
+hnutting=E2=80=9D scheme to buy tickets for short trips =0Aat the start and=
+ end of the journey from his home in Orpington, south London, =0Ato HSBC=E2=
+=80=99s office in Canary Wharf. The scam meant he avoided paying for a =E2=
+=80=9Chole=E2=80=9D =0Ain the middle of his commute.=0A=0AThe former banker=
+ also obtained a Jobcentre Plus discount, for which only =0Aunemployed peop=
+le or those seeking work are eligible, to get 50 per cent off =0Aticket pri=
+ces.=0A=0AHe was banned because cheating on train fare =E2=80=9Cshows he la=
+cks honesty and =0Aintegrity,=E2=80=9D fine. It=E2=80=99s a little creative=
+, but mostly it=E2=80=99s just grubby. Also he =0A=E2=80=9Cwas head of pass=
+ive equity at HSBC Asset Management,=E2=80=9D and I am not sure that =0Asne=
+aky ingenuity is what you want in apassive equity investor. =0A=0A=0AThings=
+ happen=0A=0AHedge Funds  Exiting Crowded Trades <https://bloom.bg/4APwxyu>=
+ Fueled Rout in =0AFrench Bonds. How the French Bond Trade <https://bloom.b=
+g/3TqhSZP> Backfired on =0AInvestors. Paramount=E2=80=99s $52 Billion Debt =
+Saga Ends WithHair-Raising Finale =0A<https://bloom.bg/3Vw5TKP>. Paramount =
+Debt Drop Spells Trouble for Borrowers =0A<https://bloom.bg/4i3MlGn>. Param=
+ount=E2=80=99s $52 Billion Debt Sale Shows How Higher =0ARates <https://blo=
+om.bg/4rXeEtt> Are Biting Corporate America. Goldman=E2=80=99s Bid =0Afor C=
+LO Manager <https://bloom.bg/4huIylh> Highlights Wall Street=E2=80=99s Fee =
+Hunt. =0ABlue Owl Again Caps Two BDCs <https://bloom.bg/4huIsKr> After 39%,=
+ 17% =0AWithdrawal Requests. Spending on AI <https://bloom.bg/4AO15AH> Is B=
+ecoming =0AAlmost Impossible for Businesses to Budget. Jane Street Denies M=
+arket =0AManipulation <https://bloom.bg/476RM15> to India Securities Court.=
+ Low-profile =0Ahedge fund smashes record for New York office rent <https:/=
+/bloom.bg/4AQjKf1>. =0ALondon Takes a Hit as Super Rich Worth $160 Billion =
+Exit UK =0A<https://bloom.bg/4hvoYW8>. Sweden=E2=80=99s Young Men Have Foun=
+d  Their Wolf of Wall =0AStreet <https://bloom.bg/4htLy1g>. Sotheby=E2=80=
+=99s dinosaur auction shows  fossils =0Aboom <https://bloom.bg/4AV8a2y> is =
+not dying out.=0A=0AIf you'd like to get Money Stuff in handy email form, r=
+ight in your inbox, =0Apleasesubscribe at this link <https://bloom.bg/447aq=
+8q>. Or you can subscribe =0Ato Money Stuff and other great Bloomberg newsl=
+ettershere =0A<https://bloom.bg/4gyj3wg>. Thanks!=0A=0A[1] A =E2=80=9Cforwa=
+rd acqui-hire=E2=80=9D is just a regular merger, where the acquirer is =0Am=
+ostly interested in hiring the target=E2=80=99s leaders rather than in gett=
+ing its =0Aunderlying business.=0A=0A[2] From the Groq complaint <https://b=
+loom.bg/4i3Miub>: =E2=80=9CCritically, the =0Achoice to transfer the techno=
+logy by license rather than by a sale of stock had =0Aa tax consequence tha=
+t fell on Groq=E2=80=99s stockholders. Groq recognized =0Alicense-driven ot=
+her income of [redacted] in fiscal 2025 and recorded a =0Aprovision for inc=
+ome taxes of [redacted]. Because NVIDIA and Groq=E2=80=99s Board =0Astructu=
+red the transaction as a license to the corporation rather than a =0Apurcha=
+se of stock from stockholders, the proceeds were taxed at the corporate =0A=
+level and, when distributed, were taxed again at the stockholder level unde=
+r =0Athe plan of liquidation.=E2=80=9D=0A=0A[3] I wrote once <https://bloom=
+.bg/4B7OSqP> that =E2=80=9Cit=E2=80=99s a little weird that the =0ASilicon=
+ Valley startup ecosystem still works,=E2=80=9D because big tech companies =
+could =0Ahire founders of promising startups without paying the startup inv=
+estors =0Aanything. But that=E2=80=99s not quite true, I added: =E2=80=9CWi=
+th really quite striking =0Aconsistency, the big tech companies that hire A=
+I startup founders throw in a =0Aparting gift for the venture capitalists. =
+I do not quite understand why. I =0Asuppose that, while the startup can=E2=
+=80=99t enforce a noncompete against its =0Afounders, it probably can enfor=
+ce some intellectual property rights, and Google =0Adoesn=E2=80=99t want to=
+ get sued because it hired an AI startup founder who then reused =0Asome id=
+eas from the startup.=E2=80=9D That=E2=80=99s what you see with these waive=
+r-and-license =0Adeals.=0A=0A[4] That is a slightly loose characterization =
+of =E2=80=9C Revlon duties =0A<https://bloom.bg/4ALSG0F>,=E2=80=9D but it=
+=E2=80=99s basically how target boards think of =0Atheir job when they sell=
+.=0A=0A[5] Actually the $17 billion was payable in three tranches, the thi=
+rd of which =0Ais $1 billion and payable in December 2026. The rest has bee=
+n distributed. The =0Aplaintiffs have various complaints about the process =
+of the distribution, share =0Asales in advance of it, etc.; their problems =
+are not solely with the acqui-hire =0Apart of the transaction.=0A=0A[6] We =
+really have  discussed <https://bloom.bg/4AV86Qm> the problem of AI =0Alabs=
+ paying zillions of dollars to their EA employees who then turn around and =
+=0Agive the money to stop-AI charities. There isapparently a split =0A<http=
+s://bloom.bg/44kWvLd> between stop-AI charities who refuse to accept money =
+=0Afrom the AI industry and those who are like =E2=80=9Cwell, money=E2=80=
+=99s money.=E2=80=9D=0A=0A[7] You don=E2=80=99t have to like that or anythi=
+ng, and obviously employee stock =0Acompensation is a real cost, but compan=
+ies do it.=0A=0A=0A <https://bloom.bg/4ey6nWe> =0A=0AFollow Us  <https://bl=
+oom.bg/4nqVBoU>  <https://bloom.bg/4k7tEj3>  =0A<https://bloom.bg/3ZTy0mC> =
+ Get the newsletter  <https://bloom.bg/41HS7pA> =0A=0A=0ALike getting this =
+newsletter=3F  Subscribe to Bloomberg.com =0A<https://www.bloomberg.com/sub=
+scriptions=3Futm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dmone=
+ystuff&utm_content=3Dtout-money-stuff&utm_term=3D>=0A for unlimited access =
+to trusted, data-driven journalism and subscriber-only =0Ainsights.=0A=0ABe=
+fore it=E2=80=99s here, it=E2=80=99s on the Bloomberg Terminal. Find out mo=
+re about how the =0ATerminal delivers information and analysis that financi=
+al professionals can=E2=80=99t =0Afind anywhere else.Learn more =0A<https:/=
+/link.mail.bloombergbusiness.com/click/15638356.78421/aHR0cHM6Ly93d3cuYmxvb=
+21iZXJnLmNvbS9wcm9mZXNzaW9uYWwvc29sdXRpb24vYmxvb21iZXJnLXRlcm1pbmFsLw/55088=
+ec43b35d034698d38aeBe3d4e6ab>=0A.=0A=0AWant to sponsor this newsletter=3F  =
+Get in touch here =0A<https://www.bloombergmedia.com/contact/=3Futm_medium=
+=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dmoneystuff>=0A.=0A=0A You r=
+eceived this message because you are subscribed to Bloomberg's Money =0AStu=
+ff newsletter. =0AUnsubscribe =0A<https://www.bloomberg.com/account/newslet=
+ters/money-stuff=3Fsource=3Dnewsletter_unsub&email=3Dcarlosandradena@gmail.=
+com&hash=3D6e1e8750b026b2c4a755c098730d24d74ddad9f4>=0A |Bloomberg.com <htt=
+ps://bloom.bg/41BzmUH> | Contact Us =0A<https://bloom.bg/3PWd74F> =0A=0A <h=
+ttps://bloom.bg/4kguDNP>  |  <https://bloom.bg/40s7Jfd> =0ABloomberg L.P. 7=
+31 Lexington, New York, NY, 10022  =0A<https://links.message.bloomberg.com/=
+s/eh/7GBf-J9OHmPWJIuOkvG9uzZChw3ZzDRXIqPnZK7NthjAQKMfy58VXDk0acNG9L5GUNzVxG=
+k2hGa2rlmyjz24eWkQLah_A6EfxcaPOiGsPogMY3eiXUr6ZLI7YyJgBORk46nPUeMyLX9FAjpd3=
+8Xah8aKt7n7Kadea9n4jYM3avlHj5OzZ2AhwBuo__M4Tw666nPE2ZlfkT8dGv8g7g5pa1aj869_=
+LDzuEDtpExDsvPqLaqoXz4e7LE81fbOXunZtLbju6_q0CDpEOzwi-biiKJGNgdQkn9q8uWEe-T0=
+e14364F12XHcF9eGWfdP2yV-sfMtdtZWUhcS-KuOwHU4Ib0BG7UkDoui239A/5FFs3ZL-dJOEKC=
+nsVnekTzfQoF_BCDUU/25>
+--_----4Y7knF9pVHvn5H7BpmAKUA===_3B/7E-06411-678E3CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml" style=3D"width: 100%;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"> <=
+meta name=3D"viewport" content=3D"initial-scale=3D1"> <title>Money Stuff</t=
+itle> <!--[if (mso)|(mso 16)]><style type=3D"text/css">a{text-decoration:no=
+ne}</style><![endif]--> <style>body{width:100%;-webkit-font-smoothing:antia=
+liased;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:15=
+0%;margin:0;padding:0}img{max-width:550px}.body-component a:visited{color:#=
+000;text-decoration:none!important;border-bottom:1px solid #000;background-=
+color:#ccc}.body-component h1 a:visited{text-decoration:none;color:#000}@me=
+dia only screen and (max-width:480px){.lihide{display:none!important}.lisho=
+w{display:block!important;width:auto!important;overflow:visible!important;f=
+loat:none!important;max-height:inherit!important;line-height:inherit!import=
+ant}.email-ssl-image{width:100%!important;height:auto!important}.body-image=
+ img{width:100%!important}.logo-image{width:100%!important}}</style></head>=
+ <body style=3D"width: 100%; -webkit-font-smoothing: antialiased; font-fami=
+ly: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%; margi=
+n: 0; padding: 0;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/ZtCDZ3f=
+DXJQytaUmySgdTA~~/AARGbBA~/wL-5G9xrde4Tx0jnb7is6DRIGu21SYTDxdXP8fNRzY_gu5we=
+L0AASiizY0WVaq56gUFoppXZocsRWQuXLxFAjQ~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/PmNsCXHxsEv3K42-GupJeIc2zhuBmYTh1cZyn1NkSOLAjybI1thblnuaHsnr=
+nb3V6frkiDSznXv1N_DNd7tOKROeT_mudztmee-bQvlUjYn1B2IM2L8GAlYE6_qzBFmjkOktDTl=
+tjjPl_FVXTuGC9B0N-k2InzWbwL5usce7kn71ph7LZecJsijJxYGSg-41dnSXaXS39L5jpYjLYq=
+k9ZeiLr4dP8y1LhMCK/oqNUrGRm967WcZF5N66Tcfoly8cs7sNq/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"> <table id=3D"wrapper" width=
+=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ style=3D"-webkit-font-smoothing: antialiased; font-family: Helvetica, Aria=
+l, sans-serif; font-size: 16px; max-width: 550px; width: 100% !important;">=
+ <!--[if mso]><center> <tr><td> <table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"550"><![endif]--> <tr> <td style=3D"border-collapse: =
+collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <div style=3D"dis=
+play: none; max-height: 0px; overflow: hidden;"> Groq, charity, analysts, t=
+rain fare. </div> </td> </tr> <tr> <td style=3D"border-collapse: collapse; =
+mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 15px;"> <tabl=
+e width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td=
+ align=3D"center" style=3D"border-collapse: collapse; mso-table-lspace: 0pt=
+; mso-table-rspace: 0pt; padding: 20px 0px 10px;"> <a href=3D"https://links=
+.message.bloomberg.com/s/c/XeisTIAcgXHKC3J5Zy70I-M893PUNzpSrPwrLM5rIQvsxnP2=
+f4UTv-LA2vvhQ4epjlGm6yI2rH_1SOGlFR80b9-DYVxwsg0XlLaDqXlVCgJWUbi1OneIM-9h1rp=
+l451QmJ98W6qhQhO9uXPGxa7P7_7sND9uf0VGGzAefOjp9iqbP0mGXnQC8lJaGsGpVHfMe3W4lh=
+3MiwtH6HnUjBSneIOnioFzxz-Ty8B98bvVnbTYMi2QXHbZAH8qbJ0fqwreD4p7N6akZATVU2kOw=
+4DqWd8AHJgUtxpvxkfZ0Ahg4I_AMR8IK5Z__y4Pos2I6qSB54D2hU7MJ2EONoQOnlu6gVv_iL-6=
+wLj9ioUkvEAmDbJUNBpYnDm9tVK4Xg/OUs7KmMo7tFb8AXzsjl3HFRSUMkzGOyP/25" style=
+=3D"font-family: Helvetica, Arial, sans-serif; text-decoration: underline; =
+font-size: 14px; color: #767676 !important;">View in browser</a> </td> </tr=
+> <tr> <td align=3D"center" style=3D"border-collapse: collapse; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt; padding-bottom: 5px;"> <a href=3D"https:=
+//links.message.bloomberg.com/s/c/QYU6B_93_RY3GUSq5Mu6Aw-48FWYTp8sBl2VVqvx2=
+y8Neq8UjOdrYd8Ryu78ZTxz7Bo0IqU_ttdGkdzsfoQsr6U7OffEk8iyag_RO5sDkl6LfDJT-YNl=
+Bvr6IWvr5rFVvXsNUIvF4Ix5ZXH3U19DrHo4RHMYBqSgaVZUsLBeHnxqN1d47Po0jKfxfPuya2N=
+IuQOVTGRjXZcvnW705gBJdLoZT7KJmiR5fKQL7_VDMQki0t671uv-s0Uxbu6FK-dF3whu3c_1QD=
+ZPUaykIF0tgya9xmSsb9EZ5IdK_3krHDQn8JA-j6WK3Or-FKN9vA1DTUhrIfOAgcjlvc72jmZa8=
+D4KDhdMpy4ZR-mcQYRFVTkpPFx4G7tz9UNbGg/SzRjVhPpjeWuV6-IvuATkT2IERfiQ4U7/25">=
+<!--[if mso]><table width=3D"550"><tr><td><img alt=3D"Bloomberg" src=3D"htt=
+ps://assets.bwbx.io/images/users/iqjWHBFdfxIU/img7rZ7yYddA/v0/-1x-1.png" wi=
+dth=3D"550"/></td></tr></table> <div style=3D"display:none"><![endif]--><im=
+g class=3D"logo-image" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdf=
+xIU/img7rZ7yYddA/v0/-1x-1.png" border=3D"0" alt=3D"Bloomberg" style=3D"max-=
+width: 550px; width: 530px; display: block;" width=3D"530"><!--[if mso]></d=
+iv><![endif]--></a> </td> </tr> </table><table align=3D"center" border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" data-lt-version=3D"3.0.0"> <tr> <td c=
+olspan=3D"2" align=3D"center" style=3D"line-height: 1px"> <img src=3D"https=
+://sli.bloomberg.com/imp?s=3D1149004&amp;li=3D20221520&amp;m=3Dbb4a280bebb1=
+586390b9615b8886024a&amp;p=3D10052026181206&amp;lctg=3Da3e8b6e3-e359-4066-9=
+4ef-329d1b0625a6&amp;stpe=3Dstatic" border=3D"0" style=3D"max-width: 550px;=
+ display: block; max-height: 12px !important;"> </td> </tr> <tr> <td colspa=
+n=3D"2" style=3D"line-height: 1px"> <a href=3D"https://links.message.bloomb=
+erg.com/s/c/svY61JXdirsuze5Kwu32_lTxROPqmEbtHfOYBIa_usY4erpIcIkBArtxM2owiCg=
+g17d44CJXCNtD0-U_nTHbfUN5KUP4eYPChJT4rwMQGZS55ov523vFqHe9xxPL8ARCw8fAulIFnm=
+TacR6Hpmb5IlD4hCJmDqIj540_X8ZqSNvPuCUxHg0wQMypc8pvBsPV-JzG3H8pvGQyXtsZIrghB=
+IdGbmCgHGPdroNDxxq0b5wun0-5gFjMnPrW7ajhWX6cu0Bgtank4k83xeF7BnDkzV23eQ9so0V9=
+NlAKgRsgpvxXL1yNJwrGkz_YaaMOOaeW3xdxA3XOAARb0DG0MVeqBqW3MZGoexNWRBE-FVEQti1=
+mjLPv8q9f5wEb940ueGPv15S_QMR3Qb8Yxh2QpmpOuz1f8fN9kAXqGL7OklRLVbw6unBxpYMP0q=
+UZ54li_FeUs5Ws1FYqbNErYaMj_WOBHQg8WHxea483tUZB3kH5RvRLm6QPexGTCg-zO_kDiPgn2=
+YI0xBTYY23gG9isBAfL1r8_fwedxIU-FepLKkeXEOgiLRP8aRLag4-4RgWGYpc4rtAaydKWEgpA=
+75NjnFd8OCpjinhtIIja1wYdpn5pbsAlYCo0UiDBraD0a69DaCVEziKGKiCS5df4kP3mTxo0P-D=
+PXa-Qni5qIZ8-eiVNr4RD8CdXIdKtZb9KJ1Os4wo8A61B0d2q-qUdZpU/FHnUKLUbWz-Ehbj9sG=
+tnMo8AxVQSXo-U/25" rel=3D"nofollow" target=3D"_blank"> <img src=3D"https://=
+sli.bloomberg.com/imp?s=3D1149004&amp;li=3D20221520&amp;m=3Dbb4a280bebb1586=
+390b9615b8886024a&amp;p=3D10052026181206&amp;lctg=3Da3e8b6e3-e359-4066-94ef=
+-329d1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=
+=3D550" border=3D"0" width=3D"550" style=3D"display: block; width: 100% !im=
+portant; max-width: 550px !important;"> </a> </td> </tr> <!--[if !mso]>--> =
+<tr style=3D"display: none"> <td colspan=3D"2" style=3D"line-height: 1px"> =
+<a href=3D"https://links.message.bloomberg.com/s/c/2gg29ZXaRmfBpOTkUEIqbODM=
+sKaCkA6Z5r86cA2dzasd5HVkY8WXIbcQ8wHRb1XAjqSezieJjtUVIfAVhxXQICb34ZS0G9NV4P1=
+5Cak1wf6l9hVq7TxNXi-S7qHcBjs6DCNLCF1tuOidigcZgBXErSEoBckp0IjDx2MJMjY5bq1loL=
+zGNoMC2SLJ2iW1vFRUt-0eInijOklcOli0cee9tjdl5fn0DYwUERCU_LBmBcTFq7gTRVitrqXFe=
+cu280aWsKosZ2bjeHOiIv7R1Z-muQB6tKEuHdASXAguXFpkY5YRDXTa1M6F8UARNSET3DnIdUda=
+Cl_8h_LTgDUKYck03z1nfy86urrf_eWssNxK5uM-bUpDoI-FbIh8nAJNno0Zv9AslD8EW7UaH-c=
+EupO34jsrrLd_AfU15oBM0mPg_rfGLV-IyE5K2PGR-FibyS3fOhXVzZ8MmSbbf4gquKuhKXm5Y9=
+L138ygOnKB3l1w-xQ0QSYYKkcMUPSPOHhBVD5XfL_Hp3vOPXPa_yGUbkvEadw62O0EV4EhM5vpt=
+ZHfo4u49QIG1IaB8KfCcqPzzE83kXszL_j1oRQbB5bpWJl_fr50SVvWCC9slu2DwS34XI3d5Wt2=
+0HrXyM8MZanipYuBqBpLT-zBmgP2MUmiuzM9ZrrgwsVXlQ3NpLWd6fCZFjs4vQ2NOEABncW8ZUL=
+pVAdbz3VGslX_rAfCOGk/_Guz5BcLsg7D6DgtVXhf2YeOaIZqEggt/25" rel=3D"nofollow" =
+target=3D"_blank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D1149004&am=
+p;li=3D20221520&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D1005202618=
+1206&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Ddefault&amp=
+;li_coord=3Dmobile&amp;collapse_width=3D550" border=3D"0" width=3D"550" sty=
+le=3D"display: block !important; width: 100% !important; max-width: 550px !=
+important;"> </a> </td> </tr> <!--<![endif]--> </table> </td> </tr> <tr> <t=
+d style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt;"> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt; line-height: 150%; padding: 0 10px;"> <table width=
+=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=
+=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+;"> <h2 style=3D"font-weight: bold; font-family: &quot;Arial Black&quot;, A=
+rial, Helvetica, sans-serif; letter-spacing: -1px; font-size: 20px; border-=
+bottom-width: 1px; border-bottom-style: dotted; margin: 0px; padding: 16px =
+0px 5px;">Reverse acqui-hire</h2> </td> </tr> </table> <p style=3D"margin: =
+16px 0;">In recent years, the US technology industry invented&nbsp;a new ki=
+nd of mergers-and-acquisitions transaction. Traditionally there were two ma=
+in sorts of M&amp;A transaction:</p> <ol style=3D"list-style-type: decimal;=
+ padding-left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">Th=
+e acquirer buys the target&nbsp;<em>company</em>, in a merger or stock purc=
+hase; the shareholders of the target company get something (cash, acquirer =
+stock) in exchange for their shares of the target, and the acquirer ends up=
+ owning the target corporate entity.</li> <li style=3D"margin-bottom: 5px;"=
+>The acquirer&nbsp;buys&nbsp;the&nbsp;<em>assets&nbsp;</em>of the company, =
+in an asset purchase; the target company gets something (cash, acquirer sto=
+ck) in exchange for its business. If the target is selling&nbsp;<em>all&nbs=
+p;</em>of its assets, it will be left as an empty shell, and will probably =
+distribute the cash or stock to its shareholders and liquidate.</li> </ol> =
+<p style=3D"margin: 16px 0;">These are both pretty normal transactions, and=
+ many rules are set up to treat them similarly. So, for instance, Delaware =
+corporate law requires a shareholder vote for a <a href=3D"https://links.me=
+ssage.bloomberg.com/s/c/QTFIjj8WgI-Wcw5KZCdW5gIfG8xh1El5E-MVmnd6UkTQ_dfJlya=
+wLkEjdpRcRRxnHyHIYdtYs22uqy-x-kf28_c7B2txSf_R0J0YmJ1weOrbzJJ-jLfKh0ZORJMt3Q=
+ZW8lxucpg1IH2ZIQmlPhNKpAGdTWpmBs7nBvKxPielfjB1JU40D4hCwMjwWCO5X_DNh1OaV9fMU=
+1pZbWjrRQtLSUoSykAa2r2hFakbcZO4ZoiuS5ygciXj7OZPDHE2Bq55zlqijl5RgxE62BwnbDhK=
+WfP7VKj9iy9r8v3MahyCVUqqxICrXU4lMOG10W2sFU9EIjOK1giuLShtvqpsCHHyIjrnUtuUByU=
+Bhl-6FKahxmT5VTxj3ayK-8soyA/cUI5ZXfYjAacfwbHSshXEdHKLjrCNDTr/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+merger</a>, or for a <a href=3D"https://links.message.bloomberg.com/s/c/5Pp=
+nd9mrYneJXRXKPGL8WEg2KcqmC-8m2nc_9j33KUw3Ubh6Q1H3WYLSa6lMcmLAojeJtst7eNFXY-=
+C2CGr8xiCysl6yH4V0_vo5YZccrtSg6VLkSd1Vh06il3OxGQZosFeeLpKbWCAzmISmdJompG088=
+r-PpBikAJ0gablohwmZHUf-uvO_G3qHswNns_uyK8CRFnx6kiQbkorfFayo2N1B4XgkBbIjJbgV=
+0S4YqQTkg51XfpFBy7R1lZ_A1TNTbi1fSRIkfA_h0pRjUqG_kVnl4O-_WgEeIjv1hL-Udwjh_ud=
+Z02b0SzPTy5bbbpQ2g8V4MZDDZTmaRznqEQma-tbBXEXvjRAMWZCzJokCEwiqcoiFL9Q73-MLYw=
+/Vx0QW-fcqdVuNmkjStiNqYzwAEXrfbzJ/25" itemprop=3D"StoryLink" itemscope=3D"i=
+temscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none =
+!important; border-bottom-width: 1px; border-bottom-color: #000000; border-=
+bottom-style: solid; background-color: #ccc;">sale</a> of =E2=80=9Call or s=
+ubstantially all=E2=80=9D of a company=E2=80=99s assets. US <a href=3D"http=
+s://links.message.bloomberg.com/s/c/WUKLEJSniE5MrCiaRyfGuZFn5KGbfYWpK31HnYS=
+7L2Li3Gm5Gt11iIs5N7K9BpwXzvjvQyDlRLcWCO57m4gEd05IrDfUk8odEtmmgCiV2xIsvBcAzR=
+Qgx8HzTzZd8MN7-gT_ysmRh87zJyQsBlnr1vzv7u64gDsuz64CxnIwVej4q2bTU_7D7ksOl1M_P=
+eX1NhSch1qm5eABYqVsMO13MBl7s49tUMdN2Q8MImAQ3nRPR762cHkWK1eiywaApZrrndgYy9As=
+r_z9nxCNW-k0I7klpdyrmLvHEAseFw3M26b1j3vEzghcIiE2Zh4XQhRo3BWT8nqSkkh4PAjK4HL=
+Y-X2TteHaaeWOP5jCPyQyXAEetjEyWA0JXSSG3A/XOq_E4M7xHu07B7OZQUKyn2gPogjMTpj/25=
+" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D=
+"color: #000000; text-decoration: none !important; border-bottom-width: 1px=
+; border-bottom-color: #000000; border-bottom-style: solid; background-colo=
+r: #ccc;">antitrust law</a> <a href=3D"https://links.message.bloomberg.com/=
+s/c/NlsDMzzV-xgb5xrPCP5cuRAgQ03QiygTVsihf8d2ZPYQqY1k3gDYanLyHD0L83dTWHxa0Zj=
+wml5Q9D7XcR3PVaAJIyXYwT-KZvRj4rOO-vhvOfvGbWk3v9cIEqR85BZjwInz7MnrDLzNLkvdYk=
+Fq0bEne1bcxQ_3xiK0KYZhr4oz6GvELpNTyuHBMFO3ZARUcIUki0a9SjEDaoB1I6rmp7MlaLPs0=
+3TtuvHKMQj7mIvvghO7OjGrZyZlpvOIJLO_hKvbkL7XjCr_orJKIhiPv9EpvPv2qXbFLZVEO4_L=
+LwnLFtH_uCnT5dld_1xBuiTgamvTmYi7xmp-TJYUGt5x2biooWKcr2iQPObaIe8orgXDI1qGEQQ=
+LrMYN4w/DSDEgFKEPzsWzPFSJLAlVw7X48eRLgSL/25" itemprop=3D"StoryLink" itemsco=
+pe=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration=
+: none !important; border-bottom-width: 1px; border-bottom-color: #000000; =
+border-bottom-style: solid; background-color: #ccc;">requires</a> a =E2=80=
+=9CHart-Scott-Rodino premerger notification report=E2=80=9D =E2=80=94&nbsp;=
+where the acquirer <a href=3D"https://links.message.bloomberg.com/s/c/wgFed=
+mZK-cwItcoa04909Jy_hTBwHQG4hOtceZj7ctTs-w5sPjn5RwDERGvOv0IdNuwiYCGo8u9CFRpX=
+KeUTae_0jULvrRKc8Bsuoiq0mPrusCeQpa_l2__wRs76GIZ4r-ObyRJ8511Hs_gJW_yMBHGGt43=
+zf_WjU7nlkolRWwy8FN03HvYXG7hMdtCCuNvi4pEIMZC2keDgVlzwlzH1x6lYQhruUIP2l7gvt5=
+JKZRIeSOzyseCqwh7igNNT-KEDWXSoalXA04aWK6ya4Iaw-Nw0jOcwsafDJxxHGrKLWjTfF17Cm=
+xSl1vmB8kgaWx9FlO0y6oJnVwqr-IFtCV7nrbjS0Z0jc63GmgUetTcyt418jfxO1witu8K2gg/J=
+lJRy5VYHPt1Xhr2xPT_MPF6NIMWe5tB/25" itemprop=3D"StoryLink" itemscope=3D"ite=
+mscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !i=
+mportant; border-bottom-width: 1px; border-bottom-color: #000000; border-bo=
+ttom-style: solid; background-color: #ccc;">tells antitrust regulators abou=
+t the deal</a> and gives them the opportunity to object =E2=80=94&nbsp;for =
+any acquisition of more than <a href=3D"https://links.message.bloomberg.com=
+/s/c/umyVSQUQT-QSwBCY7uOR2zX1-Uj4vNPnzBhimeMCL30JDkaYi71dZrBPZeF2kn6_WpJjv6=
+awwgtzDX4bCgcQ3MxqSeoerM-GLVC6WdxmdCKj3iRTPJmANGXSqtU1ylVzBBNfjvRhocYUOE5gk=
+fD1YwraGR9e4S6KcxySebmq_rSAXg94BX8oGX_coxicIPbMLui8dKHK-ZEz1RhK-BpRH6nb8ZPD=
+Y4EYI5AHO6YaMTA0_VONsxHXsNvz26mkVw8KmLoN6n8aNP2wCNYtSUotvQZCaulV7cqVrrxib2F=
+YRI9u2EAY0t70VMeILPQ-DocJvkE9ZNzZrwTj4JIIpC1_QaZvCSycbD_1lOctw5eH1lx60r-gST=
+qWrVVKgLE/-FyjmjJxHR84Qu-fM8dokmZ9nfqrQ3c0/25" itemprop=3D"StoryLink" items=
+cope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decorati=
+on: none !important; border-bottom-width: 1px; border-bottom-color: #000000=
+; border-bottom-style: solid; background-color: #ccc;">$133.9 million worth=
+</a> of stock or assets. You might get different accounting or tax treatmen=
+t for different deal structures, but many of the big-picture effects are th=
+e same however you structure the deal.</p> <p style=3D"margin: 16px 0;">The=
+ antitrust part is important. The big tech companies are very big,&nbsp;the=
+re is a lot of political and regulatory worry that they are monopolists, an=
+d there is at least some winner-takes-all flavor to the AI race. Meta or Al=
+phabet or Nvidia might really want to do a $20 billion AI acquisition here =
+or there, but that might be risky from an antitrust perspective. So they=E2=
+=80=99re in the market for ways to do acquisitions without, technically, do=
+ing acquisitions.</p> <p style=3D"margin: 16px 0;">Many early-stage artific=
+ial intelligence startups consist mostly of (1) people and (2) ideas. The s=
+tartup has&nbsp;some AI researchers, and they=E2=80=99ve come up with some =
+model or harness or chip design or robot or whatever, and it=E2=80=99s pret=
+ty promising. But the startup doesn=E2=80=99t have, like, a giant portfolio=
+ of data-center real estate, or a robot assembly line, or a bunch of custom=
+er contracts.&nbsp;</p> <p style=3D"margin: 16px 0;">If a big tech company =
+wants to acquire a startup like that, it&nbsp;<em>could&nbsp;</em>buy it in=
+ a merger, or buy all of its assets. But the new structure is:</p> <ol styl=
+e=3D"list-style-type: decimal; padding-left: 40px; margin: 16px 0;"> <li st=
+yle=3D"margin-bottom: 5px;">The acquirer&nbsp;<em>hires the target=E2=80=99=
+s employees,&nbsp;</em>or most of them, or at least the people who are crit=
+ical to its valuable ideas.</li> <li style=3D"margin-bottom: 5px;">The acqu=
+irer gets a waiver, from the target=E2=80=99s board of directors, allowing =
+it to do all that hiring. (California doesn=E2=80=99t enforce non-compete a=
+greements, but if you are going to, like, have the chief executive officer =
+of the target email all of the target=E2=80=99s employees from her work ema=
+il saying =E2=80=9Chey come with me to the acquirer; we=E2=80=99ll match yo=
+ur salary,=E2=80=9D then it=E2=80=99s probably good to get the target=E2=80=
+=99s board=E2=80=99s permission.)</li> <li style=3D"margin-bottom: 5px;">Th=
+e acquirer&nbsp;<em>licenses the target=E2=80=99s intellectual property:&nb=
+sp;</em>The target enters into a nonexclusive license allowing the acquirer=
+ to use the target=E2=80=99s ideas, patents, chip designs, etc., for its ow=
+n purposes.</li> <li style=3D"margin-bottom: 5px;">In exchange for the waiv=
+er (Step 2) and license (Step 3), the acquirer pays the target a big pile o=
+f cash.</li> <li style=3D"margin-bottom: 5px;">The target is now more or le=
+ss an empty shell. It has lost most of its&nbsp;employees, or at least the =
+ones who know about the stuff that made it valuable. It still technically o=
+wns its intellectual property =E2=80=94&nbsp;it gave the acquirer a non-exc=
+lusive license =E2=80=94&nbsp;but everyone who knows anything about that in=
+tellectual property has decamped for the acquirer, so it can=E2=80=99t do a=
+nything useful with it. It=E2=80=99s just a collection of miscellany, plus =
+the big pile of cash&nbsp;that it got from the acquirer.</li> <li style=3D"=
+margin-bottom: 5px;">So the target pays out the cash to its employees. Then=
+ maybe it shuts down, or maybe it keeps going in some less ambitious form.<=
+/li> </ol> <p style=3D"margin: 16px 0;">This structure is called a =E2=80=
+=9Creverse acqui-hire.=E2=80=9D<a href=3D"#footnote-1" style=3D"color: #000=
+000; text-decoration: none !important; border-bottom-width: 1px; border-bot=
+tom-color: #000000; border-bottom-style: none !important; background-color:=
+ transparent !important; display: inline-block;"> <span>[1]</span> </a></p>=
+ <p style=3D"margin: 16px 0;">This structure has some disadvantages, compar=
+ed to a traditional merger. It is not especially tax-efficient; the target =
+pays tax on the licensing fee.<a href=3D"#footnote-2" style=3D"color: #0000=
+00; text-decoration: none !important; border-bottom-width: 1px; border-bott=
+om-color: #000000; border-bottom-style: none !important; background-color: =
+transparent !important; display: inline-block;"> <span>[2]</span> </a>&nbsp=
+;Because it leaves the target as an independent company, and gives the acqu=
+irer only a nonexclusive license, it is not quite as good as a merger from =
+a competitive perspective: What if your biggest competitor manages to strik=
+e its own licensing deal with the stub target company?</p> <p style=3D"marg=
+in: 16px 0;">But it has some pretty important advantages. For one thing, it=
+ probably doesn=E2=80=99t require a vote of the target=E2=80=99s shareholde=
+rs. (Just the board of directors.) This allows it to happen more quickly th=
+an a merger. It&nbsp;<em>might&nbsp;</em>also allow the reverse acqui-hire =
+to happen over the objections of a majority of shareholders, though that=E2=
+=80=99s probably not a big factor. (The big shareholders of an early-stage =
+AI startup will probably be mostly (1) venture capitalists who are represen=
+ted on the board and (2) co-founders and other employees who have some leve=
+rage over getting acqui-hired.) But in theory, a reverse acqui-hire that is=
+ good for the employees and bad for the outside shareholders might be doabl=
+e, whereas a merger that is good for employees and bad for outside sharehol=
+ders would be harder to pull off.<a href=3D"#footnote-3" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: none !important; background-colo=
+r: transparent !important; display: inline-block;"> <span>[3]</span> </a></=
+p> <p style=3D"margin: 16px 0;">The main advantage, though,&nbsp;is probabl=
+y antitrust. If it=E2=80=99s not a stock or asset acquisition, it doesn=E2=
+=80=99t require an HSR filing, which means you can close the deal before th=
+e antitrust regulators can do anything to stop it. I <a href=3D"https://lin=
+ks.message.bloomberg.com/s/c/KAD84njpvfFLDGvIcp-i8yD30piA4W7vH-aY77sU1MUMY6=
+AUN0htHcau6cJypfly2Jp8a2pPDL6CGNcb_LJz7oIyLvnqEzolNIcqK-DaZGuBRPU_hKk1pXNCX=
+UJCmxZQLA7IBMeR_n9-d0kwJ6irAgOED_bHDIXU_Nq2VY0NukC32d6bgb6EHkh-qf3bzSoWiefd=
+DJr-GIiJh0yuE3cOk9sHlR90Rn4-sgaZKgTNe2qewUyaXREwS0FAWNE64odpBDJz9auSLcc9M1h=
+2wt52le_g1q4EKj3W3qSEgP9K2YeJJ3W1E5CxqK2IPv2kRsZwylNMa2sqb9AV-JNsz-nF_l6ow1=
+EQTZJPo2hnF3gwW0ZWd_LVmJ3NKwMrCoc/-z6k2vuxGV-wfhVJo3QBwglO7kaAMcAH/25" item=
+prop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color=
+: #000000; text-decoration: none !important; border-bottom-width: 1px; bord=
+er-bottom-color: #000000; border-bottom-style: solid; background-color: #cc=
+c;">once explained this deal structure</a> with a thought experiment: =E2=
+=80=9CImagine if mergers and acquisitions were illegal.=E2=80=9D The revers=
+e aqui-hire is a way to do a merger without the legal trouble of antitrust =
+review.&nbsp;</p> <p style=3D"margin: 16px 0;">This is all pretty controver=
+sial, for more or less the reasons that you=E2=80=99d expect. If you think =
+of a reverse acqui-hire as a deal structure that was invented to avoid anti=
+trust scrutiny, then it will obviously annoy people who want more antitrust=
+ scrutiny. Bloomberg News <a href=3D"https://links.message.bloomberg.com/s/=
+c/inqFlIZmvTicgVjkizN-VMms8vaRUm_OZSNgjES74Rua7ABFtH09HPLset3I2s4mEoXXAfllT=
+3n1Ql0vq-o5EsgBgehjAhrLnuhla0edmb2n0HNeANbqQLd8Bc8oTQrB2SfbrLN_SV4TVA8Xk-qa=
+ZVMV9iqc-K9mEpIaGUEXCvy18dnOoW_MO2ipsSXpbbVa9Jks8nWomUXnKHIDAYItBsXtGwn1vOE=
+b-M3RrUCuCmGICRUECtxHe2UkFdFwbXIciaJVkcE9MB1GuKu-ubbGx4lcaXxQSxBhbDYXtgF_ob=
+Oe042W00jPTdjNFm2qbs0X70ld8GUnwg9eb65IGBxbcne_2sAQfKPysbEvKaN3PcEZwvExeMHZ1=
+Czi7pA/9o9Va5B357XOMbaozSRZmFMcumUDFyIX/25" itemprop=3D"StoryLink" itemscop=
+e=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration:=
+ none !important; border-bottom-width: 1px; border-bottom-color: #000000; b=
+order-bottom-style: solid; background-color: #ccc;">reported earlier this y=
+ear</a>:</p> <blockquote> <p style=3D"margin: 16px 0;">The US Federal Trade=
+ Commission is taking a closer look at moves by major tech companies to hir=
+e away the employees of a startup instead of buying the venture outright, t=
+he agency=E2=80=99s Chairman Andrew Ferguson said, addressing a growing pra=
+ctice seen as a way to avoid antitrust review.</p> <p style=3D"margin: 16px=
+ 0;">=E2=80=9CWe are beginning to examine these acqui-hires to make sure th=
+ey are not an attempt to get around=E2=80=9D the agency=E2=80=99s merger re=
+view process, Ferguson said ... in an interview on Bloomberg Television.</p=
+> </blockquote> <p style=3D"margin: 16px 0;">And the New York Times <a href=
+=3D"https://links.message.bloomberg.com/s/c/0-mBMb6-62mbl8Px8j22D5t5Y3MWm7w=
+G3E18GYWw6nWLnRSlXz87Bhx5mAIiPgYJ_GDu963o_iGnG4PHr8Wd_F7RYDo_DutXLO7Lwo7HO0=
+m97SRS2nwHsv1yWjs44GEggVSQKkf65MTSEPE5VRrMAVAvYq6DiXBmepAi5JDEfTpOqdGVkIypq=
+J43AEva8RPzlGdiGVbDyO0J3UnIq4n8WDmGKrM04lcYcbYhfE2Jomu5WKXQhcezUS8L133S2qxR=
+aT747QR19V_Y3sT6hkeWbm3XloTXuipDTVW-GzF5YUC3t7aqRs6KxPWNtAcX1lDoy5k2-Uow6NO=
+yKQg_rbqoBFGocGfiVRU7OJATHSL9mPVYPEDgaShIiPiSmDQ/adTchoMdfibwriZMU2x1dQtjpW=
+q-1Hg2/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgr=
+ound-color: #ccc;">reported last month</a>:</p> <blockquote> <p style=3D"ma=
+rgin: 16px 0;">The Justice Department is investigating whether Nvidia tried=
+ to skirt antitrust scrutiny of a deal it struck with the artificial intell=
+igence chipmaker Groq last year, according to two people with knowledge of =
+the inquiry.</p> <p style=3D"margin: 16px 0;">Groq described the deal at th=
+e time as a =E2=80=9Cnonexclusive licensing agreement=E2=80=9D that gave Nv=
+idia access to Groq=E2=80=99s chips, which are custom-built for running A.I=
+. As part of the arrangement, Groq=E2=80=99s chief executive, Jonathan Ross=
+, and its chief operating officer, Sunny Madra, joined Nvidia. ...</p> <p s=
+tyle=3D"margin: 16px 0;">Government officials have considered whether these=
+ deals should receive more scrutiny while they grapple with the way a small=
+ number of companies have consolidated power over A.I.</p> </blockquote> <p=
+ style=3D"margin: 16px 0;">Conceptually, if reverse acqui-hires are another=
+ sort of M&amp;A transaction, then they <em>should&nbsp;</em>be covered by =
+antitrust law. There are some line-drawing problems there =E2=80=94&nbsp;ju=
+st <em>hiring&nbsp;</em>someone probably shouldn=E2=80=99t trigger antitrus=
+t review =E2=80=94&nbsp;but you can see why the regulators are interested.<=
+/p> <p style=3D"margin: 16px 0;">Similarly, though, if reverse acqui-hires =
+are another sort of M&amp;A transaction, then they&nbsp;should be treated t=
+hat way under <em>corporate</em> law. A merger, or a sale of all of a compa=
+ny=E2=80=99s assets, triggers certain corporate requirements: Directors hav=
+e a fiduciary duty to maximize value in a sale,<a href=3D"#footnote-4" styl=
+e=3D"color: #000000; text-decoration: none !important; border-bottom-width:=
+ 1px; border-bottom-color: #000000; border-bottom-style: none !important; b=
+ackground-color: transparent !important; display: inline-block;"> <span>[4]=
+</span> </a>&nbsp;and the shareholders have to vote to approve the deal. If=
+ a reverse acqui-hire&nbsp;effectively<em>&nbsp;</em>means selling all of a=
+ company=E2=80=99s assets for cash =E2=80=94&nbsp;because its assets are ba=
+sically its people and ideas =E2=80=94&nbsp;then shouldn=E2=80=99t that tri=
+gger the same requirements?</p> <p style=3D"margin: 16px 0;">The <a href=3D=
+"https://links.message.bloomberg.com/s/c/mMXadiwhhJV78lV9xGixd2qgKSs04gPUwt=
+Dsv1NrENkArv9YrJMp0frvFtRU8PoRmQ9bSP3v8xM-Uua5Pv57r_l8r4puIajSgdlL9wL2oZ9Pf=
+WCYt5sFGrWbC3pueysxRwfcz4t6dvVpELvSKAPoPtXm-fHcuRMkpJpca01zd9Riqcd2kKp6T95c=
+YK-MA27cRcQuuXDHYwLyyBqh1ZbeQllX_w1Xowyp25eECfUkh6n6RCGfr68fKQ3PI8mblwmZ6g4=
+e-k-iScUDkbGUgreOzzSQn5rAT-Zadq-uj0NqxeGB5_OnGRWzCwFk6G8d5MIm6FM-Ezyd-i-QmF=
+d0xcaagKYCHDdIff3zVIySAFKWeEkYYYtZaYPvfcF7T2M/8DKIznSlJ5Hqfnvyg7McR7QK_z0Oo=
+wCj/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" st=
+yle=3D"color: #000000; text-decoration: none !important; border-bottom-widt=
+h: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgroun=
+d-color: #ccc;">Financial Times reports</a>:</p> <blockquote> <p style=3D"m=
+argin: 16px 0;">Nvidia=E2=80=99s $20bn licensing deal with Groq fleeced emp=
+loyees who were left out of the transaction, according to a lawsuit filed b=
+y two engineers who owned shares in the start-up.&nbsp;</p> <p style=3D"mar=
+gin: 16px 0;">The legal complaint filed on Friday in a Delaware corporate l=
+aw court alleges that Groq=E2=80=99s board improperly sold the company=E2=
+=80=99s core assets and top employees to the $5tn tech titan in 2025, consi=
+gning those left behind to a hollowed-out shell.</p> <p style=3D"margin: 16=
+px 0;">The transaction was framed by Nvidia at the time as a =E2=80=9Cnon-e=
+xclusive=E2=80=9D licensing arrangement, with Groq remaining as an independ=
+ent and functioning company.</p> <p style=3D"margin: 16px 0;">But, accordin=
+g to the lawsuit, the Groq board was riven with conflicts of interest and f=
+ailed to observe its legal obligation to get the best price and structure f=
+or all shareholders, not allowing some of them to vote on the transaction.<=
+/p> </blockquote> <p style=3D"margin: 16px 0;">Here is <a href=3D"https://l=
+inks.message.bloomberg.com/s/c/-fHs38dpq5af44omAVLB4cN090A0FKVEltM3KW2oKbx-=
+5uh4llrZfhSS3clGRVR2rNbA1uUJfaIJK3Rb4wR48NUn--JesELZ5YxqZIv1EKvU6WnGxvCBxQr=
+RDv0AxMOS0GeYom11CQ3HycvmlzCYXxJrw8rlucJ0t7TCqQyMt_l_mTJ45jGNxssdmogyDzqkvw=
+VCcnsAq6tajwfIWuiE4Pk8WAUJsu6yh9Zxfxp6WMiaWEdMGxF6hwlCTCoMYvbRiF_LMTSVYlbPD=
+CfiyFYDz-9VEgCcJnkSWMkL6Wt7E4Vpg9f6T92SwUOPUCyxCvGVi5WEsQLu9MWat7qOnl4Lt7HU=
+9LT1jfOwZ_kvFY9yti4IUxlTn8UA7kQKx6U/SzyEvAIQvc0Xq_G2c8dFH0ORNxEhE_mx/25" it=
+emprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"col=
+or: #000000; text-decoration: none !important; border-bottom-width: 1px; bo=
+rder-bottom-color: #000000; border-bottom-style: solid; background-color: #=
+ccc;">the complaint</a>, whose basic point is =E2=80=9Coh come on this is a=
+ merger=E2=80=9D:</p> <blockquote><p style=3D"margin: 16px 0;">Groq=E2=80=
+=99s board of directors (the =E2=80=9CBoard=E2=80=9D) sold the Company to N=
+VIDIA without the stockholder vote Delaware law requires and without any pr=
+ocess designed to test or maximize the value of what NVIDIA bought. A major=
+ity of the Board was conflicted. It handed NVIDIA Groq=E2=80=99s valuable t=
+echnology and the engineers who built Groq, took billions of dollars in ben=
+efits for itself, senior management, and affiliated funds that it did not s=
+hare with Groq=E2=80=99s other stockholders, and then squeezed out those st=
+ockholders at a lowball price it set itself.&nbsp; =E2=80=A6</p></blockquot=
+e> <p style=3D"margin: 16px 0;">But a merger that avoids antitrust rules:</=
+p> <blockquote> <p style=3D"margin: 16px 0;">A stock or asset acquisition w=
+as unattractive because, given NVIDIA=E2=80=99s market share, a Groq merger=
+&nbsp;would have faced serious antitrust scrutiny. =E2=80=A6</p> <p style=
+=3D"margin: 16px 0;">Because the buyer acquires neither voting securities n=
+or assets, the transaction falls outside the federal antitrust regulators=
+=E2=80=99 premerger notification regime. ... The structure has become incre=
+asingly common in recent&nbsp;years, promoted by venture investors and savv=
+y transactional attorneys. =E2=80=A6</p> <p style=3D"margin: 16px 0;">NVIDI=
+A had reason to prize that avoidance. A prior attempt to acquire Arm Holdin=
+gs from SoftBank drew sustained multi-jurisdictional antitrust scrutiny and=
+ NVIDIA ultimately abandoned the transaction without closing. An acquirer t=
+hat has watched a headline acquisition of a semiconductor licensor collapse=
+ under regulatory pressure has a powerful institutional incentive to design=
+ its next acquisition so that no filing is required.</p> </blockquote> <p s=
+tyle=3D"margin: 16px 0;">The complaint also argues that, while technically =
+the license to Nvidia was non-exclusive and&nbsp;Groq continued as an indep=
+endent company, in practice there was nothing left:</p> <blockquote> <p sty=
+le=3D"margin: 16px 0;">The supposedly =E2=80=9Cnon-exclusive=E2=80=9D licen=
+se grant was substantively an asset transfer. =E2=80=A6</p> <p style=3D"mar=
+gin: 16px 0;">No rational third-party licensee will pay significant value f=
+or a non-exclusive right to technology that the world=E2=80=99s dominant AI=
+ chip company already holds on the same or broader terms ...&nbsp;and that =
+it is updating daily with the very workforce that created the underlying in=
+tellectual property. The canvass of 36 parties produced no compelling bid [=
+for the remainder of the company] for that reason: once Groq=E2=80=99s Boar=
+d agreed to let NVIDIA develop the assets, whatever interest Groq retained =
+in them ceased to have independent market value.</p> </blockquote> <p style=
+=3D"margin: 16px 0;">This all seems about right to me, but I=E2=80=99m not =
+sure where it gets you. Part of the argument here is that the reverse acqui=
+-hire is a novel form of M&amp;A that should be treated like other forms of=
+ M&amp;A, and should have to be fair to shareholders.</p> <p style=3D"margi=
+n: 16px 0;">But the other part of the argument is that this deal&nbsp;<em>w=
+asn=E2=80=99t&nbsp;</em>fair to shareholders, and I=E2=80=99m not sure. Gro=
+q=E2=80=99s shareholders =E2=80=94&nbsp;including the plaintiffs in this la=
+wsuit =E2=80=94&nbsp;weren=E2=80=99t&nbsp;<em>zeroed&nbsp;</em>in the trans=
+action. Nvidia paid $17 billion to Groq, in cash, for the license, and most=
+ of that money has been paid out to shareholders.<a href=3D"#footnote-5" st=
+yle=3D"color: #000000; text-decoration: none !important; border-bottom-widt=
+h: 1px; border-bottom-color: #000000; border-bottom-style: none !important;=
+ background-color: transparent !important; display: inline-block;"> <span>[=
+5]</span> </a> Their complaint is that other shareholders =E2=80=94&nbsp;th=
+e founders and employees who went to Nvidia =E2=80=94&nbsp;got more. The he=
+adline value of the Nvidia acqui-hire <a href=3D"https://links.message.bloo=
+mberg.com/s/c/jgtn6y_yCc70njfPxQiA-fStY3TfkrXa98A4CEJfgenCl7_0ycUY1llfG0i-t=
+IdHwU73XHKeAMbRjEU-SVGSM5xeZrpArkGy-wN5-HhykaR-2xSa269mlB2AM4ZRZy2XDYSi9clj=
+LML4gyb5rvxHw3VGAcZXA_fsYcBT4M7lRZhU81We-4vkePrksbtnGaL0bLXm_Z9MrZxoTX8jYa5=
+Yyfs80p-OemAduld98EutKf2mSv2pf_RtXaTincK6hMAOiyZW9pMDqOfgOajlnL3WF_tI4GBk49=
+a2u1hEsJM5_UsHNe5ZNvcIi_2metDk8NVO4Zn-otxkyua3Qk4WSHkq5NwW7Bn0_AOQDxubnxoCD=
+JLEXScQz8XMikyRppM/qRMXw7pD96ChwnRI5BNWE6EWOi0ooU60/25" itemprop=3D"StoryLi=
+nk" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text=
+-decoration: none !important; border-bottom-width: 1px; border-bottom-color=
+: #000000; border-bottom-style: solid; background-color: #ccc;">was $20 bil=
+lion</a>, that is, the $17 billion paid to Groq plus $3 billion paid to emp=
+loyees for joining Nvidia. The lawsuit objects:</p> <blockquote><p style=3D=
+"margin: 16px 0;">[Jonathan] Ross=E2=80=99s position illustrates the confli=
+ct. He was simultaneously a Groq stockholder, Groq=E2=80=99s Chief Executiv=
+e Officer, a Groq director, the principal negotiator of the Company=E2=80=
+=99s side of the License, and the individual NVIDIA most wanted to hire. He=
+ received NVIDIA equity compensation from the $3 billion pool on top of the=
+ proceeds of his Groq ownership. An ordinary common stockholder could monet=
+ize the value surrendered to NVIDIA only through the consideration allocate=
+d to her shares; she could not take a discount on those shares and be paid =
+separately for following the technology to NVIDIA. Ross could, and did.</p>=
+</blockquote> <p style=3D"margin: 16px 0;">Yeah but that=E2=80=99s true in =
+any merger where the CEO keeps his job.&nbsp;The value of Groq was largely =
+in its employees, and Groq=E2=80=99s shareholders cleared $17 billion by se=
+lling the rights to those employees to Nvidia. Of course the employees also=
+ got paid.&nbsp;</p> <table width=3D"auto" cellpadding=3D"0" cellspacing=3D=
+"0" align=3D"center"> <tr> <td colspan=3D"2" align=3D"center" valign=3D"top=
+" style=3D"padding:0 0px"> <a href=3D"https://links.message.bloomberg.com/s=
+/c/8Uu1sInNN0dcG0s7YhqrcrJ3cZLS7VEfr2d3Q7AGt-Wl6TkQ6QpwEFmEZFtpZ-WMNoFdz0he=
+p1SWkEXTtHvmjZB_QLb8Ho0ON2HiZytnguXFrPNnAegost3WZXSd9noy9AjbWY0W8YJ9UCYX2rF=
+ULhoiUNu0xMenjPSn5A-W-OVelGOMO1p9o56ktw4GS_Gg7F_Ll5rEsQOT9w7Y9nNyYJNUmq_RAz=
+d1_kP7oiluzKExAZBFiE_KDh0IwPIcipaYTvjLh0lNyXtyO8GT8rFie1jJlVdb9b53kX31Wdqxy=
+lc7sGUXfJEGzXNZpscytjmHbCUEVpfIqiihUMtlf0YoQw_Qtp1i3GY1DMptv7L19uRypU5OVWTP=
+ZmCy38v-5xB1JMm7QaE9cXMbjlrSXvQ2RroH6jLRYKG1C0MLwY4mHeWdFKeScEv_3eke-noXKIy=
+h49m9Z_wWm8H4U9V9PRkADX_HjJhRZdli9Nt5MLzop7aRlzW1uIwJovD09tURdLKeV70JPpHVWv=
+j5J42ZCZbfVUpa_r1ZeicoRBf8MnggIAN8LRceuJc_pJ7YQ23H-s4N3i5lpCXWi5Kepgrwzq1rt=
+uAwp1CVOCEWbMYBdItBJnKtedX-kgYTJbVnTnvtvIbwRv-Ea-ejKM3cN9R7VUBDK_y7R4XJrssl=
+gfT8_CuhXRjOp2S6FNzIjUXK5wc7uXKwaJPx-mooBLF-oQ/K5hzqz1EN16lFALE2Pg4aHvSAGGr=
+CatL/25" target=3D"_blank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D8=
+68432&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=3D550&am=
+p;li=3D20221520&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D1005202618=
+1206&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6" width=3D"550" border=
+=3D"0" style=3D"display: block; height: auto; width: 100%; max-width: 550px=
+;" alt=3D"" class=3D"lihide"> </a> </td> </tr> <tr> <td colspan=3D"2" align=
+=3D"center" valign=3D"top"> <!--[if !mso]><!--> <div style=3D"display:none;=
+ overflow:hidden; width:0; max-height:0; line-height:0;" class=3D"lishow"> =
+<table width=3D"auto" cellpadding=3D"0" cellspacing=3D"0" align=3D"center">=
+ <tr> <td align=3D"center" valign=3D"top" style=3D"padding:0 0px"> <a href=
+=3D"https://links.message.bloomberg.com/s/c/DJ7hZF6_pXK0XLInK2W2fzZPGKkiSW8=
+Ts15x3-MVVHckRm7zT95eJ7IUlgWIxyzIFR9umYD_Z0IRy5b3h1urDDvmAQ7KBVob4T7hTfL0Pq=
+KIrda9TTt2HgJi6VeoK9TulKc5cFpQ0l_riHv0oR1BoR-i-Zu6tQA77Yea_C-T_1X5t0sUPt3DS=
+wPvIWchVeUzdFWhyf4dnT_rgYf_Y4enU5XEeH0iJGq0tjryLwjhAgHtX8TdGR3i0K5Re8J_ZQM1=
+L2LtQYgTnr6G10FkYXlffH59FHjRVlAAO7rFeDJJ2voIGvYML4UjQJiUZ2-8E4jHfptXQhcl5bu=
+dKlpWruXYxBSXk_cin5cavUdJwG3dqoV-hWhE5AFfzMqbb5dT2pr5xve8KLsW8WnpGBgPl0lP82=
+ql0IsWo4t9C3IFZWRcfCO89yP6rM7uD_jav7PyNF49vlVlVwLni2OkobSA1nrC9gVjkbIQAClIB=
+ENzdVAkmCo_mywMKyu31V0uItEQyoCgGiSllpttZkAOVDdVOm0eB6dBpAjHzJoZu7vtMrw7N222=
+pvjCwHfYpiIOwFFZ-9eD_7Tzwc0P4IuJLCqswDcSYOBgjO6rgbe9wuQ5HxSbeTaZz92MmhpnU3l=
+JWbJ8_I26FURavEWMcADvOA1cYQMQ63ypDSJUcJKTioDH_Gw2see3AAM7vSO8eCYkBh2RG28oUd=
+j1VIDUFRSodg/Y_DEhTIh7I46AlZEHdUWQ1WeOioUS0BJ/25" target=3D"_blank"> <img s=
+rc=3D"https://sli.bloomberg.com/imp?s=3D868432&amp;stpe=3Ddefault&amp;li_co=
+ord=3Dmobile&amp;collapse_width=3D550&amp;li=3D20221520&amp;m=3Dbb4a280bebb=
+1586390b9615b8886024a&amp;p=3D10052026181206&amp;lctg=3Da3e8b6e3-e359-4066-=
+94ef-329d1b0625a6" width=3D"100%" border=3D"0" style=3D"max-width: 550px; d=
+isplay: block; height: auto;" alt=3D""> </a> </td> </tr> </table> </div> <!=
+--<![endif]--> </td> </tr> </table> <table width=3D"100%" border=3D"0" cell=
+spacing=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: collaps=
+e; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight=
+: bold; font-family: &quot;Arial Black&quot;, Arial, Helvetica, sans-serif;=
+ letter-spacing: -1px; font-size: 20px; border-bottom-width: 1px; border-bo=
+ttom-style: dotted; margin: 0px; padding: 16px 0px 5px;">Anthropic charitab=
+le giving</h2> </td> </tr> </table> <p style=3D"margin: 16px 0;">Frontier a=
+rtificial intelligence labs are locked in bitter competition for the best r=
+esearchers: The lab with the best researchers will build the best model and=
+ make a zillion dollars; the lab with the second-best researchers might fai=
+l. It is critical, for normal shareholder-value-creation reasons as well as=
+ more fanciful&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/dvue=
+eLh4b9lPF2NBlLk2Wrqkd-R1Qh4hLsWA-ReGIamW6yWGKsowSNUXZDDos-lKHGPRVk8ExayBurB=
+MGOE7o2xW9ntBZONAOPdPeMufZRq8xSbCo1pGSIBl9oNWjLdzIrArbh2rJX_Zv2KGYxkqFemB6d=
+qudh8jYE8MfIOIhZOp-jaDfpM0SFBSqtS858oRhOf953yWZrMWF7fEbeTC_eBeqxwrDivSRl8QW=
+4QGBCM-WVIEufH91xATVf0aDA72SJwU0OSqv-FyFZpmb-DvaOIkXuPAI1NA5fqk-9ZJZox0efJE=
+6DpJxhBNyvFCs2dG4zQ6Nnqc8G-JhmZtS4Fm9aSimklv8CDqNlXjqcPVEEuuTHcs-1mSLVGKcws=
+/UImf01I62jHqIwZViPV2vJC5sBB_SMT0/25" itemprop=3D"StoryLink" itemscope=3D"i=
+temscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none =
+!important; border-bottom-width: 1px; border-bottom-color: #000000; border-=
+bottom-style: solid; background-color: #ccc;">save/destroy-the-world</a> re=
+asons, to hire the best researchers.&nbsp;And so this competition largely t=
+akes the normal form: Big AI labs pay their researchers lots of money.</p> =
+<p style=3D"margin: 16px 0;">But that=E2=80=99s not the only form it can ta=
+ke. There seems to be a <a href=3D"https://links.message.bloomberg.com/s/c/=
+rVNATJjiAHRhONqH8fCu3i-fkCKY8Cq77SWHh8kyjQeTJbASejVvBgaK8hZGivQ8qji67PS536O=
+IDfXO1R_PkVxFGnb5LsoSCaT_Vo2rmFWEWUhKCxmOoLN-wpqVzTzS-vMeAoe7GKb1STcWbphUwI=
+08j-ScDTLFmrWUCzCwFVp8p2EW2LzalisW4n3I9Cju7i-kDEXVDwsh84EzPXDvfYvw0T7eyJWPS=
+cdo-qg5eoCrlO4E56tFj4itlO_djLof52kZH4R4wUWjsfIJt0XO24VHc4Ilf73A8a1CvJeEayKC=
+juNbwJM4b-CmNNRMeqzfYSVzwsQesViZBeIG5YJexHDT1vBaEp_AJ-eT-MrgDwt6I_q4YEGlag7=
+uFIE/gYly2AX47O0O__-qbj4gBeLi91-YWK3D/25" itemprop=3D"StoryLink" itemscope=
+=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: =
+none !important; border-bottom-width: 1px; border-bottom-color: #000000; bo=
+rder-bottom-style: solid; background-color: #ccc;"> strong empirical correl=
+ation</a> between (1) being a good AI researcher and (2) being interested i=
+n&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/0RWp6XS_pV8wRy5dB=
+hyug-4I3waqqyJT1IzC3OQTb-Sm_af5o4BlddiHPbXemtVdOao7DjLM-Q2OnlnQdzwx7M-HC2tU=
+T2gmiUxRt1tIqHXyyZD98sISW37Zz8ZSn5V6NZXgEamAPf0KwCWyHbP9yP76ZT8x6AbJOD-9-c_=
+fxfkyGKAwuFTGArbvfc8fvJgqFSfL-K4q0PBr8-7hS49O388ontzxjfHC-l8fhFOZCFuN_P4Ojt=
+wF1DWbP_Z8Y_rV8ig2Xy0NfwxYOjD86p-vRYPWU-or0C3SHsBOT6OyKrl2EO0eO0IM7FLbZPr3z=
+Zb4hzTdm3t43BkyI3TS9UU-vzBBcQDWkt81_1KlMaVaVZ1R0lOwtR3nqVuuJ9Y/yByFRSlAEX2T=
+eccCL_zadv1yGygPQ0s_/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" tar=
+get=3D"_blank" style=3D"color: #000000; text-decoration: none !important; b=
+order-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style:=
+ solid; background-color: #ccc;">effective altruism</a>. (You&nbsp;might wo=
+nder if this is a historical accident: Early AI research was an obscure sub=
+culture with a lot of overlap&nbsp;with EA, but now that =E2=80=9CAI resear=
+cher=E2=80=9D is a highly legible and lucrative career path, maybe the corr=
+elation will weaken. Or maybe not; maybe there is some inherent connection =
+between being good at AI and having EA views.)</p> <p style=3D"margin: 16px=
+ 0;">And so a lot of researchers at top AI labs have some =E2=80=9C<a href=
+=3D"https://links.message.bloomberg.com/s/c/xuQOaXTs2C0AEn17hWRjFYmCJ5IBPHd=
+G3JJc1JFGKTcv0QtEx2zG_hIaSnV6OqolF4wJczgRtPACyJ9gjoGJfhJO2AHf4xsge1zt5kAEnh=
+twURiabSs1t-5IPMEdlG1-iwdc1m71ibRfSnXeCGpabcZ3G0PxYiYsWkoFbw6RL_-cpHekUdS9a=
+LONFBYV7PGfaM4UCu5o6Ypg-2eR28h0Dmtlr3xZGDDBaN-Ep5plVkB2yLJvVvYbJYCG0EGOKsB5=
+G2v4xaLDaDvZAEjCpa69-AI1WyxB8y2BxuUOWe87P6Suc86exbFqHPR1wvqICm5zgiA3Cg_Qdz1=
+WlxTxW3PFl-KGm4kZN8IqyMrct2eFiDX5JMisd6jsdRe8g44/2Ihw63B9cVlCXTNdoL9Rr6opsQ=
+FhD176/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgr=
+ound-color: #ccc;">earning to give</a>=E2=80=9D tendencies, donating large =
+portions of their massive paychecks to charities. (Because they are EA-orie=
+nted, many of them give to charities whose mission is to stop their employe=
+rs from building superintelligent AI. <a href=3D"https://links.message.bloo=
+mberg.com/s/c/0ibhxQ-1RP5mF4TBwmk1iCu8wX8o1IPVz6iSwq099l0s8kaikMY2vVZO25_B1=
+pbtZsJJ7VbtMEhrwMUp2QgFWDgsjkb8eoI3LvLIBV3jX9I3a5objB65ZjqOVX4qeOsYWaPuxPb-=
+F-LNe01AI-323nnHo_T-qeOvV3q8yZLlT-JQTTF89jwKMefG3KofiPvxj_cUpwbA4CB3q0_FKgL=
+QHZmZ0Y2agGgSEc-bMcD8Io5w2WEesVd7s6K2if0DxEvW8gUEmnSACT_2j9c542UNqPYt-UfX7W=
+mpRGIqhbp7rzkFBTYuF7ealkjNp6Bl8WO3v4xB_sohjGV_X3cGexkz4h9AP_ijUDGPQGu_pkgtc=
+3liJtA3KSsURjSZyRk/54AHQ_HKvWVhtE6Op3q3YCKWmh28L0AY/25" itemprop=3D"StoryLi=
+nk" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text=
+-decoration: none !important; border-bottom-width: 1px; border-bottom-color=
+: #000000; border-bottom-style: solid; background-color: #ccc;">Is that =E2=
+=80=A6 effective</a>?)&nbsp;&nbsp;</p> <p style=3D"margin: 16px 0;">If you =
+ran an AI lab, you might design your compensation practices around these fa=
+cts. You might recruit researchers by offering to pay them a competitive he=
+adline number =E2=80=94&nbsp; like, $20 million a year =E2=80=94&nbsp;but s=
+plit into (1) $5 million paid directly to them and (2) $15 million paid dir=
+ectly to the charity of their choice. This compensation design has several =
+key advantages:</p> <ol style=3D"list-style-type: decimal; padding-left: 40=
+px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">It will appeal to E=
+A types, and a lot of good AI researchers are EA types. You will maximize s=
+hareholder value by recruiting the best AI researchers. (Again, perhaps thi=
+s link is weakening over time.)</li> <li style=3D"margin-bottom: 5px;">If y=
+ou=E2=80=99re the founder of an AI lab, you might be an EA type yourself, a=
+nd you might prefer to hire employees who funnel their large paychecks to c=
+harity rather than to yachts.&nbsp;</li> <li style=3D"margin-bottom: 5px;">=
+Relatedly, we <a href=3D"https://links.message.bloomberg.com/s/c/IboHbOwofk=
+gM3X22gcA-UibYSg67yLgbVJoljQaYgUaFrMuLpky2OJIdqO8e06pqfvz8YAjHQczp9eU090qmX=
+2p7NU4ZQ06HfXlCgM4zXXi2MC3M0KEkMvZBi9HFUA48pQNu9INP__z5rIlNAe2105Yz3jJmADdM=
+fCvzsPkzzrDalZdLW5n3kY8LjCltdAn_YO-uZ1qznUnmD1n6d_CmxezFc1CpwCm6qJcsKpLVQCY=
+93K-TP25uUmdNvXNlrW-6f8HViS3fx_8iHlxNQOoVZV4MeZe_DxdjNqbQaZwQ-0ADCy29Zp-niA=
+eIyNzUa0jRUGDbr26HBhvjhzM1amY7qgjBuSujboChzPWEBEc1ZJB6W9FnFNo_TZpCGW4/3rhpD=
+ukfSsoEDUqMA7KJKrEDkbZV9DJR/25" itemprop=3D"StoryLink" itemscope=3D"itemsco=
+pe" target=3D"_blank" style=3D"color: #000000; text-decoration: none !impor=
+tant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom=
+-style: solid; background-color: #ccc;">often</a> <a href=3D"https://links.=
+message.bloomberg.com/s/c/CiWTNcPm_f8D-PObenzgtE2pKy7kPUUEch9W_vUyqgvhwo6IH=
+ziqceHGfv8D8s1P1AKyawxlEETIbcBIS2qHCvOPZc8vAuqnzDfonKq09qii2n8gdmayiZZUa_vx=
+PihSD_Jg6Yc4YD7eRs-6mKeDMYsadqN_52Gz3M2CzIXwjXIZlclSVTCbTrEJ9teNKAnvUXIdunj=
+kBKwlESu-64qn482hF0HBMv0UOm8rP3o0bPOcGNfEHkZRHt9t0ZUJrkCDp2YsYn0msTH5N_luFF=
+SVwg15K04GTqyA4LNbyHCCtEtnz6uiq8GCPYrcjrt7-XyMWRhoXQY6gyRquNZZlrDXUDfpoHXiJ=
+akFCxs8A0Mo_-U6Px5RYSyHr8y6y0Q/1wLrtz0475Cb_YVlMklbHWYvJ7qWIBJv/25" itempro=
+p=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #=
+000000; text-decoration: none !important; border-bottom-width: 1px; border-=
+bottom-color: #000000; border-bottom-style: solid; background-color: #ccc;"=
+>discuss</a> <a href=3D"https://links.message.bloomberg.com/s/c/4pEoAHqO-Hl=
+2uwkJMaX-rj5vktJaSIdRRaD7Zw5PtFKPvqWjsNMpUavzcLEN4_3BK-g9nXufjbAZIPA1DtMZQK=
+D4N-6j7evjNQWBKByMrLe5PznpSjdni1oKoOyjljAeThDizHSUEx-B2_h2jr5F57NpPgFpvzUA-=
+yqS8NzsBTbQrox9Q2ESqXcYPGf5sQmjCuItcEU8PGjx80mI7YPrbkym534Yc09Mok35E0DcjCEc=
+YOxprBhCAVb389jCeUG0J5mf0FBHfoTcMXFMqecNeqqJuWIJQZC-nntzdLf6IBa2sIk7gnEOAcv=
+6-gf1qsQiYDBnzb8cRQLCOQz6AIG76WULBhNK3DEaBhmWAq4WHa-weFJG7y0vSrYPTxk/4JEQR9=
+7M0PLJ43GOm_pa0SJr3c903yP8/25" itemprop=3D"StoryLink" itemscope=3D"itemscop=
+e" target=3D"_blank" style=3D"color: #000000; text-decoration: none !import=
+ant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-=
+style: solid; background-color: #ccc;">the</a> <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/6C2POJhxCoDYd2ikcUE1UdjZFQU7RsFYt1_Nup3NRnG5eQDn-JtS=
+x4WAq0wPuAVe6J97ibGHIPAnMfyc4zNLcVDuMFTU8bX7VjA25nvdZ7_0nHzsTKfYRCdqvLAOE6t=
+xnmM4V-xdl9-EvRJHNtS4EQaYkLTQE_sBEkkFPkKPR6VQJZRsIzPUIZqt2EHoUiVk8B1k9I5lwJ=
+yyKdjJPhh8-jAYOywZ8FHnPYeUVoixmviyDbgC29mBzF31vmRqU5CqMDY8-HEERAuPzO5n9EdJv=
+NBWLfHOrB4k8EX-ebcNbvn9XtiMTlDQjnkqSZBBzosPC3f54qxpi4fZe7r1AZbXel2ecbc9y1Wl=
+pTjsbl7CMCoBwFqqafYem4hSqfE/5G_VWtnBoOIS15EiOS_PWvX4qszWcDi9/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+fact</a> that the competitive salary for many AI researchers is enough to r=
+etire on immediately. You do not want to hire researchers who retire immedi=
+ately. You want them to keep working. Making sure that most of their payche=
+ck goes to charity, rather than to savings, is helpful for retention and th=
+us maximizes shareholder value.</li> <li style=3D"margin-bottom: 5px;">If y=
+ou are paying the charitable donations directly, rather than through&nbsp;t=
+he employees,&nbsp;it is possible that (1) you can refuse to direct the don=
+ations&nbsp;to Stop AI Labs From Doing AI charities and/or (2) the Stop AI =
+Labs From Doing AI charities will refuse to take donations from you, which =
+is maybe also helpful for shareholder value.<a href=3D"#footnote-6" style=
+=3D"color: #000000; text-decoration: none !important; border-bottom-width: =
+1px; border-bottom-color: #000000; border-bottom-style: none !important; ba=
+ckground-color: transparent !important; display: inline-block;"> <span>[6]<=
+/span> </a> </li> </ol> <p style=3D"margin: 16px 0;">At the Information, <a=
+ href=3D"https://links.message.bloomberg.com/s/c/U4H1eWIadivT6wtcx7rc_WISuD=
+2b8DfBweqgRWA8rqwDRDNngJ4Kq8wjikbiAiPgiQ6tfgZgMg504hzK7gxIUqJZh0pcxKp5aSSna=
+dyYjTWHDAnlsSvXOlUajEsPXvuWrIJt9hAED92MfIw8V6bxpOn8TVZlpVuOhZe1klg2vZRx8rgk=
+UICOTkF9j49KGFVhOitzLNYA7P43aBF7ZgUpmwaGSgF7rSH9NP90kTPktH2yhTTaYMq7d7RQxVL=
+WsDl4BjYarX_j3GeQgHpgGgXeih23ol-c5BTbmlqeT1H9hZdnfPrrnurcRyBhnLlaaEgzog1mCz=
+NNZHXSbLstrhPLqAQyGGDcqG9kTUXBzYQJ_ZbiEqu2vXZfL4dUP_Q/vP69_nFxQq37xcrSLcgAr=
+jv3PVkP6L_L/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_b=
+lank" style=3D"color: #000000; text-decoration: none !important; border-bot=
+tom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; b=
+ackground-color: #ccc;">Cory Weinberg reports</a> that Anthropic does in fa=
+ct have more or less this compensation structure, which makes for slightly =
+unintuitive accounting and disclosure:</p> <blockquote> <p style=3D"margin:=
+ 16px 0;">When Anthropic shared financial figures recently with prospective=
+ investors in its planned initial public offering, it included a surprising=
+ glimpse of the enormous riches about to hit nonprofits and philanthropies=
+=E2=80=94and the cost to shareholders.</p> <p style=3D"margin: 16px 0;">The=
+ company reported a non-cash expense of more than $660 million for stock us=
+ed to match employees=E2=80=99 charitable contributions in the six months f=
+rom October 2025 to March 2026, investors said. That expense, which is alre=
+ady unusually large, will likely balloon into the billions of dollars in th=
+e coming quarters, after an IPO expected to create what could be an unprece=
+dented wave of corporate donations.</p> <p style=3D"margin: 16px 0;">The ch=
+arges are tied to stock awards to employees that they pledge to charities t=
+hat Anthropic matches with stock of its own. Anthropic executives have said=
+ the unusually generous matching program is an important recruiting tool, a=
+nd they have emphasized how it underlines its public benefit mission. And i=
+t has become particularly valuable because of Anthropic=E2=80=99s rapidly r=
+ising private stock value. =E2=80=A6</p> <p style=3D"margin: 16px 0;">Anthr=
+opic excluded the expense, along with stock-based compensation and a large =
+legal settlement, from its adjusted operating profit for the periods. Compa=
+nies typically present investors with adjusted profit metrics that exclude =
+expenses they don=E2=80=99t pay in cash or aren=E2=80=99t likely to recur.<=
+/p> <p style=3D"margin: 16px 0;">The charitable expense that Anthropic excl=
+uded was far larger than any large publicly traded firm that excluded a sim=
+ilar expense from their adjusted profit metrics. =E2=80=9CThe adjustment fo=
+r charitable contributions is not common at all,=E2=80=9D said Calcbench=E2=
+=80=99s Ghai.</p> </blockquote> <p style=3D"margin: 16px 0;">No, right, of =
+course, most companies do not report adjusted earnings that adjust out non-=
+cash charitable giving, because =E2=80=9Cnon-cash charitable giving=E2=80=
+=9D is not a big thing at most companies. But tech companies often&nbsp;<em=
+>do&nbsp;</em>adjust out stock-based&nbsp;<em>employee compensation</em>,<a=
+ href=3D"#footnote-7" style=3D"color: #000000; text-decoration: none !impor=
+tant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom=
+-style: none !important; background-color: transparent !important; display:=
+ inline-block;"> <span>[7]</span> </a>&nbsp;and that=E2=80=99s obviously wh=
+at=E2=80=99s going on here. It=E2=80=99s just that the way Anthropic compen=
+sates employees is through charitable giving.</p> <p style=3D"margin: 16px =
+0;">Also, here=E2=80=99s evidence that&nbsp;the AI/EA correlation might be =
+weakening over time:</p> <blockquote><p style=3D"margin: 16px 0;">The compa=
+ny matched stock earmarked for charities on a 3-to-1 basis for early employ=
+ees, who joined in 2024 or earlier. Employees had the option to donate up t=
+o half their stock to charity as part of the program. For employees hired m=
+ore recently, the company matches donations of up to a quarter of their sto=
+ck on a 1-to-1 basis.</p></blockquote> <p style=3D"margin: 16px 0;">If you =
+joined Anthropic in 2023, there was a high probability that you cared a lot=
+ about funneling your potential AI riches to effective charities. In 2025, =
+less. Eventually, after the IPO, they=E2=80=99ll probably phase it out.</p>=
+ <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <t=
+r> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table=
+-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family: &quot;Arial Bl=
+ack&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1px; font-size: 2=
+0px; border-bottom-width: 1px; border-bottom-style: dotted; margin: 0px; pa=
+dding: 16px 0px 5px;">Analyst programs</h2> </td> </tr> </table> <p style=
+=3D"margin: 16px 0;">Sure <a href=3D"https://links.message.bloomberg.com/s/=
+c/ZE0wG9Usnvcki7AJNPLjbX2lz95271uyNsps4_gmsbXUubX4eEsmZ8-bEqJw5VpU1smpnMjeq=
+AN-IVPmz6Ny1XtK_AEa2M61_U5tSaeTr4ZHP3YvYmrCT-YUoe0jY73f2qd0Sy8_9aRogqq58UcL=
+IF1g_QxcChYlA8gc1GiZT2XkKFxIp2BZhukJI4xNIwyl0ZaM2ts48QgB9ai4723NI71a1YdEWGr=
+aFne0J_CZDmWePhzHjK3Cyolh8ImpsXBYd-Dlr2qP3sWRh-6LnSeC8LUVimdGschEAUd3ZokaFf=
+75N4-FoqZU_IK7920f18Vsw5SAikisNuUUIVhUbfb4ZdfpV0uCvflNX9JEgu7dzjjGk4XDvSmK-=
+o5456k/nPstm_NX7WRMypLLpPImVlpjzY2k9R-8/25" itemprop=3D"StoryLink" itemscop=
+e=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration:=
+ none !important; border-bottom-width: 1px; border-bottom-color: #000000; b=
+order-bottom-style: solid; background-color: #ccc;">fine</a>:</p> <blockquo=
+te> <p style=3D"margin: 16px 0;">Citigroup Inc. is slashing the time its in=
+vestment-banking analysts need to wait to advance to associate level, part =
+of a push by the bank to attract and retain top talent in a fierce job mark=
+et that=E2=80=99s seen buyout firms poach aggressively from Wall Street.</p=
+> <p style=3D"margin: 16px 0;">The move will cut the analyst program to two=
+ years from three for Citi=E2=80=99s junior bankers, accelerating their rou=
+te to seniority at the firm and bringing the company in line with some comp=
+etitors, David Friedland, co-head of North America investment banking, said=
+ in an interview.</p> </blockquote> <p style=3D"margin: 16px 0;">I thought =
+a two-year path to associate was pretty standard these days. I=E2=80=99m al=
+so not quite sure how this works to compete with private equity. Like the t=
+imeline is:</p> <ol style=3D"list-style-type: decimal; padding-left: 40px; =
+margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">You start your analyst =
+program at Citi in summer 2026.</li> <li style=3D"margin-bottom: 5px;">In a=
+bout <a href=3D"https://links.message.bloomberg.com/s/c/g5s0bHruBN25T5JwuwD=
+WC21WDqxPsXNNAL_0geFZ21bxpwLozWIEPP5Mcqqm0kWIgl7XHam_hMpNRsaG1BbZteoM38Z0SE=
+ZW5cN8sk2oPcKu6D78SBo7744YpEFfgrCJNx6ZHGER4HvURUHWmlpaxqJV8X6f5sZIRdkJmtmgH=
+H_ARf808s0SS6QR-0c1_AdMQRY5V22gfM7gL3OuS0Sa2gDXRJtyiol6NRl6gzExp4HIPk9HH5F4=
+u1yqh9WnYV-SjnP_dDBTaWpAbI93kbpQnsCp3k3U88owkbvCLsS986_hi4nANfrsySyOxHar60Z=
+Xm0wx9NpY3czCyhbGI3HoLP2C4fS5Dt7ra7elLWlgniHARtwFf0-0vk4_UiQ/yV1mlmkVWuycWl=
+sfW9JeHDiRIo8eXsYx/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targe=
+t=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bor=
+der-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: s=
+olid; background-color: #ccc;">January 2027</a>, give or take, the big priv=
+ate equity firms start interviewing investment bank analysts to start in pr=
+ivate equity in fall 2028.</li> <li style=3D"margin-bottom: 5px;">You inter=
+view and get an offer.</li> <li style=3D"margin-bottom: 5px;">What, you say=
+ no because you might get promoted to associate in 2028?&nbsp;</li> </ol> <=
+p style=3D"margin: 16px 0;">Maybe =E2=80=94&nbsp;maybe <a href=3D"https://l=
+inks.message.bloomberg.com/s/c/yVYtkj1tToX9nD8VWccAltnqa7lNsfC9SFs3jVrriJcW=
+RNm0sYJkKlDrjceduFpgahwZ94A9AQGFNAY5dj2Sc2gKAx_LPJH7LviaM0kA5N5Uj-NtvBJbFmk=
+W2uzlQ-ll4UkxtKJHzDo06cjJuBp0_6YO6gkhzjK2w96_--bkJCXoSrmwidoZAxRYmRqeklRyAU=
+s7j7NHspI8o4GhKbgcb5FXA1945EUmJWprixjDRsfTAqlBJhD0ID0PvkjRX8UsvRzC5i0TOxUUr=
+tk9dRaGXUTwdctt9fOYNtq40aVazMZBX9OzWZCeWGicsX_pu0rr-0EjpsjDcqewrRwByHGIaxZB=
+4q3ExoKznGyMaf7GMql26q3AR7o8Gq2P4qI/px0mGgD7SPPMC4Iiefv_ZbtXc_BSorpF/25" it=
+emprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"col=
+or: #000000; text-decoration: none !important; border-bottom-width: 1px; bo=
+rder-bottom-color: #000000; border-bottom-style: solid; background-color: #=
+ccc;">banking is a more attractive long-term proposition</a> than private e=
+quity these days =E2=80=94&nbsp;but there=E2=80=99s still that timing misma=
+tch. You still get your private equity offer way, way, way before you get y=
+our associate promotion.</p> <p style=3D"margin: 16px 0;">By the way, that =
+Citi story goes on:</p> <blockquote> <p style=3D"margin: 16px 0;">The move =
+revives a discussion around junior-banker retention that arose last year, w=
+hen bank executives pushed back at private equity firms for bringing forwar=
+d their hiring cycles. ...</p> <p style=3D"margin: 16px 0;">JPMorgan said i=
+t would fire any analyst who accepted an outside job offer within 18 months=
+ of joining the firm.&nbsp;</p> </blockquote> <p style=3D"margin: 16px 0;">=
+What ever happened to that? JPMorgan <a href=3D"https://links.message.bloom=
+berg.com/s/c/AWjIzdGz9FxcE5c8rOR6UhYGxGYa0S0azHgRWrkZraQ52vpPUvZ1WIVU4_fO_4=
+E-8XTcXVLLi-qco5GVvhgi_j-LmC5Pau4Eaeq-JcoNNPME9v1wG0ZzFAP-odc3dfCmUcbVrUdgL=
+fyRTKjAsfkq6EGlwqZWhDmEb-KT8wY4tGS8qwa84e2XdWKGSP9uKoCRymnP5wXKhpXCpaECjjg_=
+kltWrY0dMQiz1hnpbUevbt93L2b8Sd3sO7wL2tb8V7gxAsmaifTsFOu0C0Xg3u6HAJ1xV6uEZE-=
+9RNYxgb1yeImvZhOeUoKrt0BWzFoSo_EDpwvEVXQMJ-mw2TTsNJHbHakzeeY-pCAdgK1oztZIvU=
+N93SCArEAgoOO2xUs/XxW97o9ljldA96Tqr3arnhN5zt-wtPgb/25" itemprop=3D"StoryLin=
+k" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-=
+decoration: none !important; border-bottom-width: 1px; border-bottom-color:=
+ #000000; border-bottom-style: solid; background-color: #ccc;">really did s=
+ay</a>, in June 2025, that it would fire analysts if they accepted an outsi=
+de job offer within 18 months of starting. That really did <a href=3D"https=
+://links.message.bloomberg.com/s/c/2okQHjsNd8BN82GR_y1j0Q2EWwl0WuD788pk5VPu=
+RL4oxNqqZJaQssVlEQyTGh6ud1v7dsqXsuQn0X74-rxnBwGddWRr3dTBqTGhtaVslw7gDHL2nBA=
+YWyGrF41seuuYExjbfIA1KJ7vGtlRPp5zbkrf4kdxX5NwM9Dcby0E1jfj5W3ViRHPjB2tWf1sEa=
+5vFm2Gbh583PPIJQ0fdbB1e9l6LZniKav2tgekJc6c1lz3R9pEssCQqlkp-EAR3Biz9iXUsozLJ=
+B8EbdeA7Z2IgM7dcsQCHXQZObqRf6Oa0UFq90jPMMyDh-_JK5xGkra9CXnlwof-KjlItLAzUdlf=
+5rchhQijU6kLauWCHf2XNPUpeiyQccCakXOVei0/gTQRn-DlvmPaeeCZrdLX6SoVf56-R1LG/25=
+" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D=
+"color: #000000; text-decoration: none !important; border-bottom-width: 1px=
+; border-bottom-color: #000000; border-bottom-style: solid; background-colo=
+r: #ccc;">have the effect of delaying</a> private equity =E2=80=9Con-cycle =
+recruiting=E2=80=9D: No private equity firm wanted to incur Jamie Dimon=E2=
+=80=99s wrath, so they all waited longer than they usually did to recruit a=
+ssociates for 2027. But only a few months longer: Private equity recruiting=
+ for 2027 <a href=3D"https://links.message.bloomberg.com/s/c/eLPmi5ln5kl1Sn=
+he0PulxLoGQcq-BWccB81h89HYMzuCVwFSILLJ1S5csOyFtepoeryya6Tyic4AtBzXGuzL5eBey=
+Xs4pKoKVijtCVGQwxFvNiBvEX9pB2R1MmfWu19uLnmXLormYoJNtRuIWzHoFKROqIBvpWGX-F0s=
+lDOxvTukHZP4sW6alMQGktwDXSfRH-oI-q7HxIX1Z0BoYSGvOCJDU9foWkrPqAPSU_nlZHQpYSD=
+UGcO2v8ezRkrOjlSFG1SAgtOeE_4pMU_Th2rQed3DeeyNhKuv8r-0v7kHLda5l5IyTMVrGOttTe=
+eVxrp7JyC4riPxl2Sy0gAUtFQvPqDWlQqCq20KxaUoVrPHdUUl2OkOpDqY7fmNzHI/KC4UVmQd7=
+e0dO891IjVcNEsWNnn6th63/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" =
+target=3D"_blank" style=3D"color: #000000; text-decoration: none !important=
+; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-sty=
+le: solid; background-color: #ccc;">kicked off</a> in January 2026. By my m=
+ath, if you are an investment banking analyst at JPMorgan, you started in J=
+une 2025, and you took a private equity offer in January 2026, then you had=
+ been at JPMorgan for about seven months. That=E2=80=99s a lot longer than =
+in previous cycles, but it=E2=80=99s a lot less than 18 months. Did no one =
+at JPMorgan take a private equity offer for 2027? Did they all get fired? A=
+re they all hiding their offers? Has JPMorgan given up on this? Does Dimon =
+know?</p> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family: &quo=
+t;Arial Black&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1px; fo=
+nt-size: 20px; border-bottom-width: 1px; border-bottom-style: dotted; margi=
+n: 0px; padding: 16px 0px 5px;">Doughnutting</h2> </td> </tr> </table> <p s=
+tyle=3D"margin: 16px 0;">A lot of finance is about finding tricky ways thro=
+ugh the rules. We <a href=3D"https://links.message.bloomberg.com/s/c/4GtJWH=
+ooaAFdfdHEujhfL01ctCiUjCprEgcrAK7khZCSPlCowwLi4oN3aUMwAmz2jAr7JyEdzV9VDm2H1=
+hw_LFnHpM1p0MmYqFR01Jo-adG2KSmv-rD17h_wKrli-KjmKWxlzGmXG7yQctND6nsyf5enRrWq=
+p3N7msQweN6B8OHDSlcD16v_5teCVEc8AJcNILap4HMpIlqDoCE1mD89GEQ-Alxt0uH1BLgRbXa=
+mTQx87xr4b7dJpYtxgQXHKpSXrti3e07bJxehxXImZJ6XGTI0Axk1EI28TLk01zGyoS_tiS0Bj8=
+WM1l6TVp1MS4MVtbTKrGsGvEelfhXn2NutM1JcmwEcXAKgoECGxccwsEAtaaTjHSIBRpMRT4I/j=
+El5dewuInOHtR74vd3fMg2ZA1q_Eszd/25" itemprop=3D"StoryLink" itemscope=3D"ite=
+mscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !i=
+mportant; border-bottom-width: 1px; border-bottom-color: #000000; border-bo=
+ttom-style: solid; background-color: #ccc;">talked last week</a> about 351 =
+exchange traded funds, which rely on creatively splicing together non-taxab=
+le transactions to make it so anyone can trade stocks without incurring tax=
+es. Someone had to notice that possibility and splice together the pieces. =
+People who can do that sort of noticing are in high demand at law firms and=
+ investment banks and hedge funds.</p> <p style=3D"margin: 16px 0;">And so =
+there is a certain amount of lore about financial firms being delighted to =
+hire people based on their track record of finding tricks. Last year the Wa=
+ll Street Journal <a href=3D"https://links.message.bloomberg.com/s/c/MQHsHN=
+P3JdtWJv5nHSnnnfp9l8JdV0B6SdONKljRsvjOPUdYk4thRN9WZ13A6PjO_8AwedgkMYw3MvISC=
+de1soyg2s1merQ_n7bHL_QbAvZSCpTRVCqhEI2Zb0Hq8bnSIvlIaU1gG9hjh5XkzpIYJsCOnIAR=
+9BwmtyoVyQ1-4m8Fe6X7lXSwezBPKuLBIOIOQCxz5htdbVc555PcpZ125-BkE7VnA5F5hzmbCxW=
+HXMX4f40oSAHkpyC8TKGbsXe2KQ0vs64AZh-myzbtt7Xd5GbDiSFIwX52S2LXye-9Tjok2fo9Qt=
+rsTSUfndKgwgTekHP_CYC4BAvZLro6cdzgDzfWNfSWTOcFZIhYzV-b8AwhDrxPz1GrQUE90Pw/w=
+rs9N3wE7XCAiVpe1XozQCMO-RcqFhCA/25" itemprop=3D"StoryLink" itemscope=3D"ite=
+mscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !i=
+mportant; border-bottom-width: 1px; border-bottom-color: #000000; border-bo=
+ttom-style: solid; background-color: #ccc;">recounted a story</a> about Mar=
+shall Wace, the hedge fund:</p> <blockquote> <p style=3D"margin: 16px 0;">[=
+Co-founder Ian Wace] once challenged a group of prospective hires to visit =
+the most countries in Europe, using as many forms of transportation and as =
+cheaply as possible=E2=80=94within 24 hours.&nbsp;</p> <p style=3D"margin: =
+16px 0;">=E2=80=9CI wanted to see to what extent someone could think pretty=
+ creatively. I wanted to see, if you exhausted them, what would happen,=E2=
+=80=9D Wace said. Among the notable results? One made it to the far side of=
+ Poland =E2=80=9Con something like 30 different forms of transport,=E2=80=
+=9D Wace recalled. Another stayed local, traversing London=E2=80=99s many e=
+mbassies.</p> <p style=3D"margin: 16px 0;">That candidate is at the firm no=
+w. =E2=80=9CHe=E2=80=99s actually very clever,=E2=80=9D Wace said. But, as =
+he saw it, =E2=80=9Cit was a bit too cute.=E2=80=9D</p> </blockquote> <p st=
+yle=3D"margin: 16px 0;">=E2=80=9CIt was a bit too cute,=E2=80=9D he said, b=
+ut he didn=E2=80=99t&nbsp;<em>mean&nbsp;</em>that, because he hired the guy=
+. Exploiting technicalities in team-building challenges is a very good sign=
+ for your future in the financial industry.&nbsp;But you cannot take this t=
+oo far. The <a href=3D"https://links.message.bloomberg.com/s/c/UrHox6JBrrga=
+swJ4UgU4yiyKyw6b5BmkEKu0CAwVQ8IjhifIRmNUexDS8Nn0rPSw4gvqTZ2HiS06nVLNveXOYdE=
+h-Ti9t1YDiY777-Brbe3JMAo3Nh5yGHYXpS4dKFq9hK97VuOL9r7Gp_cv1MECXQyDsEv-hUp_Ef=
+G9h79O8obAO740vuEbYCfGcXSB1FvWs81fBjVMdGb9S5ptt2ugsldZSjOn-x6ZePSREwaDr8eKp=
+BbzyfqdspOxkF1gX401evwvPXGmAmFTQMAv6V3haCBQW7x9SoYrmihMVaxY38_qxoKdBsbPWz0o=
+xtLx-Eonc5PbbjUw_wD-2uNfFLvqIsLksu7Mx9kQ_oXp7mGt0j6TOJe7So8sUHBuqZo/wHwbuyU=
+t6qAp1g-2sA-uZ_ktSnE8Z6At/25" itemprop=3D"StoryLink" itemscope=3D"itemscope=
+" target=3D"_blank" style=3D"color: #000000; text-decoration: none !importa=
+nt; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-s=
+tyle: solid; background-color: #ccc;"> Financial Times reports</a>:</p> <bl=
+ockquote> <p style=3D"margin: 16px 0;">A former HSBC banker has been banned=
+ from working in financial services by the UK watchdog after being convicte=
+d of fraud over a =E2=80=9Cdoughnutting=E2=80=9D scam he devised to dodge a=
+lmost =C2=A36,000 of train fares. =E2=80=A6</p> <p style=3D"margin: 16px 0;=
+">The 53-year-old devised a =E2=80=9Cdoughnutting=E2=80=9D scheme to buy ti=
+ckets for short trips at the start and end of the journey from his home in =
+Orpington, south London, to HSBC=E2=80=99s office in Canary Wharf. The scam=
+ meant he avoided paying for a =E2=80=9Chole=E2=80=9D in the middle of his =
+commute.</p> <p style=3D"margin: 16px 0;">The former banker also obtained a=
+ Jobcentre Plus discount, for which only unemployed people or those seeking=
+ work are eligible, to get 50 per cent off ticket prices.</p> </blockquote>=
+ <p style=3D"margin: 16px 0;">He was banned because cheating on train fare =
+=E2=80=9Cshows he lacks honesty and integrity,=E2=80=9D fine. It=E2=80=99s =
+a little creative, but mostly it=E2=80=99s just grubby. Also he =E2=80=9Cwa=
+s head of passive equity at HSBC Asset Management,=E2=80=9D and I am not su=
+re that sneaky ingenuity is what you want in a <em>passive</em> equity inve=
+stor.&nbsp;</p> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpa=
+dding=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace:=
+ 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family:=
+ &quot;Arial Black&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1p=
+x; font-size: 20px; border-bottom-width: 1px; border-bottom-style: dotted; =
+margin: 0px; padding: 16px 0px 5px;">Things happen</h2> </td> </tr> </table=
+> <p style=3D"margin: 16px 0;">Hedge Funds <a href=3D"https://links.message=
+.bloomberg.com/s/c/PcgDfYtrJ9523WL_PYJLKcJh-Vcx4enKFXUyA6QG6rTe53JQw_kXzflO=
+iOioVC7i4bP439OYkARCjhB5ZekEK4s1gTqBAbte0I8RGsNujC0pDz6OBhBnl0IQmY25rz9A_sV=
+QB-mRhSgwhPdndjP1V5CNpbqNvq3PfSglJqccVhoZjL2ltlKJ4QnZLAy9ZIuzu1VwlmjntoSW1D=
+rDbNvYSJc-jT5kQst4_7874czMGEFWq2DpbOsBwZS2P6INNf_s3nfoALZvlOu-BkNwXoixQ_7Do=
+I7zRwaO8Yp7bzaHEaA3FgDXP_XWmo8DlWWzItAbC9Hz8XdIQ5j86judNJllBxCfv4qWaL4hlV0M=
+a_09OaoJAuW02IcGaXkOn8U/baW4CPZ2w79oWCm_z49dipqIb29rn4-D/25" itemprop=3D"St=
+oryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000;=
+ text-decoration: none !important; border-bottom-width: 1px; border-bottom-=
+color: #000000; border-bottom-style: solid; background-color: #ccc;"> Exiti=
+ng Crowded Trades</a> Fueled Rout in French Bonds.&nbsp;How the <a href=3D"=
+https://links.message.bloomberg.com/s/c/wYRF9_AvwKWBGShy9S8mFH8R5UOKCaFJAcu=
+LZpFH6bADlas6VgvS66pV55ONe44Pe6Y9Ix5yYmq7J51IYHmGow2ShHoQ6j7b2ZMN2CKXp2Yi-8=
+tP4sMlBAuQIx5bVth2oiRGqirDeTtBMRA2fTCeKgXM0jm_XUZNMDjlGW_D099pIiep6LqLhKRdT=
+265j1fIuodrbbrk5xxrx1_kz8y-yAsLn5C5xLs1-AENjPpomgE9RwBYRp4p0l-sI7ZjXU_iwkAa=
+PB0OIK8bzLk4QZfm-cf55WKy9nmGL471XPJ5JJ2owdbuFHzwLev1GpBTRHVjQ949d1W7mLDITpM=
+myyfZQMGJgBTVFT967eR8-IUcRt0h7HD5_8bI5a2kXQ4/jS91zjheAc3f7rgeHKv22nrFMph7LV=
+t0/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" sty=
+le=3D"color: #000000; text-decoration: none !important; border-bottom-width=
+: 1px; border-bottom-color: #000000; border-bottom-style: solid; background=
+-color: #ccc;"> French Bond Trade</a> Backfired on Investors. Paramount=E2=
+=80=99s $52 Billion Debt Saga Ends With <a href=3D"https://links.message.bl=
+oomberg.com/s/c/rM_5f8KQjk5hUYurdFj4tH3MV6doMxB-F8va8Ow7y5D2nPfxTbXNstJYn20=
+g_CGVEKg9Y32SlsCHl1M_r2CuCO3zvYeEn9aibmmhgJQ9pESzgoAr6bqEZO99asZAPf8v7MyUMh=
+z8usAbHmp-XnaGRaDpr8snWo5kvN37LrUuZEWtZ71MVpqkBHazf8uiaY1Bj5e5eOgYjWZmvL54P=
+zI_8bY9-qAURkza_pu-LCJgxx6urBl5ccujbd2R298U3ocPXhBP_4h6TS4lRQL7hN-XfD0lT9bR=
+S0Z31bUurQlko_9q6r_9xVWOgnVfAfPYJOqVR8ysv6FzmKokdvhxpg2TWSXUwHwE983CD8Z61xE=
+--tyMx6XA-raNtxSAuO4/nmk0P-JnITT7H5CF_871roW8YkZuEmuC/25" itemprop=3D"Story=
+Link" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; te=
+xt-decoration: none !important; border-bottom-width: 1px; border-bottom-col=
+or: #000000; border-bottom-style: solid; background-color: #ccc;">Hair-Rais=
+ing Finale</a>. Paramount Debt Drop Spells <a href=3D"https://links.message=
+.bloomberg.com/s/c/gIIEYh2733WT3h7U6L429uaMIW7ejK5UjjPy-_aRgblChda1zbzzBLGl=
+OeK2JJ3O9WJu3hjqWxngOUO3ZwJQSViRNIOa6mpp7RbTFjFT-JVxIUhCHwWCab2Y-d39x3jZ7XM=
+KihB2P5h6xkrEW-x69CWy7WsUZNujFjsTV0h2rhZ1qZc82r1xP6YZ5JaL1Nibijromy0KwDeB6S=
+n_UQGTmPW2stA3b-j__uvpOedK_nehSjaoHJrSIzRFyOLS35YU7P5rRlzTrBapOX05InE_61QAC=
+qL-SS_UNQaYDtO-kuU9gUkuataROrShbaT42dgtuy8bwWxI7xtnHIYqYskJnoR_lfxf9011uHW_=
+yCCjOCDrjulBGxTTHOUPmEc/jr1hS0peuarKLmSurN965xIWS6hGtyWr/25" itemprop=3D"St=
+oryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000;=
+ text-decoration: none !important; border-bottom-width: 1px; border-bottom-=
+color: #000000; border-bottom-style: solid; background-color: #ccc;">Troubl=
+e for Borrowers</a>. Paramount=E2=80=99s $52 Billion Debt Sale Shows How <a=
+ href=3D"https://links.message.bloomberg.com/s/c/WkN1qy4QJ44Tp5SXeBcpabR-gk=
+masW8B9qFv8tDVldgAeli7BS5BkedC7qeL3Fsb3E1jmvm-eaXE8SJ9W4tEPfduO15oQRh1LcC1b=
+KDqL5X-IfSnyYZETrHGwj0NzoITHQEkJgKM4Zj70Vg_SWJRtz0xSY19q2rzQq4a0cbzMCsirnhq=
+2SPljYVq0I5LDwqK748LQgtlVE0rJj1wcXLLVQbYaou3QsyN6-r2J6p6cWJDG65forhO6h-iVUd=
+SkTsrJd11tt6r8-HQ5M94H-4odgCzoM3DngFsse_Nl2xFJHhmtigvT4qFTH4cIVZWKNSE09FOLG=
+y0V6FiNQ4I2r8VUN8ur8TtcwzcOqfBG6h3MWMA9zwubrqwXGfrTuM/4-AjqkQGXGEcsUytGTYtg=
+wbnqvwbwgTX/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_b=
+lank" style=3D"color: #000000; text-decoration: none !important; border-bot=
+tom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; b=
+ackground-color: #ccc;">Higher Rates</a> Are Biting Corporate America. Gold=
+man=E2=80=99s <a href=3D"https://links.message.bloomberg.com/s/c/zxLpMklhd4=
+PNDyGHmgVL3i2krkwFdL2r-8I-6EwC3SmqJIUegyjxFVp3WpO95wHytP9HE35zij8bQjaLkeWTz=
+zNwca36L9wuwuw9UlPzXfXZoGZ18iQaPb-1IFp2KSDZ1AnSqLNYD92qrfgtB_ZIMGyNOikOOcgt=
+nKZ4ais8njfMJjiBrF-fpSG63JNYMbafNj_KH0-ZaCMJTtJMN8fO1RVAQNEMJbQzLal7UbhL78F=
+miY-jijxlyvsoLWrazV1XqFQpTBR5l4HUn9o-BV_4eqd-z7fF50G8oRb9ens7yJifrJV4wMn4JX=
+hcmOqgxh2XPJOuRPFb4FVj2Jqf3qOvgKGBnvPtRySL-TQpd2yuq_BcIahCrg6UGWL15l4/361S4=
+yHc3BsHqqYs_E9xVfDOT4D4_6Zr/25" itemprop=3D"StoryLink" itemscope=3D"itemsco=
+pe" target=3D"_blank" style=3D"color: #000000; text-decoration: none !impor=
+tant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom=
+-style: solid; background-color: #ccc;">Bid for CLO Manager</a> Highlights =
+Wall Street=E2=80=99s Fee Hunt. Blue Owl Again <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/SCkO01AsOrnuwho2n1-GfRjWrRqlnt1KDkJnCC355zxma0-PR5i8=
+uTA1Czlxxfgce4kcYJ2HsLUFYVz6vstK2mly1zqLAcnPKwZs3aiovJIm5ocEpPPh-7k83gh5fvQ=
+XXgNuRYTmFPsP7uLxbuuDlK_1Vhv-J1oDjOs8M3n4w6-j7YvcjPjNkRrZmjjPTTpqG-rAAVyiLf=
+kMdSmYUTkTup0lLir5LipBT1WnJobFux9bDn2W8amEEmLiXiJlUfQ7t5x-FxADD6d-TT8A2DTQA=
+u8fpcQF0jyHFH3EfoIWFJDFWchE-lLbu8EgpJTMc7Gnkpwt013Fz-1mQ6q1S3QJVF_YYElZifOO=
+_myZyqdk4s9ldguw4xqsEkuUzAQ/CnkJXc6gJ8U6rU09oQ4q4j1g5afkjAT0/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+ Caps Two BDCs</a> After 39%, 17% Withdrawal Requests. <a href=3D"https://l=
+inks.message.bloomberg.com/s/c/4s5oT6wL9I2yXTdSqMhQDIpH1bWkmdnL1s5lKMG7DJvD=
+Yk8wMyftk0HOaS6fJMalmAvCC0nrlV39k-2o1zF0-Gr6vKmLr3xCwZmpnzmX_R1Ooq8fD5s93HQ=
+5tBlBoCAuDfQcqKRpAtrEdFZCuV7qrJgV88m7RjvHVMdiAdC_lNvv9Z1N2XWDoRgiiuFZbykUOz=
+O4RdFjY8RXlkHytgAmSMkf9cxCfVIcKuz_HmXD4DB913oL8IFOmqB3NmZcnCrJ5R1IbkTuBhABM=
+_MLIAB6MEkkrR-3TxCMz4mLE4490Uzss8wXP76kZFD07F3UAFFkLUXHjPSh9UF6CpTMYYo6CxjT=
+ljlREa1IO41w_JYJqoAsrFG4jVy1zb7Ifgk/Frrdj3pmcski6WYH4gCEZXHrg0YrxEPD/25" it=
+emprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"col=
+or: #000000; text-decoration: none !important; border-bottom-width: 1px; bo=
+rder-bottom-color: #000000; border-bottom-style: solid; background-color: #=
+ccc;"> Spending on AI</a> Is Becoming Almost Impossible for Businesses to B=
+udget. Jane Street <a href=3D"https://links.message.bloomberg.com/s/c/Qw9wi=
+czJqojGu0zQYbpjeR88-0MbmsSbHIa_qujrnXyj43BlnLdN1rjahAAQlp1v7enMr7ESCPw1Mny3=
+8OLK4NMqgjtIO9taA8_XSgZlHl04w72UXUum3MpcIHbFEIu3-JCNi0-EVDzqKV4CHSb2oWQN22R=
+sEqRlUVdCUSL2CxPDOmU3FeJriPCKDIWWtV9leIhWb3gnXZ243Dh3YMiRUq97ius7GR2TAZKXIp=
+95nb2FBFQXbMxAdErHucjulVSAxgWVI-o2XAl8XI0St-NIlvmMgBSDhKZDZAxj9SPDjCmmS8Oma=
+R-GPGEd1gnr1ESLkV6xsrrynPYO2Iq4le3qcdx0_s9qXWs-7l9n-pYxtcHpTY7mmB7T4Ro4fbk/=
+MulOykslmXZLXkNIuE1B9O3ec-9DI7_w/25" itemprop=3D"StoryLink" itemscope=3D"it=
+emscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !=
+important; border-bottom-width: 1px; border-bottom-color: #000000; border-b=
+ottom-style: solid; background-color: #ccc;"> Denies Market Manipulation</a=
+> to India Securities Court. Low-profile hedge fund smashes record for <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/0kyHnyJ7obgzE48rA9A3uYD4Qvgo=
+x3oxucRaUvDZUFUWiy-aFJLjeMd4DFneuEYoXlL4WWJVEuiqW18n3CMNdQ6XZscQlO2R6QRU6HG=
+sxoggDZKhmfygZ9urCd9oYs-raXquwYIDJAJrHW3jsVzCRBh-T4u3wHPiMovBxqA405mhw_SD9X=
+crXa6VY49i9L-HBKdmmxIzvfVPV2wV-34HuR1B897Coqgggs49y0a-1Uu_25whAHO6ruT6KFOC-=
+cwYh3ELX0e9n-5hg-0-OXxzuugOWR14uKwR_MV8ez7XA1icC8dr-3CTZqqDr3uOb0jogUD5QowX=
+YOAKYI-ggoAO8MzSrrGBbUv9E53ghyTCege-XrWW-FDuScCLAv4/iFUKh-2RPtCy_hXLGeCPvCm=
+5k1H5ygdG/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_bla=
+nk" style=3D"color: #000000; text-decoration: none !important; border-botto=
+m-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; bac=
+kground-color: #ccc;"> New York office rent</a>. London Takes a Hit as Supe=
+r Rich Worth $160 Billion <a href=3D"https://links.message.bloomberg.com/s/=
+c/3vTWz6xwKxYV3eAbpSZ3vTg8qy75zt1eli80J2_SN0DBiCc4sd6HdaZR3CY33jlj2NhgH0wpJ=
+IJ6ROTlXvNLos10iUIXR_p7CTlgPCVUhypp0MxnerIPXaOD0gJ1a7pWngJa5Yn6PEEyG-69fHnZ=
+41FDrMFsIdUvRBQoh9E7ablOycUr5ifzAq91mxx85KkaIETosI2U339R-eJyibRH-AfW89naEYu=
+7BBebWrEVeYQVOKMbSNLDvJqsYIjQAJZrGDrjyBEuJH45mSRAmQ6hF4CdT30ClG1Q3QQzFdNfvy=
+r9lwsOcmHIWZrntUX6OKPTO9a_8xXctgn9Iw0_Dd2zRe9NnOVQz5egY3b1ZfpxuUYGulM1Qgsgp=
+yqvXp8/Z8fHA8uWWfo5z0Lr9cGbJuqwqWAgBdk0/25" itemprop=3D"StoryLink" itemscop=
+e=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration:=
+ none !important; border-bottom-width: 1px; border-bottom-color: #000000; b=
+order-bottom-style: solid; background-color: #ccc;"> Exit UK</a>. Sweden=E2=
+=80=99s Young Men Have Found <a href=3D"https://links.message.bloomberg.com=
+/s/c/zB30kdxSIvYm27vuPVB1xRt7RRY7m1wDlYDsn4Vcw6uDQ-bhxOW1a1JpTCZJYYOL7TfG9d=
+ikj5UMX7Yq-GZfe_fbAknnPU4IvCrfVB0BmPocU-50iuIlTiWpdWMCNUP699Bx0hPihq4Upj4uA=
+Fe_Kht3UMgFTvLxCyjwD8nFs9YxPabVX_Nh2J7AZGv9t71MRqRJGessXJ_HDfVoKQD5kxjmdrMd=
+QBN_u7UqOCq9JLDuOUIO5gXStmYDXkkLJLUeGFfxEbtGvzMlRMJGgUDJl5KmhoCcqxdajIIdX2G=
+uHE-pKG0E3RGKDS4NDuE0E48JqmGpt36LmOU6TGwpDp2pYQw5vUdOo-6035G6TqyOvrhvlyE9gu=
+k2VUR_Rto/d2JrsIR6hRdlr6OtYTf1D6AGSM07hLQk/25" itemprop=3D"StoryLink" items=
+cope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decorati=
+on: none !important; border-bottom-width: 1px; border-bottom-color: #000000=
+; border-bottom-style: solid; background-color: #ccc;"> Their Wolf of Wall =
+Street</a>. Sotheby=E2=80=99s dinosaur auction shows <a href=3D"https://lin=
+ks.message.bloomberg.com/s/c/vAN6-J4Qf4dvdEchqvc1l9F2hKVOhxu3eBOYPOXaJFXh0D=
+QDX46yWjws4MV00GiAmoNCZKyCEmkvcTwM3NC6GTOW8NlsCP077hyHdzLyhY7_oUrDFbpbe9YF-=
+-4O8fUzHIoJB5uOI_d-hs8mPhgj7siw95LeI5gwnUaN_in6S3lhRmhxeizAkK4X9fmpobC-6oqx=
+TCDh5TezVrQonuCkw1ybItBxkhd-UobUMUOlHlHC9QpW_3ZSZv1G_rI70byBPro_ht3zkImcSbb=
+k5u9nyuKvuE3yuCcijYU1V8w0tztVxT2Kz-6CrKd_W4L2_QtkJ3jRHm81EeiGk2F014VN041Lkd=
+zYmsagKc3PNgY3J1hZfIK6vL-DHJID8kw/4_yHOfY0LS770QSmQh3_NEVYU8tt-v8x/25" item=
+prop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color=
+: #000000; text-decoration: none !important; border-bottom-width: 1px; bord=
+er-bottom-color: #000000; border-bottom-style: solid; background-color: #cc=
+c;"> fossils boom</a> is not dying out.</p> <p style=3D"margin: 16px 0;"><s=
+pan><em>If you'd like to get&nbsp;Money&nbsp;Stuff&nbsp;in handy email form=
+, right in your inbox, please&nbsp;<a href=3D"https://links.message.bloombe=
+rg.com/s/c/WD2WrlU6nogAmifio-iAzYynh1rRDSaDmt7Gjr5TPv3OeYjTZ1X8FE6fyVxqzH1a=
+DU-s4eSnnBWnjkAEsPBo9dSOasuQeR5i90m2yaz-JwZX7bVT07CiBls4E_7yOeYho3Q-WtX92VE=
+1_iK807h8Hm1YX54lzpCJBr1hzvqjuh_Gyqvkh50xeJOTdHSs1O2sQJeCbgnMc-eKhGN2V_71Bi=
+lPt9UeprnBTJaPDnxFHSGxmgx69nPERvPfxWgVqSNLuHyS0Uy1A5E93rvK9hX3md6t1OhWdZO2U=
+JalZ5avdWfFTa_EhDOQZ0Z4zb2Z_8VtmSV36PZDEL2OHdjxbXlgzg-_O9f_g2g3q6_WhHk2qeiU=
+IaFmV-dTP5MTnE8/orNsvzy3_YHSk__pN-WJ8YAHohDad6BL/25" target=3D"_blank" styl=
+e=3D"color: #000000; text-decoration: none !important; border-bottom-width:=
+ 1px; border-bottom-color: #000000; border-bottom-style: solid; background-=
+color: #ccc;">subscribe at this link</a>. Or you can subscribe to Money Stu=
+ff and other great Bloomberg newsletters <a href=3D"https://links.message.b=
+loomberg.com/s/c/N4TLkVJUwoBMu7apqhgoT5qL3C_Y_e3QBwuK_DIqkx-M1o7wH0wekPs0Fp=
+rt6N8ezk_vi_eNgDQzneZvLyT_XVw4yey8R460X1hveTRFbUs5RrDsnFOBy7OBrEYPpgo9bJ3xL=
+C9hnAGKQ1u_xRbaIua2fVEACHcIwEsoy1KptMaJYRO3lBu4b8DhrCEwVbgF8wzxA1sisN_yyAEQ=
+Hd1Poo4ujiICC7z_0ff4VWiksrGYaFo8R2q-7fCMmfS1KJvsvnIHEC1x2_XkhBzMX8_G_kNvitR=
+-b4idDdtRv_k0ayfDs8KGzuyCuQveEZIkgRFWa5Y09qPPODgWlLb0iJXqJ0CLKpq3IeEm5_uI_R=
+CD3JVtIkwoyf2_1nkTIPo/CJiWS4EESDumogONok2oF5vm1sYbQ86A/25" itemprop=3D"Stor=
+yLink" itemscope=3D"itemscope" style=3D"color: #000000; text-decoration: no=
+ne !important; border-bottom-width: 1px; border-bottom-color: #000000; bord=
+er-bottom-style: solid; background-color: #ccc;">here</a>. Thanks!</em></sp=
+an></p> <div id=3D"footnote-1" style=3D"font-style: italic;"> <p style=3D"m=
+argin: 16px 0;">[1] A <em>=E2=80=9Cforward </em>acqui-hire=E2=80=9D is just=
+ a regular merger, where the acquirer is mostly interested in hiring the ta=
+rget=E2=80=99s leaders rather than in getting its underlying business.</p> =
+</div> <div id=3D"footnote-2" style=3D"font-style: italic;"> <p style=3D"ma=
+rgin: 16px 0;">[2] From the <a href=3D"https://links.message.bloomberg.com/=
+s/c/EHVqmPG5CIDfYhjWTRmLsUr5L2b2_Fltiq-JfcaTRcMp0lbgv21NLf5krYuHwOOA29Ksowe=
+JtnpK0NaUg0GTLGGYohPKjDRidys4fAVEnWvC-EE79x6MwNpgzAzQct_0VyiPKWPd3hlIwefLVN=
+5LQDHZ7Z0yZZh58cHK-IO0KVqYyiVF0hmcKZocUoh67SyJuEKT7gQNWUZjgCN-lGp2AP8OdHIIp=
+jrX4IGYU6snLCl-N80q3S5Bk_Vt6l8rUnL0tJOuJsE9qFF4HLTmkKTu9qhekLCxf-bAMQ7dPAE0=
+O4wOqjMaOEiLmBxQNfSy3mfOfmB6GZCELyKwj9fV0aa6g64_ioaKBH5oRoB-QjOsxW3m_PUpYD-=
+RE7AG6EU/m5KA8Qzjzz-lDFO0uQ6eo-xWy4disjI9/25" itemprop=3D"StoryLink" itemsc=
+ope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoratio=
+n: none !important; border-bottom-width: 1px; border-bottom-color: #000000;=
+ border-bottom-style: solid; background-color: #ccc;">Groq complaint</a>: =
+=E2=80=9CCritically, the choice to transfer the technology by license rathe=
+r than by a sale of stock had a tax consequence that fell on Groq=E2=80=99s=
+ stockholders. Groq recognized license-driven other income of [redacted] in=
+ fiscal 2025 and recorded a provision for income taxes of [redacted]. Becau=
+se NVIDIA and Groq=E2=80=99s Board structured the transaction as a license =
+to the corporation rather than a purchase of stock from stockholders, the p=
+roceeds were taxed at the corporate level and, when distributed, were taxed=
+ again at the stockholder level under the plan of liquidation.=E2=80=9D </p=
+> </div> <div id=3D"footnote-3" style=3D"font-style: italic;"> <p style=3D"=
+margin: 16px 0;">[3] I <a href=3D"https://links.message.bloomberg.com/s/c/m=
+JOL20slzd8yEPTLZFAVIM0RyYntsS1D97r1OfkBbEdFL-sReIddCbisiPteauBeqduYX5dYjiZC=
+1Xzm_Z4srBWED0Kwpg1bAPy9bwRkmLEGVD02btY9tdSBLtrm1KrtBJrNvzcwc-A5aeJffjrdgSX=
+Wyyd_zxAO9-GhSWbREcegkC_QTOBDfAvEZo_1FrGrBHrBCAiidImPmjfsTfk7Z9PckcoTyrknw1=
+wxR7tPMlTGyq6TaWf7SA_CKMtPk2IPOg9At58NmkKYYzSTtGJXlT-yAw1s0oAjZu-staU0LflzL=
+votutk6gnzAT9qV4pGJHN4QhdfcuuNwxzXtcgFJv9zAuXy2K7UbceO2mMty4_juw1P8dE-KujzW=
+rYo/PEIB5QjoAYgNx8qrwD4Zn7gwVXhkhwa-/25" itemprop=3D"StoryLink" itemscope=
+=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: =
+none !important; border-bottom-width: 1px; border-bottom-color: #000000; bo=
+rder-bottom-style: solid; background-color: #ccc;">wrote once</a> that =E2=
+=80=9Cit=E2=80=99s a little weird that the Silicon Valley startup ecosystem=
+ still works,=E2=80=9D because big tech companies could hire founders of pr=
+omising startups without paying the startup investors anything. But that=E2=
+=80=99s not quite true, I added: =E2=80=9CWith really quite striking consis=
+tency, the big tech companies that hire AI startup founders throw in a part=
+ing gift for the venture capitalists. I do not quite understand why. I supp=
+ose that, while the startup can=E2=80=99t enforce a noncompete against its =
+founders, it probably can enforce some intellectual property rights, and Go=
+ogle doesn=E2=80=99t want to get sued because it hired an AI startup founde=
+r who then reused some ideas from the startup.=E2=80=9D That=E2=80=99s what=
+ you see with these waiver-and-license deals.</p> </div> <div id=3D"footnot=
+e-4" style=3D"font-style: italic;"> <p style=3D"margin: 16px 0;">[4] That i=
+s a slightly loose characterization of =E2=80=9C<a href=3D"https://links.me=
+ssage.bloomberg.com/s/c/kANvFoF6n2CWrFwz3sdcUmxX5NpknMmiS5jZQHLeTsm-RYITzBg=
+YcTwYM2hZzhUlVQd_fk7B6IM6bl_Jm-WDwjgo9EEEIYXSXSRVvfHFdh5tMSuWA4-n0fXtHKryPg=
+7I-f8VGcdYelMqs3KbMVNQ91Tcwd7FeXu2vpgw0dBPMvsoWzTnqN0phcwu6YtoanVVryz19pLg1=
+ltYdbhZ2MRQnzdiLY54iH6p6xL9RUe-hwGeKQhoip52JrU9x99mv78TLaXYElkbXn8_6stpOn1b=
+2bQSfxRu5BGkTLc_tzRHrX-MQeiS8D6Qo0MXz2_SiFh36fAVusNgUbEma26QDIzgS9_jG3J4Gtg=
+EwHt6gAOz8LCruYgXjuuB3Q4Uecg/JpTYj0EvJakEYdOwi2n5DAKHKcue-7D8/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+ Revlon duties</a>,=E2=80=9D but it=E2=80=99s basically how target boards t=
+hink of their job when they sell.</p> </div> <div id=3D"footnote-5" style=
+=3D"font-style: italic;"> <p style=3D"margin: 16px 0;">[5] Actually the $17=
+ billion was payable in three tranches, the third of which is $1 billion an=
+d payable in December 2026. The rest has been distributed. The plaintiffs h=
+ave various complaints about the process of the distribution, share sales i=
+n advance of it, etc.; their problems are not solely with the acqui-hire pa=
+rt of the transaction.</p> </div> <div id=3D"footnote-6" style=3D"font-styl=
+e: italic;"> <p style=3D"margin: 16px 0;">[6] We really have <a href=3D"htt=
+ps://links.message.bloomberg.com/s/c/IafyMSEFNqqn9qsrlpNluouQWzxqtliMje5fly=
+nKizp7uCi7lOHd89gkMPWueerfQ6EXObERsilEWBLOnhhr881YDTyf6EyaRv0hSF1XTvx6MwSw6=
+uS43OYmkWg9goprQDvKRGOzJOMD5fpUcvV3YZOhjkplElL1BeK6ZxsEM5b3MXLF-r00Yyp3YYQ_=
+b65K8uneMu0JXzrqE9bfJRXjEg3SJHAQfaLE_I-q4aS-L6el1KU_LLvOpW4jq9TsXcdiPpPYU0_=
+qWSrC3elj5KZy3BNEiRW9fCfJ8aGkqofIDGJL2E-ZBdoGp8wVdXTMuKf94ALTSDHkELo3nlntwf=
+ZZJzEurdrKBauVXcHQuXT8ZCmSCMTvfF7IbAsAgnI/_yakDQBk783q3KzSv2WWki7awzR-BY-L/=
+25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=
+=3D"color: #000000; text-decoration: none !important; border-bottom-width: =
+1px; border-bottom-color: #000000; border-bottom-style: solid; background-c=
+olor: #ccc;"> discussed</a> the problem of AI labs paying zillions of dolla=
+rs to their EA employees who then turn around and give the money to stop-AI=
+ charities. There is <a href=3D"https://links.message.bloomberg.com/s/c/YVt=
+rG882OCYepR3ADIAXOqRNCJHh6eJcUKlK4vwMqGHRcHEfYez9Gl15kgKHcmGkuJujX_TlEmxXm8=
+wQQFHAVBtwJEDHlBYt1xl_04uyRwkNjZXyeDl5jpZTfLpudMihLL33PvJeIlEsN681PSnNjpX-6=
+JzKc1o1PoCIxVrfFyRluGSyxT4HEIJdmebH7A7QGm5yLm0aX8xXYTeFTL0-Q2e8ZJH-3n0HwUf9=
+7-ep0r_9BbKFuO4_G15lvCf0wFxHlvfDXEIzuu4EkvkPg8GLrN1XJ8nJHicH5_RN-iYg5sTr06w=
+bOvQrYyToKRtTtkcrsKw4bOu2d7FT44fbetW6NLwJ3dlblQ0ZI7SIKOR7nbc1_nfNmaurYN48HU=
+U/OtfraXaAe5IQ18jNgfBAwtfL7wCoK9yM/25" itemprop=3D"StoryLink" itemscope=3D"=
+itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none=
+ !important; border-bottom-width: 1px; border-bottom-color: #000000; border=
+-bottom-style: solid; background-color: #ccc;">apparently a split</a> betwe=
+en stop-AI charities who refuse to accept money from the AI industry and th=
+ose who are like =E2=80=9Cwell, money=E2=80=99s money.=E2=80=9D</p> </div> =
+<div id=3D"footnote-7" style=3D"font-style: italic;"> <p style=3D"margin: 1=
+6px 0;">[7] You don=E2=80=99t have to like that or anything, and obviously =
+employee stock compensation is a real cost, but companies do it.</p> </div>=
+ </td> </tr> </table> </td> </tr> <tr> <td style=3D"border-collapse: collap=
+se; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0px 10px;"> <tab=
+le width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <t=
+d style=3D"width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt;" width=3D"100%"> <center> <a href=3D"https://links.me=
+ssage.bloomberg.com/s/c/sOnCf12sdQsr5LBRZA4TAPdV9iFZVomaBQv3vWMcB0ur_zqDtXL=
+pgOVMa7_WG5Evn8c0IotghBRBGOelbea1y0iVUQbB_mQNTMwjNd_UL_k5BqvWSYdu4pvPgIHzPr=
+yQvV_F0UhKvTVfogk-vunq8sZcIiL4Ky7P1Ksm4AXYvV9XQft6vIoTPrUQIZXv-XvLguM75cAAs=
+dRts9f2d_GuqFxLHAOIcht-jTXxjTKOzp8q6zr9QakvC32zqOxRCylSRFre2s2v_ScXXojtsdSU=
+kwlJzxS5Q01tDxb8ToyGsKwnOPF2O12_L3yOVukBN8vNuFyWn57tmZWWXv8fhsUmLIVKHUYPf-M=
+z8iJ1c_Xus63jIK6of1nG8Cp94QQ/dbs7uP1XAaZZjY_xlj0UJEIiY2E3gFBD/25" target=3D=
+"_blank"> <!--[if mso]><table width=3D"550"><tr><td><img alt=3D"Listen to t=
+he Money Stuff Podcast" src=3D"https://assets.bwbx.io/images/users/iqjWHBFd=
+fxIU/i6H.ue2bNPOA/v0/-1x-1.png" width=3D"550"/></td></tr></table> <div styl=
+e=3D"display:none"><![endif]--><img src=3D"https://assets.bwbx.io/images/us=
+ers/iqjWHBFdfxIU/i6H.ue2bNPOA/v0/-1x-1.png" alt=3D"Listen to the Money Stuf=
+f Podcast" style=3D"max-width: 550px; display: block; width: 100%;"><!--[if=
+ mso]></div><![endif]--> </a> </center> </td> </tr> </table> </td> </tr> <t=
+r> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table=
+-rspace: 0pt; padding: 20px 10px;"> <table width=3D"100%" style=3D"width: 1=
+00%;"> <tr> <td style=3D"border-top-width: 1px; border-top-style: dotted; b=
+order-bottom-width: 1px; border-bottom-style: dotted; border-collapse: coll=
+apse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-transform: upperca=
+se; font-family: Arial; font-size: 12px; font-weight: normal; font-style: n=
+ormal; font-stretch: normal; line-height: 1.17; letter-spacing: normal; pad=
+ding: 9px 0;"> <span style=3D"margin-right: 4px; vertical-align: middle;">F=
+ollow Us</span> <a href=3D"https://links.message.bloomberg.com/s/c/Oo8kpnle=
+TF_BPBJWWwI1saOBOJkearGFZOkNbKKPxi_PAeJJVPxCr5bO39Zw-hPBIcKINwm6IWhERhO1ZQr=
+_JxO4-KfGkURGQ7BvPmT2ylBP5hlxkxIZHWWsz5UOGhb1Y7ZWyRxrP-FDYaHGVoAoziXEmczPGG=
+c8QDZgDITo_BSaV6MmHKtfuaNFGp-sOxUu9WjUKTzeMJSwli1MwgC11ljE5HXLeg_ydsKMN9CKB=
+MYGAOoDJAbKWkA2BLAKxsfvSbW--MHrQLvtt43NGhVDUtawYyK8gLlCIS3xC18BnQ8R4b3ghOCD=
+WaCYFTiJNI76qO43n-LKRfETO5s9AidTE1GhYomeH5sj7SFo-qQgx-Dv-SJ8FX2TmNCWXj8/J6K=
+YH7OeyCrLjZY_3sSpfx04qDp6bcPD/25" style=3D"text-decoration: none; color: #0=
+00;"> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7G4HOaC=
+fw0A/v0/-1x-1.png" width=3D"20 !important" height=3D"20 !important" style=
+=3D"max-width: 550px; vertical-align: middle; width: 20px !important; heigh=
+t: 20px !important;"> </a> <a href=3D"https://links.message.bloomberg.com/s=
+/c/LjA2ZR0ej2ZSK5vISL7w63OYFO6Nl_rw-YcOLuJItb-E6BmjdaY1DxXl3kX4uondsb8qDEF5=
+hu1AreTCVb-f-C2_ss23IjyV8W1jEWQYGfQSOkRKuqj1TpxZveIh09LHqiuV0xTiHggUJJSYbzT=
+aO0XavHtjyZuUiROI8sDv5NZ7S-4Ce1CoSeCjx-lDOMZPL-HPwqiKhx_AuhCtk9160EYP4Eh5bD=
+AzcSEaJM1wYGeWnapf8Lds1Hei2dLr2IjoYz0m_hFyZpsJC4LKQJOgIHS7DHxSXx30lAyKcvXAS=
+xYDp_3ASXjlkH42TqIWjWqSQYFiUHJn8qG0PcZgNfYazwdZHQYAK4vCAreEuszoWnJBmUP1nb7W=
+hDdrwlw/hU8_l4uzvclXCYOqv1c7_KabE4dhjshp/25" style=3D"text-decoration: none=
+; color: #000;"> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfx=
+IU/iDRduxloBOSA/v0/-1x-1.png" width=3D"20 !important" height=3D"20 !importa=
+nt" style=3D"max-width: 550px; vertical-align: middle; width: 20px !importa=
+nt; height: 20px !important;"> </a> <a href=3D"https://links.message.bloomb=
+erg.com/s/c/n2LK_LeUUNWf9nMdevJPNpJcnBgou5qlMW8GN_E_-W2ZmDbZTo2m3HqNP68LVCk=
+tT7_weTtvDmiR095ZxnmVfE2vMzv_AixLCjomO8RZuLnEkhX-A4KkPvFkrrSTz6sZ_oMpPnpFlH=
+s0R5rVi2Wot9OnynKv-3-PmjJ4MnfG5V1oqRofIANO96sI_lxiHVaWsIfZ-hqK652MyVQtb5MSJ=
+9ydmMEvcaNGFx4sI1_Dkr16ODinCru4Wu5Qp0JnMYjIZwXXCxMWeda9mGq1CyH3PLCH_Wop69_x=
+7q8wneAhHri3L139surH-rRcsabYKyjjGr0dmR-U8NLNSEC0u4x5FPquLcUnNcyyV6R7qXv2Tep=
+1AtqJzSQMRtyXafQ/MIvvOO6wYb_xFS1BIY1-xL8GWWe2FT72/25" style=3D"text-decorat=
+ion: none; color: #000;"> <img src=3D"https://assets.bwbx.io/images/users/i=
+qjWHBFdfxIU/i5QE5__h22bE/v0/-1x-1.png" width=3D"20 !important" height=3D"20=
+ !important" style=3D"max-width: 550px; vertical-align: middle; width: 20px=
+ !important; height: 20px !important;"> </a> </td> <td style=3D"border-coll=
+apse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-transfor=
+m: uppercase; font-family: Arial; font-size: 12px; font-weight: normal; fon=
+t-style: normal; font-stretch: normal; line-height: 1.17; letter-spacing: n=
+ormal; padding: 9px 0 9px 3px;"></td> <td style=3D"border-top-width: 1px; b=
+order-top-style: dotted; border-bottom-width: 1px; border-bottom-style: dot=
+ted; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0p=
+t; text-transform: uppercase; font-family: Arial; font-size: 12px; font-wei=
+ght: normal; font-style: normal; font-stretch: normal; line-height: 1.17; l=
+etter-spacing: normal; padding: 9px 0;"> <a href=3D"https://links.message.b=
+loomberg.com/s/c/iTNMOtUthuRBgftt_YwKfGOYUf6Dmumq45gmNQjpNuphRyBQgUk5AHvUqO=
+ic_v8i5n4ZSujani3nScVPLNzoBLoBkzh2XMUHSy67tkS5hHafj4LSzYRPEK4lblbanyOUdAsV8=
+BXvjOi7uavoIkFr9cpTe3XqcoKbfogiR8SM3_PB6ssMIPiZK6uEUV4dmugjkflva00-Zk_lfQ38=
+9p7kicb05Tb-FV_8yUaIqxA3wrCuA-vF-5t5oth82kyjEdt8hNXiyXEbTILahFV-HyB9FaM4qC4=
+yn8RsOBywFyfKSgBN2i8DIlfg6t9FznjCjSpXi1mGknfkWMY--nXkaIloUxf7Poabp5TjLx9Zt3=
+wbfcQ4w9GUFjr5thdJ5EA/T6OBEAyQ3oZ0pCm6ftekshHAfblS821O/25" style=3D"text-de=
+coration: none; color: #000;"> Get the newsletter </a> </td> </tr> </table>=
+ </td> </tr> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace:=
+ 0pt; mso-table-rspace: 0pt; padding: 0px 10px;"> <table style=3D"font-fami=
+ly: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%;"> <tb=
+ody> <tr> <td style=3D"padding-top: 16px; padding-bottom: 16px;"> <div></di=
+v> <div> <p style=3D"margin: 0px;"><em><strong>Like getting this newsletter=
+? </strong><a href=3D"https://links.message.bloomberg.com/s/c/QK7QoFTwJNuh-=
+FwlMlXBuSaouenHrI7fKL9sAySHW-peFpDi1gkW_JGLidWdEyOaKfgz61Ux4oX0q9VTHIp6lLt2=
+x-1YvVQqAvjI5leFyshFtGumHvnbi4HtF6ARB_9fFnv6WdsUQPcCm0K_-rHOtU4WZDQm4JhHfO6=
+Ys_G1vOg7kf6VgRd75K7lBUVcPlf2ZEseEu5gGOfqjuuKyPQKQ36CuQPVaWd2mXYlPMt4Mlp3jK=
+CWyba7HuWVfmkC8tp_zvYD-4BCD3PFRa0AanlmwWZek8-IGgWP7e4A1qjLFrWXcmOztHF3XXwuC=
+xq4gRNXdlU23I0eE776VfgFy-VdnvwGTcThZwyFdsv-h5TZA5_9_08U60b1GWwSZ7_04Gmrvu-L=
+Er7dLO5EShu-gcTCzj0Z-nWIQ8LIOKocZjxe_nRe41J14ur8yqqdwDZ3xe7oOqGmAMB-qUSeRt4=
+zWTmO-sVs6d7Unkywzt2gotVUtUTTRB3VVsHv9PSvtwwDjb5FSUxDioyGSa8pxRwM4zXrp6idxh=
+PJkRPjuUM9OxBs4Hi0gekH0PPRuWPd2I1gzOHwUIW0XLKBgqnF9XZxt1A7OzyfaYB8tvQbROOVG=
+M9TsR0_7ALpm3M5vBCptW93_wrtDAC04PuxLKhZN6nMjT67QBQrZiQqZ9VJ5ZmdLeIRYJOa3J1p=
+TXzWHGGN/SB-KWEZ8x0F26QPJDzRaSMlgT-VwBPVF/25" itemprop=3D"StoryLink" itemsc=
+ope=3D"itemscope" target=3D"_blank"> Subscribe to Bloomberg.com</a> for unl=
+imited access to trusted, data-driven journalism and subscriber-only insigh=
+ts.</em></p> <p style=3D"margin: 0px;"><em><strong>Before it=E2=80=99s here=
+, it=E2=80=99s on the&nbsp;Bloomberg&nbsp;Terminal</strong>.&nbsp;Find out =
+more about how the Terminal delivers information and analysis that financia=
+l professionals can=E2=80=99t find anywhere else.&nbsp;<a href=3D"https://l=
+inks.message.bloomberg.com/s/c/RGGMwN_5p_0ugMtcgAGYeu3Ptbovtu6c6Bo2ClJ-93rs=
+WtsNdz3sWkdwxDoIKOh10prsHtkVH0l50J32rmjZ1_6gLnwH5KefvLkuSwRE3Lz-SNiukuLlvlX=
+GxFCrCCzHBvwUy9WIpLSb8LOqoRAMxvuppDMfay05FzhFhikcOP33HsBMvibD_t2ZnMEtscs4jm=
+Mo-0EHLfws11aNthl22aASL2bzOAh-PYYGx4Eo0vSehTF0nKjpB-x7Opp78Ix6ahi6j-BosQ_nL=
+IxqeUg7pRZ9noGQuVdCa83XDWyYa-FdZLccOhOndBQGA8Q1Qp5QCvlwYN8IPpAcQnoGOK67XV3L=
+Axgw8JKBQdkyQiTSyL0symTaW03w4qDHJPsWl9G7G0epoW2VIo43DDpd-SRIQD4Lvuff7PhX6AJ=
+JeLbxDNuAifbEQ2wOKdMzx1NTZKhaTX48XEH49ydNtDzpmqkOdijmhIlIccZjS7Ed0TvUlrWf_u=
+gihZ9J41pbQXCVzpjwdylXMAsg2rv6c1cwmAMdNAaZqAv_x9v8ZpcqUyBrXRJLSyOEQ7U7-HVNV=
+NNMKPcDhbikd8XUbLult_AzN3GUDa0Tg999WTfqMwbDgzuvg4vOe-RMohoXqg2HqAoBVYM6b5IC=
+L_XNdL6jxnXHR8uD60uamHLIgEkriNNFZbgRwIElbcCRLD64YoObteB-r7Naqq2S_nv-k8sx_aA=
+Q1dexxPNChW_SoAYm-bWfITQr27afDZB830N4YTdXpcyssfR_TGm1Qz1x0Us97e4Tm05VLOy_1N=
+B11j_7zb3zbgrHJiHcyQ/jbnCXeXoSfx-nP6J9w1FvixkIUepMwUs/25">Learn more</a>.</=
+em></p> <p style=3D"margin: 0px;"><em><strong>Want to sponsor this newslett=
+er?</strong> <a href=3D"https://links.message.bloomberg.com/s/c/61R8ngn-QCB=
+RFsVlpJ6OQ0xl_5RCX5CIHbX2ZMVmOMra5YS6Dw1ZJOyjfi3IzWKfM9OiShZNlI3_ERpbLeU3eY=
+6gDOimgAtY_SBFJHKkG8Ei7zBYUPM1fnGuxUIRGu4jiSzqrkttRcqHrdizi2tr0s16DqZFb9gxo=
+ASQNUoBNZtXX4Tqn9Gu7epokG24k3unVgfjKczwOPBjyzt_FRxE-osPJkbrp495pejdHDcY7r6-=
+rufX6fXoVISI4-q-EwHHgbsKD3fGgjG9_TfXEI80b_yVHJvdvXFsUnvpO3D9dk0Q3nRZ287yeKr=
+OE0WxrRcoymXpkwO5tWRlLsn3On1jlZOHaPJVHWWbxgtdEkyp_pmkhMMVdmYzQMoYXcIPBwiI2i=
+7PIG7cTZ8Z4mwl9GuyYPBdEdwaXdLZSPF5voAQQalIYOqlc7nLQjvEJ7XWQM5I3ALcjVve7kwEM=
+1ZkbEUUwYGVl7R8jykML8ccALIO8QwMgRWPVZ6Iw8yd6_ZWjnHR36d5BuPw766ZKUmbTz5QYf0p=
+qyNHl-f5VlH6o8Owsbht0rjvCtrJxW4qfoKjaeG-zIbmz7V37V2Pc5j2/KsvI38kqlg2x4z7Xey=
+G1u6lN3kKWi2_l/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D=
+"_blank"> Get in touch here</a>.</em></p> </div> </td> </tr> </tbody> </tab=
+le> <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" c=
+ellspacing=3D"0"> <tr> <td align=3D"center" style=3D"font-size: 13px; font-=
+family: Helvetica, Arial, sans-serif; color: #666666; border-collapse: coll=
+apse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 20px 0px 10px;=
+"> You received this message because you are subscribed to Bloomberg's Mone=
+y Stuff newsletter.</td> </tr> <tr> <td align=3D"center" style=3D"font-size=
+: 13px; font-family: Helvetica, Arial, sans-serif; color: #666666; border-c=
+ollapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><a href=
+=3D"https://links.message.bloomberg.com/a/sc/-fGnBLJ9ppOmt--aTJ4qudfvEus4O_=
+vHO4bQNiPBk9wzP1DHa12kCx4cU8d-OwOTS_jczlesFq4PJz8AfgNueIHyFFkhvEwyV1gR66M-p=
+U5HgMnU1pqflngCuTD5VuifhoI_cXZZ-20k9_paBSmJtEXmtxNmQM1idoqUIocIVfU5G6hnuaLS=
+n42ayU6AK2otQme8pMnv_0H4NnVBwgPS9Z1OjMjx4pnyct8rkSY8UlgUYcs6k5z6c73K84Kb-FR=
+sCZ89f6c1lz76UGTK3D602OKxteaLWXbZSagX0cFjLsoGXiHblGbNRCFHbJmiPCIxqvbMCkwFFZ=
+brisUhxVJRMAJKu-QE0wak_zRgdIGXJvwvHYhHgzikvl2uExJ34wP1kN_A4180qJpIGMX8FBWn2=
+Fdni_FjR9lpdS4JXnvPO-sELFCgfHA3Tcyrv6BJeGuaBcI6tshUjB-apYr_d_qMDqbqpnfXktKO=
+iXDbPJ75k_ItV1QTrL7BBHn8CdipAFy0gHPYYj8VzlCsvpNYVSmNR9znOlp1-lRaLpPw5KjoZWK=
+JIaHO1EKEyaztQ9LrB4nmGludAVO4AAYEkRyPyY5K7l18AYw_WiYVITR-bjtgYrmQwCBX5QDyAf=
+Gt1CG0tdRs4cNjI5ewWdCI1QHm2V3MrU8bhZrzPsi2liRjdszToRYZPs_DdfTMJuQH/WI6xf5dn=
+4uel6AGBYaQozn4zvcaHp837/25" style=3D"color: #666666; text-decoration: none=
+;" alias=3D"Unsubscribe">Unsubscribe</a> | <a href=3D"https://links.message=
+.bloomberg.com/s/c/tOBnrFiWLjmeLbDXSA5NIpkt-gT9zu0gNLfHFpM8m4H2z8NnCz6Eu6SH=
+6zZb7QOqGnSlSIQSTqH5C79ifQQ8_taPbRCCELo3ebgq0CtjwOvArCKuLX4pohBkKf3M_rEP7Ch=
+-GKWRMoFe_yuy97ldtnZpTwEzD7rLlSEu8mQZSMLhIv96v1dzdzbRVL1FR9c0YQcWyPVFgWhN84=
+U1IGFCZFg5MdNrz5Zuc_B-yM-LztlyQ9XfrEMqlYwR-ssv9CNPA_ohjwMA5Bh_-zggfnkiYwmQR=
+9SlftLPSHvcjHx4pRc5L3rNZfXtOnSpP1QBzJ-gG7tiQg8MTZkVudk0RdWjt3voYCvaQSvPaOPN=
+uPBIh1F44Zgl2Su1OL3EBls/3Lsy27Yn3CqIPOs2zKP1aVQHJsi32Cu5/25" style=3D"color=
+: #666666; text-decoration: none;" target=3D"_blank">Bloomberg.com</a> | <a=
+ href=3D"https://links.message.bloomberg.com/s/c/sGsTarz3xmOcwoPXzZ4qlCO498=
+Bbq28UHtFs3gZwSeSVSfbrDIJUIiBQWzonpQTfAfnp6OLjsYcVdcKlTnDmvUd7keZvPEDddTFbC=
+Ub1LDhKFQQ9vMj5vYk8lxNOFVrl8OnggwwhVUs-o_hTtuDhexlxwYzN7YKSNogwBTmZrqGPTTAZ=
+gTj-2ZZ8v5wgNURj3uZxRC2lg7-HwmNzc3cGaacPOTQqc7PeEq1VoGFkX3Zvcosc0a0G9Grw4mP=
+1XUMf_SmTVv7A83RR0AMVBb9eqVAj43E5lF9hncbj9ekp7kYtjHfSmrFDtI9MkVHmJv3EnKfrDe=
+KxML54Jrd7FgFL-d2SWNvfI0kUuABujx98RRoWUOOWuM6X2hm6N58/YTMWNaZgTbebdbQ-Fj9Ri=
+ykB78cwEbWd/25" style=3D"color: #666666; text-decoration: none;" target=3D"=
+_blank">Contact Us</a></td> </tr> <tr> <td align=3D"center" style=3D"border=
+-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table=
+> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt;"> <a href=3D"https://links.message.bloomberg.com/s/c/ksKt=
+beSf4oz3Lp_yEb41hF1k4TVaBNqaguG7jlASrMI9i1Ywg6BxgIa6W2e4kHdYT051ukQWRu0J5Ky=
+VcovQKn5cFcYKP_YRTyKB5Umgfxs9p3aQrSU6iOvTPzcNh6e81-vwWYX1Eu5E2DpcsuiuN-6F6f=
+FdR6P09mo3ueLh85FWtnaAPx-AMqhkj-xxBA6O23tYo1_k0vgXKAb_dFGFu7aS1tPRFpDc5wYtA=
+o4hgfxaj0qO-8oLWwSkElBMjwLK67xEYQ2qXlpE1za1fWjH3_B2rCdS5CpMjYyr0_tlSaBHzuJs=
+hctbd9xCb9n6Ri1HZrVUPn0yn8kymUDWoh0sizQW6vCbDBgymFENYwYa5q8v1I2rKa4TPaRYUEY=
+/dOJbRzYmEL_TfT_fYtefC4qhrSwNUSR2/25" target=3D"_blank"> <img height=3D"18 =
+!important" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7ESRvr=
+8wb2g/v0/-1x-1.png" border=3D"0" alt=3D"Ads Powered By Liveintent" style=3D=
+"max-width: 550px; height: 18px !important;"> </a> </td> <td style=3D"font-=
+size: 13px; font-family: Helvetica, Arial, sans-serif; color: #666666; bord=
+er-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> | </=
+td> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt;"> <a href=3D"https://links.message.bloomberg.com/s/c/b5US-_1=
+INxXSLwqBTZ5pWwWAIhJ7Sw0SpBYZOHF9WCer7BkDZWadKSQF8WpnY6UTfJDrXkOzz0eRQRPxUN=
+h8fk0rLP_WEqmdnehukluWz-xFdWaGSZHhvlc6den8SzV7PwAM6eJEK0OBFxblfWfXA32tJJctG=
+BbK-5fgH4ysc-Qf6-qbbee970bOk7MQqOi0yjfomOH19m9_zNiloSEkE9w_pS0V_6trxV3cRx15=
+IfOvNi01SrzTlbJtQ5DODFAIP_Rg2jd6g67M4coF19yVZZ8ue5OwswZptSaKjVpheU1WM_JQaXF=
+Dn30SWVC3lE_REfFP9iwiDd9pBgWZxhki9gvrqqGg99dAVvFQN-9dvTZYEx_PnqvjOlGkzkU/-N=
+AgyJv8TH3Xq_FPhYVWFJLyzfjqqWdU/25" target=3D"_blank"> <img height=3D"18 !im=
+portant" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iHu0LhjyAB=
+MM/v0/-1x-1.png" border=3D"0" alt=3D"Ad Choices" style=3D"max-width: 550px;=
+ height: 18px !important;"> </a> </td> </tr> </table> </td> </tr> <tr> <td =
+height=3D"20" align=3D"center" style=3D"font-size: 13px; font-family: Helve=
+tica, Arial, sans-serif; color: #666666; border-collapse: collapse; mso-tab=
+le-lspace: 0pt; mso-table-rspace: 0pt;">Bloomberg L.P. 731 Lexington, New Y=
+ork, NY, 10022</td> </tr> </table> </td> </tr> <!--[if mso]></td></tr> </ta=
+ble> </center><![endif]--> </table> </body> </html> <a style=3D"display: no=
+ne" href=3D"https://links.message.bloomberg.com/s/eh/3Ks0j9hhii61QgQrxvyEgy=
+o1U8XYEy9nfoWUEOb0Gm9f-qa-vI5CT86Gx4qnfzcVQVNNfn_Gsbv1BpFCpE9THjBYACzRqCvwg=
+6FdF3X3zbJGMrJUqFpCiXzjEyAeHBvy8UAZZMr3zpRt6KEWy3txEpZdCK9YCkxeTxu-DJmKB4Q-=
+zGArxQv7YG22beaxvlfBUkYGprmWh2y4UoHEtKowBIj2ZLtuTQBfkH0rVBi7BDAux4ujeTgr_Rq=
+ObD5fxcXxYpsyeWNL7muMMkmc9o-9XERz-UznFW8RBsMfUEmRzT1YHdoK3XNw616HQF8GyzHgD_=
+BAjfUK4MHE5efFNt5632Uj6m32SopRUHc/A3Xg--TpXzEArbnzY2BxqPzfyAtuZCpw/25"></a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/uNjNH6Ll2ezamOF9gwQ1PQ~~/AARGbBA~/dc3OF8JFw1EMb7tt0etOjoX=
+KPTz1-8gZoAJseC4ituvhSbLek8kRQMnvz2Wc_r6hCdK_Ag-SwKXp3Br3qHcgyw~~">
+
+--_----4Y7knF9pVHvn5H7BpmAKUA===_3B/7E-06411-678E3CA6--

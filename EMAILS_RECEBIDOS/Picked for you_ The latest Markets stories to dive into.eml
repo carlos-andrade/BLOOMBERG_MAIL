@@ -1,0 +1,785 @@
+Received: from PH8PR02MB10182.namprd02.prod.outlook.com
+ (2603:10b6:510:226::11) by SA2PR02MB7595.namprd02.prod.outlook.com with
+ HTTPS; Tue, 6 Oct 2026 09:38:33 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=b8T9PHvtoIIJSltmdNyhA9Snus0/DSdZAf8Am/znw8rczdDQgctxkHh003fNbP5QGYfsMfdzdFK5/z0RM/98rZ+Yy/y1PP3PBNKzxUjkVH1/VEzVH969/MjUv8Brnz+YURlOgtUMgshHYEeK0xY7ue2G8cRfVMghIRDwFeS4XtNkEvsW0zAs7BYxbCUMTWHh/7SI21kQirhbjUHp8tOSiPayocrg/oMgqhsxWifMWOFEogJadpVOfYlT+tKjIGcTvGS45om0QHNDdzIx0rzsz++L9fIg3hnJ2y1Du3rtNx6/uNg0aUQ3CH4QLmSt/TC0GC/QhBEdDAmOzHQFpY7ffA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IQ0Ns7ggf4Dm8k39e120Y2BoOZ4x1kjjYCxTHP4nUF8=;
+ b=WmCdED/mgvMlXj61w5l5VLsypvzZEHwPW28oZJWjT+dXsA9DPQuqjGPbl1lz4E1oqhtqErHotTknhAx33QOee6l66dBTvAp33XN6Ivta9lvllyaPQvDZLBYruS+M1Spi2j9uqBj0Uc+E0abLY6ai6LtKVNF3rcF6HP/Nd8r9YhCp0w4C+xqI9SpegAl78Hdbmlysiq0VIq+HSTqodtmH+CNoYpj9nnk5/jsT1r8Gbz4j6MMtexNHaiz2ijcoTvBbk+TcIp0Z5Kwi5vcpE1vI1F0ChtMkZXJn4a9nSIJ14n3P9vI+dLZg2BqKTXMrq+Ne2lMDxY1AGoNKTtkaSzt7KQ==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 209.85.219.42) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=message.bloomberg.com; dkim=pass (signature was verified)
+ header.d=message.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=207393fazzr7a=bounces-280172-1527@e.message.bloomberg.com]
+ dkim=[1,2,header.i=@message.bloomberg.com]
+ dmarc=[1,2,header.from=message.bloomberg.com])
+Received: from BLAPR03CA0052.namprd03.prod.outlook.com (2603:10b6:208:32d::27)
+ by PH8PR02MB10182.namprd02.prod.outlook.com (2603:10b6:510:226::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 09:38:32 +0000
+Received: from MN1PEPF000793FE.namprd05.prod.outlook.com
+ (2603:10b6:208:32d::4) by BLAPR03CA0052.outlook.office365.com
+ (2603:10b6:208:32d::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Tue, 6
+ Oct 2026 09:38:32 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 209.85.219.42) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=message.bloomberg.com;dmarc=pass action=none
+ header.from=message.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 209.85.219.42 as permitted sender) receiver=protection.outlook.com;
+ client-ip=209.85.219.42; helo=mail-qv1-f42.google.com; pr=C
+Received: from mail-qv1-f42.google.com (209.85.219.42) by
+ MN1PEPF000793FE.mail.protection.outlook.com (10.167.249.202) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Tue, 6 Oct 2026 09:38:31 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:51D8A1D5CBEF9B78F9B046BB0A5FE7DF455D80DD4BE7A6A1A5807CFF26636CDF;UpperCasedChecksum:B479597DACE4330D448F6AD293C000344EAA66777510B6E3DD58C584A3D9DA1A;SizeAsReceived:8679;Count:37
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-917a97b39e8so6428566d6.3
+        for <carlos-andrade@outlook.com.br>; Tue, 06 Oct 2026 02:38:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791279511; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=ApyolnvyM6dYJ9QMDkFkXDY0gXEtRivT1R+apnANvpm00b6nboBMy9ClVNVYWGjwdm
+         c2Cdftr6vygJ1wWhHO5MwWtQdcqqgT9BUysIcS4ttvsuvl3qq73lyQ4sbiWcvmCl0yci
+         qr4EXW/97D6fRhEXH5yqYpiHarKuXgHLK1qkFE0ALAI2d61x4JCpqXIEuOgM3B2GgV9X
+         PTt+q+LqJYOASCTumpBGFynYe0PTX0It99j65a0+ouivQfxiF48oQWquR+ltj24zMDLJ
+         7dYcizgyamBHH6luFoIpPV4gLNTformVj4LuFDt5gfSKDXoDk9f5dbTjmn14yKDlI6KZ
+         4oNg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=IQ0Ns7ggf4Dm8k39e120Y2BoOZ4x1kjjYCxTHP4nUF8=;
+        fh=Kl+sdThzCrTfeLkGv+MGpISXdBOLEAENZ1pdvZgoXs4=;
+        b=lXY//zfw67ys6dM9tMOiwO/WO20C+wnDmVhawCDeqVFvjdyaKIgbz5ff8VHF53Ij6i
+         BR/hVJ6s0KWmLGYCrKZFQ6w7cBLlj/cNhm+KuzTFdtWkNNjgrrKT3SCxrV/w+l3U6xpF
+         mI+jHvbvHZqodgwilMP2qa5uzgrk3w8wRSLaC4USaPsY5lJWeuY/2eT/aaOFhiPpYI6c
+         kDnhxynp5RaQ9sE3iMF4NHlrGWBcwDi90pqWaq0IXULjPTnHRR6RQQORnEdMl3iAmena
+         1RPM6J2/vzp5gYJsdZvkTxKosB4b1SFm9/2n0o/OLIY1wEAtiFbE7AggvbT4IH7SeBZ9
+         cLLQ==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@message.bloomberg.com header.s=20230726 header.b=ZCtqEJt4;
+       spf=pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=message.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791279511; x=1791884311;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IQ0Ns7ggf4Dm8k39e120Y2BoOZ4x1kjjYCxTHP4nUF8=;
+        b=FtAnhXxYKqM+i6RB/CRqnd+5sRA3UN7HxuNMGK7e5lwBFf6EX79/dRHKqjXK3nUcQS
+         t2zjVKyQ7UmlxphNtGQQRtv1IKBHnlipNXmuemuuL7ywcD2tk4wdxAH79yiF56VsfBfy
+         qtdCSAVw82Xild4MHS8qYiOE+Q+UYohw+P3o9loP5yhmGtfiSMbpR8vOhf5XubX8Mti3
+         wy4KyJKyHMxJwEBq3A1WTSI5u/WU3EejvZDzLPDaYG8+Ac2gxftAfIFzWnUb34rHqCOC
+         7TnoO7+ULppHVJlJb4b5tlGrqviCrkqSWffM4wmEJknh0NZpvup/65n89gwQl8UGFa4C
+         rPzw==
+X-Forwarded-Encrypted: i=2; AKwUvByhtgZdPAZUSJ6dovT9QZACIzvlcqe7Et/sA2eA27lyVe1oAaT9iD2p4R6B87SlM79V2p5VwZ4c5zgJFe6BSg==@outlook.com.br
+X-Gm-Message-State: AFuF++kfg+No1E5TKuUMg1enGs4LqB9YgBq8GMWnvK+HFCXdngQIGycB
+	cs2V6TNMuK3l+GZ7QwyDRqmb5YheywK1jtya59Cbw28UR0Ydf3qHktQHzRopjFsdqa+QSc8BUt/
+	z36QYho+4ITAILtnvCs35bBZOHZxlJoOkeDKlyDiY0oHqYgCNdYp9+rodWPfLQA==
+X-Received: by 2002:a05:6214:f22:b0:919:5189:72d2 with SMTP id 6a1803df08f44-9198b81292emr15887676d6.27.1791279511182;
+        Tue, 06 Oct 2026 02:38:31 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a0c:f784:0:b0:910:4097:60f7 with SMTP id s4csp2697500qvn;
+        Tue, 6 Oct 2026 02:38:30 -0700 (PDT)
+X-Received: by 2002:a05:6820:2914:b0:6dd:9d9d:50f8 with SMTP id 006d021491bc7-6e553c2da2emr423690eaf.38.1791279509881;
+        Tue, 06 Oct 2026 02:38:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791279509; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YsftCKegSWln5IoTd7ZHYDYWrptH0p1vFElCFmU7yhpClTSY9kCZZ0MX0674pLDfaC
+         uIGGJTFeupD/HQD98Q8GN8Op2KiGMf85SpMtVByDbzoZnhN9UXoFrXvX36D3jU97btSs
+         Rvqf52A/KruNVAKIrMJKNj1AnjQqlEVIPcuRiZX/mqlTjXUP99kRyHTXALH52QHOMSni
+         dOUy4+JD/FC6sUC6yCjwI1vCm48uWqr6+YRt1iqebHkZJk7AOLePTEMwyPArneeSaTRB
+         vU7bp/+gTQe1x8PDxnWWQ1nTivgEaV4dys6lghqlixTqfwKrjzCTp5epGOuxa0THfIf6
+         79bA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=IQ0Ns7ggf4Dm8k39e120Y2BoOZ4x1kjjYCxTHP4nUF8=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=d3n3cDKPhuCkXAuby/d398KjQr9CekgUc64+jywE/+AMqpFPIH2zwsBOIHhkHcBMkT
+         rRg18hjgpWtjs3/3Gin05YNxfSvLe1tI+k+MNWI7WcQdQluWJU4MLdfjoce+Ku5S70Jf
+         QcXtBKKPkrY7FqTNSMJ3iBXNJoBo/4JIWg4d66OpywW8ygrhk0VuJPKFDp7Bti9VtjEC
+         KY3kddA8mMRISH1uSs1TpVsGwPMgf5f7DocFAowZdv+ewg5oE72FxuXxk0AtA3DDmc0L
+         b2UPtVqREqgRT3pDQVBAQ/h8MMFclIUoYVbA6W+Wf1yTJ3RAAOX1THGDcwYxLc43aoD8
+         /nYQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@message.bloomberg.com header.s=20230726 header.b=ZCtqEJt4;
+       spf=pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=message.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-18.sparkpostmail.com (mta-203-32-18.sparkpostmail.com. [168.203.32.18])
+        by mx.google.com with ESMTPS id 586e51a60fabf-49e16e0e32esi19998488fac.50.2026.10.06.02.38.29
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 06 Oct 2026 02:38:29 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1527@e.message.bloomberg.com designates 168.203.32.18 as permitted sender) client-ip=168.203.32.18;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@message.bloomberg.com header.s=20230726 header.b=ZCtqEJt4;
+       spf=pass (google.com: domain of
+ msprvs1=207393fazzr7a=bounces-280172-1527@e.message.bloomberg.com designates
+ 168.203.32.18 as permitted sender)
+ smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1527@e.message.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE)
+ header.from=message.bloomberg.com
+X-MSFBL: wTmz0v+7wjnWVR6qs0+V1Vr/h8Cfng/bHmDICtZX0jI=|eyJjdXN0b21lcl9pZCI
+	6IjI4MDE3MiIsInN1YmFjY291bnRfaWQiOiIxNTI3IiwidGVuYW50X2lkIjoic3B
+	jIiwiciI6ImNhcmxvc2FuZHJhZGVuYUBnbWFpbC5jb20iLCJtZXNzYWdlX2lkIjo
+	iNmFjNDk1YzFjNDZhMzhlYzFhNTEifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=message.bloomberg.com; s=20230726; t=1791279509;
+	i=@message.bloomberg.com;
+	bh=IQ0Ns7ggf4Dm8k39e120Y2BoOZ4x1kjjYCxTHP4nUF8=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=ZCtqEJt4UBUziMjdCgcY2rwHeORq1okoCuYmTBbcJkwNSXgJ621WzJa4slEs1xebG
+	 7QaEgnd5O2GS608spJDR33j5O6f+nRJcU0PIAE+XJU3W/xdgje1961g8VvR7cLDHW+
+	 jY9vEXhAkxiEcCKJ0iKqlHTr2aIAb4CLl7vg28MqVRnKo3FBxpIRao6jR6Ct/UsaIW
+	 zn1rBRRWvpZjYFO+Lpfpgcz8Lo5L9e8+h/+/jrrfOMjhNGGvJE7GwYDaoLLy5Up1fP
+	 c56wVWOKUvumye8L++4vDng8cH6q52v2d8ENMjg38i4vMCB2zE/YLXUaFAICxIdeTt
+	 tl9vgYEQn9kTA==
+Received: from [10.90.32.59] ([10.90.32.59])
+	by i-0c2586f7b2c8f1c2b.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76456 r(msys-ecelerity:tags/5.3.0.22)) with REST
+	id 15/A9-25100-591C4CA6; Tue, 06 Oct 2026 09:38:29 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <15.A9.25100.591C4CA6@i-0c2586f7b2c8f1c2b.mta1vrest.sd.prd.sparkpost>
+Date: Tue, 06 Oct 2026 09:38:29 +0000
+Content-Type: multipart/alternative; boundary="_----ERPXhOqiV+DLMo3YX9NZzw===_E4/A9-25100-591C4CA6"
+X-Campaign-ID: 13090091
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+13090091+17130475@unsubscribe.iterable.com>
+X-Message-ID: f52a07d147704ac799c455c8269e82a2
+X-Feedback-ID: 17130475:13090091:86967:iterable
+Reply-To: subscriptions@bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Picked for you: The latest Markets stories to dive into
+From: "Bloomberg" <subscriptions@message.bloomberg.com>
+Feedback-ID: 17130475:13090091:86967:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 06 Oct 2026 09:38:31.6468
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 6d6d2872-bef4-4a54-792d-08df238d958f
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF000793FE:EE_|PH8PR02MB10182:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: MN1PEPF000793FE.namprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/6/2026 9:33:28 AM
+X-MS-Office365-Filtering-Correlation-Id: 6d6d2872-bef4-4a54-792d-08df238d958f
+X-Sender-IP: 209.85.219.42
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: SUBSCRIPTIONS@MESSAGE.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|10300799038|9400799043|1680799066|2120399003|5139299004|68400799013|4149299006|23070799003|260928210016899003|36140799009|3069299007|9020799019|9000799056|260826003000599003|16110799025|35120799009|56899033|3412199025|440099028|4302099013|1360799030|1370799030|1380799030|30041999003|1602099012|24122799003|2607281247196008|2406899039;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 09:38:31.6040
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6d2872-bef4-4a54-792d-08df238d958f
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF000793FE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR02MB10182
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.3129096
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VllRM3JVaGZHTUMyWUpic3JqcUFzUXpZaVo4Q3hDb2xsNXhsdHl0R2wweHda?=
+ =?utf-8?B?cmM5dkRDNUZVbGZSVnVOeGFNVnpWa0NwcDhmcFVScTFIajE2TUk1QUJlVnRm?=
+ =?utf-8?B?VjIwRC9UalhYdXFTeDg3bXMrY0lMUnJ5UGVyUWt3RWY0aWdaODNCREV5MWlt?=
+ =?utf-8?B?ZklwUDRxRUtlb1hxbTJhb1U0V1NvaXNDa1pkSDUrQ1VoYjBPZjRqN3BrK3hh?=
+ =?utf-8?B?MW9meWFQaUZqcmZnc3pHL29kNUltS3ZyR3hVcElFSktjM1pVdS9JRk1Nc0tN?=
+ =?utf-8?B?ZmZZNU9nYjBhcVlkVWUxbkg1RkJCbXBNZWZ6emtndU9HYkhpcFNtYmZTVitG?=
+ =?utf-8?B?Y0VQRGo5NEFRWjNwNWdsTVYyTDNrT0J4RktyU3BGWGJtc0Z3cHJlV3B3SmY2?=
+ =?utf-8?B?MnJ3NVlLZzZaQ2s1WStqZzF0YmR4aUI3VFIvZGowK3JjbnhmNHJKYTdUWUND?=
+ =?utf-8?B?RmNoRE55YndGclNFaWFKdFpGQkkwczlzMGIwcFhRZ3Z2dmUzUlNBN1NuRnlQ?=
+ =?utf-8?B?Z2M1b2V4QlJWTUMzYnJwdWhJTFAveGlhaWZJOFAwbGlrSVVjUENHa2J5dnlt?=
+ =?utf-8?B?OFlVaEVMTUlYMU91eUI1bkRiVnVsMDArWWJTdnZZRnIzVG1aRzJwWkRibE43?=
+ =?utf-8?B?RWJJZ2ZxaGpqZ1M0YTA4VXdJV0pITm90VERML1dPWDRrb1pLbmtLNFlycXhH?=
+ =?utf-8?B?eGlXYS96OU9yVHJkOXlTL09vdUFrWkpjSGdQaXNCL0dvV2JhMmhndEZXc2F2?=
+ =?utf-8?B?TnVuV1Z5TGRSUmRBeldyR1lsZSs3SHhCN282a2ZMSG9lVWhWd2RIVGtFYnI1?=
+ =?utf-8?B?VGthcG8vR2hZQjFxM0Vzcm5GUHlpb010TnFObm1ud00xL3Ura245clRMbkww?=
+ =?utf-8?B?MUpCSEdBRzJnTUhpL2lJcEs3Z3lsdmNJUlBBdmhERHp1RnBEclpDZFRCQlFa?=
+ =?utf-8?B?S0FDWldQdG5jblRWZXhBWG5tTWZZclJmaGFvQUtIL3B3U1hSR0VCSGQ0NHI5?=
+ =?utf-8?B?QVJiR1F6UVQwRllSVEkxSnlZNENKQlhwZXdySmRIV0d4WnRmUG1QZzE3eGZJ?=
+ =?utf-8?B?eUdWZlVOc2pGdkF0TWVGMkNNZGo5aVkvR0xUcG1ON25yZjAyeGlwbG5JOHIr?=
+ =?utf-8?B?Sml6eFhaWFFzSDcvMkl4K0VjdER3VnhiUjN2OEFvbWdybVdQK3lCeEx0Q2pR?=
+ =?utf-8?B?a25lRTdZU0lNNTI4clFtamJHdEVFR3BDQWlrZnVsQ3BSVGpzcUxUVnhrUXg0?=
+ =?utf-8?B?THhDclJNYU93blU2VCtPb2QvMm95OWI3di94M2I2b0lqZk4rYWxlRk1pRmo0?=
+ =?utf-8?B?aWxBVmFUN1JSRlJkTzVEMWY3c0lJYW5EYmFTTEVEb2JwOU1ldnlwZXdqd2hG?=
+ =?utf-8?B?dHRHWW5ZTnZIZUNaK2xwMERCcitTNU1MWkRWMGlOTG1PTi83c0krVnJ2Zmdz?=
+ =?utf-8?B?bWsvVUdESS9WaE1VYUpyK1dGOVk5U04vaVBvMWFsYmxPcXNuYVMyVkwybTJB?=
+ =?utf-8?B?d1JyZEI0bENVd3ZZSG9kUy84TXFkKzlOMUlxOUJ6dnc4bGFQUDRSU3VxVUhm?=
+ =?utf-8?B?SU9oMExuT3V2SDhnZW96R1dtMWZGOCtSc21Vd2VCRGllRzAwVjYvdjFvMGlY?=
+ =?utf-8?B?YThzOWowVmJzNXJDK3Jhd2lJMDhwb3FMbHVmaUNkaW90MXBjeXVyU0NsZFBS?=
+ =?utf-8?B?QnpSVytHQTRaVXJBWFpKb2daT29EcWVldjBObld1ejlUSU9ZUDhhb0lSUmlY?=
+ =?utf-8?B?NFBZNVVrMjlhN0xjWS9KVElZNnJtZVZYaElHRzJhNWlQTGtwc1h1VVRKUll5?=
+ =?utf-8?B?ZzZxb0pSS29RRy8vUDNvWVcySmhzekNXeFVxQ3NQS0wrczEyVFRrYTlWQ1ZX?=
+ =?utf-8?B?UGhISEJhdGJTa0dyRlhLbWptd0VuUFF2V3lISWR0cEc5bkxxSDBtc3EyeG8r?=
+ =?utf-8?B?L29pcXdNZC96akd5TStuV0R5ZmRBelZYMk1tZ1lhWVlLR2krSlg0SFF3OWlv?=
+ =?utf-8?B?Q0srdWp5TkNxWmlrRmFxOFhHSlQ5ODlwWVE5eWRON2dFMmhwSE00Q3ZpVk1t?=
+ =?utf-8?B?eWpZSXNRRTRmYmRvK0VNSFdGYkxiNkM0c3BOQzRHdWdIQlJZT0FBZFJ2c2k1?=
+ =?utf-8?B?YjVaZzhLRjdrRUdJVm4zakdGSDg1M3p0aWxpaDZnNUEyVys4T0MydU9EU3dp?=
+ =?utf-8?B?M3doM1lwS21FaEZ1OEY3K1pGNzVRZ3pQRFZGRWZOUmk5ZlVEVEp0eHRYWnhQ?=
+ =?utf-8?B?T1JwVFdwbXlZTmRaZHNFUnQ0YXNFQmVZOUhYSm9CVTFyQllLSGdUZVh5aVNm?=
+ =?utf-8?B?QzNZRmJJR1B4T21BYnRLRUZsNWRLVnlNM3FHenBiL3Z3L1J4ZUw0OGd0Snlu?=
+ =?utf-8?B?bFpxbTExbUs0bzRSNFF4OW9tcm03SEE0eGlFTVhpeExJM3lZOVljY1lBMlVU?=
+ =?utf-8?B?ODY3OTUzK2xxZ3lzc0ViN0YwSXJIUWp3OHV5dVdWeForNk53YSs0aVhqOWRV?=
+ =?utf-8?B?TWwzcnZEenBXUWZyMWhoNWJZbi9uQ1pLOW9lYzlKbzVwZy9oSEhONWtNRTYw?=
+ =?utf-8?B?aEMzaUlnVjB1dXAvQ1I0VG1nN202Q3VEbnB6MEQ0MGpFNGY5d3dMby9lMUZt?=
+ =?utf-8?B?cFEreFFRdnlnQkxpTE5kcTM3L0YzZEQ4UW8yREgzT1gwZDRPZWlUVVdibjdo?=
+ =?utf-8?B?dU5sdmlsTkttOUd6WUxHd2svaGNieUhlU0ZqMVhmbkNkcnRVbWJNWDl0MVI1?=
+ =?utf-8?B?eU5WaTBYZk1FY0lYb04wWG9JS3FueSs2RFVNdVBWK09penRvejh4V0ptNlYx?=
+ =?utf-8?B?TFc1TlJWVm82NUlnVjNSVU5KbDloZ0NhblE1YVZTb3hFbW5DK2tRRHlSVnpz?=
+ =?utf-8?B?SDZPZzQyWEVzd2ViQUpLM2Uwaklsc0VUa0YrY3lwNjh2L1FHTm00TmI1TWkz?=
+ =?utf-8?Q?eDWFeq8fGZH+gxPB?=
+MIME-Version: 1.0
+
+--_----ERPXhOqiV+DLMo3YX9NZzw===_E4/A9-25100-591C4CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Insights in your inbox=0A=0A=0A=0A=0A <https://www.bloomberg.com/>=0A=0A=0A=
+=0A=0AHere's what we're reading today.=0A=0A=0AYou recently explored one of=
+ our stories. We've gathered some of our latest =0Acoverage to keep you up =
+to date on what's going on in the world (and what it =0Ameans for you).=0A=
+=0A=0A=0A =0A<https://inc.bloomberg.com/p/cp/af76bc0c2854a923/c=3Fmi_u=3D79=
+621EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D13090091&url=3Dhttps%3A%2F%2Finc.bl=
+oomberg.com%2Fp%2Frp%2Fd5e15fb2a5baa6f9%2Furl&url_sig=3Duf3cd6inPal1WY>=0A=
+=0A=0A =0A<https://inc.bloomberg.com/p/cp/af76bc0c2854a923/c=3Fmi_u=3D79621=
+EEEEFC0442F9888E0EB4C7EDE80&mi_ign=3D13090091&url=3Dhttps%3A%2F%2Finc.bloom=
+berg.com%2Fp%2Frp%2Fbe965ee5ebbc169f%2Furl&url_sig=3DAGnLVuadvMUt6k>=0A=0A=
+=0A =0A<https://inc.bloomberg.com/p/cp/af76bc0c2854a923/c=3Fmi_u=3D79621EEE=
+EFC0442F9888E0EB4C7EDE80&mi_ign=3D13090091&url=3Dhttps%3A%2F%2Finc.bloomber=
+g.com%2Fp%2Frp%2F131af76543f95cd1%2Furl&url_sig=3DNt7DXzTLxpCTk7>=0A=0A=0A=
+=0A=E2=80=8A=0A=0AWant more stories like this=3F=0A=0A=0AUnlock the full ex=
+perience: unlimited reading on Bloomberg.com and the =0ABloomberg app.Subsc=
+ribe today =0A<https://www.bloomberg.com/subscriptions/checkout=3Fid=3D5690=
+D1> for a limited-time =0Arate of=E2=82=AC349 =E2=82=AC165/first year. =0A=
+=0ASubscribe now  <https://www.bloomberg.com/subscriptions/checkout=3Fid=3D=
+5690D1>=0A=0A=0A=0A=0A=0A=0A=0A=E2=80=8A =0AContext changes everything. =0A=
+=E2=80=8A =0A <https://www.bloomberg.com/>=0A=0A <https://apps.apple.com/us=
+/app/bloomberg-business-news-daily/id281941097>=E2=80=83 =0A<https://play.g=
+oogle.com/store/apps/details=3Fid=3Dcom.bloomberg.android.plus&hl=3Den_US&g=
+l=3DUS&pli=3D1>=0A=0AView in browser =0A<https://links.message.bloomberg.co=
+m/s/vb/R_9awAB2sMfVfdjfOVNp8mogKEA0y1b-7t4clRq6wtCiqkUxIrt5WMKr9H1pr8y0dfpU=
+6-zyfaT5WSyq8IlDvN7uZB_jMPURbXumk7l6cfgkcVeFvCGukMknp7LDuAJ31Mm1ETdjula5bTS=
+3uEJvcUxvIIGxWcmsZIsWig/wd3m0K9NoLsb8z2705HBtloLgzqSJ3vN/25>=0A=0APricing m=
+ay vary based on applicable currency.=0A=0APlease do not reply to this mess=
+age; it was sent from an unmonitored email =0Aaddress. If you received this=
+ message in error, please contact us.=0A=0AContact Us <https://www.bloomber=
+g.com/help> | Advertise =0A<https://www.bloombergmedia.com/> | Unsubscribe =
+=0A<https://links.message.bloomberg.com/s/eh/g9rxuDpNH60_EWl6pQfWPnAOLXyA4X=
+Xcp9GtdbomBdnYgC39n2mNuce8j-OrmRrgju0r7T9cC_Nr_7zszyPbQQY3Jl1zSZEx6hcCNTIkX=
+0pmDcPiasdYxoxdyXvB5sqho_DBPZwyFOnwXILX_QCmmQDDxSz9gCwmeubbAlfnCd23f3ewNPhq=
+fWPk_MJdo_pIzmTUZcVWrwypCm6d6O40u3Yn6M5JCaT_he_n9wyia7cQAB2_zsFYN6jMQi-LM6H=
+ZW1N5XODnxc6K524HiAavK1-ATznOse2hdic97_8rLwSNnVe6mk9Nrxehngb6JcoigNGff818PE=
+xs0FtyveMKfnYdziLu4DZ6QWg/ZVQJvsVwZIvnLFx2jnJeL2vCD3N4vNIO/25>=0A=0ACopyrig=
+ht 2026 | Privacy Policy <https://www.bloomberg.com/notices/privacy/>=0A731=
+ Lexington Avenue, New York, NY 10022
+--_----ERPXhOqiV+DLMo3YX9NZzw===_E4/A9-25100-591C4CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html><html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"u=
+rn:schemas-microsoft-com:office:office" lang=3D"en" style=3D"box-sizing: bo=
+rder-box;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title><meta name=3D"viewport" content=3D"width=3Ddevice-width,initia=
+l-scale=3D1"><!--[if mso]><xml><w:WordDocument xmlns:w=3D"urn:schemas-micro=
+soft-com:office:word"><w:DontUseAdvancedTypographyReadingMail/></w:WordDocu=
+ment> <o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:All=
+owPNG/></o:OfficeDocumentSettings></xml><![endif]--><style>*{box-sizing:bor=
+der-box}body{margin:0;padding:0}a[x-apple-data-detectors]{color:inherit!imp=
+ortant;text-decoration:inherit!important}#MessageViewBody a{color:inherit;t=
+ext-decoration:none}p{line-height:inherit}.desktop_hide,.desktop_hide table=
+{mso-hide:all;display:none;max-height:0;overflow:hidden}.image_block img+di=
+v{display:none}sub,sup{font-size:75%;line-height:0}@media(max-width:620px){=
+.mobile_hide{display:none}.row-content{width:100%!important}.stack .column{=
+width:100%;display:block}.mobile_hide{min-height:0;max-height:0;max-width:0=
+;overflow:hidden;font-size:0}.desktop_hide,.desktop_hide table{display:tabl=
+e!important;max-height:none!important}.row-6 .column-1 .block-3.text_block =
+td.pad{padding:10px 0 20px!important}.row-2 .column-1{padding:10px 15px!imp=
+ortant}.row-6 .column-1{padding:0 15px 30px!important}.row-7 .column-1{padd=
+ing:10px!important}}</style><!--[if mso ]><style>sup,sub{font-size:100%!imp=
+ortant}sup{mso-text-raise:10%}sub{mso-text-raise:-10%}</style><![endif]--><=
+/head><body class=3D"body" style=3D"box-sizing: border-box; background-colo=
+r: #efefee; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-siz=
+e-adjust: none;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"http://links1.message.bloomberg.com/q/VEv=
+qvJYggiVxJPtJkGj-CQ~~/AARGbBA~/Pfv4wxK6RdCLsX41Jcw7hy6NBoXqPfgzZ5OPkYIZMct5=
+FIDlO6rTm3HQnsZbXpvmhJv8vWSzcOsTB9RnS-ULKg~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;">Insights in your inbox</span><img src=3D"http=
+s://links.message.bloomberg.com/s/eo/4-ZhT3mtNPyk_oUlzApa3moOtGAUvqfqA-B_tk=
+fZ_eaF3NOUte7-IITSaL6LTiZ1Z0sYVYGRkoCy57x2tOBCIWWWCY_2WFAvb12UEgSXzSdaXwN_p=
+N9Qugk3B-J92nDkcvz2VtWb-2pdiSb64wtb25xhesRiNIrpeiZPWdkTEblLrRSsr4nIrFDK2QAc=
+eGLEFR3DwKmniA_9H6EIayuI_Zxc8XltlfrXuhxB/MqQXcw6ceJktg6UL2f9o8cUwTgtLMOYC/2=
+5" style=3D"border:0;width:1px;height:1px;border-width:0px!important;displa=
+y:none!important;line-height:0!important;" width=3D"1" height=3D"1"><table =
+class=3D"nl-container" width=3D"100%" border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; mso-tabl=
+e-lspace: 0; mso-table-rspace: 0; background-color: #efefee;" bgcolor=3D"#e=
+fefee"><tbody style=3D"box-sizing: border-box;"><tr style=3D"box-sizing: bo=
+rder-box;"><td style=3D"box-sizing: border-box;"><table class=3D"row row-1"=
+ align=3D"center" width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; mso-table-lsp=
+ace: 0; mso-table-rspace: 0;"><tbody style=3D"box-sizing: border-box;"><tr =
+style=3D"box-sizing: border-box;"><td style=3D"box-sizing: border-box;"><ta=
+ble class=3D"row-content stack" align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-=
+box; mso-table-lspace: 0; mso-table-rspace: 0; background-color: #000; bord=
+er-radius: 0; color: #000; width: 600px; margin: 0 auto;" width=3D"600" bgc=
+olor=3D"#000"><tbody style=3D"box-sizing: border-box;"><tr style=3D"box-siz=
+ing: border-box;"><td class=3D"column column-1" width=3D"100%" style=3D"box=
+-sizing: border-box; text-align: left; mso-table-lspace: 0; mso-table-rspac=
+e: 0; font-weight: 400; vertical-align: top;" align=3D"left" valign=3D"top"=
+><table class=3D"text_block block-1" width=3D"100%" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border=
+-box; mso-table-lspace: 0; mso-table-rspace: 0; word-break: break-word;"><t=
+r style=3D"box-sizing: border-box;"><td class=3D"pad" style=3D"box-sizing: =
+border-box;"><div style=3D"box-sizing: border-box; font-family: sans-serif;=
+"><div class=3D"" style=3D"box-sizing: border-box; font-size: 14px; font-fa=
+mily: Arial,'Helvetica Neue',Helvetica,sans-serif; mso-line-height-alt: 16.=
+8px; color: #555; line-height: 1.2;"><p style=3D"box-sizing: border-box; li=
+ne-height: inherit; margin: 0; font-size: 14px; mso-line-height-alt: 16.8px=
+;"><span style=3D"box-sizing: border-box; word-break: break-word; font-size=
+: 12px;"><a href=3D"https://links.message.bloomberg.com/s/c/covGGoHzxqqc5xG=
+ROy06Q906wBcT-pfo9L40Cf5PJ-Ri2Lw9NXkSQaIAY7D5Rj2OgIK3DA6Oext6I-W5Umu1X_pDxj=
+o7XLrd7J5S4tSVmSb-M-yJbpTvahk68d8lwYbTPIoo0VMyTMEoQ1HDz45ysGz2de2uGeoVlZ70P=
+m4jIFXoiMnvCWpniJWSqm4OpG6kYv1kT0d0wvBcktEaruRgDjZAHN94um4DHMYu9Ho00c4PlYrK=
+eREXFLO8Eu1bUNbBStg6JKgVgk5J0EAPnRqxPcLdokamwl8cndntDruY33RnxcfA6NEkoym-aMs=
+TPfdo6BzLxeMvAwCmZhHIckLxuyWiYl3YfrdbiWV5EP0Ghfu95TP1lxhmpZ9pd9KI5mUx5jTGlY=
+44jt_PQYjpMCXAQFOJ7d4qNXRXFGNCcbuVrKs9Vu_m5f9jyWDoegiGhTZARrpFztcELPcg1y8kv=
+t_QZ9XAUwLgU0i8EgRnM5d-_-SKiE0eJXb04zmCMQ8LRRzSTnSymiR-KvVT-Yrp-C4hEQ/3SrVR=
+ZlZTeM1AiF6gscRr8N7OSqQ_lbS/25" target=3D"_blank" style=3D"outline:none"><i=
+mg class=3D"fullWidth" src=3D"https://d15k2d11r6t6rl.cloudfront.net/public/=
+users/Integrators/669d5713-9b6a-46bb-bd7e-c542cff6dd6a/476688a97dfe49f68676=
+7ea39ed7e169/header-logoDark-v2.jpg" style=3D"display:block;height:auto;bor=
+der:0;max-width:600px;width:100%" width=3D"600" alt=3D"Bloomberg.com" title=
+=3D"Bloomberg.com"></a></span></p></div></div></td></tr></table></td></tr><=
+/tbody></table></td></tr></tbody></table><table class=3D"row row-2" align=
+=3D"center" width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ role=3D"presentation" style=3D"box-sizing: border-box; mso-table-lspace: 0=
+; mso-table-rspace: 0;"><tbody style=3D"box-sizing: border-box;"><tr style=
+=3D"box-sizing: border-box;"><td style=3D"box-sizing: border-box;"><table c=
+lass=3D"row-content stack" align=3D"center" border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; ms=
+o-table-lspace: 0; mso-table-rspace: 0; background-color: #fff; border-radi=
+us: 0; color: #000; width: 600px; margin: 0 auto;" width=3D"600" bgcolor=3D=
+"#fff"><tbody style=3D"box-sizing: border-box;"><tr style=3D"box-sizing: bo=
+rder-box;"><td class=3D"column column-1" width=3D"100%" style=3D"box-sizing=
+: border-box; text-align: left; mso-table-lspace: 0; mso-table-rspace: 0; f=
+ont-weight: 400; padding-bottom: 15px; padding-left: 30px; padding-right: 3=
+0px; padding-top: 10px; vertical-align: top;" align=3D"left" valign=3D"top"=
+><table class=3D"text_block block-1" width=3D"100%" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border=
+-box; mso-table-lspace: 0; mso-table-rspace: 0; word-break: break-word;"><t=
+r style=3D"box-sizing: border-box;"><td class=3D"pad" style=3D"box-sizing: =
+border-box; padding-bottom: 10px; padding-top: 10px;"><div style=3D"box-siz=
+ing: border-box; font-family: sans-serif;"><div class=3D"" style=3D"box-siz=
+ing: border-box; font-size: 14px; font-family: Arial,'Helvetica Neue',Helve=
+tica,sans-serif; mso-line-height-alt: 16.8px; color: #555; line-height: 1.2=
+;"><p style=3D"box-sizing: border-box; line-height: inherit; margin: 0; mso=
+-line-height-alt: 16.8px;"> <span style=3D"box-sizing: border-box; word-bre=
+ak: break-word; font-size: 24px;"><span style=3D"box-sizing: border-box; wo=
+rd-break: break-word; color: #000000;"><strong style=3D"box-sizing: border-=
+box;">Here's what we're reading today.</strong></span></span></p></div></di=
+v></td></tr></table><table class=3D"text_block block-2" width=3D"100%" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D=
+"box-sizing: border-box; mso-table-lspace: 0; mso-table-rspace: 0; word-bre=
+ak: break-word;"><tr style=3D"box-sizing: border-box;"><td class=3D"pad" st=
+yle=3D"box-sizing: border-box; padding-bottom: 10px; padding-top: 10px;"><d=
+iv style=3D"box-sizing: border-box; font-family: sans-serif;"><div class=3D=
+"" style=3D"box-sizing: border-box; font-size: 14px; font-family: Arial,'He=
+lvetica Neue',Helvetica,sans-serif; mso-line-height-alt: 16.8px; color: #55=
+5; line-height: 1.2;"><p style=3D"box-sizing: border-box; line-height: inhe=
+rit; margin: 0; mso-line-height-alt: 16.8px;"><span style=3D"box-sizing: bo=
+rder-box; word-break: break-word; color: #000000; font-size: 16px;">You rec=
+ently explored one of our stories. We've gathered some of our latest covera=
+ge to keep you up to date on what's going on in the world (and what it mean=
+s for you).</span></p></div></div></td></tr></table></td></tr></tbody></tab=
+le></td></tr> </tbody></table><table class=3D"row row-3" align=3D"center" w=
+idth=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pres=
+entation" style=3D"box-sizing: border-box; mso-table-lspace: 0; mso-table-r=
+space: 0;"><tbody style=3D"box-sizing: border-box;"><tr style=3D"box-sizing=
+: border-box;"><td style=3D"box-sizing: border-box;"><table class=3D"row-co=
+ntent stack" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" role=3D"presentation" style=3D"box-sizing: border-box; mso-table-lspace=
+: 0; mso-table-rspace: 0; background-color: #fff; border-radius: 0; color: =
+#000; width: 600px; margin: 0 auto;" width=3D"600" bgcolor=3D"#fff"><tbody =
+style=3D"box-sizing: border-box;"><tr style=3D"box-sizing: border-box;"><td=
+ class=3D"column column-1" width=3D"100%" style=3D"box-sizing: border-box; =
+text-align: left; mso-table-lspace: 0; mso-table-rspace: 0; font-weight: 40=
+0; padding-bottom: 5px; padding-top: 5px; vertical-align: top;" align=3D"le=
+ft" valign=3D"top"><table class=3D"image_block block-1" width=3D"100%" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D=
+"box-sizing: border-box; mso-table-lspace: 0; mso-table-rspace: 0;"><tr sty=
+le=3D"box-sizing: border-box;"><td class=3D"pad" style=3D"box-sizing: borde=
+r-box; width: 100%;" width=3D"100%"><div class=3D"alignment" align=3D"cente=
+r" style=3D"box-sizing: border-box;"><div style=3D"box-sizing: border-box; =
+max-width: 600px;"><a href=3D"https://links.message.bloomberg.com/s/c/00Hcs=
+RrAhDAOEiEN6p7VcWgwCA2C9BtaCQkfSLcvtIDlRgvxnVS3SSU0Cp9woGUPNLiT4hc46TSCKZ8_=
+d_9YpYxr02pq1bgXe-wS4mEtkfIoF0ByvT-xXXzYrYVxPmv9h4KGUJ6HPlTDVwzbreuhGKRaqWo=
+SvK7suzK6Zb1d-CYdTDNN85BLO3WVjQ4WmUHz3m5Z_TnQ5j65_FBeM5g3HGKiMu3mhRxGdG9SuX=
+m-Rw0woOpvalOVh7zB7fsHc2-EErZosO41TXZ2z1MyGRGLrYfN_EaatwVVpUX_GBdWXs6gZ8FOY=
+o34pXt003nXqAs-zuYZaAhICnTz2AyOrP8RNKNyqSaSnoE91AWiWo_bX9sAsvhRy-P6andKCnEk=
+EWkWpJsDCIzWqdSbEF2mbPgxIAuDALjEQBUcYzhTpeY-eaEFe16sn9Gj-3ZF6swknCPtBlZqApV=
+qdITQWf8c0gJI_eOV-8C8ckps2BS68ooCEDMShkbXIi6Q7nujvgT0NhZoHoh1SHJ4pJMBY5FJqh=
+DCAeG9Y2ZnQ01nZNTKNGVcRTkDDIwyEo5gzJUjunDjDr2H3xy4jRblD8kl1Wb67RF7iZanx0rMh=
+tCeCrrA8t_YIfwP4CAk0P_YjFVKEy8yoyZCOaowzCxQzPX9oQdOHAH_XuS6YuJHR0VZJLf7vyOo=
+t1bLAmNH8d5Zm9JtARHSCYq3CCjmD39WrtwfnOvIN29NTvQMxzHutyhdV8oPDx7MZwY0djTdFOZ=
+C00Y5qtcZ3VoJuTwgyfCkUKlU_EruTZ6_xrCvxrdm1Lwee4aKbydBKAzpPlF5eIA5IIvpfuzzdM=
+MOS_KcrrxDC2GmIEjbkwpDz-nr1tS4Ml_SKoxDO5g_cqQn1cmdxqZRwRMwKshG53m_s3Y5lD2bB=
+65QPLLWUg16HgdIaRMS1SDHz6vUfiBB9Kuw74vIKX2db2XWURI2cFW22OWUGzTH4yDCWKweHRmo=
+dutKexCFVn-aasWpXVnAYPO3D1FzbpIIt-vl_XLWi2OXU5yw-1HoE5vk2RkZ1zkGsdXl/z-ROgY=
+ZlHlNCpbZHIVk4BdF5qBjHpcrp/25" target=3D"_blank" style=3D"box-sizing: borde=
+r-box;"><img src=3D"https://inc.bloomberg.com/p/rp/d5e15fb2a5baa6f9.png?mi_=
+u=3D79621EEEEFC0442F9888E0EB4C7EDE80&amp;mi_ign=3D13090091" style=3D"box-si=
+zing: border-box; display: block; height: auto; border: 0; width: 100%;" wi=
+dth=3D"600" alt=3D"" title=3D"" height=3D"auto"></a></div></div></td></tr><=
+/table></td></tr></tbody></table></td></tr></tbody></table><table class=3D"=
+row row-4" align=3D"center" width=3D"100%" border=3D"0" cellpadding=3D"0" c=
+ellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; mso=
+-table-lspace: 0; mso-table-rspace: 0;"><tbody style=3D"box-sizing: border-=
+box;"><tr style=3D"box-sizing: border-box;"><td style=3D"box-sizing: border=
+-box;"><table class=3D"row-content stack" align=3D"center" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing:=
+ border-box; mso-table-lspace: 0; mso-table-rspace: 0; background-color: #f=
+ff; border-radius: 0; color: #000; width: 600px; margin: 0 auto;" width=3D"=
+600" bgcolor=3D"#fff"><tbody style=3D"box-sizing: border-box;"><tr style=3D=
+"box-sizing: border-box;"><td class=3D"column column-1" width=3D"100%" styl=
+e=3D"box-sizing: border-box; text-align: left; mso-table-lspace: 0; mso-tab=
+le-rspace: 0; font-weight: 400; padding-bottom: 5px; padding-top: 5px; vert=
+ical-align: top;" align=3D"left" valign=3D"top"><table class=3D"image_block=
+ block-1" width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" r=
+ole=3D"presentation" style=3D"box-sizing: border-box; mso-table-lspace: 0; =
+mso-table-rspace: 0;"><tr style=3D"box-sizing: border-box;"><td class=3D"pa=
+d" style=3D"box-sizing: border-box; width: 100%;" width=3D"100%"><div class=
+=3D"alignment" align=3D"center" style=3D"box-sizing: border-box;"><div styl=
+e=3D"box-sizing: border-box; max-width: 600px;"><a href=3D"https://links.me=
+ssage.bloomberg.com/s/c/3TVCi9jVk5Uh-aBylpdsJLB4J_qa-JGwuXR9ijOySf4oB70zmTr=
+85SltMGk6RhNmtFe2EAYEAkOF_-AL-VxM4VpnLQR2quLqoH7eB3aXHxVq-ticc4c06SRmBSIbrb=
+xg4N6OQVEIszyjhItgOo2dOmUyCvL3w8B77M3CTp0I9ARN9E-T4dI0jB215LAv97dUdgzOsB1ge=
+qJOA4viOkEuUz7ImJek6bldNlyIgm9P3yDfrYa1zP2t2VvI5gE0tj_2-cjr217hpno7TFD26FAN=
+QLJILkp50wJ8XcaaTuRddxykrqTestD2jGraaYguPKpMsEE7smxiY4_tVxBYmIh5oIY1HKgVoX5=
+uKOIyT--jn5CLpk5CQXY9w9D7IFGQ8k06QlE97BiM-QcsWfQwuEiQ4jIoifQxwGXtZOlOdaBpTO=
+weEdjusGqBTdrbWRfnkL2a-9B1ntjAeKzaioqjpEVQtacAL_vuZ7tgG6pvtgbVtbgthTM4EkFEf=
+rslqa6L6TT6zsSuCiDJMGnlD4PCWFoYykFA2iAKv4r1DosqvG9sPsNmMP2NRb7Aojgsn0-o9JYV=
+j4ozyF3VEO9MK9l_-C_mm8dEQbyh82JJGa8RNeGO7XI4LHVhvtWA4zaJ1O-SQNiNgAY0e9QcSDJ=
+aOWwph03cuwJgMckugepkjsf6AsCvTOtWqyqUnaU7GT0nDX1MiSw-5o1Ze-tTOyQ5OtDunC7d35=
+Yfmsu0jNuuzir_zRgh0o-oh3-d79VvNNXDZarjZe-0grkd8Tvl8CvQNi1lKPBP5QyKSPEMXE3Ik=
+qqShKfRcO_s--HrT-9nLD0HAwxAEEDPrj5LF1ETY5wgkVflu2EAYhkZr7xHPhawBhGgq1jCLMyP=
+atxSMzcKck8euK1oZGrsrjMW4k6bKPETYqR9BE-q5hyi0QM2QS6WP-0GJmx_9HYidygNmAhed8w=
+DFd9tp2tTr8JBSdgo6N0Ao1R5NreJNbEtNs0fEkFx7q9o0GyxipytbM9lkvxz7ktMZjbADjmUzc=
+G8uQI2pJBnNsHc6GSf9Ct9/jwq8y9c1H-w0_bm-cjLcDHHLPfO9DRKL/25" target=3D"_blan=
+k" style=3D"box-sizing: border-box;"><img src=3D"https://inc.bloomberg.com/=
+p/rp/be965ee5ebbc169f.png?mi_u=3D79621EEEEFC0442F9888E0EB4C7EDE80&amp;mi_ig=
+n=3D13090091" style=3D"box-sizing: border-box; display: block; height: auto=
+; border: 0; width: 100%;" width=3D"600" alt=3D"" title=3D"" height=3D"auto=
+"></a></div></div></td></tr></table></td></tr></tbody></table></td></tr></t=
+body> </table><table class=3D"row row-5" align=3D"center" width=3D"100%" bo=
+rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
+=3D"box-sizing: border-box; mso-table-lspace: 0; mso-table-rspace: 0;"><tbo=
+dy style=3D"box-sizing: border-box;"><tr style=3D"box-sizing: border-box;">=
+<td style=3D"box-sizing: border-box;"><table class=3D"row-content stack" al=
+ign=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pre=
+sentation" style=3D"box-sizing: border-box; mso-table-lspace: 0; mso-table-=
+rspace: 0; background-color: #fff; border-radius: 0; color: #000; width: 60=
+0px; margin: 0 auto;" width=3D"600" bgcolor=3D"#fff"><tbody style=3D"box-si=
+zing: border-box;"><tr style=3D"box-sizing: border-box;"><td class=3D"colum=
+n column-1" width=3D"100%" style=3D"box-sizing: border-box; text-align: lef=
+t; mso-table-lspace: 0; mso-table-rspace: 0; font-weight: 400; padding-bott=
+om: 5px; padding-top: 5px; vertical-align: top;" align=3D"left" valign=3D"t=
+op"><table class=3D"image_block block-1" width=3D"100%" border=3D"0" cellpa=
+dding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: bo=
+rder-box; mso-table-lspace: 0; mso-table-rspace: 0;"><tr style=3D"box-sizin=
+g: border-box;"><td class=3D"pad" style=3D"box-sizing: border-box; width: 1=
+00%;" width=3D"100%"><div class=3D"alignment" align=3D"center" style=3D"box=
+-sizing: border-box;"><div style=3D"box-sizing: border-box; max-width: 600p=
+x;"><a href=3D"https://links.message.bloomberg.com/s/c/4_RMF1iMKABzgnsxFMWz=
+merrkXa0C5OksBAxLmLSRir2ySVkby1x9T1a7Mh09VfoG0BZ032D8kUmQlPvexElsT2HhuZPJop=
+GcGqVETY9jkLsSaUEhLKIYIRvO8qoNOzuVCbVW8YglMdtTe_1nVXJ47LmgYB2WxJhJJQrck0QuD=
+94uOO59q6DTckVC8EpaOLttgX2mFRDz8GQjeywxM02rpLVHVU3x3x2cVprajyHullsqeaoGMOu9=
+21w_EIAyKGowdEB-e4ehhY1ODPZUm96y17peqlxcsBmICCKtDLAj_pSgcEWSWO_-7Ry6tQhPxAn=
+YsIJ7-nh66jjTRlJa7T25bL67ExhSPbQJDITbay0H4HDvNopfny5HUb1kaMP1cbxslETz-uX0Th=
+pquwxfKAcNIRR69Y_d3wre8GHxcGJL8841fen0QAzwOiHkDLGiTvpYuql8DtJyOcc4ObknWM_rN=
+PwGfpR1dnKG175hZbr4YGMpywMiHGiFrfiRipy7qaqK_BaiHquNldDbmGXlLaWyg0fJ51_eVYSA=
+7OVO7_mwiv8n-kShfAxrdKXWaW64ct03t9y6AwA2KqNGyVUvKAq-_enT6eg-YhNkrxXz7wIIK1r=
+FQnTjbR4v1wxfQF333r0DjvqYh65XyHm9kDaFj2ATfNEZ3zf0aBevVPC-YqTW_EmFkkkkIkujFj=
+M7r63SrawlIQ87Sx7gGdN1aSl965L9xBUBdWQKjNcVB453cm1V6BV9uZuO3Mp9KUj6BSigMCIO-=
+oSR0MF33qZXYkcvLelpQebPQHcUOJKmL4tq6lq8bP7AkIQjE2jkDwCQUPILw-ENpEQcdRWwconI=
+q0dbKosNZNFJzxcCKWS50uRHJp8F7XYNB4V1mUwYaQ1-wBhSQ33Qk-BzR_6qRxdWY6gZiks7KNa=
+9UYH_rZ982FF6dXgKscTUjB8BiLuqaA4IG5mDELrCNTjucVeQSBfd4EXEfLDOfKQyIyEH0kJKE9=
+iIyYttI7YhgO9xPNjkxL4lXuKr7mxx-IgmwM8Pt8PV9EWxNcfdxO4/L46vCTwbZC3RJvONH59Us=
+px4XHqyt5xx/25" target=3D"_blank" style=3D"box-sizing: border-box;"><img sr=
+c=3D"https://inc.bloomberg.com/p/rp/131af76543f95cd1.png?mi_u=3D79621EEEEFC=
+0442F9888E0EB4C7EDE80&amp;mi_ign=3D13090091" style=3D"box-sizing: border-bo=
+x; display: block; height: auto; border: 0; width: 100%;" width=3D"600" alt=
+=3D"" title=3D"" height=3D"auto"></a></div></div></td></tr></table></td></t=
+r></tbody></table></td></tr></tbody></table><table class=3D"row row-6" alig=
+n=3D"center" width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0=
+" role=3D"presentation" style=3D"box-sizing: border-box; mso-table-lspace: =
+0; mso-table-rspace: 0;"><tbody style=3D"box-sizing: border-box;"><tr style=
+=3D"box-sizing: border-box;"><td style=3D"box-sizing: border-box;"><table c=
+lass=3D"row-content stack" align=3D"center" border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; ms=
+o-table-lspace: 0; mso-table-rspace: 0; background-color: #fff; border-radi=
+us: 0; color: #000; width: 600px; margin: 0 auto;" width=3D"600" bgcolor=3D=
+"#fff"><tbody style=3D"box-sizing: border-box;"><tr style=3D"box-sizing: bo=
+rder-box;"><td class=3D"column column-1" width=3D"100%" style=3D"box-sizing=
+: border-box; text-align: left; mso-table-lspace: 0; mso-table-rspace: 0; f=
+ont-weight: 400; padding-bottom: 35px; padding-left: 30px; padding-right: 3=
+0px; vertical-align: top;" align=3D"left" valign=3D"top"><table class=3D"di=
+vider_block block-1" width=3D"100%" border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; mso-table-=
+lspace: 0; mso-table-rspace: 0;"><tr style=3D"box-sizing: border-box;"><td =
+class=3D"pad" style=3D"box-sizing: border-box; padding-bottom: 10px; paddin=
+g-top: 10px;"><div class=3D"alignment" align=3D"center" style=3D"box-sizing=
+: border-box;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation" width=3D"100%" style=3D"box-sizing: border-box; mso-table=
+-lspace: 0; mso-table-rspace: 0;"><tr style=3D"box-sizing: border-box;"><td=
+ class=3D"divider_inner" style=3D"box-sizing: border-box; font-size: 1px; l=
+ine-height: 1px; border-top: 1px solid #000;"><span style=3D"box-sizing: bo=
+rder-box; word-break: break-word;">=E2=80=8A</span></td></tr></table></div>=
+</td></tr></table><table class=3D"text_block block-2" width=3D"100%" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"b=
+ox-sizing: border-box; mso-table-lspace: 0; mso-table-rspace: 0; word-break=
+: break-word;"><tr style=3D"box-sizing: border-box;"><td class=3D"pad" styl=
+e=3D"box-sizing: border-box; padding-bottom: 10px; padding-top: 10px;"><div=
+ style=3D"box-sizing: border-box; font-family: sans-serif;"><div class=3D""=
+ style=3D"box-sizing: border-box; font-size: 14px; font-family: Arial,'Helv=
+etica Neue',Helvetica,sans-serif; mso-line-height-alt: 16.8px; color: #555;=
+ line-height: 1.2;"><p style=3D"box-sizing: border-box; line-height: inheri=
+t; margin: 0; mso-line-height-alt: 16.8px;"> <span style=3D"box-sizing: bor=
+der-box; word-break: break-word; font-size: 24px;"><span style=3D"box-sizin=
+g: border-box; word-break: break-word; color: #000000;"><strong style=3D"bo=
+x-sizing: border-box;">Want more stories like this?</strong></span></span><=
+/p></div></div></td></tr></table><table class=3D"text_block block-3" width=
+=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presenta=
+tion" style=3D"box-sizing: border-box; mso-table-lspace: 0; mso-table-rspac=
+e: 0; word-break: break-word;"><tr style=3D"box-sizing: border-box;"><td cl=
+ass=3D"pad" style=3D"box-sizing: border-box; padding-bottom: 20px; padding-=
+top: 10px;"><div style=3D"box-sizing: border-box; font-family: sans-serif;"=
+><div class=3D"" style=3D"box-sizing: border-box; font-size: 14px; font-fam=
+ily: Arial,'Helvetica Neue',Helvetica,sans-serif; mso-line-height-alt: 16.8=
+px; color: #555; line-height: 1.2;"><p style=3D"box-sizing: border-box; lin=
+e-height: inherit; margin: 0; mso-line-height-alt: 16.8px;"> <span style=3D=
+"box-sizing: border-box; word-break: break-word; color: #000000; font-size:=
+ 16px;">Unlock the full experience: unlimited reading on Bloomberg.com and =
+the Bloomberg app. <a data-template-url=3D"{{{ snippet " subscriptionURL?=
+=3D"" ?StandardAnnualOfferRatePlan?=3D"" }}}?=3D"" href=3D"https://links.me=
+ssage.bloomberg.com/s/c/1HqI6M922e5gM4jK-rxd3p3Rr6fgU2_KOl9Q5hc3XjaTYdyuZIK=
+Wp0MRWpjdHhJ9D9aJyDF4mwvx3rI3d3UqR9Desz-TQ0qJugNOXahGgQKwavi8BkwPyhTdrpEvM1=
+IlOjWSdwU8fMoa6lamrOlWChsh9AKw28CewbHdSN_6yNV7qOBPlMOM7OVeu22tR37P3gD42v_Do=
+JBbU4WkBFpn5VKLYtlIJC-wF5wDLspZS21iI5cl35xoC2whMUumX3VkX5S-U0py6fMKsTfYYs8O=
+3BZTqbQYYdqzw2w4X_HzIE3_9jZ91nOdy0mX0IJwuvl2A3IohRPaYog5478XJdLr2kdTjw1a23Y=
+aDT7RlDhE_ZTUSXRCu9c-MOk9vZLnCjqcZ8fZQ2AlcYFy9rx4lg3X_52CwLRJVNEtHF0chVA9Cn=
+wfLkFxtWYGfXhClS8TYL2aYEzmaK5IKJYBFB-nPz_RzJ_DwhVnxeDcRQqTcsISzd-et5VkqK6bp=
+dOcIBVsrT7eIJJNQ0QJpujbm2x2-EH1QKIlkppa1ecO2l2duIe3JGyz4v8B6wbKsMlEJ27oceDB=
+xncH1Nh7SosJXCL56SMwF2cuAAtOLvKSQqxEqFQmmFzD9Osw31GiqI-5tug5Nrf3hmiCzIsL00F=
+w0lY/zGYqmO5qs1m0qADCXsNJMJCmRc6MAo_7/25" target=3D"_blank" style=3D"box-si=
+zing: border-box; text-decoration: underline; color: #000000;" rel=3D"noope=
+ner">Subscribe today</a> for a limited-time rate of <span style=3D"box-sizi=
+ng: border-box; word-break: break-word; text-decoration: line-through;">=E2=
+=82=AC349</span> =E2=82=AC165/first year.</span> </p></div></div></td></tr>=
+</table><table class=3D"button_block block-4" width=3D"100%" border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizin=
+g: border-box; mso-table-lspace: 0; mso-table-rspace: 0;"><tr style=3D"box-=
+sizing: border-box;"><td class=3D"pad" style=3D"box-sizing: border-box; tex=
+t-align: left;" align=3D"left"><div class=3D"alignment" align=3D"left" styl=
+e=3D"box-sizing: border-box;"><a data-template-url=3D"{{{ snippet " subscri=
+ptionURL?=3D"" ?StandardAnnualOfferRatePlan?=3D"" }}}?=3D"" href=3D"https:/=
+/links.message.bloomberg.com/s/c/Lfv_jmoLOqfRJw65qT9Dq0cHP64ig1aJ5VOlOcAatM=
+HrH8hMVCVwug6gCcD0T6taIPJEKM9MeaGVHgJiWI5A_67FjQc2M15EglhBU_3mxprcUlQAJN5Zq=
+4bpiJvCeYdg58nU5-uDvvj0fAyTXJNlGijICXn1bGK1qSCRUda5WkAIcCqWuNPAbemKZimIAsDC=
+E4lsmEuEaQI_vSKY5XGze_ER9jAcG6QKPK8GavVWOan1tdFOLappfPwJC5J0vDaH6UBeLHlUhrO=
+U0Tv3IGgqXnkglBuquQ-jHuTZji144z2XYT63DY71KgGP2AOb8d3K2yLL5n2K5DWI7g6fRAcZxG=
+qdEeh-PMpGpQH1IiET8ToGX0h8KB7GwSgaA23MIGQQzX2olqXeyzGzJWXPGvtD8R0Cv73u0ySdW=
+cXKH5VwUlk0Wak8cryj_Nw1t0NdoG2K-_qNgyd4LQJHB8DxEZBhUQEiY4Z1FShn35rwOo4_g02W=
+hwZh5Tl_5Zlh89Ms7n2j5e5xmzfIpjBvS2SH_rX3vPaLsVCWGkm8UC83GBMC06-I8cZZr90j-XM=
+izmmW90JLxaTetBKmDkC_LseuJV67LfnzZhj8IfozeXRnZ0gjmb__1MxxuWvLPTE0zZS0JsibtY=
+1yUBrV3sYS32E/FPE_wSd_8Tyi3De48sdDDJI9AwC1VS4C/25" target=3D"_blank" style=
+=3D"box-sizing: border-box; color: #ffffff; text-decoration: none;"><!--[if=
+ mso]><v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn=
+:schemas-microsoft-com:office:word" href=3D"https://links.message.bloomberg=
+.com/s/c/szCOtnrTQR6JySgk6KXOybhSbkGRll5b3ms6Ynf8H4QCVOCr6e5nAOMAB_-LJZ2--Q=
+OnAC64PqhFxbKdeXTcXYpTpdknzlBnWfNLY5B_T4pBUJp2p4jJ4MOXhuRuKirQNMQDtJ0kNEYK4=
+nPH2th5Xe-j1tNvUv_njWavcHG8beMKGG31AI1WSDdLknncAWjbS9a9Cpv9A-u72Y2SD7zPN-Zx=
+KF-4vfKXu6t213KfUgNWX3KD22rJrd9aBi6Hp4E6xvql01xd2dhRrD8ZcmuL8w35xdygdYq1LIL=
+RtAO10Own58LXPzZlnPWzL0-5TX14gsMpmMVvzZR6SuNH2Dc6yvIkIx4afE2cn5by8hUTFedOHz=
+nvtk_oUuJHv9ndbP3CF4PBff49hGcBwBHLVekY5gbTlir2MAAzCiSQXJtEiXklfpG4jqYOS4lN9=
+cQOrfl5fcMQqhyIXYRC7_UboDv-ddMuNSsPLoyKZ2KQkGncT7g6lqFOnp-s4FceIPkZLlFsefwQ=
+um-Tl6ybxJWUMz1appVk5AtDJHvuD9-C--j9owQc9UHWBtzERcB4kNTDqT1h/iO86vbMJcHrOoA=
+0do3MtgruM53pJpLi6/25" style=3D"height:42px;width:153px;v-text-anchor:middl=
+e;" arcsize=3D"10%" fillcolor=3D"#000000"> <v:stroke dashstyle=3D"Solid" we=
+ight=3D"0px" color=3D"#000000"/> <w:anchorlock/> <v:textbox inset=3D"0px,0p=
+x,0px,0px"> <center dir=3D"false" style=3D"color:#ffffff;font-family:sans-s=
+erif;font-size:16px"><![endif]--> <span class=3D"button" style=3D"box-sizin=
+g: border-box; background-color: #000000; border-bottom: 0px solid transpar=
+ent; border-left: 0px solid transparent; border-radius: 4px; border-right: =
+0px solid transparent; border-top: 0px solid transparent; color: #ffffff; d=
+isplay: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans=
+-serif; font-size: 16px; font-weight: 700; mso-border-alt: none; padding-bo=
+ttom: 5px; padding-top: 5px; padding-left: 20px; padding-right: 20px; text-=
+align: center; width: auto; word-break: keep-all; letter-spacing: normal;">=
+<span style=3D"box-sizing: border-box; word-break: break-word; line-height:=
+ 32px;">Subscribe now</span></span> <!--[if mso]></center></v:textbox></v:r=
+oundrect><![endif]--></a></div></td></tr></table></td></tr></tbody></table>=
+</td></tr></tbody></table><table class=3D"row row-7" align=3D"center" width=
+=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presenta=
+tion" style=3D"box-sizing: border-box; mso-table-lspace: 0; mso-table-rspac=
+e: 0; background-size: auto;"><tbody style=3D"box-sizing: border-box;"><tr =
+style=3D"box-sizing: border-box;"><td style=3D"box-sizing: border-box;"><ta=
+ble class=3D"row-content stack" align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-=
+box; mso-table-lspace: 0; mso-table-rspace: 0; background-size: auto; backg=
+round-color: #efefef; border-radius: 0; color: #000; width: 600px; margin: =
+0 auto;" width=3D"600" bgcolor=3D"#efefef"><tbody style=3D"box-sizing: bord=
+er-box;"><tr style=3D"box-sizing: border-box;"><td class=3D"column column-1=
+" width=3D"50%" style=3D"box-sizing: border-box; text-align: left; mso-tabl=
+e-lspace: 0; mso-table-rspace: 0; font-weight: 400; padding-left: 30px; pad=
+ding-top: 10px; vertical-align: top;" align=3D"left" valign=3D"top"><table =
+class=3D"text_block block-1" width=3D"100%" border=3D"0" cellpadding=3D"10"=
+ cellspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; m=
+so-table-lspace: 0; mso-table-rspace: 0; word-break: break-word;"><tr style=
+=3D"box-sizing: border-box;"><td class=3D"pad" style=3D"box-sizing: border-=
+box;"><div style=3D"box-sizing: border-box; font-family: sans-serif;"><div =
+class=3D"" style=3D"box-sizing: border-box; font-size: 12px; font-family: A=
+rial,'Helvetica Neue',Helvetica,sans-serif; mso-line-height-alt: 14.3999999=
+99999999px; color: #555; line-height: 1.2;"><p style=3D"box-sizing: border-=
+box; line-height: inherit; margin: 0; font-size: 12px; mso-line-height-alt:=
+ 14.399999999999999px;"><table border=3D"0" style=3D"border-collapse: colla=
+pse; width: 100%; max-width: 300px;"> <tbody> <tr> <td> <table border=3D"0"=
+ style=3D"border-collapse: collapse; width: auto;"> <tbody> <tr> <tr><td cl=
+ass=3D"divider_inner" style=3D"font-size:1px;line-height:1px;border-top:1px=
+ solid #000"><span>=E2=80=8A</span></td></tr> <td> <div><span style=3D"font=
+-size: 20px; line-height: 28px;">Context changes everything.</span></div> <=
+/td> </tr> <tr><td class=3D"divider_inner" style=3D"font-size:1px;line-heig=
+ht:1px;border-top:1px solid #000"><span>=E2=80=8A</span></td></tr> </tbody>=
+ </table> </td> </tr> <tr> <td style=3D"padding-top: 5px;"> <div><a href=3D=
+"https://links.message.bloomberg.com/s/c/A53jDcSHJeokee2__3TVXY6S5ZlTGpYX3n=
+5m462ZFh94thpsCCv0fsSyndo8gvf5dUg5PckxoT0LCvkN9mkaK3vmDrWmd1oeYoK4CSS6r4K0d=
+7SD91auf269VNpzFBsqpc0XkLRmyZSpGwYuDpFWnxALUxkUKL0p05nVqvM2Ww2ZLr2dwcSYupkb=
+bnNEaC3ax-NB5OlH7146rCzUj7Cllxvszd3m92Lm_8nJXBN348LfDrv8TywyFxHKB2ridfeTmws=
+um2RSoRllbUAGH11zTO7Zi5Ocjlx_VULZDKpZTn1WK_LYWcAE8o16t12sDVSvMO6adS8rZQy2O_=
+xpFOyiyqXVEAIOdrjPpDh5X0EnhF54Fvx8Ffz--O30IwtexUuvIUE8ADg1CxporoFCD1k6P_BBk=
+xMLaW6KHsBuvcmh2si1qwKDpLWaLjGVAM5XoQ_R5e-z_2XrCstiA4dw3bsDtDIZV5tHI7hcpvF1=
+YVbJjtipJ0bsGP-Kv4KtKOosXVDDyznhkJzilHxXdX37xbq3DQ/feMJbQnTEqrF5kbyoAEEYwvz=
+ttU50qbr/25" rel=3D"noopener" style=3D"outline: none;" target=3D"_blank"><i=
+mg alt=3D"Bloomberg.com logo" src=3D"https://d15k2d11r6t6rl.cloudfront.net/=
+public/users/Integrators/669d5713-9b6a-46bb-bd7e-c542cff6dd6a/f574328d4d0c4=
+c359b90d8e49b10e21d/footerLogoBGFill-v3.jpg" width=3D"270"></a><br><br></di=
+v> <div><a href=3D"https://links.message.bloomberg.com/s/c/wi5XizAZRwz2VYvs=
+kRsx_KM4sSvKCpZ3qHodeFw-Nw68WsU4ipq04Ow21KInR64nCNSIzEy429kw6pOIVG0kWHVlyuw=
+_GOOJVB_A3NHcw-_cBJXodOOpwV27OUFeh36TekcFf5jSM5Yv5ZN9NFJ0Dr5P9tnyoAka3WHmMF=
+Nx3Nl853bepRuDBBMv5EmecuwhCO6QYqlqhvYOx-f-7wUpqRnKbux5FanHhRCQlKuwv_YLdIUsN=
+3wM4EjkInG-17pNl1B-u0ZDPZfeXVERYxobAvsukDr2Q3WK2Kp9ejRO5RNSEOq2sKxKA1DK1Y8Y=
+7dpwmdayw69FLq7RBLucb4fpMAHVpPBmJXhANV5uO5w0TitKy8yulSuvpMEDF9DO5hD6YJ2O3lK=
+jmn5ePWY-3SqVDpE09Oy4bxTwNwXw9J7K6wO0-smYsXCJlFU8OIPW5ZYMiJ4nFn84JyeRKheIcc=
+jT7iGooqBmuLuTM6A0m6LHtxb0IyiyJo6EBd1RmByQ3HRPPWwRZfi1sxpWsae9RceXBxW2r7n7g=
+wuOegSt4Y7hCxkaGodnRXxWhv6kJ1hEemcWUs9lQrSxSeLgFctsvQ/P4owXJfuMdvifUURsLRU_=
+LoGgGWZqg_z/25" style=3D"text-decoration: none;" target=3D"_self"><img alt=
+=3D"Download on the App Store" src=3D"https://d15k2d11r6t6rl.cloudfront.net=
+/public/users/Integrators/669d5713-9b6a-46bb-bd7e-c542cff6dd6a/f574328d4d0c=
+4c359b90d8e49b10e21d/appButton-appleStore-v1.png" width=3D"95"></a>=E2=80=
+=83<a href=3D"https://links.message.bloomberg.com/s/c/sD_B0KSt03jglOJafvSE-=
+zcwZ32XKVRbdNLR_mzkTl9MC_aUobn0bbm2SzRCaWPtdXVRpzL9QFMCTa0MNTYsxLWcLbUw55aL=
+p82v2bRuU02rmFDfyXW8TvLFLvPoi_IdzWGwlHd-SGZFtgvNIPQa7lup83jYhX5y3Xg_NQINP6X=
+Xyj1OZuXCvoUKSYO9cDeQllJ9MPSMcZ5CaSu7KxI9-X4UfTzgqVWRoHvLt1ANgU6RFdkzSIsQk9=
+UqDGvwXTpv9NE7tMWspCk4zFYDdInx-HVxgOP32Lge5x4HH5l4vN1K7aI36xv9RaBeYpN9_M5Um=
+8ThinZTvXCvwd0-HxzaTKoyWH3Q2ftgHUWIGU1wzCMIJh4OjqCSZ_VXSvDu-KORu6G1XIcCE2Ug=
+2KhzIm7JOLCKbLczGCgjOH5Kznrux90ISCNyhBoqilS8iMBtin3LoctorNj-sU-33U75x7XZXh6=
+QWpgpsMt62B_UJV3LfFwvz7IXnCJ2F4ZVJwEl7l9oJNAigDsrZjT9pIvBE7zteS6k_RrkunJVTH=
+mCywCOTd_p7yORIz8jIXSjcvH9FVqB_RU5uQIEopLn_yrpP-AIcPYKt6fsThVMaMfVYCCw8UNKx=
+1Q/hVMKuL0Yb22fLELLA0Gg3m_3gZGR7MOk/25" style=3D"text-decoration: none;" ta=
+rget=3D"_self"><img alt=3D"Get it on Google Play" src=3D"https://d15k2d11r6=
+t6rl.cloudfront.net/public/users/Integrators/669d5713-9b6a-46bb-bd7e-c542cf=
+f6dd6a/f574328d4d0c4c359b90d8e49b10e21d/appButton-googlePlayStore-v1.png" w=
+idth=3D"106"></a></div> </td> </tr> <tr> <td> <p><a href=3D"https://links.m=
+essage.bloomberg.com/s/vb/R_9awAB2sMfVfdjfOVNp8mogKEA0y1b-7t4clRq6wtCiqkUxI=
+rt5WMKr9H1pr8y0dfpU6-zyfaT5WSyq8IlDvN7uZB_jMPURbXumk7l6cfgkcVeFvCGukMknp7LD=
+uAJ31Mm1ETdjula5bTS3uEJvcUxvIIGxWcmsZIsWig/wd3m0K9NoLsb8z2705HBtloLgzqSJ3vN=
+/25" rel=3D"noopener" style=3D"color: #000; text-decoration: underline;" ta=
+rget=3D"_blank"><strong>View in browser</strong></a></p> <p>Pricing may var=
+y based on applicable currency.</p> <p>Please do not reply to this message;=
+ it was sent from an unmonitored email address. If you received this messag=
+e in error, please contact us.</p> <p><strong><a href=3D"https://links.mess=
+age.bloomberg.com/s/c/4n-BOJsIlTGvRSUC2bxo4M04OH17yTFY4jg0izsNYfXNCOuBaIgal=
+nLg5zjqyNfWJgJf3aG8D-p_kX-iMj27QiYgzGex7y1LZ2yst3fmCEEYdeQtdB9uMh_-OWGg6uOG=
+LZNpJNl8cE74DumZi_tbkpZcnjpN3hzzHH-zwuGVtewIyoUXx9rY61_zGUeoA7FTOW9z4ldo7Y6=
+z2AiqLC_vV2GZqoRTqaCgsMBANVcyZDRVzqGIp9uK41EhZI_SVOgXc2azvRBMm-nfASQy0uMppC=
+q8Ze1l5CCoJsFagGjXGnw7EhqSnk9AkxrgF2hjSTjAVntK9-FAT3zKcoA0678PvLb12F3YkJoPv=
+cQlKNQ8UzbR4LKzm2rsbGgaDsonssJm2gNjKf00GgjLEcHNJkkzyQYfRzXQGT_8PBdIzHKPkSUE=
+tOugWUt6vZylv4Q2i1esvOG5suwtlhr1EX9JG39C13RMzg9C9KuMJI4SAZF_cgyA89KQtj3i1Gt=
+tbm5DCUVYBPsMGfrmL2eqABMl451U-NDoYnQ/0Cr-QrcTPHcFNKk1muDvmjE0TEflDEor/25" r=
+el=3D"noopener" style=3D"color: #000; text-decoration: underline;" target=
+=3D"_blank">Contact Us</a></strong> |&nbsp;<strong><a href=3D"https://links=
+.message.bloomberg.com/s/c/y3s05K4T2O6I6dINyRXQKDsu9ZjCVbdv82SeT4lOzzFBjYda=
+86-85viJhpMtX5DurNqUV_kMpFKwND0I44Es9QBcvsc9UhIPJxcNIX8PrKwa4GHvBJ409ykA6If=
+EcfUSet0ywFz-viUYKE_ZX-nxcJD2w6JtjRjAl58ZwJ2kbqMpPFj_Gri8ttFozDx4LBj0swH_UF=
+iA1ELwJowuDYINSZh0K6wMoWi0KyZp7gMSZ3I7DC7XzwOsTWuRqpPYsENUqBBB3dEouE3TQO6Tg=
+LvA7-aTv4UXXzdsVwnZxy1afUW6Ub65RXNpgWSEN31kOuxH2f74GmvixVueMGXizrFinfR2TTCY=
+l70ESIhZbVfJ7tZSuZT8ksU6jttqDflInrGntYtcjR49gdQAlbWVQW4f6nLtR2gVpgU8flq7e_J=
+b-Ttkygf6Qa_u5WehXv6AekjsYtCTw02znEeUE7j3MsOUdQRpzVn2YW-tgB7dULBlk2FYNXqK8Y=
+3dmJ35MyBkw1mW9WSS_UvJHONSY-r7F6YsvyF-WVaW/50AVQe28xdCaWagXOE9EeBHrzOZ2vIzJ=
+/25" rel=3D"noopener" style=3D"color: #000; text-decoration: underline;" ta=
+rget=3D"_blank">Advertise</a></strong> |&nbsp;<strong><a href=3D"https://li=
+nks.message.bloomberg.com/s/eh/roI033ANA5eNVuuKCN0SAoJLLyTskFfi2LsGTmjzZ7uV=
+mbT9Os1_pQROmf2peZlETR2xF_JrywshOtv9oC8ohPTYh7mOO8DvH6IjPQ2_AWulBJQyANH1BBl=
+sQXU8poKumjJWUEifFYCCgmKmOhQrHwT6L6YCAA80XnVyNUWClNPYdqLdStOtyI9bgSxCQcXF7i=
+B4ULHsqn5V12YxctO3aFpLnBYpo0P14hMC2LonJ_oHAVXmGPo8Fh6llCIz8X29RC3pHGglh228l=
+amHUa6BgvqSySsV2-dNqfxSn_NfbcU82w3dT2H9TqqmRCv7BpbvRdkpr75Rnt5DxhV3dePS6qhn=
+j71k45hx0EuCAxYS7jK5DISsSqreNjUsK4jq8nD7bkFvjejHMxApQ2AcGD5CXTKjPrTPcU6XoN3=
+rhvWqA3RxbEuki58WWYWQG1GWEQSikW84y9h0HR7WyoRDc8va4FjgsqUHMZarIUCzBmnB6djBOF=
+mWR0-IuD9VlxPvVI9hEtzUJdIn_ouWFHQhbMysk-C_mheee7na-iweXADB3JRRRAqXKB3hzOHd9=
+Iy3fs9f5rm-lJyGWvC9V_1haWdcWjaMzQ/O76Zp17ox01923gE2USyet-LA4pJE4Tr/25" rel=
+=3D"noopener" style=3D"color: #000; text-decoration: underline;" target=3D"=
+_blank">Unsubscribe</a></strong></p> <p>Copyright 2026 |&nbsp;<a href=3D"ht=
+tps://links.message.bloomberg.com/s/c/oxeb-hC8GW38OjxOWQwUf1mEuenAABuKj7r1b=
+pTVNBPajSrD4cB_iNktHqGzKFGFk7CvUfNtZMqIyj3UfNIiPQGi3G-f058N9EQXEZVHBIarhyuM=
+GMK2hIjRwglLiFhvA6l3uxxy5Xo3MSuE04s_Af6dU9iTBO-duM-k8qKh6ZzI8Yo94LqATc7YXye=
+sT3kA91eXlVj4mPvJ3zG8zUjFJRczS9XBZw6pSOijbnY4X6GUHjp2-X74CcOVgaAkC66hz01RYe=
+IaQ82C9IYiNdeEKAqerlp49QrbZdzJ6W1A3WTnXVOsXnCyuyFQA__8Rva1XCtdlipLPTQMaJCJ6=
+2xedmagMlSQ8BRhQPnWnwZXsB3DpNdBQr43N-KpHo2T9iC3cSRs6wWieWVzTjgAf-6YV_iYFmG5=
+Z5f48UpWElvfb7W_eBMIGXdWVuoYhH4HCedeGHlPNY4d4AGrq2WIWdDVL_4ELyqfy4EaZiso_35=
+4XZeVqls8wqlmex0WLIXGyTmDum0SgVBWghFZPWiWLAZeU8mGk-RqofovutPW0k5hTnI/5vXpAh=
+JVTVO6vufrudJucZj8sW2XV9kS/25" rel=3D"noopener" style=3D"color: #000; text-=
+decoration: underline;" target=3D"_blank"><strong>Privacy Policy</strong></=
+a><br>731 Lexington Avenue, New York, NY 10022</p> </td> </tr> </tbody> </t=
+able></p></div></div></td></tr></table></td><td class=3D"column column-2" w=
+idth=3D"50%" style=3D"box-sizing: border-box; text-align: left; mso-table-l=
+space: 0; mso-table-rspace: 0; font-weight: 400; padding-bottom: 5px; paddi=
+ng-top: 5px; vertical-align: top;" align=3D"left" valign=3D"top"><table cla=
+ss=3D"empty_block block-1" width=3D"100%" border=3D"0" cellpadding=3D"0" ce=
+llspacing=3D"0" role=3D"presentation" style=3D"box-sizing: border-box; mso-=
+table-lspace: 0; mso-table-rspace: 0;"><tr style=3D"box-sizing: border-box;=
+"><td class=3D"pad" style=3D"box-sizing: border-box;"><div style=3D"box-siz=
+ing: border-box;"></div></td></tr></table></td></tr></tbody></table></td></=
+tr></tbody></table></td></tr></tbody></table><!-- End -->
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"http://links1.me=
+ssage.bloomberg.com/q/XkQwGGMh2FcKyZBH7zhxFQ~~/AARGbBA~/mfPwEw0wLP5iuuWZ0Wf=
+YagLl8u5QuAdGQxQtRg1kWQorQl6_cs-Q_7-ZyTPW89HnBimKZQHR47aH21ZkPfrspw~~">
+</body></html>=
+
+--_----ERPXhOqiV+DLMo3YX9NZzw===_E4/A9-25100-591C4CA6--

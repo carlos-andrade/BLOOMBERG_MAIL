@@ -1,0 +1,512 @@
+Received: from BY5PR02MB6739.namprd02.prod.outlook.com (2603:10b6:a03:208::7)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Fri, 2 Oct 2026
+ 19:05:06 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=AXCqgLH5Us60oznonE91YFsSHCNRPNyysj636flO/go+EKBcYFKK5b6bQWKBDSAC7IzzfOjAiW6SMrCygf0WvGRS72Br7y23QoSfq8LcgOZkvLs0fehj9cYnex9+9dYfFoy2pVbFpuE8vX6+22Fe/S+S9uCnIoNxqchJ+hdEAFhGPGBJoGUbn8vPJTBJBci4E2XOC7G3WaWwZrPV/br7Bcf/Ddikt/EgunBznrymHEwM1cazgBrn3Pxc5jy+gkcH4aXkJCv85Xr/QPcdEPm1YQSeULKfNUzH1pUtYJSbyLvDrk0V2ZqGr1V2vLvCMSCtaSVGAN4n7tt4l+Q15azRNw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cubgNkrO1hgMNscUvsoSk1ICPmg2Cwk4dnZZQVwVHsI=;
+ b=a8Ie38OH2R7SAKfEV1mJFJPZH8BKsmlyzrS0NmwmQzTQjpbMzOKWg7Gm497VTy4TozIbHfKR0aG75fNxMtjVHoDrGBSHDV2szuxEAefEkUG6vYoweHtYMdUJt3wfx40dnSHRGlrJ810xZb0rCym+6q2maL/55xeIQJlHV1OcTRKiNmnP8vrzleTUDUD+L6R5tkhsporOetuosN649qEZo0eerCpZUP1I12xXFEGdZXEnrpOH6whLx1xH3b2/ZcWemTNKKfPUA0HpowSzZLaMxr99iQkQVTa7dp3FBxHv+P3HGDR8HMnOY83ylcyvEXS+xMgzbhQDtQijszDINU4nYA==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 74.125.230.76) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=207356vmdwtzr=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from PH8P221CA0006.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::23)
+ by BY5PR02MB6739.namprd02.prod.outlook.com (2603:10b6:a03:208::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 19:05:04 +0000
+Received: from BY1PEPF000264AF.namprd02.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::45) by PH8P221CA0006.outlook.office365.com
+ (2603:10b6:510:2d8::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
+ Oct 2026 19:05:04 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 74.125.230.76) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 74.125.230.76 as permitted sender) receiver=protection.outlook.com;
+ client-ip=74.125.230.76; helo=mail-lr2-f12.google.com; pr=C
+Received: from mail-lr2-f12.google.com (74.125.230.76) by
+ BY1PEPF000264AF.mail.protection.outlook.com (10.167.242.116) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Fri, 2 Oct 2026 19:05:04 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:2E7694B2C8B7707F96CC7D90826920349BBE600610827FD7E5888A59EB5BA535;UpperCasedChecksum:582B0B52F035D434C9B99F4A789294371BF585D4B2FD346513B50099B587AE1A;SizeAsReceived:8673;Count:37
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5da7416f9so1890391fa.2
+        for <carlos-andrade@outlook.com.br>; Fri, 02 Oct 2026 12:05:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1790967903; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=WkX+YJ8B6QLXKKmwpeo66MNn1MX/EJkSjE5Kuu6VBflIAy59tssf977PZQ9Uixde4c
+         /X/e0LPDQ51dOy/AEhVNtQYtngVjJnYaguhR4kXZFP/Zq03Bdji28/reteNsDFq6anaF
+         hpwFAdUpmg8rKoynaU85wHsJi6ZrfCu0/ffe8oWWR2DKkZYA2KEdzUwDSTKJl+jjE+T4
+         7XYsTAMvMFv18c8DUGGbklEaE3C8u2JdyvD1o23mxKUHP3z0G01NZk4/LwNiambPQVcY
+         SBZrWc1juu6edtohi72kAYLQgg3u2TJkCm5NkBR0Ls7vM2g+ATdnn+QuacwWakssJ394
+         nPmA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=cubgNkrO1hgMNscUvsoSk1ICPmg2Cwk4dnZZQVwVHsI=;
+        fh=FKQPqDS9LK6DMFGJqHq9HHmw8rh8GDZzR4TwS2kJ9tU=;
+        b=m58AUinr3PDVHRndn3kkg2PrZcU/6zuXiCY6B0HyLXQwwVExx+aKTMut2YY0qnBgBI
+         l3dMbOLRtcGzI82ToseyrfrnNL/kV+/axhN0K5LxmNE331jTCU7zYDrNyFF1PDpFrMFP
+         6FQA3WdlXKWYdzsuY0Bgyk3p7Yf/GvA5lN2Pl8Nbd7rrOavsed1nWL6henPxD2MavGqe
+         YDepTS3KlE3/mOQGDWN3OcWlKo/XY/RK1R3bvaIV/nXVirhEObY8cE7ZU1uVIedoKRt2
+         moVDeXwXDuWGeFnYzbtykh+FCv0eJfq8ST1ljS/UqSJC0ybT0ofLND1T+D023SdeiZfp
+         Mt3w==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=OfEgLPxy;
+       spf=pass (google.com: domain of msprvs1=207356vmdwtzr=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=207356VmdWtZR=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790967903; x=1791572703;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cubgNkrO1hgMNscUvsoSk1ICPmg2Cwk4dnZZQVwVHsI=;
+        b=GZ7IXgTb7zOTyAQTJrQE1QduWLeUoNzaQsvuqqLSgqDmL8bJ2s/1+xTPSnURB2C/0I
+         t4feennYLyrLym7zMovhtQ37rDh9dOhjc3YqYAYtpvcDctDUosIIU3RIaUAVMByKg6q/
+         q+xRxI4CDBF8ZduIrYvqpBjkBvE29pHRvN/071ZVuTrSDSYYoEAE0W1VKL42Jp44/BHa
+         f0Yp1sy1UDLr6HImPE8gLFtDTOs2bdoadWASw8vyjiLxjbnSLuVnvGj0+3ddi/B1P91u
+         OyT+Hhz/pNbH+ondOFxNk+fcPzTPhil+S6flRlM6gykU6Xk3BqQ9yL7RTdcEerO6o3Vr
+         Eh8w==
+X-Forwarded-Encrypted: i=2; AKwUvBwEGdo+qVx5ZKjER6SK5qU1C+5aTSm6xZTbTZAYkeR9TTslb5v7xZZg6FRfqeC1k6q2OTlv8vIVonhSmiOATw==@outlook.com.br
+X-Gm-Message-State: AFq9FYLMilta7BAPZQSVWO5ZcVCu+XI3eA1lrIGpJaMHyoHY8M9SnJJb
+	6T9sBnVJ8nv0O0Wc9gYNpL3oB7hgY1D4UXvTQAV/kzEyj1rj2pkFaayM5mWOhlhloK0neDrN5TK
+	IvFn6GGLGk+hLW9OxXMwC8t4xEKsWbybmH5Ryn3Jhyqwr7U7Cfy4Z7qUEdFHUkA==
+X-Received: by 2002:a05:6402:360a:b0:6a9:d0f0:69a0 with SMTP id 4fb4d7f45d1cf-6af9e2c1a0bmr2384621a12.11.1790964324171;
+        Fri, 02 Oct 2026 11:05:24 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a05:6400:5beb:b0:2e4:958:a16b with SMTP id jj43csp865651ecb;
+        Fri, 2 Oct 2026 11:05:19 -0700 (PDT)
+X-Received: by 2002:a05:6820:1626:b0:6ca:4a52:798d with SMTP id 006d021491bc7-6e09d7ae51fmr65449eaf.28.1790964318734;
+        Fri, 02 Oct 2026 11:05:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790964318; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SuVAWUflvRUNPS0KjbyqvbGqUPrM+xhTjAPmcA6YrlkMOks2WiFAooqvxnJj4xqRuk
+         9lbnPslDSk/xVdYadA+favZdsXXSoPmhQV7KM/qTpcjoBqluHvdFg9dTwpagVg7AlTU6
+         f9C5fODJnsr/Z26vtXDrHLuUqZoY8LOy21t7MYEyZ/Dta+Q/Ic6o+9JCKlVhPjpFHuub
+         fEkKl4NkJCPQxxw+qvZ8EUTR55/UTY8WDRLE4FGyIvdDn3Hrh3o93rlmzl50mA4t3yQu
+         koluIWii95y1bWJ4kUN165Oe8bTSQIj7rF5ygvC+LbTmsZPp7euP4SS3alWWGTyYTZND
+         z0Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=cubgNkrO1hgMNscUvsoSk1ICPmg2Cwk4dnZZQVwVHsI=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=QkVh9yQrqBk7/KAh601q9oLHRGQ8I3U52xQQSNTYSysxVkxLnn485qITSxeJI0FdZJ
+         ZmkpeVfJnvzcoJMiJq9HMhsJQz6ROxx4274GejPqJXkpB2h6XZjTdsXWycy+gR2pEaOv
+         HyWB6zGOJnulrOrjp23xJXXHmeejDT70zDRMMPiuVgaKpyAw65H0eXA6SBMaZXbVigze
+         8uaIcMSSWxI4b1Yzm+pSjP/v/OD7ZQN1bO8BhFSsA67KRuXx83iA42yzh2sX7L+7Unt7
+         isMF4KL+j5A1R6HA6jsVPvRWrEVCNdq9t+Dp9DsdJbL9g1giWroUN29kq1WzqTkzj4bz
+         RnQg==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=OfEgLPxy;
+       spf=pass (google.com: domain of msprvs1=207356vmdwtzr=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=207356VmdWtZR=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-19.sparkpostmail.com (mta-203-32-19.sparkpostmail.com. [168.203.32.19])
+        by mx.google.com with ESMTPS id 586e51a60fabf-49e1701a080si4898827fac.269.2026.10.02.11.05.17
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 02 Oct 2026 11:05:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=207356vmdwtzr=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) client-ip=168.203.32.19;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=OfEgLPxy;
+       spf=pass (google.com: domain of
+ msprvs1=207356vmdwtzr=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.19 as permitted sender)
+ smtp.mailfrom="msprvs1=207356VmdWtZR=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: d/gJA2HJ1KtB49GA4kvgK6Osz8iQC9nNOd5mYDXG01s=|eyJyIjoiY2FybG9zYW5
+	kcmFkZW5hQGdtYWlsLmNvbSIsImN1c3RvbWVyX2lkIjoiMjgwMTcyIiwic3ViYWN
+	jb3VudF9pZCI6IjE3ODEiLCJtZXNzYWdlX2lkIjoiNmFiZjU4ZjJiZjZhZTc3YTd
+	hNDUiLCJ0ZW5hbnRfaWQiOiJzcGMifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1790964312; i=@news.bloomberg.com;
+	bh=cubgNkrO1hgMNscUvsoSk1ICPmg2Cwk4dnZZQVwVHsI=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=OfEgLPxy5T7mdi4pn4XaKA0XiY3U+wYNmC94S4q22aCJILlnMfNNWOT1cQmdqBKXI
+	 WLHWG6jEAS739eUxCLIPjOvrEzmTqpKkubi9jrIsydcl+UgufvJ55qrURi0OoXCeOf
+	 4RGebXUxcR5KEHqHiI8z1ErKNRwDi6InCUVicA/NLAPTkdAg+4wb48OC3aDtXeBs1c
+	 wERtqaBl14qJofr4kR1hSzDK72A+wn2+0v/tAN1YNvfV9WVpGVitfF18hgmkTyRYCl
+	 zv/stsY9QRfMOFjefBuSusCCiySDJOZyg/WnlqDkc2IcTnkY6z/A9fmRaQF8x3LEBH
+	 0F464HOkBflzg==
+Received: from [10.90.24.239] ([10.90.24.239])
+	by i-0ca98205d5d7f3c4f.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76435 r(msys-ecelerity:tags/5.3.0.19)) with REST
+	id 54/A7-16864-852FFBA6; Fri, 02 Oct 2026 18:05:12 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <54.A7.16864.852FFBA6@i-0ca98205d5d7f3c4f.mta1vrest.sd.prd.sparkpost>
+Date: Fri, 02 Oct 2026 18:05:12 +0000
+Content-Type: multipart/alternative; boundary="_----XVooKTqUiHD+CVJkYNUx4w===_E3/A7-16864-852FFBA6"
+X-Campaign-ID: 20179460
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20179460+26628092@unsubscribe.iterable.com>
+X-Message-ID: bee5ccf05db7401fa93273460a2af57c
+X-Feedback-ID: 26628092:20179460:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Money Stuff: The Podcast: Reintegration WIth the Default World
+From: "Matt Levine" <noreply@news.bloomberg.com>
+Feedback-ID: 26628092:20179460:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 02 Oct 2026 19:05:04.5529
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 7e3d60da-f8ee-4454-4efc-08df20b81142
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264AF:EE_|BY5PR02MB6739:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: BY1PEPF000264AF.namprd02.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/2/2026 7:02:32 PM
+X-MS-Office365-Filtering-Correlation-Id: 7e3d60da-f8ee-4454-4efc-08df20b81142
+X-Sender-IP: 74.125.230.76
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|32080799009|3069299007|2120399003|4149299006|9020799019|36140799009|260928210016899003|35120799009|5139299004|68400799013|260826003000599003|1680799066|9400799043|9000799056|10300799038|3600799018|56899033|1380799030|440099028|4302099013|3412199025|1370799030|1360799030|1602099012|30041999003|2607281247196008|2406899039|6406899015;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:05:04.5137
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e3d60da-f8ee-4454-4efc-08df20b81142
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264AF.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR02MB6739
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.0095814
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bWQ4MHk0MFpRcHJZVHpzOER1bnJmQnJqVS9FRVBVQThVUUtDRDZIN0F3ZTBr?=
+ =?utf-8?B?Y3dsVG8reDUwL3FtWnllczVPQ3F5R2pDZGljV3ZKSHQxSXMzUTJZaU5EaGJp?=
+ =?utf-8?B?RDZEMjNpLzZ2c0xrekl1bzVMWVArTXBHQnlhbHZ1aTNHRFFQYXc4WU1tVENn?=
+ =?utf-8?B?MDhGYlpJQTFCR012SFRoZjBjTnVFUHJtazRtd0hzam9CM25Ibm9ub0VEWWtD?=
+ =?utf-8?B?MjQyL2labC9yY0ZMOFBwQzJVM3JCZzZleWNaVkVWZXova2RqbU1tMHhjYW1s?=
+ =?utf-8?B?TkNmVkV0ZjhMalMxYW9rWlRaRXpaaTduSEhJRGFXQ0ZzRHBuQjFheDlyT2NW?=
+ =?utf-8?B?cXFCMzlQVzhrM0xJelhGZDRwdXhCRndtTjlBVHF0dlMrR3JqcHZjbUxWZXJR?=
+ =?utf-8?B?VEhaZ1ZjdWFNRG9Cbko4Ky9rditZK0pDcUFwaC9tQUNLMFFoNTFQN3lTRlFR?=
+ =?utf-8?B?WmQrWktpOTY2TkI3dG9MOWcxeHFkVFlwS3ZTb0pZS0s5QmpwUER4VnV1WmIr?=
+ =?utf-8?B?N1dWVTNDa2VRdVQ0YmxsY3B2LzRLRFV0Nms5c1dacGtSN0QydjJrUHBYZEU3?=
+ =?utf-8?B?S0c2SmdTbGo4RWdUU1ZlMUl6Z2NMQyt2S3BWQ3g0MnRUK3I5Y2gzR2JFclgr?=
+ =?utf-8?B?UUE5NW8ySnF2VEJVQXcxZmhRRVkyNXlkVG9WWEFBZUUrcnNYYmdiM0ZWcDdW?=
+ =?utf-8?B?eVNzTzJaOUJOcVJsMTF5cm5pamVjcnZnWjk4aWVnWWlnMFJsL05UaFJHZW52?=
+ =?utf-8?B?WjFMWklRS3QwcS90QWg4N2lkbUdHa3dIaVBsZVFxQnMrcUJSTE9PVFJZUHp4?=
+ =?utf-8?B?bjcxc2loc2k4L0lzcU9qOGhpTUtpczkrY3hzS0dMWmEvTEhRVjJpZ0NtYmE3?=
+ =?utf-8?B?OFdvcUJ0Y25KYU1rV1RGQkE1LzZubGhZc3grVUdUVzJ0cnJOL1NxQWJtYjN3?=
+ =?utf-8?B?S0dxRjBMV1RIbFdkZXZyMGNvZWF5RVlicUtrVE5nK0pDblcyVVJmSGZQR2d6?=
+ =?utf-8?B?ZWxlQTdJaEdJNy9NbjJ3ZmlPU05DU2lyVnY0S2Y2N0tBU0ZQT0poNStuL1Iw?=
+ =?utf-8?B?WTdZdVBMbVZDOTVadU14R1pndnBqaHdOZU1jVmk3NkJWWWZFdXNEQlNqbTUx?=
+ =?utf-8?B?ZXZ6Wmd0RXBHNjBteTNaOUFhcy8xb1dEN0FYVk1KY2hVdnNnNi9za2wycVpJ?=
+ =?utf-8?B?aHRmaVI1Njl2MUdYak04M3JwRWRvSXJaQlgvTFJkbU53bGZaMVkrRlQybnk3?=
+ =?utf-8?B?cjhMZURqeTFkMSt4Q2kvejE4NkNHcXlDZTVoQXVSRVZld29oUlpUdUw5d09l?=
+ =?utf-8?B?REx5ZHRlK1BJZ29YR2grMTB4ZnNqTXE0ZFM4ZklLWDNsaEl2QnVxcDhtUGpu?=
+ =?utf-8?B?Y1JLU2szY3hRQURaZHlDMUJMMFpONE9KY0E2eTVCeFFMQ0FQdjhudzJQZlRv?=
+ =?utf-8?B?OFNaODljcFIrUG5kdDQxbFhpSytOU3JjZGdoNGJYQkMvZWFHbXUxdWlBK3cw?=
+ =?utf-8?B?T1AxOGFnUGhGSEt5enhMRUxTUnYyUitzNUswYjNSb3EybE1kR2kzS1N0dENw?=
+ =?utf-8?B?em94L3BMZjRjejFuWE4wT2FvSnFmZWhYTlhwd0s1blE2K2JSQTFHYWYzZmtJ?=
+ =?utf-8?B?MURwSDYyc1U0YzNuSzhQQmR3MjZ6V242YjJZN1AyUngxK0syRktnRXdPRkw5?=
+ =?utf-8?B?ODJ4YktnaG1NNDlJTHkxQlpvSGF1MmVKK0JDbmJzcDI3am9WQUZtZWtjQndT?=
+ =?utf-8?B?QW0rVzN6TGF6YlYzNCtOL3J2VEtxejdUdUNrdnpwekdncWYxL1g3RXpQMmw5?=
+ =?utf-8?B?OU1BWmx3c29Ialp3d1JBUDRKSnNVVTZVY3dVNmFWMi82M2VqdjRLS0xiK29h?=
+ =?utf-8?B?NEl0N3l4NzRCZkh3Zzk4c1Exb2lTRHRld3UvR3kza1lRajk5SXlxRzhFMjlM?=
+ =?utf-8?B?MXpHMmMxdHBSekp6YlpLWjV0UTRFdnMzaytxbmZKOHdKb1BsWG5mSXdVRmlz?=
+ =?utf-8?B?dWVXT0ZuRmlRaVFoeGxKTHZuU3RRNGxoVmpmYTNFdTlKQjM5WnROV1JIYkVE?=
+ =?utf-8?B?VzJXcllFbFdrK0ZOeDMrVFBGd1lYeS8wK09vRitZbGdwQWNKbEcyWnhLMjcw?=
+ =?utf-8?B?Ymw3N2NFNmRnUkFxZTlndDB1WCtyNTJLL3E4aHlqeEFiTnArK0dEd1c2U2lp?=
+ =?utf-8?B?RzhheUdVeVVKd0tOTHoweTFNdmJBRVBienJReDdEWmFDek9oeVRudllPUHh1?=
+ =?utf-8?B?djFVdWN2U1hKaGphZTRENk5tQTdySUZxTmkzQ1JrQ2pYb3BxZkkzNnNCT0hr?=
+ =?utf-8?B?TkNTRHVZOHNyQjhWZGZwMWl3L3hkN1ZBOVNKODh5R0xCUTNRaGY0emo0Unpx?=
+ =?utf-8?B?MGsvcW1zaXZxWktUS1N4U3gwbzY4M0d4NWVIcmpLcldveUNvb1laNE9yWGRo?=
+ =?utf-8?B?Y0tMWWMxVytJZEluc1UvejNjblNIM0U2RnE5OTFmclBPVjVqMlU1UlpMQWNo?=
+ =?utf-8?B?ZWJMVGx4ejk0TmFGVHN6OFZoQUlKcEJlMG5oQmhCc0lUdkxPZzM5Qkhjc0VE?=
+ =?utf-8?B?ZXh2VFo3d29DS0ZZN1ErdHNIaXB0UTVwYnJla2dhZmFtbDZwTWtTUFA3VHhS?=
+ =?utf-8?B?d3lueWdTTFpmQ0RXcnBiWGpLZFB2Y3FpVWlqdjFCZVBnSTRmOUovT2YrRmht?=
+ =?utf-8?B?TE1rdlE1eXJlS0JvSjQ5RVpOWEg4TkZmZTJuNDZHTUlzZ1JKRmxIUDR0L2l4?=
+ =?utf-8?B?Z3c0cEJHSXpaVHZsY28xckN6SncxZkpqR1JkSGVDQVR4aTlwV2VCT3JxSThp?=
+ =?utf-8?Q?qJ5FoyrBfi+RZbkll5cIBGS+p/hLKaIYkuo17iy6O0?=
+MIME-Version: 1.0
+
+--_----XVooKTqUiHD+CVJkYNUx4w===_E3/A7-16864-852FFBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Money Stuff =0A This week=E2=80=99s episode of the Money Stuff podcast is o=
+ut now. I=E2=80=99m again joined =0Aby guest co-host Mary Childs, of Mary i=
+n America. We discuss Bab =0A=0A=0A <https://bloom.bg/4xRhgu9> =0A=0A=0A=0A=
+Podcast=0A=0AThis week=E2=80=99s episode of the Money Stuff podcast is out =
+now. I=E2=80=99m again joined by =0Aguest co-host Mary Childs, ofMary in Am=
+erica <https://bloom.bg/47256Uq>. We =0Adiscuss Baby Stuff: The Podcast, 35=
+1 exchange ETFs, substance over form, =0Aagentic bank runs, doing things fo=
+r points, getting the Burn you need, seizing =0Acontrol of the company Slac=
+k, cotton market manipulation, paperwork and =0Apotential securities-fraud =
+liability for destroying humanity. You can listen to =0Athis week=E2=80=99s=
+ episodehere <https://bloom.bg/4nhTnYV>:=0A=0AYou can get Money Stuff: The =
+Podcast <https://bloom.bg/4nhTnYV> at Apple, =0ASpotify or wherever you get=
+ your podcasts. We=E2=80=99d love your feedback. You can =0Aemail us atmone=
+ypod@bloomberg.net <mailto:moneypod@bloomberg.net>.=0A=0A=0AFollow Us  <htt=
+ps://bloom.bg/4nqVBoU>  <https://bloom.bg/4k7tEj3>  =0A<https://bloom.bg/3Z=
+Ty0mC>  Get the newsletter  <https://bloom.bg/41HS7pA> =0A=0A You received =
+this message because you are subscribed to Bloomberg's Money =0AStuff newsl=
+etter. =0AUnsubscribe =0A<https://www.bloomberg.com/account/newsletters/mon=
+ey-stuff=3Fsource=3Dnewsletter_unsub&email=3Dcarlosandradena@gmail.com&hash=
+=3D6e1e8750b026b2c4a755c098730d24d74ddad9f4>=0A |Bloomberg.com <https://blo=
+om.bg/41BzmUH> | Contact Us =0A<https://bloom.bg/3PWd74F> =0ABloomberg L.P.=
+ 731 Lexington, New York, NY, 10022  =0A<https://links.message.bloomberg.co=
+m/s/eh/WD-IZb_Gqt9dSq7ilSH2C_499soiGBGwDhldldQJNy3jnt6xWhJAU94EL1jHhK9HGpg_=
+5CzCZIqYhf8Dlo4OmKGqchJLgQOTcZkWHTxD15nWunOXLndUhjvQmmbyH_8IXpPQTJPyi32DSr7=
+Kju-STkU1IJDdFZewOsKpD51V0vQtWy4TwKFeUS6yAaVpE9vOpa_YDrtAvnhqyEMybKBy8GJXcZ=
+yWw23DxoHlZf2_oGMYNiF02S_P8Vfmt2cyrL8b04DjmbY6-LR9yyAhBFlWDVV7zmdPpO289BVsd=
+uIXh1k2fC-eKTTrknStCJqaKQwwPW65YGyVxInrfLeNyYnDExfAM_By1pJOVmA/eaTeiJ-iGnNQ=
+s8nVj-12UU8iZITpIAyz/25>
+--_----XVooKTqUiHD+CVJkYNUx4w===_E3/A7-16864-852FFBA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml" style=3D"width: 100%;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"> <=
+meta name=3D"viewport" content=3D"initial-scale=3D1"> <title>Money Stuff</t=
+itle> <!--[if (mso)|(mso 16)]><style type=3D"text/css">a{text-decoration:no=
+ne}</style><![endif]--> <style>body{width:100%;-webkit-font-smoothing:antia=
+liased;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:15=
+0%;margin:0;padding:0}img{max-width:550px}.body-component a:visited{color:#=
+000;text-decoration:none!important;border-bottom:1px solid #000;background-=
+color:#ccc}.body-component h1 a:visited{text-decoration:none;color:#000}@me=
+dia only screen and (max-width:480px){.lihide{display:none!important}.lisho=
+w{display:block!important;width:auto!important;overflow:visible!important;f=
+loat:none!important;max-height:inherit!important;line-height:inherit!import=
+ant}.email-ssl-image{width:100%!important;height:auto!important}.body-image=
+ img{width:100%!important}.logo-image{width:100%!important}}</style></head>=
+ <body style=3D"width: 100%; -webkit-font-smoothing: antialiased; font-fami=
+ly: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%; margi=
+n: 0; padding: 0;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/mFqClez=
+u7ZITpmsr0EZfYA~~/AARGbBA~/zT70LbdxRZe03MEaFiMOY7sgVQ6HBvI_Mo2eHTGgKVpwTrS0=
+LGpz_XTM9xSTsAXS4fTn33tSg7BYlXUIY-0ckw~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/cwrX_QgbALfE7tPinnevOIxMLTaGxpT-MrFhPxvs_HgSX-QGlmUrcpoaO0fz=
+CM1QUZSkV1fMsLOIUdPI6DkrNk8B7bYx8_uZo16A9dXFRXpGGKhaHzbOT6qOw9ccAGCJlFW2EWi=
+3aPj4fHps5vokGgv8Rv9sliicVkqF0Nzw0MvRM6EVD1mhDgM9Bwz1C1ZxUGPYET0OnG-RLDmg0B=
+AG-cgAyOwtzIzjoaCr/09Z8gXewl-Wy2AosTDZey7-SF9M7-fTD/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"> <table id=3D"wrapper" width=
+=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ style=3D"-webkit-font-smoothing: antialiased; font-family: Helvetica, Aria=
+l, sans-serif; font-size: 16px; max-width: 550px; width: 100% !important;">=
+ <!--[if mso]><center> <tr><td> <table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"550"><![endif]--> <tr> <td style=3D"border-collapse: =
+collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <div style=3D"dis=
+play: none; max-height: 0px; overflow: hidden;"> This week=E2=80=99s episod=
+e of the Money Stuff podcast is out now. I=E2=80=99m again joined by guest =
+co-host Mary Childs, of Mary in America. We discuss Bab </div> </td> </tr> =
+<tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-tab=
+le-rspace: 0pt; padding-bottom: 15px;"> <table width=3D"100%" border=3D"0" =
+cellspacing=3D"0" cellpadding=3D"0"> <tr> <td align=3D"center" style=3D"bor=
+der-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; paddi=
+ng: 20px 0px 10px;"> </td> </tr> <tr> <td align=3D"center" style=3D"border-=
+collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-b=
+ottom: 5px;"> <a href=3D"https://links.message.bloomberg.com/s/c/0KCVbGT6eD=
+wn3sS8dHPEBBfO3ynUdm7Px9vaGLPQ1RrRBz_UnxFdu6nB_qYTe139s4ISpZSnbU-HlF3KmkQ93=
+ODgZF_tPCYeJnRe5L2lSIYwa7NPmK-t5-ZHs3UHRxQHWpxX-_T8OeMePLqgkoMz9j8ULcxYWdQ4=
+Ail66kKzGmQEF4NUMXMrIXecLQ9M0-usVVMDBRzfA3DiIQqGRpwCningB_aCRYSPQkSAH8yylph=
+VOoG4_p-YaAES7XCA5mhjbB2KDwEzwZDa3Qku0wMayGoa9BuzP1mb69Vx34d6HlwNjHmEb5vXXW=
+LnpQ_3lwDsP1E8myevpmNplqbtI8P464EriKjn1E_xwY5JcFLyxUT5LUSH9c-IYPpyIA/Wmo6mK=
+Fx3iwMniuxlIXfhijfk5-EByHQ/25"><!--[if mso]><table width=3D"550"><tr><td><i=
+mg alt=3D"Bloomberg" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxI=
+U/iNRFZUq6PpLs/v0/-1x-1.png" width=3D"550"/></td></tr></table> <div style=
+=3D"display:none"><![endif]--><img class=3D"logo-image" src=3D"https://asse=
+ts.bwbx.io/images/users/iqjWHBFdfxIU/iNRFZUq6PpLs/v0/-1x-1.png" border=3D"0=
+" alt=3D"Bloomberg" style=3D"max-width: 550px; width: 530px; display: block=
+;" width=3D"530"><!--[if mso]></div><![endif]--></a> </td> </tr> </table> <=
+/td> </tr> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt;"> <table width=3D"100%" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-=
+table-lspace: 0pt; mso-table-rspace: 0pt; line-height: 150%; padding: 0 10p=
+x;"> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"=
+> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family: &quot;Aria=
+l Black&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1px; font-siz=
+e: 20px; border-bottom-width: 1px; border-bottom-style: dotted; margin: 0px=
+; padding: 16px 0px 5px;">Podcast</h2> </td> </tr> </table><p style=3D"marg=
+in: 16px 0;">This week=E2=80=99s episode of the Money Stuff podcast is out =
+now. I=E2=80=99m again joined by guest co-host Mary Childs, of&nbsp;<a href=
+=3D"https://links.message.bloomberg.com/s/c/HlSaMzw_90yrYZFKDlNRp773eT5kD9k=
+8nps1QcjcuhvGYrW5drTrC3_LqoYvhfntpCG0aRO8B8a85NPYymvjtblEdATYqG_A8HmoVTRDmd=
+w0kWnfHVJf8qWouvD7L821rsskmvj5OazCoXZRUkBWmVuy0ImNdOe0UBI0Y41EZbgplLqxzxOT5=
+fAUsxosV8h3GnP4tSXQsuEAu0CdUUqu2tkpMNF6bIjJhy4v_MPhtn7sPYCNcVUtdBIcZJ3kOcTh=
+rec-K1qO9PAsCUNBTmv08ptGF0yQ66ZYonMMwEw5zKY4QfbSJ7mhfhqE6ggAskB4gRDlvFAi4BQ=
+S9mIteUz7fKxa5uV0PqIcGYoto9KlcN6TPCxqt5rTnhP6uA/2RDjDVRD9JfUc_elRPmgpc9kuJR=
+iBvnH/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" =
+style=3D"color: #000000; text-decoration: none !important; border-bottom-wi=
+dth: 1px; border-bottom-color: #000000; border-bottom-style: solid; backgro=
+und-color: #ccc;">Mary in America</a>. We discuss Baby Stuff: The Podcast, =
+351 exchange ETFs, substance over form, agentic bank runs, doing things for=
+ points, getting the Burn you need, seizing control of the company Slack, c=
+otton market manipulation, paperwork and potential securities-fraud liabili=
+ty for destroying humanity. You can listen to this week=E2=80=99s episode <=
+a href=3D"https://links.message.bloomberg.com/s/c/bfioNrAWE9LGr3MAdZOz2VGLZ=
+Hd4BLvyK8q9VxG0AiCd5VlmO6H6ZzwOY0dzF9qCDFyD_D2hrRsF6a5uQQWJrF1OEyRi1Li15jw3=
+wLO8LRYxHtvnN5Dn-b6o7N9kcWVXHct00smFEsqfTsjTHvoCCky6mYIp7KLpo4JsHkXoyfqkInu=
+yoKuS6rDcMHJtWGM4aqTYZZsEaxtE8Dnc4MaiNNhGLtW3nvTOKOCHzxb8LGfnvyC3g8Svsc2Fe5=
+qFbBI_7nQfLriNBqRkvAGBR4qbzdJg4SlA51bzUTKNibo4IOS38OzXnTtLTaxsBCSP42vP16b1v=
+CsOkhl_0FfIfDBL1SzWWju3dcX8zpebfaYMgq-2Nu58dMFSiGiLaw/eG9fipNO45U4CjCIv8hOP=
+127TmLQrGl9/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_b=
+lank" style=3D"color: #000000; text-decoration: none !important; border-bot=
+tom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; b=
+ackground-color: #ccc;">here</a>:</p><div class=3D"body-image" style=3D"mar=
+gin: 20px 0px;"> <!--[if mso]><table width=3D"550"><tr><td><img alt=3D"" sr=
+c=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ih0XijC1znFA/v0/-1x-1=
+.png" width=3D"550"/></td></tr></table> <div style=3D"display:none"><![endi=
+f]--><img alt=3D"" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/=
+ih0XijC1znFA/v0/-1x-1.png" style=3D"max-width: 550px; display: block; width=
+: 530px; margin-top: 20px;" width=3D"530"><!--[if mso]></div><![endif]--> <=
+/div><p style=3D"margin: 16px 0;">You can get <a href=3D"https://links.mess=
+age.bloomberg.com/s/c/GQ_29UdflRfr6ZKCgggh1mUesHzp8qLUf6LO6gIIGzBYvBMiwxoR9=
+ap9HI4Aol-dEsB32AS7-77qPp8rbDVz0dRIUr7vD7p0Xll5Uum31ja7MFSagPBQt4FxEpc8_X69=
+Js5dKDXSdChgTXICWyKmRnovjCEIyf5TukXbWJ87MR8sYCAIexQRReMh8Mrqamc7p_OsXYee-OH=
+VZtSugEwjF2bhUSTN6d2Co4Zqgwq_1cR9AeotA5CeMJ72hDeGUrICCQeG79NAIC1xdKNTJXMXmj=
+dKUFqFUozzVKGEL59AZ8hf41St6KRf-YjW-QRrqpPj9yhWoHum4-izObEDs2Iry3zeC_0Kn4wdd=
+aNVGXajE6287Vqdn7F-qVx-Qw/ft0iz0IIoTZOis4cdPR4Zyu8qfhrogF9/25" itemprop=3D"=
+StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #00000=
+0; text-decoration: none !important; border-bottom-width: 1px; border-botto=
+m-color: #000000; border-bottom-style: solid; background-color: #ccc;">Mone=
+y Stuff: The Podcast</a>&nbsp;at Apple, Spotify or wherever you get your po=
+dcasts.&nbsp;We=E2=80=99d love your feedback. You can email us at <a href=
+=3D"mailto:moneypod@bloomberg.net" target=3D"_blank" style=3D"color: #00000=
+0; text-decoration: none !important; border-bottom-width: 1px; border-botto=
+m-color: #000000; border-bottom-style: solid; background-color: #ccc;">mone=
+ypod@bloomberg.net</a>.</p> </td> </tr> </table> </td> </tr> <tr> <td style=
+=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+; padding: 20px 10px;"> <table width=3D"100%" style=3D"width: 100%;"> <tr> =
+<td style=3D"border-top-width: 1px; border-top-style: dotted; border-bottom=
+-width: 1px; border-bottom-style: dotted; border-collapse: collapse; mso-ta=
+ble-lspace: 0pt; mso-table-rspace: 0pt; text-transform: uppercase; font-fam=
+ily: Arial; font-size: 12px; font-weight: normal; font-style: normal; font-=
+stretch: normal; line-height: 1.17; letter-spacing: normal; padding: 9px 0;=
+"> <span style=3D"margin-right: 4px; vertical-align: middle;">Follow Us</sp=
+an> <a href=3D"https://links.message.bloomberg.com/s/c/JOEEpS2CsDO_qGJU2_Qe=
+9kZ-Ud2eTpyaHRmTy9y76gGcBhTa78VB9jdcXVjZdaXLsvokOGDGRwCfBllYkJeA0tMq4GfE2k0=
+9Gl5rMeRCzloqlabeTEOZ8RcCh3H02bGVZqdXfZLNJnsm7oFTLyM1srAhp-VGadF7Pl4Wpj5fC3=
+EHT8w9bi6oTfbxgo6qO-TU_3PibtXIB6eaSD1RwA8yD3uQGaURqf6rvsxB7I-zEg-vTDZtJwVJZ=
+MNLx6VcAraWMxz4gWBX59ldrDsz8heFijoaV6NUpvynQ7BdMQrhB-Apyj9dNYLGGLKWbbfzFFbe=
+f00Tr-UPHy4DAEZUhjSeFsU-OF-X_tKN6eU1m--pNDxL8JvaDtxVJjJhVQ/qS6PqRCS6f3l5Sxb=
+QiFfxIvsxhGnGHnW/25" style=3D"text-decoration: none; color: #000;"> <img sr=
+c=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i7G4HOaCfw0A/v0/-1x-1=
+.png" width=3D"20 !important" height=3D"20 !important" style=3D"max-width: =
+550px; vertical-align: middle; width: 20px !important; height: 20px !import=
+ant;"> </a> <a href=3D"https://links.message.bloomberg.com/s/c/vTK3lO9OjXgM=
+-h3RNPjIr2BA0TQSaORBViu9YMxbzpCZ9zi6O1kZ4oslOkde9KWPgYgZaCu2x28tPnWc5I3YWG9=
+EYuEvNui5loykc1JYLrqe5nxwLqpiVJ4exC29qy04Xu9WNPvZkyw6MoXDAvXRoPGifpHuv9nTEv=
+gExN_2d9ZOBM3mnDYVch3L57pZ8Z6cEBN7MXcayoSQSzIdnnGkhyGmQ8jvhcG1tr0ZKdRzkgPDy=
+9VclX9RmdDRxbTZWozu8-5X9hXdLVKgjrXytXyGm7BDcoZRbaxeetr4-fkmeiGhuigAOMBhe_mh=
+HQpZzrowA6EyJlUy71GEnvztWrJxBq4Qj-MuouQk7TVRLQNPmHDvpzX7dPl_IYARcQ/bM6rlSPn=
+IR2TSSa4Oeopu1MU2UrOJZL8/25" style=3D"text-decoration: none; color: #000;">=
+ <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iDRduxloBOSA/=
+v0/-1x-1.png" width=3D"20 !important" height=3D"20 !important" style=3D"max=
+-width: 550px; vertical-align: middle; width: 20px !important; height: 20px=
+ !important;"> </a> <a href=3D"https://links.message.bloomberg.com/s/c/9rzl=
+a-d8Htx5CPrDPuJclBDubSEcRka_4jVj95LbJeIefYZN-_G1HV1whnHAKh8_y6P8Ea_r4nA2WL_=
+W4bzhO0KF1bHJ_EvIQha6c_q-MZpgvkBne4WDRVpknsm2kuDEzwqB1mGkFgdUhDeaJQRuO8h5WF=
+b0czDsRIJgHOoMpnAvPKGAZ3EC4KQ8xMQQGu3Fh-Dww_4qBMbifX4zuXtTUj3Jf_SW3LqhInNRz=
+FpdxB45O4OLqpMFrhFBzqE8ZXTdqvjlq13zIpUIe0zuR5AarET7BSXZp8BtpxbQ322GEkKdqx5Q=
+0KS88Mw5UZC3H_RT__h2X_pBPl3ZLpj3bdKQ5RxDTJVcdonfBmBZGKHN42hCNTnE1UwhwtzXtA/=
+awKN1vpN3g_4qGcKr2DjOON6buKgFWAt/25" style=3D"text-decoration: none; color:=
+ #000;"> <img src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i5QE5=
+__h22bE/v0/-1x-1.png" width=3D"20 !important" height=3D"20 !important" styl=
+e=3D"max-width: 550px; vertical-align: middle; width: 20px !important; heig=
+ht: 20px !important;"> </a> </td> <td style=3D"border-collapse: collapse; m=
+so-table-lspace: 0pt; mso-table-rspace: 0pt; text-transform: uppercase; fon=
+t-family: Arial; font-size: 12px; font-weight: normal; font-style: normal; =
+font-stretch: normal; line-height: 1.17; letter-spacing: normal; padding: 9=
+px 0 9px 3px;"></td> <td style=3D"border-top-width: 1px; border-top-style: =
+dotted; border-bottom-width: 1px; border-bottom-style: dotted; border-colla=
+pse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-transform=
+: uppercase; font-family: Arial; font-size: 12px; font-weight: normal; font=
+-style: normal; font-stretch: normal; line-height: 1.17; letter-spacing: no=
+rmal; padding: 9px 0;"> <a href=3D"https://links.message.bloomberg.com/s/c/=
+O5fGFjJi9jdNzyD7HIBbSx_u0OTdABAAH4iT-KdaHTYiCifvGjLitA3xQjBPTB8C1kvPEQWb5FR=
+QlZJqsWuykpRwAssCHM9jGzs-N8JeYGHLuXhl7zeXR-U5lvpxzZAl8xlnyWIUzL-nscOrcLUdOD=
+v1YugY7mrJcXnmjsQce4D_CHnOfoEOYiOKXtRHfzge2UQlyAoUwTvX-kB7nyS4XqJkUtGEAz52Y=
+6OuGOB5nMCs0GXHF5ifQyoRNYrlzcvaAbd-Ij7ib1ozCoI85Hpxr6_GvUvmvXjbJTdErK8UzCMs=
+N0cQ0rmtb0ezIZEZfXY8ZYDitsnD1M5-QfXnln3bSPHOgg1FHdm8TyIB0kwhnFX4_THHmwwPmLZ=
+48w/Xvku6cNYvrvuGhn11ZTF1K9H6AhZ1pbD/25" style=3D"text-decoration: none; co=
+lor: #000;"> Get the newsletter </a> </td> </tr> </table> </td> </tr> <tr> =
+<td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rs=
+pace: 0pt; padding: 0px 10px;"> <table width=3D"100%" align=3D"center" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0"> <tr> <td align=3D"center" sty=
+le=3D"font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #6=
+66666; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: =
+0pt; padding: 20px 0px 10px;"> You received this message because you are su=
+bscribed to Bloomberg's Money Stuff newsletter.</td> </tr> <tr> <td align=
+=3D"center" style=3D"font-size: 13px; font-family: Helvetica, Arial, sans-s=
+erif; color: #666666; border-collapse: collapse; mso-table-lspace: 0pt; mso=
+-table-rspace: 0pt;"><a href=3D"https://links.message.bloomberg.com/a/sc/bA=
+UhwaGrz0ue3htVAJG_JTJVWDKUUuj_jU5LYjoeSi8GjNb2Sbw0c1b1hHdmJMI9TSfpxCupxgaL_=
+rG2Y0pqCLlLYjHqQC4EykEEUTbT60RfZIipeyLLxokSHgFQMusu4tojwCDVivRyxAO9lYNAXrVp=
+glztCWzOaKs-kLYbeDrt7okTixXkEL47ImeVQ_i0ENbhgBtWKWspmzkapGxii32qc0Q6lRcN8Un=
+nQA0PibrodROy09sgNhzKlna-J9907H_ZWQIfShBHcAKZKcIaReikfm7KPTX5bq3V0DmJWsqaDf=
+ajraBZlK4o8ktt6RZNUELjsPBVGxoku74AN8RWEyQYxaye_hGG7A0r713aksos6XQNjefHE-n6t=
+f3vWMsET6efAkffYhi5tLpV_SBLLE5Q8S4iFgan4crvlvV_kIPnaJECWMChHJ2HF5DhPFtpNX3O=
+MI87bpJp7c0X5cMT_WE9XXrwHKfqF_DFlsYt2ms3vSpM9Ll_XIfsH5mp3nBOxVYa7cmZ_yNfutW=
+-ft5nAvIeYeQETm1gYUpGvXrjoOwYSns-p2jKZrH34WuFs7XGDjyOjoMHvrR4gaO22VDUuNYOJb=
+qq_WOyjSXQvJBnK-WGhoLxSDxojEcpERqyZrtVnb6mHeirKIRwdSqjGAhytMChHt2M3qsWRl9VL=
+RG6WDTbj1h3e55736oM/GCYiu01RLhRj13H2jP3vx3Kbu8N5bBOU/25" style=3D"color: #6=
+66666; text-decoration: none;" alias=3D"Unsubscribe">Unsubscribe</a> | <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/omBxPkELLiCpR7ysYuQf7w92BI4C=
+UTeUaCzA5eGVTg8C1mZjqKxFSo6J69_GQcLOB3sy90ID09n8gpoE4uG5Tu59eTjyxXj5fw_euHs=
+z2sqBmyu1o29_kR51Ddp_-Q5iONjoV7B8ZIzFEkn2cP8naQjT7_GUzwhPym5DP6Y2CIWacnlV0m=
+98U9whW5f9xILo2775HkrglBfvrFOlMTahDFTJtnvlx6lJtgMFM4sJyGn3-Meedm8wbPuwC7ogm=
+DHNOY5GV8hVA80a2ImwyRKCqwGxWeyNvllJO2Ph0EcZVq2bAP7vQ_8ji2apgbp8akuxFXkDTLBm=
+azU8zlj5XABmdtxTcyut2-Hsk2FAcmSChiS80st2pVQSC-ggSoQ/NA9mwA02uYYWM9V3MUSOXxe=
+tVAw19YDZ/25" style=3D"color: #666666; text-decoration: none;" target=3D"_b=
+lank">Bloomberg.com</a> | <a href=3D"https://links.message.bloomberg.com/s/=
+c/7Gf-lPpM1nMarD__0OQDEVzHKOUrUdDzen0m9YMGWC7sBBMAc_4f_thr0c6eqseIuaA-9yJuW=
+sB8o8kaU5qy1i49kf376g3JmV2PtI-IrniWirI8MDuX77COpcndLoGidQfiDi6ASAmKBnm6Wf4g=
+qvIKLYgA-317m5-em7xPA3ySDyBn8xbA-jI9WHF5Q_KsNRCV9ItMQthwBSI3szHT-A9zZ7FDh8o=
+wpOVnWIHRGwt8ZHgpLYajIjC1luVTuFQEqdnYWs4UwswpMfhqu0fEbaBTkx9GpXn4cGfbXD7c-O=
+r30ADMMALtETQyLKGJNmqMDLU1jJLcBs5wpV2ijeH8n2nqHTI59igYZHhZBAknaZhRfXZWwtTAn=
+LZjtok/6dVrOjYYDKVZ6PE2fZ7epts6FQXMGgOv/25" style=3D"color: #666666; text-d=
+ecoration: none;" target=3D"_blank">Contact Us</a></td> </tr> <tr> <td heig=
+ht=3D"20" align=3D"center" style=3D"font-size: 13px; font-family: Helvetica=
+, Arial, sans-serif; color: #666666; border-collapse: collapse; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt;">Bloomberg L.P. 731 Lexington, New York,=
+ NY, 10022</td> </tr> </table> </td> </tr> <!--[if mso]></td></tr> </table>=
+ </center><![endif]--> </table> </body> </html> <a style=3D"display: none" =
+href=3D"https://links.message.bloomberg.com/s/eh/ps_TTuAFa9jbD9epN-HVZ7B_fY=
+qrxJnd3oSbt4bYz_VqFwFLEya5czSlwYZg5w2fwU56KdwqDgXPPgdhPjwKCoRd6vJRyAOnGCg5d=
+A1M7ih7jc23Vk7Y2dR0VMhB7Ri8yQmxjVAXuue060GXp4LYBgXnvA5TkWt3RHfY7peAQrQK7ZDJ=
+le4TrH38vlC-OzqQwBTS6GkF9Ge5R-MbPRCpQBBv33wrDHbFBPOtRvUSiHdmseioMFq69sVfRM8=
+MH4Jg7st-u2ZCwWEenxpFe7WC71jBFq-jcMu6gY39et1VQiFcAA3Ev0RECh6hpS0cbfEhTl71Db=
+Jn4iKXcZ91JCODqBEXPb-DDUxI1bA/IDCqFOjbVmUDu86KH1Y2CP1ceqwWFNq1/25"></a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/uGrYptV1lqFo8Yi1G4fbgw~~/AARGbBA~/k8xRmNu-v5K-xx5U9TjqjNN=
+YH5KE12CeuBm1YRwRq4uxqx2pU9G8K6shiJAum6bPWrvUeRIULcFd-MasoUS7NQ~~">
+
+--_----XVooKTqUiHD+CVJkYNUx4w===_E3/A7-16864-852FFBA6--

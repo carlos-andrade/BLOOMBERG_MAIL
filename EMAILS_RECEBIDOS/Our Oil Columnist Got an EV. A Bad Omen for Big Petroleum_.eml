@@ -1,0 +1,424 @@
+Received: from SJ0PR02MB7133.namprd02.prod.outlook.com (2603:10b6:a03:2a2::9)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Mon, 5 Oct 2026
+ 04:01:32 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=veFq7bXeLvZZbe1xfX1IC8zS0NIMNxFzijx+x6jUv6hgyKKFlKvDkASRZGw2BCo4gySsKEizCqqxj6HQkRy3mWnjbO7dlLiO/EYNMe4W4bTahfrCOLrrw0uNhnjCZFrjEHpLRlh2ttzYgvKroSp5X1eomFGGMsgr2VWgUvuKRvvrz3N3o69qHK95oGbjG8XRIEmXWSvE5zP7mMxUikYa02Ri8Vld4M0wBPeoCAq+PJP4Tl+ZdhVhyCBcuJYlXXgfuqGwigS8qwYr8ynE7lig4ihrtz34scjyqEI0IQzrVIM/D7dbLWj/cTh3TvD2QhAZNL2sD6Pc+QebE67R50WJyw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=We77PlcyeEsFxG3wcmilAs1isSKxESRfp6UIyOZByT8=;
+ b=cI+sv0FIlk7pgw8KAt3X+RoUElFhmtwiR3+ZtWThbNfR9MpJZk8SpwlIPAF9HD9fEHe0BiFh2gb3925+0PQf8HVNlNy7xx+C8OfQ7J/QYCRxQUsUlxUdowvMYOGrn9v34xs9NHFW6N+mMHHRxI7P6MVHEprOERgcYOY0Juoq8VM5Y+iJeIFNgUScrD5x+3piJwRgbmGQrMIXyuR1s5rauDgrojm/E7/6hurt9t81dbdqdYfA+8patIx7fW0PUx1cAvioQeBFI6T8REbtSLYY70pCaabsjWlXyuaKi+zItI9hfXOF+Dhk41SRfQeRpIAvlmZxcDHvNWFU0FNiGMXEZg==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 74.125.230.168) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from BN0PR04CA0073.namprd04.prod.outlook.com (2603:10b6:408:ea::18)
+ by SJ0PR02MB7133.namprd02.prod.outlook.com (2603:10b6:a03:2a2::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Mon, 5 Oct
+ 2026 04:01:31 +0000
+Received: from LV8PEPF00000068.namprd03.prod.outlook.com
+ (2603:10b6:408:ea:cafe::6a) by BN0PR04CA0073.outlook.office365.com
+ (2603:10b6:408:ea::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 04:01:31 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 74.125.230.168) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 74.125.230.168 as permitted sender) receiver=protection.outlook.com;
+ client-ip=74.125.230.168; helo=mail-qv2-f40.google.com; pr=C
+Received: from mail-qv2-f40.google.com (74.125.230.168) by
+ LV8PEPF00000068.mail.protection.outlook.com (10.167.248.41) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Mon, 5 Oct 2026 04:01:31 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:4DA786DEF729E5A6C64132B6778B6590B75277B5033240810CB6745030E423AC;UpperCasedChecksum:247E91880789346FE46EABC3321F5E02DE2FD98478063DB9833D95B13AF49D5E;SizeAsReceived:8662;Count:37
+Received: by mail-qv2-f40.google.com with SMTP id 6a1803df08f44-917ae0d5298so21406606d6.3
+        for <carlos-andrade@outlook.com.br>; Sun, 04 Oct 2026 21:01:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791172891; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=XKbL+15oHBEpvzQXXLPFPam5AAReoqBO6fTSbgRCvUMYRgStBH4H13PZXVRvLJyB0F
+         C5Xy51GzECQuf5cZle9Xl83ev6qGqA8/ZQ3eQuBLEzRUF/YVd362cuPbtsq7iqYiwLuQ
+         6/4pslHAX68KP6nYyrWRfhQD1m7SePFOLVKweUKlQm6tSGvc1hlkY2TA1gt1TbQRDkuN
+         Z4dpd9iE9uHmAa0ri1QaWN83MKwV6NZFtj80cR79f1Vac6vWutGBGzPg6nen5GaNffE5
+         Z9XDso67WmoOhrBK4ulAPDj9a5hWhFb9ACaKuI5gCuqEGkZGc12bJpuCoWMMxgMRxYHk
+         q79w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=We77PlcyeEsFxG3wcmilAs1isSKxESRfp6UIyOZByT8=;
+        fh=R7bov+iSc+Tk8dInMafXtCT6+zjyLMes/YF/eGok8LM=;
+        b=IaN5iT/zRFTMDn710CygplSP/a4GB/G4cA2bThrEmSzoXf51RLcGRlLjjfcZaun3GF
+         4rsAJEyN/Qyv7KKzEjZsTD5q+MFfUd8AT9xAutMXGBb0hTyFXcG3Ko1jUkRMMjwSSG81
+         vc7NvJV1ojHOhzILxImKHzB06qyp2OoKjPa/8q3R3T3OKt0RDrpqzBniWY129+ftk/Ux
+         VP07Guh+yZYCH1JoGbx4iuvIKq7jWHrgKQNfJzCtuA4yWsYfuEzVhDyyuE6ZvFnVOrnp
+         uUBYGs2zpMWvj3CRm+93G61R3GvxhTo/NsOfmKiPkFl3rdIpSatonkVdY4496DyRcObi
+         ZrhQ==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=UPa8j7x9;
+       spf=pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791172891; x=1791777691;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=We77PlcyeEsFxG3wcmilAs1isSKxESRfp6UIyOZByT8=;
+        b=umv9fF89exMZqBNu4sXc7hrFnEkYJbN2aa8EQWEwghe6182WTOY7yWVvyFcdqV0Nra
+         GtRRjYc5M3anWzi1GozJfljTxNVt+ubcZsLnPXt6Oynr/VbHs+HyCBxxprGTqzEM++DQ
+         YbZKTSwG7eWZt36a6TZtsi3K6cZ/mdtF5ZDrU8pb7T51IMf7ODvFN9Tr3ZKvz6/3k3+C
+         s3yrkBe9Zzxn4U7gYCYeVRUmpW83jtwRe1xVbspbDy8MhlOIBLI7VkwO3j3zPtKqBYNl
+         gYrm+zojrDwku8nUMbeTAt7FZnzrTmhnOfp2Uj9AXIPV9rYitYbsxIm0Hi6Gns/Ukt4V
+         r6tA==
+X-Forwarded-Encrypted: i=2; AKwUvBzg1UnZDaFXq/9SuAoPxsa/6J1lkvof7Tv8SAEteF8oggAEFV06Izf2QAKT4QykSj7wnTT3z6wslq6aSvWiHA==@outlook.com.br
+X-Gm-Message-State: AFuF++lV0RVRKUZjg9RJJsjo0K7qNGTdhI9CXZFuQhYUBCW2zd46ptb5
+	nTcLFjkl7717M3/7mWoCFv0Gy1CoIP+vUKzIZN3UNEH4//BgNwn2UYom/zPvuB8WEFPZfJSxYfK
+	0q6W8jw30ufilSHohhTAmmWGs+xHq+oRRai6xlcSbVH9GCg8yTeEbfTZAkzLDtw==
+X-Received: by 2002:ad4:5964:0:b0:917:be7b:7d5b with SMTP id 6a1803df08f44-917c013fbaamr192985516d6.32.1791172890967;
+        Sun, 04 Oct 2026 21:01:30 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a0c:f784:0:b0:910:4097:60f7 with SMTP id s4csp1862306qvn;
+        Sun, 4 Oct 2026 21:01:28 -0700 (PDT)
+X-Received: by 2002:a05:7300:d203:b0:351:31c7:ab1d with SMTP id 5a478bee46e88-35131c7adc5mr1720625eec.16.1791172888234;
+        Sun, 04 Oct 2026 21:01:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791172888; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FUmOam78/sH+LpqYZfxgqBmEvHaIYZwg7mGX4Lzg122+5+iM07w5oh2paXTnRn81nk
+         bcmBWe777rYQCYs7OiqdAiRaG67AxDxedZ38DYlaPBnjM56G9KtCR+pAVQ9QMqqLmbyc
+         q451EHM/Sdv11uqAhLphOazeQD2zt3rlUe6asu/s0W5oalA2oiE4ff6SSyc5TdtL7SZF
+         CdJBTRpDX0nIdHIpdwQpJT92vQfEXkSb8LHauC9rZ4ch4zUvlLMiKbs6rmGd9oh/xHSU
+         uvQuYtJKM3FtKJA2jjFR+P3GE3YQf3c+THJ3zrjKd9i8BLSPM4nKM+sWsjbVt37vUJwX
+         EsKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=We77PlcyeEsFxG3wcmilAs1isSKxESRfp6UIyOZByT8=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=bsaZl9K43kMDQ/n9q5vhsEURj8QsDqHn2XUJGbt97ElLkThmu7tgw+LykD+ZykVjmk
+         rGcIGdGUMI+WUW9exay+GutQi554+Q7zDXe2ZYi8mBwsA2KTYNWbZh1fpaoxK52RQAsE
+         djDt8QqZq8PsCf0yujbGLDvq8Jn725Wck5vBsjIVzuH5hp40hHav+vkZpHhgPmaoEqXV
+         /uyAQvK25xJFqeU6viK9mXcPx1DJSKBuGdyVN2EWW4WsxlaG7UJXzKdePYZERCeR5riu
+         c9u7d/ePio5VE3wqJteBB5WsjVXyj9jp+oNuJkEJy7yE+YV/thPu0wPRT9fqtucWvpqe
+         c07g==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=UPa8j7x9;
+       spf=pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-19.sparkpostmail.com (mta-203-32-19.sparkpostmail.com. [168.203.32.19])
+        by mx.google.com with ESMTPS id 5a478bee46e88-351272e9f21si8405944eec.62.2026.10.04.21.01.27
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 04 Oct 2026 21:01:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.19 as permitted sender) client-ip=168.203.32.19;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=UPa8j7x9;
+       spf=pass (google.com: domain of
+ msprvs1=20738shgw2lty=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.19 as permitted sender)
+ smtp.mailfrom="msprvs1=20738sHGW2lTY=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: wn5uLHC0xVyP+FavDW+QrNkgyQtVfSvUyEpR7vTZxpQ=|eyJzdWJhY2NvdW50X2l
+	kIjoiMTc4MSIsInIiOiJjYXJsb3NhbmRyYWRlbmFAZ21haWwuY29tIiwibWVzc2F
+	nZV9pZCI6IjZhYmUxNTIxYzM2YWIwMTkwMzAxIiwidGVuYW50X2lkIjoic3BjIiw
+	iY3VzdG9tZXJfaWQiOiIyODAxNzIifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1791172885; i=@news.bloomberg.com;
+	bh=We77PlcyeEsFxG3wcmilAs1isSKxESRfp6UIyOZByT8=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=UPa8j7x9xrY2kxoIJtB8XNPGXmotH8AFGWf/i654LlP1rAg8srQ+t4L9zXWp94lyZ
+	 VKb0wrYaqrzK5QTXYbYoGll+D1f6/YPu63m10EJqpXoC+cpLkKnFadUHf2uO7/H0lN
+	 y+CcCRz0lv5oVy6qDu8moLcN+ktqnTWKtyhRxTt/2KfLV3FWA6hSOTF6d8QRHivwxa
+	 4HlxjCH6M+/L+by5U3sW1EnED1mp2Sens8kBljzNBRkggZitEtogtsyIGk0CHL/ZSp
+	 B/GYYhIoMqQiznXxyNSaRHx+c7xaQKgHAuBwyb6uFSPZVFLq1smOUJIsIDZdl6Kjew
+	 6VL65CcnbG/kQ==
+Received: from [10.90.23.107] ([10.90.23.107])
+	by i-0b1caf06b10d3d26e.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76435 r(msys-ecelerity:tags/5.3.0.19)) with REST
+	id 10/30-10527-51123CA6; Mon, 05 Oct 2026 04:01:25 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <10.30.10527.51123CA6@i-0b1caf06b10d3d26e.mta1vrest.sd.prd.sparkpost>
+Date: Mon, 05 Oct 2026 04:01:25 +0000
+Content-Type: multipart/alternative; boundary="_----//qusM9ZLjHWzJB+Uypohg===_DF/20-10527-51123CA6"
+X-Campaign-ID: 9566077
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+9566077+12638123@unsubscribe.iterable.com>
+X-Message-ID: 96e103762c05476e9cad11a801fcf0a7
+X-Feedback-ID: 12638123:9566077:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Our Oil Columnist Got an EV. A Bad Omen for Big Petroleum?
+From: "Javier Blas" <noreply@news.bloomberg.com>
+Feedback-ID: 12638123:9566077:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 05 Oct 2026 04:01:31.5022
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: fb7c6242-019d-441a-842d-08df22955700
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000068:EE_|SJ0PR02MB7133:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: LV8PEPF00000068.namprd03.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/5/2026 3:39:09 AM
+X-MS-Office365-Filtering-Correlation-Id: fb7c6242-019d-441a-842d-08df22955700
+X-Sender-IP: 74.125.230.168
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|10300799038|260826003000599003|9400799043|36140799009|3069299007|5139299004|68400799013|35120799009|260928210016899003|9000799056|9020799019|4149299006|1680799066|2120399003|3412199025|440099028|1380799030|1360799030|4302099013|56899033|1370799030|1602099012|30041999003|2607281247196008|2406899039;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 04:01:31.4117
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb7c6242-019d-441a-842d-08df22955700
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000068.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB7133
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.5660258
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SjdUQ2Y1dDZJNngvR1ZYY0VmNzlNSGR2Q3FQUVRXWVk5SE1tR05FRG5WWXhK?=
+ =?utf-8?B?cmRIdXMxdzVJcGUram42TFBlUVZvejR0OGprZEZxOGNtczBuOTZzZ2s1MU5n?=
+ =?utf-8?B?cFNXRHd3TkJiTDljRGpTSmR1bktGUTNUR2lOV0NPbXBCelFKRER0cHNPR080?=
+ =?utf-8?B?cVR3QmdadmhEOTNDVUhtT2Q1U1BPdS9Da1pubStjaE11WHhWbURKbG5UUzhV?=
+ =?utf-8?B?M1N5LytJdW12WnN3dU40TlZNZ0lHNnZ5MXBqWXlGeEZNUTkxcUY1SkY2STdV?=
+ =?utf-8?B?TmNvTG5ldEx2ZTJJdXZpanBQYXpNdFgxZkhkekEyMnpFcWhVQVVWRVU4L1lu?=
+ =?utf-8?B?dHRNMFJWZWs5ODRJeUtBeTZTT0RaeXFBQ0tJNmNTdE1sMVUyMDRYcHVBT2Z4?=
+ =?utf-8?B?TjB1TS9walNUb3Z3Nmt6M0trVzROZFMyeURxblRyTDk4NFhDamF4eWdOUC9w?=
+ =?utf-8?B?d2JpZkViSCtoTnVZVVZoUzZRdzdLa0RsdGcvU0lLNll0aWRtTWR2ZVBvRk9R?=
+ =?utf-8?B?TEd1V095TU1TeXE5WjFJaFYvTkhjOGF3WEFRMDNuNldOWDVaWXBwa1RrOTlu?=
+ =?utf-8?B?VzVsd0pSaDk1RXBEWkRpNHZXTWFGMVFMTHdlWjNpaGZubFl3WkpoTmFVQ3Vt?=
+ =?utf-8?B?bXlDZFRLc0RSY0Q2MWVGQXBWaG1PV3VQMFpQOFlaNFF1QzRZN2hheElnbDNE?=
+ =?utf-8?B?RlgxVnVnblFJK1RCNjJUbjdBTlZEcG5ubFFYZk9zaFVvbHVVUnNuOStvQjVN?=
+ =?utf-8?B?NlJTSTNjYzYzTXJLRGIzd1QwZDRORGdPY043VmVQWFJQVmVKcDNXZlNxTm1s?=
+ =?utf-8?B?OVBTVmZteElOQzljT0xTTkZvSGtJbG1QOXgxaVo1RUV4OFRXdXJjZ21icVhm?=
+ =?utf-8?B?VEhFVTU0bkI5b2oyTjQ5RUVIWlAwRDh4UzQ0cXhxVitOOGp6LzdPWGFzcCtx?=
+ =?utf-8?B?MG9OTWJVU01DTm9YZ09YR2w2TmcwbHR1emJ2ZFhscExLTGpFYkJIQ1hPdFd4?=
+ =?utf-8?B?VXljWndVRmxZbVJwcytKaVlxMHBHMjFYN3J5YmNoTU9BOEdSMzVqRnB3RzVI?=
+ =?utf-8?B?a0RSaUIwV1pOSWk4VjUrVGFvY1FuYkYxQklFVnp4a2lab2R0dzNtTW5qVWp6?=
+ =?utf-8?B?cm5WTEV5d2YvVXowR1V0cnIxR25iZ1JaMitiaC84TE9BdHdkM2xHT0tDZVQ4?=
+ =?utf-8?B?L21hUU9QN3orT2NRbU5EUWd3bEV5d2FROUdhNEZMOVJOVit6MzU1RUZPMi8w?=
+ =?utf-8?B?cTVvczBoZVZSc2Y2VE1wK1BlRlJ2MTBNd1d0U0ZnUXVNRTNTZkd4MHYvSGNx?=
+ =?utf-8?B?YzZ3TUd5Ynd6OEVRVjU4NjN3SWEyMUhIUUp2Skp6dDRzdU94ZSt1TEp2TkdC?=
+ =?utf-8?B?aE1ZSjlBcHRNN1pHL2RBV1BvSzVURW1sREhZaGtxRmt2cjBpWXVPSVlaRTN4?=
+ =?utf-8?B?Tyt6YVR6TTFxVlNidWdSK01TcFNjc0Nha0NIckR6aWZ4NTZxMFhYWFV3VHNi?=
+ =?utf-8?B?R2lEQXdzOWUwNmJHSFQwQ254R1c1dDZkNSt1VjUyajF0dXpKckk5M2RMWGVJ?=
+ =?utf-8?B?emVlbFBON29iWmYyU1FPTFdyWlFpV1BTMUp6T2RqbjZVOUJsZWp6L2JpT3c0?=
+ =?utf-8?B?dTk0dEpUZnFLWEhidXpFZGZxcERxc2FkcFNRdXVnd0xVdjJLeVhJU0tsWUd3?=
+ =?utf-8?B?UXNMNnlRSmdhNmRLNUZrUGdFSjMrWmQ4dXRPRU9vdTk4aE9SVDhuNG9paHc4?=
+ =?utf-8?B?N095UjV4ZGowNWhsT1FyZVR3WFcwekxkWXExcmtqWXhLQlVqUGcyMXk4U1Jo?=
+ =?utf-8?B?ZkpHWmhkRE1UQ1N0U24zQkI3UU9qcTlkMUdFL3N4R3hoR0FqMndBNHBvME9L?=
+ =?utf-8?B?QzRHMFV0Qk5SbzIyVy9EZ0hFWjdDSE5jSHR3U0xPZXdRYTMrN0c5QndPVERv?=
+ =?utf-8?B?WnNwcEpWUVVhTkZXV1hZSTlQazE3Y2RZUTIvZ2xLYnVWVUIzMmMrZVJoeEFV?=
+ =?utf-8?B?S1hqTW9OMkRWYmFJQWFZcXp5d2lPbFM5RjBjT3FyWFNEaU1iUW5qRTRCTTR2?=
+ =?utf-8?B?c2R6WjFpUUFZZXp4RXcveU94YnQvZUxkQUJQZHVrWE4yZGJ4QVBSR2tTWXh2?=
+ =?utf-8?B?dTBENkFJbEE3V0M4V1FIYzlrYUFGanBwS2Z0c2gxaExKL2drVHpDdUV1dFBE?=
+ =?utf-8?B?enllNEFTYlVhZTNVYU9CVnBwVk1ISXI1a2tZbEM0ekg1TnhUVFBlRjdUb0Jj?=
+ =?utf-8?B?TDJFa0l6NVBRZklEZGc2NksxRUE5bWJ3VC9XNmw1SEdGSHdpZTlINFI2NHc3?=
+ =?utf-8?B?ckVvL3NXS1dOd3JHVUM2dStoYjVyMXJ6dmxySVNncGxVb1ZCZ3QwTkNSRDZm?=
+ =?utf-8?B?eEtNeldWWmlPMDNYOW9UN2UvZjlmR2J6QktuWVRQdkd3Nkt6TWNucEx1OTFW?=
+ =?utf-8?B?M2hOZlBJS1QrRURIaEd3Y0NxYXMxeVc5N3VQOVhDYm9VNWxpUlpQVDlySCtW?=
+ =?utf-8?B?MmRKYlFwcUM4b0RNeXZXN3lRVkJkYVNIb093RGtDVFo3aXZqU0d6SGhhQnJJ?=
+ =?utf-8?B?UjFmMHA1VGRPMjdwYk0zSFlSUS9ZM0l3TENVZUI5TlhyRlA5c0UxMmJLeEtH?=
+ =?utf-8?B?dFlNTmd0NjRTVTN3RGRiOVo4NEJRWWxFR1VGamhBOHFQbytUeHlFQk00ZDZy?=
+ =?utf-8?B?V2M4eFVLZlRBTmFFdTREdzVOZExEZndzanJhQTVoWktFSTczN3I2dmVmaG0r?=
+ =?utf-8?B?blQvTERDcFR5dU93VXoyODBlZFd4UkZQKys0YmUvbm9nU0w4RUp3VnJkdXpY?=
+ =?utf-8?B?YXNBQXFSN0Nua2E5UHlNWnJKUkZOaFpCMDllTzlIM1Away9jOUJxODROTkw2?=
+ =?utf-8?B?R2locHVyRERwV29Jb3RQRDMwUT09?=
+MIME-Version: 1.0
+
+--_----//qusM9ZLjHWzJB+Uypohg===_DF/20-10527-51123CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+<> =0A=0A=0AAn author you are following, Javier Blas, just published a stor=
+y.=0A=0A=0AOur Oil Columnist Got an EV. A Bad Omen for Big Petroleum=3F=0A=
+=0AI have some news: I just bought an electric vehicle. I fueled up my old =
+car =0Afor the last time in September =E2=80=94 when my shiny new EV arrive=
+d last week, that =0Awas the end of my relationship with gasoline.Read more=
+ =0A<https://www.bloomberg.com/opinion/articles/2026-10-05/what-my-new-ev-s=
+ays-about-oil-demand-after-the-iran-war=3Futm_medium=3Demail&utm_source=3Da=
+uthor_alert&utm_term=3D261005&utm_campaign=3Dauthor_19016770>=0A=0A=0ADon't=
+ miss a beat, save our new email address=0A=0AIf you use Gmail: Add this em=
+ail to your primary inbox.=0A=0A * In the Gmail app, tap the three dots in =
+the top right corner and select =0A"Move to" > "Primary". =0A * On desktop,=
+ drop this email in to your "Primary" folder in your inbox feed. =0AIf you =
+use Apple Mail: Tap our email address at the top of this email and =0Aselec=
+t "Add to VIPs".=0A=0A=0A=0AYou received this email because you followed Ja=
+vier Blas. =0AUnsubscribe =0A<https://login.bloomberg.com/api/marketing/unf=
+ollow-author=3FauthorId=3D19016770&email=3Dcarlosandradena@gmail.com&hash=
+=3Dbb4a280bebb1586390b9615b8886024a>=0ABloomberg.com <http://bloomberg.com>=
+ =0AContact Us <http://www.bloomberg.com/feedback=3Falcmpid=3Dmostpop> Bloo=
+mberg L.P.=0A731 Lexington Avenue,=0ANew York, NY 10022
+--_----//qusM9ZLjHWzJB+Uypohg===_DF/20-10527-51123CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html><html xmlns=3D"http://www.w3.org/1999/xhtml" class=3D"newsle=
+tter-campaign__template" style=3D"width: 100%;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><m=
+eta httpequiv=3D"Content-Security-Policy" content=3D"base-uri 'none'; conne=
+ct-src 'none'; default-src 'none'; font-src *; form-action 'none'; frame-sr=
+c 'none'; img-src * data:; object-src 'none'; script-src 'none'; style-src =
+'self' 'unsafe-inline'"></head> <body style=3D"width: 100%; -webkit-font-sm=
+oothing: antialiased; font-family: Georgia, serif; font-size: 16px; line-he=
+ight: 24px; margin: 0; padding: 0;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/KT_KWv5=
+PfCF6voXI7NrCdg~~/AARGbBA~/uVff1jLvtPZ6z6prUUomkqGLHPcV_UBT0zBrLKOt2dR2PLPO=
+bPo2FaKIxyYLB1Q_c-l2Ec1Jz2YaEVPGByVsew~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/O_ciOEpN66vANUbMxJrcp96mo7cXbwxniBvKnr3aizWSQFmHBytJJFps0zNs=
+f039Of2K31cxu6AM5Ft7523GV0iqzHPOSFCN4LNe-5l4uykrtPvfjDnOW4-c2wtwy1QRqvTtxpL=
+X9nHPyAZjrKGLEsyJlkAjXSPHIW54gqLHB6ux4Dx9T-SrZGu_6IikQf_8qEdoUxMjDQYq00H2jt=
+4pwDbBW7El3eNd6JxE/tPygfHLTaUd8E4-y4cIPkZ1OhC-ROUKn/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"> <div> <style>body{width:100%=
+;-webkit-font-smoothing:antialiased;font-family:Georgia,serif;font-size:16p=
+x;line-height:24px;margin:0;padding:0}img{max-width:550px}@media only scree=
+n and (max-width:480px){.lihide{display:none!important}.lishow{display:bloc=
+k!important;width:auto!important;overflow:visible!important;float:none!impo=
+rtant;max-height:inherit!important;line-height:inherit!important}}</style> =
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"wrapper" id=3D"wrapper" style=3D"-webkit-font-smoothing: antialiased=
+; font-family: Georgia, serif; font-size: 16px; max-width: 550px; width: 10=
+0% !important;" width=3D"100%"><!--[if mso]><center> <tr><td> <table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"550"><![endif]--> <tbod=
+y> <tr></tr> <tr> <td class=3D"preview-text" style=3D"border-collapse: coll=
+apse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <div style=3D"display=
+: none; max-height: 0px; overflow: hidden;"></div> </td> </tr> <tr> <td cla=
+ss=3D"logo-wrapper" style=3D"border-collapse: collapse; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt; padding-bottom: 15px;"> <table border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" class=3D"logo" width=3D"100%"> <tbody> <tr>=
+ <td align=3D"center" class=3D"view-in-browser" style=3D"border-collapse: c=
+ollapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 20px 0px 10=
+px;"></td> </tr> <tr> <td align=3D"center" class=3D"logo-container" style=
+=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+; padding-bottom: 5px;"><a rel=3D"noopener" target=3D"_blank"> <!--[if mso]=
+><table width=3D"550"><tr><td><img alt=3D"Bloomberg" src=3D"https://assets.=
+bwbx.io/images/users/iqjWHBFdfxIU/i6ULjuUBII2k/v0/-1x-1.png" width=3D"550"/=
+></td></tr></table> <div style=3D"display:none"><![endif]--><img alt=3D"Blo=
+omberg" border=3D"0" class=3D"logo-image" src=3D"https://assets.bwbx.io/ima=
+ges/users/iqjWHBFdfxIU/i6ULjuUBII2k/v0/-1x-1.png" style=3D"max-width: 550px=
+; width: 100%; display: block;"><!--[if mso]></div><![endif]--> </a></td> <=
+/tr> </tbody> </table> </td> </tr> <tr> <td style=3D"border-collapse: colla=
+pse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" class=3D"body-component" style=3D"font-si=
+ze: 16px; line-height: 24px; height: 251px;" width=3D"100%"> <tbody> <tr st=
+yle=3D"height: 251px;"> <td class=3D"body-component__content" style=3D"bord=
+er-collapse: collapse; padding: 0px 10px; height: 251px;"> <p style=3D"font=
+-family: Georgia, serif; margin: 16px 0;">An author you are following, <str=
+ong>Javier Blas</strong>, just published a story.</p> <table border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" class=3D"header" style=3D"height: 89px;"=
+ width=3D"100%"> <tbody> <tr style=3D"height: 89px;"> <td class=3D"body-hea=
+der-container" style=3D"border-collapse: collapse; height: 89px;"> <h2 styl=
+e=3D"font-family: Helvetica, Arial, sans-serif; letter-spacing: -1px; font-=
+size: 26px; line-height: 28px; font-weight: normal; border-top-width: 1px; =
+border-top-style: solid; padding-top: 12px; margin: 20px 0px 0px;">Our Oil =
+Columnist Got an EV. A Bad Omen for Big Petroleum?</h2> </td> </tr> </tbody=
+> </table> <div class=3D"body-image" style=3D"margin: 20px 0px;"> <img alt=
+=3D"" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i_NGQOsIBgVw/=
+v1/-1x-1.jpg" style=3D"max-width: 550px; display: block; width: 100%; margi=
+n: auto;"> </div> <p style=3D"font-family: Georgia, serif; margin: 16px 0;"=
+>I have some news: I just bought an electric vehicle. I fueled up my old ca=
+r for the last time in September =E2=80=94&nbsp;when my shiny new EV arrive=
+d last week, that was the end of my relationship with gasoline.&nbsp; <a hr=
+ef=3D"https://links.message.bloomberg.com/a/sc/1m1Qm0WB0YWnEbwrt-AdWoWkSS09=
+-PXWdg2Zw9P22wbODJpIb6uxEtAgG1ZdwiV-i12N17jFzfx1UFSF3I4YXol7nOPkNYIT9U5p-Kr=
+fDvhZhGO2sQ18631TMBnlir-VWo0ilHXtZC-p-5mBTpGcUKRI7nDe2unHb4NDuzpqnmpAvwgjpt=
+Prw-byxAtfPqT7pBLZUDeUi1ZwmZ01gaFGaVVPnmMTRMAz9YFj7iGJn8AvNTp7_Oz_FOkKMUSJi=
+O17i9aAerLOE1b4bh8lT3qDH7vLqRVy6TUIBPjzOUTGgmEo-wf1lNbPNiyhTzBXgZFnSG_rf0ij=
+tqWP_bDtl76MxikRZ4E4RxChpQn5vbAYSt45Y7zhVaARkk5n7Km26CVHOeNprYqwJe3hGt49gqf=
+6juXSaJidJpxStyb75oLIfkUfvm3MaTjScrOlBhVJmOdlu_4f4r8PsLdjB6VVJ-uRBbeeyOQtyy=
+bRIqGLrZ4__30bvRt1zJW3u-bXldrb8uoL/r1WKy1oQ9sYkrM_Z8w8M10sdHPZZkiaY/25" rel=
+=3D"noopener" target=3D"_blank">Read more</a></p> <table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" class=3D"header" style=3D"height: 89px;" wid=
+th=3D"100%"> <tbody> <tr style=3D"height: 89px;"> <td class=3D"body-header-=
+container" style=3D"border-collapse: collapse; height: 89px;"> <h2 style=3D=
+"font-family: Helvetica, Arial, sans-serif; letter-spacing: -1px; font-size=
+: 26px; line-height: 28px; font-weight: normal; border-top-width: 1px; bord=
+er-top-style: solid; padding-top: 12px; margin: 20px 0px 0px;">Don't miss a=
+ beat, save our new email address</h2> </td> </tr> </tbody> </table> <p sty=
+le=3D"font-family: Georgia, serif; margin: 16px 0;"><strong>If you use Gmai=
+l:&nbsp;</strong>Add this email to your primary inbox.</p> <ul> <li style=
+=3D"font-size: 16px; line-height: 19px;"><span style=3D"font-size: 16px; li=
+ne-height: 19px;">In the Gmail app, tap the three dots in the top right cor=
+ner and select &quot;Move to&quot; &gt; &quot;Primary&quot;.</span></li> <l=
+i style=3D"font-size: 16px; line-height: 19px;"><span style=3D"font-size: 1=
+6px; line-height: 19px;">On desktop, drop this email in to your &quot;Prima=
+ry&quot; folder in your inbox feed.</span></li> </ul> <p style=3D"font-fami=
+ly: Georgia, serif; margin: 16px 0;"><strong>If you use Apple Mail:&nbsp;</=
+strong>Tap our email address at the top of this email and select &quot;Add =
+to VIPs&quot;.</p> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class=
+=3D"footer-wrapper" style=3D"border-collapse: collapse; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt; padding: 0px 10px;"> <table align=3D"center" bor=
+der=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"footer" width=3D"100=
+%"> <tbody> <tr> <td class=3D"footer-container" style=3D"border-collapse: c=
+ollapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 20px 0px;">=
+ <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" c=
+lass=3D"footer-message" style=3D"font-family: Helvetica, Arial, sans-serif;=
+ font-size: 14px; line-height: 150%;" width=3D"100%"> <tbody> <tr> <td clas=
+s=3D"footer-message-container" style=3D"border-collapse: collapse; mso-tabl=
+e-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 10px;">You received t=
+his email because you followed Javier Blas.</td> </tr> </tbody> </table> <t=
+able align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"footer-info" style=3D"font-family: Helvetica, Arial, sans-serif; font-=
+size: 14px; line-height: 150%;" width=3D"100%"> <tbody> <tr> <td class=3D"f=
+ooter-info-container" style=3D"border-collapse: collapse; mso-table-lspace:=
+ 0pt; mso-table-rspace: 0pt;"><a href=3D"https://links.message.bloomberg.co=
+m/s/c/3PGuHBduL7995TVYg_HjqNf8u8wN2AQSxVxywXZ-tcE3YebQ6y__kz2GweSOTcuR3mh3Q=
+Kkyl6vhsvKGHw1yNc67b_TmeY_5Ym46uRYIYIBBkP7wo01Tmcaf7BBDBYEb_RDC_OutBjJ6e-L1=
+iKTc2oWmo6YDpwwFvrE1pdtax1GNAZgLa-qUJRTC__8azTChcMkxnlhYFduN6N1IUBWLGPcpm4S=
+mwHcNw6eMTgFHiBIZRywalwttveGHOj_gQhhqBWLCTWJx-YFfhgf38S8trwNxzPcsUuaxBf1kDN=
+JUUkj36hlASDnFYvkBvtvvNymc9UlYwCrioDCXOWt7R2vUYk09agwTFFaZF6o7-domvmk9Ngu_n=
+F6M5wxcdTn_sWy7p6zMlfpD6Yn045ZfHyUAgwAgx1U8etrTR228JvB2T4XORhAm4yPCsW2pUqcT=
+B8ln/21gn4zlErUbXX5DrxrJZVAZ1oksC43Ox/25" rel=3D"noopener" style=3D"text-de=
+coration: none !important;" target=3D"_blank">Unsubscribe</a><br><a href=3D=
+"https://links.message.bloomberg.com/s/c/jm8bWcCYzzh1xVzRXnCxHYUdqkVPhzT3rb=
+wu2oTQ8EhOr_994pHcEVhWqeVKc1W1gO0DVepfHRgVtUaxOXI3Bw5Cy59hrA-IAvAZuTzv70ku8=
+cByvO5-yPNoMiWAz58K_Zbeil2XPiG2Huul4BpAEHk7k8LWjtlMTyDym92bTyeD38lud-Vtluue=
+2fxcOepOo8f_ahADzGWTN_loxt5s8hqt9rdZy9IkkAOiQskw-SD4ePvGQ0jxrhO0ZJu6TZbakZn=
+SKiZxqeP_ZC1T8iIL/Rja4V5vg0ZmmGkcYwv4Ja5hjouFeCwNU/25" rel=3D"noopener" sty=
+le=3D"text-decoration: none !important;" target=3D"_blank">Bloomberg.com</a=
+> <br><a href=3D"https://links.message.bloomberg.com/s/c/6aNV5J-1r0C_d1HXm7=
+7lVitnNRDCMeOsOO-Zsi-KCHMW5YmVRvXdhskyxHyXC7v_zNGYVsBEJKgO96VclMqv8ikC3L6vz=
+U1nqMz1fIygjhzw--L0bYPh2TLGOyWFZ3zDldcMVT0rhU_XADeCL8FWRPa9_KWAYaZGW-IoOq-f=
+0_fjn5zAF0y11ZnHf-_yeGiMos_vAlg1-nZs_ZZdDt6xoLhNJTQwm6FnA--0iimRxOfYJIDCcgz=
+nQzcpHPCPIm-w3i3_MR8KWPRwgrA2dWrWaKKQGA7DUKWB22pQYSGyvpRR0Gbjahtu2ii4oxyLVg=
+/RC6SrwrOEO6_DkcM1AaJTrmFdyQZ63od/25" rel=3D"noopener" style=3D"text-decora=
+tion: none !important;" target=3D"_blank">Contact Us</a></td> <td style=3D"=
+border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">B=
+loomberg L.P.<br>731 Lexington Avenue,<br>New York, NY 10022</td> </tr> </t=
+body> </table> </td> </tr> </tbody> </table> </td> </tr> <!--[if mso]></td>=
+</tr> </table> </center><![endif]--></tbody> </table> </div>=20
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/8myitKhURwqNRo79CwZN8g~~/AARGbBA~/7P-MALbJ0Kv6jcOkusZiycW=
+q-QJouiHquSo2Px6ggtbfMEqZ9Cpd6LXLnK6B25xaBERuvjPk2AOR1arI1hLsgA~~">
+</body></html>=
+
+--_----//qusM9ZLjHWzJB+Uypohg===_DF/20-10527-51123CA6--

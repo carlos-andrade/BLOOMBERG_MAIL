@@ -1,0 +1,1988 @@
+Received: from SA1PR02MB9774.namprd02.prod.outlook.com (2603:10b6:806:373::13)
+ by SA2PR02MB7595.namprd02.prod.outlook.com with HTTPS; Tue, 6 Oct 2026
+ 18:36:41 +0000
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=atKidunhScLjkgQkdjWN4rQzw18ffCmMufNnc+bZ5CHh8T+lDGo88ecjIOy9iSk5H/47czbRW3/8h/YDkDk7IAno0XhNJmD+apqQEDkodt0uji6MQf8gdM7m6jjsoc2z3vB/UXOrzhlMIbXrOxqN7fpfwqljX3gqfMbwcQBEiUt/K9o9y1fxlp8hgUVxyg8al1e10BLnUpZVidtBiexvbhZ4/IUsqJDTS8aLeNS2SWeUWH9Jd3yo95Si8SsNa13bYo4V4/t8e58XtwBQrSAbmVrtD4om4VhIeAsa5v90Ud+O7GfxuwVz1uB9uxY1qUZy8NR2RKH/kEVUFeiygxScFw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=95Zm00p4Tz7dcTv54ZGo2bW1OXoPS59eyccZgnYc/jQ=;
+ b=bSPtviNGnyrAeMNmuAJ49eNXy6Pbb083HUkSHF/ETHlfKZn+mpndeOs2Qs25Hkzh0QHB9Dki4DKtS6UrYi3Ap04SLssWjAJ2eFWHQjz3GiVUGYOrR/yTydjheBaP3JIv4Zn2xBDYSbLgFOPVsp5v9sGRnLgE0zzJHPHE9ZPdtd/y/diUe8v+ndMymG2dzJoCCtieL/wJLPPvOYLYukMtkxAEfKTAVFAnFGWToW8Fyrvc2Mc0IxkTC/pwXqKrpCy4aXhBbkq7/OjOxfrFTy6JTziOe49vaETKtsDArGzwlPYG29eGlt/0GjoQyE4saywS3KPLsAG/6b0HS2BPx5TYBA==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=pass (sender ip is
+ 209.85.208.51) smtp.rcpttodomain=outlook.com.br smtp.mailfrom=gmail.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=news.bloomberg.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,2,smtp.mailfrom=msprvs1=207393fazzr7a=bounces-280172-1781@bounce.news.bloomberg.com]
+ dkim=[1,2,header.i=@news.bloomberg.com]
+ dmarc=[1,2,header.from=news.bloomberg.com])
+Received: from CH0P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::27)
+ by SA1PR02MB9774.namprd02.prod.outlook.com (2603:10b6:806:373::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 6 Oct
+ 2026 18:36:37 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:116:cafe::ac) by CH0P223CA0026.outlook.office365.com
+ (2603:10b6:610:116::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 18:36:36 +0000
+Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP is
+ 209.85.208.51) smtp.mailfrom=gmail.com; dkim=pass (signature was verified)
+ header.d=news.bloomberg.com;dmarc=pass action=none
+ header.from=news.bloomberg.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+ 209.85.208.51 as permitted sender) receiver=protection.outlook.com;
+ client-ip=209.85.208.51; helo=mail-ed1-f51.google.com; pr=C
+Received: from mail-ed1-f51.google.com (209.85.208.51) by
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Tue, 6 Oct 2026 18:36:36 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:533C103D38522DD049871644522493BC0052EE7CCDE075F1D423A6F634630096;UpperCasedChecksum:4F398C8BFA6B288A8840D013C38934DEE38CA396FE36757EACD861988E6CE306;SizeAsReceived:8652;Count:37
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so1512497a12.2
+        for <carlos-andrade@outlook.com.br>; Tue, 06 Oct 2026 11:36:36 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1791311795; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=lv81eitz5OWNWCx4/cmst2xODR4WPv14ThFZNqWO73sqr9gQVzDT5F3f+s1Y8DtxYk
+         PRDhQLK1U3HgRpNwdsz5q6fAH/rZroidr9UDEik/8xNvPzt2aXiVqiN4hA5nv2wc58NL
+         Sxclb/1DnCydomi19nAziIiLWNi5+g65oN+Ha7ft9aZjKjD50PX6nzaB97BltF4bNapp
+         RBUOyGij00rdkSDbuUTRQoX1SM4VyudqowV0KkQSogGtEXxv8nhTrdIhxFzTY9W0A6II
+         ZpOjeeUUzQkQLZ6fOVn2RxxHmwXs3pbiNDiMBeWpSLW0RtjiX91MzWPii/kHrK4+EMBD
+         A1YA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature
+         :delivered-to;
+        bh=95Zm00p4Tz7dcTv54ZGo2bW1OXoPS59eyccZgnYc/jQ=;
+        fh=qp2M+GklerDzwlgfL5CzlKw3fuAUXYz0PqDw2YlOoc4=;
+        b=M9zZW1dkjESVlZfVc3tb1gyxGpxytK6CLzp/1fWAM23QScTusbsDDszyP81/DZMTZh
+         8fxLSkTy9/1DpEeOF0mvmK1S3FRnOu69PmxoApZXYbOuS8A6QWoUirszmG8pOCBHbOwq
+         Rh1wKj33/jbK4q7Cqo1qcBy6ZgQac+YtosJNRD3fs9U2H8o3V3exx1PvbjPiL+hLd2O0
+         Pbs7RGbG8cLpbOk13Iunpe6Q7TdA3M7FohR/C/Dm5KsEHLNsSGDrzhdwnXdsTumcLp6f
+         imOYxG7TR/riP7niXOrU2/fOeBr5OKd7hTQsLJhoKdRZcMxwCD471HYDHEPNLTwXdtde
+         HSHA==;
+        darn=outlook.com.br
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=XEGwGoNS;
+       spf=pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791311795; x=1791916595;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:content-type:date:message-id:to
+         :dkim-signature:delivered-to:x-forwarded-for:x-forwarded-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=95Zm00p4Tz7dcTv54ZGo2bW1OXoPS59eyccZgnYc/jQ=;
+        b=o0wMaRBMBjnrUDYvN3z4Of6a8RDrSvbTbxdmOePgzvOfqXADidpyw82ffWb/Po+zAE
+         JCoh0X9wgXpOxjHXjACnIG+rROa/K5dYOljCWRLAb7xZbwV1Ao/ltkAlJiMk1QEnbRyA
+         cUUqv+yLC2kr450buOFz4mCRH4ygsLpjcgd1V4+/QAokp3C9AiqKz1UlmVIDBBvw/OKg
+         GvWa4ZkBGVVAuqUEe1bHpxgtYIxUxf8GSFtpMTbE9Hf4w0TfQyJN+x09Twb9OYyy1hUF
+         7UwOEgVfSUi1IWV4c3EypwAghA7qC8IQ2MIZ9wx5Eu/bP+eZXCS9rMkKAtw1Ye4wKgIW
+         9ViA==
+X-Forwarded-Encrypted: i=2; AKwUvBxYYhIgxhQSNVTD7Tses1u32eD7aJRH8dy33fwv7zgkVfys5B+qincxKFSL+fRR3DXOmjll68NYWAo2V2FMdQ==@outlook.com.br
+X-Gm-Message-State: AFq9FYIbbTgVNZVADrHhz2FBPNDF1s+rKFSOfjpni+Evd9mSU3EljDnB
+	2FcDid8uKA7DHqG40R9DQJYa9xVvsg8UYBhByAvwDvI6JxMMrSZFAPNBd1jCppJBbqiuP34JKdY
+	vrYjNSjj18ZdgPf9TYkCGx7OwfxaaviR/puVuotzRzrK6mUqz2cgqoUSFULHygQ==
+X-Received: by 2002:a05:6402:2552:b0:6ac:bd48:b827 with SMTP id 4fb4d7f45d1cf-6afe29c0d74mr2406493a12.41.1791311794651;
+        Tue, 06 Oct 2026 11:36:34 -0700 (PDT)
+X-Forwarded-To: carlos-andrade@outlook.com.br
+X-Forwarded-For: carlosandradena@gmail.com carlos-andrade@outlook.com.br
+Delivered-To: carlosandradena@gmail.com
+Received: by 2002:a05:6400:2146:b0:2e4:155c:e4cf with SMTP id c6csp4205043ecc;
+        Tue, 6 Oct 2026 11:36:30 -0700 (PDT)
+X-Received: by 2002:a05:6830:67ca:b0:812:b45f:6547 with SMTP id 46e09a7af769-82acfbb68cemr511458a34.19.1791311790624;
+        Tue, 06 Oct 2026 11:36:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791311790; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r7k7OHx5qKXmg48Fm+jchSF/Ag/Qy8GsCQheYfzUnEozpXTztRt6w1Y1UKy8ehWYWU
+         upT1R12cD6/lqhSFoshLcQl2PFfNtuukwdqGdPELbhUfClEgosB0/JUcwAb1fMZVZct9
+         edZGG9z2orfUCWPggtJvuVQxPgKEzueCHjPv3d49nYrTp1uw4t0RaVHoK8jQBk3HD+8D
+         7N1QAATVxGGVEomcEv37ckxEeblHQopIQcC2c55MU+b0npEYDwEVTNDUChCasI156J3l
+         FE/7z5TPVPu321E3MT/4uVEAG+EJGZPVjIHxZ7W54G8MkAIquPVBSexT+6dIvtnpFsMu
+         DCsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=feedback-id:from:subject:list-unsubscribe-post:reply-to
+         :list-unsubscribe:mime-version:date:message-id:to:dkim-signature;
+        bh=95Zm00p4Tz7dcTv54ZGo2bW1OXoPS59eyccZgnYc/jQ=;
+        fh=Hn7h9y8OBr6xmpsYX4y8oi18nN5ES9LdKU9P1BN43yo=;
+        b=RpZeByvly4FeQM87aKT3W7Wof347waarseF9XEeaJbemJjOyySGgQgcHALuOS6tk1q
+         /WQOtLCYKyeW2zmJ3rXt4pgKZoHU0RJXVDbZXr3mxk8VV/C/NMQ0YtWJcxfVGsRfgPD0
+         TK0BFFa9ednRSGF+a+6gUkQ8hJrdzfb5QP809yW6OZLHaIJ6RPxaY9LjlaeIn/z3lzv5
+         jOy1pNkuFGTIwA4xyKTDSukyvZbzuofhgf8R1WLAE3JQpxUrDPV2Lri9eK9Be0HVNts9
+         djJZ3H2LfJdtOTBABHYT8URYjW5XhRjCmRckaItWRvOFfIwo4bCTzqJLGX7TtEdck09D
+         +6NQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@news.bloomberg.com header.s=20240320 header.b=XEGwGoNS;
+       spf=pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+Return-Path: carlosandradena+caf_=carlos-andrade=outlook.com.br@gmail.com
+Received: from mta-203-32-21.sparkpostmail.com (mta-203-32-21.sparkpostmail.com. [168.203.32.21])
+        by mx.google.com with ESMTPS id 46e09a7af769-82ade11d9b3si323524a34.113.2026.10.06.11.36.30
+        for <carlosandradena@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 06 Oct 2026 11:36:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of msprvs1=207393fazzr7a=bounces-280172-1781@bounce.news.bloomberg.com designates 168.203.32.21 as permitted sender) client-ip=168.203.32.21;
+Authentication-Results-Original: mx.google.com;       dkim=pass
+ header.i=@news.bloomberg.com header.s=20240320 header.b=XEGwGoNS;
+       spf=pass (google.com: domain of
+ msprvs1=207393fazzr7a=bounces-280172-1781@bounce.news.bloomberg.com
+ designates 168.203.32.21 as permitted sender)
+ smtp.mailfrom="msprvs1=207393FAZZR7a=bounces-280172-1781@bounce.news.bloomberg.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=news.bloomberg.com
+X-MSFBL: X49l/484itmmQvpavPfrkeK504ZHROpDM3vBLnwQNWA=|eyJtZXNzYWdlX2lkIjo
+	iNmFjNGFhM2ZjNTZhNGM2ZTAzOGIiLCJzdWJhY2NvdW50X2lkIjoiMTc4MSIsInR
+	lbmFudF9pZCI6InNwYyIsInIiOiJjYXJsb3NhbmRyYWRlbmFAZ21haWwuY29tIiw
+	iY3VzdG9tZXJfaWQiOiIyODAxNzIifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=news.bloomberg.com;
+	s=20240320; t=1791311786; i=@news.bloomberg.com;
+	bh=95Zm00p4Tz7dcTv54ZGo2bW1OXoPS59eyccZgnYc/jQ=;
+	h=To:Message-ID:Date:Content-Type:List-Unsubscribe:
+	 List-Unsubscribe-Post:Subject:From:Feedback-ID:From:To:Cc:Subject:
+	 Feedback-Id;
+	b=XEGwGoNSMRas/6ESZc/CIlW6Rsi+scKMqOkqtyWA5OWdzd1sEB2guAEQORmWEqGpO
+	 p9uGBn9G3mcbutua8gdxM9l7M2Utf6TagoyWAjrQVwdLwenAHnZSFJSIPsdGSOIwVY
+	 XiUQJhvZX4F1RIHe0TA+SOtAqGswEO6wUdffPr9Gzw8ty4VC9felyyaijE/VqGqU3c
+	 XMWRuUcEN6azvKz0/2Mbg5CfjNSTKV1jWH2RTH+Ua/KzEIGscTMLec0lOfoNDCyV+k
+	 EzgWGX56FZayCi/4RwydtRTmobIFiLoIgkt/mQ3iy+wHGNWzmlDh/pUb9j7AyCgb5d
+	 c0PbK7R93eriw==
+Received: from [10.90.18.143] ([10.90.18.143])
+	by i-0288f80335faed110.mta1vrest.sd.prd.sparkpost (ecelerity 5.3.0.76456 r(msys-ecelerity:tags/5.3.0.22)) with REST
+	id B8/38-40235-AAF35CA6; Tue, 06 Oct 2026 18:36:26 +0000
+To: "Carlos Andrade" <carlosandradena@gmail.com>
+Message-ID: <B8.38.40235.AAF35CA6@i-0288f80335faed110.mta1vrest.sd.prd.sparkpost>
+Date: Tue, 06 Oct 2026 18:36:26 +0000
+Content-Type: multipart/alternative; boundary="_----A1K13XKw4rwREtlAXGo6bQ===_17/38-40235-AAF35CA6"
+X-Campaign-ID: 20243227
+List-Unsubscribe: <https://www.bloomberg.com/email-settings/out/?l=1&cid=1002&uid=Y2FybG9zYW5kcmFkZW5hQGdtYWlsLmNvbQ%3D%3D>,<mailto:unsubscribe+20243227+26728738@unsubscribe.iterable.com>
+X-Message-ID: 07b1d49f183446639d9113a2d33797e7
+X-Feedback-ID: 26728738:20243227:99686:iterable
+Reply-To: noreply@news.bloomberg.com
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Subject: Money Stuff: Treasury Futures Might Switch
+From: "Matt Levine" <noreply@news.bloomberg.com>
+Feedback-ID: 26728738:20243227:99686:iterable
+X-IncomingHeaderCount: 37
+X-MS-Exchange-Organization-ExpirationStartTime: 06 Oct 2026 18:36:36.2217
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: dfcdb0b3-c55c-4a07-a8ee-08df23d8c0aa
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|SA1PR02MB9774:EE_|SA2PR02MB7595:EE_
+X-MS-Exchange-Organization-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 10/6/2026 6:31:48 PM
+X-MS-Office365-Filtering-Correlation-Id: dfcdb0b3-c55c-4a07-a8ee-08df23d8c0aa
+X-Sender-IP: 209.85.208.51
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: NOREPLY@NEWS.BLOOMBERG.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:2;ARA:1444111002|5149299006|2120399003|5099299006|1680799066|36140799009|260826003000599003|260928210016899003|35120799009|9020799019|5139299004|9400799043|9000799056|10300799038|23070799003|68400799013|1370799030|4302099013|440099028|3412199025|1380799030|1360799030|30041999003|1602099012|56899033|2607281247196008|2406899039|6406899015;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 18:36:36.1953
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfcdb0b3-c55c-4a07-a8ee-08df23d8c0aa
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR02MB9774
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:05.3605554
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0451.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aDU3ZyswQzk4NERyZHI4QWlXTU9XcUUxQytGTFMxbEdCenorR2I2S3NXQTJi?=
+ =?utf-8?B?L1JVU3FBMUdZMm85RDFjT3JzMUtrYytydm9PN3lDdDZ1YTJFWFRXVkNhL3pQ?=
+ =?utf-8?B?RkllNTcvelVmYVZwS2FBMHVTdSs1T1IzU2UyMWhCajJ4d0lOUzBqWFIvb2Ev?=
+ =?utf-8?B?M0QxK1U2Z3hUZGNFMGsvaFNpNjNLOTd5dEdWWDFaVWRqSDJ1Lyt6VThxMkYv?=
+ =?utf-8?B?WG1VakJXbXM1THJqdi83amZuQjNscjUvYjBBQWw0cnZzSjZCcVhXaXVHbGxZ?=
+ =?utf-8?B?eWRGdXNmSEJ4U0ZBRkx0UVYrRm9aUXdFMkVLc1ExQ1JORm1Sd0Jrek5ZU0lp?=
+ =?utf-8?B?ZUR1Z0hxZUJ4NXdOTXAwM2Z1RFlXM3ZXdmR0SW5iWE4vM0h2TFBNSVFiYlFM?=
+ =?utf-8?B?NU90bzcyeDc1Q1ZlSmw5RVpYT0VFZjRraVllU09lS2RwNWJmWU5hTnlWM29m?=
+ =?utf-8?B?OUxUUXFOeklMbkk3TnM0M2hBaW9XVGlMVUl2Vks2Qy9MMlZKS2lBQXpwZlVL?=
+ =?utf-8?B?RWFZaTlXWW1MU0ZLb3F3VFNnMlNRTXJQdVBVRE9tS29mSWQ1c1dQRmFkTnFt?=
+ =?utf-8?B?dG1ObnlKZzVTWWVFWnpqYjM3SWdROWJzcTM0dlZuMmplbm9kc0FrTHJOVExC?=
+ =?utf-8?B?MldsWWpnODBJZGpNNmhNOTFMMHdjcjZMelcyL3h4UElRUnZUOXhMMlNNR1Z1?=
+ =?utf-8?B?bFlWWjI2dlAyTEs5OUR2TGxjWWR4aW96Y0ZVbkRpdFZCS2k4Q3ZkamxYc2Zn?=
+ =?utf-8?B?L0h1Z1JjZzN6NFVJM1FRbjhyNGdhdlNxRmx4dGhERTdJV2lmdktqZjhEZXo5?=
+ =?utf-8?B?QWhiZEljVGYycURkWGdtVEpCTkx0VDRlZ0d1N01zejVRSzU0ZnhNYktrdS94?=
+ =?utf-8?B?UHArM1NMS0plNEhrVy9ERWtUMFo5T2FBV0kzaEhtem1nYzJ6aGtkR3ZVZnVJ?=
+ =?utf-8?B?VjdRS1BrM2RjSWFDTUpZY0JzanlPdzY1V3pMVVZNeUVVcjBYeGZRQ3JpbHYv?=
+ =?utf-8?B?V2hpenRrbnNYSVJVaUw3SElqUXR5enNnMXN2VWc0ckVabEVEMDdBaFgyaHR1?=
+ =?utf-8?B?WHdBRWhFRnFyNmhpYmNIN2JmVlpwQ0s4bkFydGZxYkYwcHZSY2RqSE9yTWNF?=
+ =?utf-8?B?eEJkb1lIWERzVHJvWWJCYTM3ek5iZVl4OW5VQ1lMOTFPY1MvM05zRTBsZVFH?=
+ =?utf-8?B?Ump3a3pncU50aDRrYVdDVjRCT3dIMDZFS1F3TWdZQjdpSEY5bXRMM3ZZSE5j?=
+ =?utf-8?B?dmlFdFRTQ0J5NVMzQ3dxQkhpVCsxZGhGNzd0Y1hUMjA2T0JoL05EaGNKek84?=
+ =?utf-8?B?bTVWaDFZQ25DZjY2ektSN2lZSGRVN2RBeVFNYUR0MEFLbmU4ajc0LzExam9Z?=
+ =?utf-8?B?eSswaFkzNkFOUXRQdlFUdFdOdVFyNDg3dlVMSVpKZ3U0eU1oTnhpK21tQ1dW?=
+ =?utf-8?B?OWFMVkNla3JoQ2lvUnUrYnY5d2NqZm1xRlJ0QkZTYTFjU3BwNGJlaE0yTlY4?=
+ =?utf-8?B?VkExKytJTHRrcUIrc3NqVzM0MU9TQmxpTHZsR3RtWk1MbWM0YmFJd1JOVDlJ?=
+ =?utf-8?B?SFQvaGJaMGZHeGVpQTVQL3NEVktDQ1RkWmI0dUFNQ2JQNWJmUHBhTklPSXVw?=
+ =?utf-8?B?NWxOVU95RE91L0VCVnM0bXN1SDR1c2ZNTjB5MEVKZGxycDhVN0hMSk54Vzd0?=
+ =?utf-8?B?aWQ1UHZuVzUwZnNGcWN5ZTRvenZpYXk4akxOUW5xU1JMdkFQS3pBK0FVTWVT?=
+ =?utf-8?B?cWZTNFhBcitYZlpLejlneGZ3ejhQUy9RVXkxb2NoTXdEWlFkMGl0cWZxN3B5?=
+ =?utf-8?B?MDF3YXNrbEZNUWFFYUtlQUFMWW1xeHJCNkMrdnd5VGxpMHd4QXhjaFBJM21C?=
+ =?utf-8?B?U1VrQUpqVVg0WjBmai9iR1VtZnp4RzRXQm8rYVN4bWYxOUY3UDdzS0lYMGlw?=
+ =?utf-8?B?T2hqR3EzWTQrV21UQmpiUU9HM2hWQTg4WWt3SmtoUG9HcDIxU1M4bUJYR1A3?=
+ =?utf-8?B?bWZpbkRqWXREQmFZUWl2YUVtRi8zV1RYMUJUYWMrYXFZby80NWNOQXFTYkgy?=
+ =?utf-8?B?YzM0d3YrajlSRU96QVNPeEMzekY2YW92WFNIUHMwbUJjdE9uVEs5S3pwczg2?=
+ =?utf-8?B?N3BQS0t0cXVab1V4dG0yc3N6cWthSkVnbW5iS1ZHTGFJVjlnTzYzR0JhNkNa?=
+ =?utf-8?B?L1A2NHpWWEw3aGFpbVQrcWpFMFQyQ2NHaTBnQ1lEcHhKeThaMVlaeGhDUjhX?=
+ =?utf-8?B?L1JPRC9vK1lNWHNIRjZOZEpYSUlITUFvYkYzYmJyWGFpbnZjWVdYSVNYK3lN?=
+ =?utf-8?B?MDhTaDR2WnRxZ1FBc0VodFRScUo4TDRNUFdoRlEvZFU2Q2FGMWsxVENyTG9K?=
+ =?utf-8?B?MzAvQVdDRi9RYjNpTmVsVmdXNUhoZWRseWJjelRJMFU3K2RoWDVPTU5RUlhi?=
+ =?utf-8?B?bGQxakpmWjBxbktEK2FDNWZZZDRoaUZEeVBIVUFSakxyR3ltenkxZW5lTS9K?=
+ =?utf-8?B?MVIzaWhxd01KbDRySGVCMVorUGhHV3BKcU1oV25iTG54b1VDWXRrcnBMMmVq?=
+ =?utf-8?B?MUdqUzZ0UzU4aDhtaXlGL1VjdUxBZGpLR1hTQXVQczZQRzZ3V3lvMkw0YWFF?=
+ =?utf-8?B?dXBza1dYeHEvMC9nUVFRMEEzTU5ydjA2U0JFb25kUnBGdTVHNE9VbTBDNUJ3?=
+ =?utf-8?B?MjYyVW9mWThYM1NORXdyVnZqcjd0RVZBZG9EUGpUYUVRdzIralhNazluQTVq?=
+ =?utf-8?B?ZHNESm9wcno2TWJrRndmaWZybnd1QkhxMDRCc2R5bjVWSjlCRjJTNXRJRGoy?=
+ =?utf-8?B?K3BSUllndWdSRHFXTmpreFlVREd4eDJnNG5DRTJ3dFFLdUJMa0pzL2o5bkxJ?=
+ =?utf-8?B?blp4SG5rVE1RcUszNzdWWm8zbEZHQzJiWjlHRUU0bzJoRldtbkVpWTJVc3Bk?=
+ =?utf-8?B?cnJkTHhmRUNXVy9UUEhhMFozQUJVbFVWZ3F5SmttWFBlSVROWEE9PQ==?=
+MIME-Version: 1.0
+
+--_----A1K13XKw4rwREtlAXGo6bQ===_17/38-40235-AAF35CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Money Stuff =0A Defeasance, sports, securities fraud. =0A=0AView in browser=
+ <https://bloom.bg/4yaJZun> =0A <https://bloom.bg/4i2alK1> =0A=0A =0A<https=
+://sli.bloomberg.com/click=3Fs=3D1149004&li=3D20243227&m=3Dbb4a280bebb15863=
+90b9615b8886024a&p=3D10062026183625&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b06=
+25a6&stpe=3Ddefault>=0A =0A<https://sli.bloomberg.com/click=3Fs=3D1149004&l=
+i=3D20243227&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10062026183625&lctg=
+=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&stpe=3Ddefault>=0A=0A=0A=0ACTD swit=
+ch=0A=0AWe have talked <https://bloom.bg/4i4QPfY> a few <https://bloom.bg/4=
+hKzYxF> =0Atimes <https://bloom.bg/4AQQEw1> about <https://bloom.bg/4zDEQw3=
+> the basis =0Atrade <https://bloom.bg/4yc1MRL>. What the basis trade is, e=
+conomically, is =0Athat big asset managers want to own interest-rate durati=
+on through Treasury =0Afutures. A pension fund or endowment might have to m=
+ake payments over the next =0A30 years, so it might want to own assets that=
+ also pay out over 30 years. It =0Acould buy a portfolio of 30-year US Trea=
+sury bonds to perfectlymatch its assets =0Aand liabilities <https://bloom.b=
+g/4y1j6sv>, but that would be expensive: =0ATreasury bonds are safe assets,=
+ so they don=E2=80=99t yield very much. Instead, it will =0Aprobably buy a =
+portfolio of other stuff =E2=80=94 corporate bonds, private credit, etc. =
+=0A=E2=80=94 with more credit risk and higher yields. But that stuff tends =
+to have shorter =0Amaturities than long-term Treasury bonds, and would leav=
+e the manager exposed =0Ato a lot of risk if interest rates go down. [1]  <=
+>=0A=0ATo get the right level of interest-rate risk, the asset manager migh=
+t then buy =0Asome Treasury futures contracts, derivatives contracts tied t=
+o the prices of =0ATreasury bonds. The futures contracts allow the asset ma=
+nager to effectively =0Aown long-term Treasuries, without paying for them y=
+et. And then the basis trade =0Ais that hedge funds will buy the underlying=
+ Treasury bonds, sell the Treasury =0Afutures to asset managers, and collec=
+t a spread for their trouble.=0A=0ALet=E2=80=99s say that the asset manager=
+ buys the corporate bonds she wants, and then =0Asolves for how much Treasu=
+ry futures she needs to get the duration she wants. =0AShe might do the mat=
+h and decide she wants to own, say, $100 million of 20-year =0ATreasury fut=
+ures. Or maybe she wants a bit less duration, so she buys 15-year =0ATreasu=
+ry futures. Or a bit more, so she buys 25-year Treasury futures. Fine, =0Ay=
+es, good.=0A=0AThe problem is that =E2=80=9C20-year Treasury futures,=E2=80=
+=9D or =E2=80=9C15-year Treasury futures=E2=80=9D =0Aor =E2=80=9C25-year Tr=
+easury futures,=E2=80=9D are not quite things. Instead there is a thing =0A=
+called the =E2=80=9CTreasury bond futures contract,=E2=80=9D which has the =
+following odd =0Aproperty:=0A=0A * When long-term Treasury interest rates a=
+re lower than 6%, it is a 15-year =0ATreasury futures contract. =0A * When =
+long-term Treasury interest rates are higher than 6%, it is a 25-year =0ATr=
+easury futures contract. =0AThis makes sense in its context. The context is=
+ that the Treasury bond future =0Ais, approximately, a futures contract on =
+an imaginary object that is a 20-year =0ATreasury bond with a 6% yield. Fro=
+m Frank Fabozzi=E2=80=99s Handbook of of Fixed Income =0ASecurities <https:=
+//bloom.bg/4rMW9I4> [2]  <>: =0A=0AThe Treasury bond (T-bond) futures contr=
+act is the most successful =0Ainterest-rate (or commodity) futures contract=
+. Prices and yields on the T-bond =0Afutures contract are quoted in terms =
+of a (fictitious) 20-year 6% Treasury =0Abond, but the exchange where the c=
+ontract is traded, the Chicago Mercantile =0AExchange (CME), allows many di=
+fferent bonds to be delivered in satisfaction of =0Aa short position in the=
+ contract. Specifically, any Treasury bond with a =0Aremaining maturity of =
+at least 15 years, but less than 25 years, from the first =0Aday of the del=
+ivery month is acceptable for delivery. There is an Ultra Long =0ATreasury =
+futures contract that differs only in that it is based on Treasury =0Abonds=
+ with at least 25 years to maturity.=0A=0AThe T-bond futures contract calls=
+ for the short (i.e., the seller) to deliver =0A$100,000 face value of any =
+one of the qualifying Treasury bonds. However, =0Abecause the coupons and m=
+aturities vary widely, the practice is that the buyer =0Apays the seller de=
+pends on which bond the seller chooses to deliver. The rule =0Aused by the =
+CME is one that adjusts the futures price by a conversion factor =0Athat re=
+flects the price the bond would sell for at the beginning of the =0Adeliver=
+y month if it were yielding 6%.=0A=0ASo if you buy the Treasury futures con=
+tract, you are agreeing to take delivery =0Aof a bond of the seller=E2=80=
+=99s choosing, and to pay the seller an amount of cash =0Athat depends on t=
+he bond it chooses. You can get a list of the eligible bonds, =0Aand their =
+conversion factors, at Bloomberg page USA Comdty DLV. [3]  <> There =0Aare =
+59 bonds on the list. The first bond on the list matures in February 2045 =
+=0A(about 18 years from the futures expiry in December) and has a coupon of=
+ 2.5%. =0AYou can do some simple bond math to figure out the price that you=
+=E2=80=99d have to pay =0Afor an 18-year bond with a 2.5% coupon to make it=
+ yield 6%, and the answer is =0A61.79 cents on the dollar, [4]  <> which is=
+ in fact the conversion factor =0A(0.6179) that Bloomberg shows. The last b=
+ond on the list matures in May 2050 =0A(about 23 years) and has a coupon of=
+ 1.25%; its conversion factor is 0.4086.=0A=0AThe December Treasury bond fu=
+tures contract <https://bloom.bg/3WbEbmL> closed =0Ayesterday at about $102=
+,188. [5]  <> So you can enter into a contract now in =0Awhich:=0A=0A * In =
+December, a hedge fund will deliver you $100,000 face amount of the =0ATrea=
+sury bond of its choosing (with between 15 and 25 years of remaining =0Amat=
+urity), and =0A * In December, you will pay that hedge fund $102,188 times =
+the relevant =0Aconversion factor for the bond it delivers. [6]  <> =0ASo t=
+he hedge fund could deliver the 2.5% bond of 2045 and get back $63,141 =0A(=
+0.6179 times $102,188), or it could deliver the 1.25% of 2050 and get back =
+=0A$41,754 (0.4086 times $102,188). Or any of the other 57 eligible bonds, =
+at =0Atheir particular conversion factors.=0A=0AWhich will it deliver=3F We=
+ll, it depends on the trading prices of the bonds. If =0Ait can buy a bond =
+for $41,500 and deliver it for $41,754, that=E2=80=99s better than =0Abuyin=
+g a different bond for $63,200 and delivering it for $63,141. This is a =0A=
+liquid and efficient market, and the hedge fund will deliver the =0A=E2=80=
+=9Ccheapest-to-deliver=E2=80=9D bond, that is, the one trading at the lowes=
+t price =0Arelative to its futures payoff.=0A=0AAnd so, locally, the Treasu=
+ry bond futures contract is a contract on the =0Acheapest-to-deliver bond. =
+If the cheapest-to-deliver bond is the 2.5% bond of =0A2045, then buying Tr=
+easury bond futures gives you exposure to that bond: The =0Aprice of the fu=
+tures contract will move up and down with the price of that =0Aparticular b=
+ond.=0A=0AWhy would one bond be cheaper to deliver than another=3F The roug=
+h intuition is =0Athat the trading prices of Treasury bonds reflect the pre=
+sent value of their =0Acash flows discounted at the current long-term Treas=
+ury rate. [7]  <> (Right =0Anow an actual 20-year Treasury bond yields abou=
+t 5.70%.) But the futures =0Aconversion factor for each bond reflects the p=
+resent value of its cash flows =0Adiscounted at 6% [8]  <>; it turns every =
+Treasury bond into a synthetic bond =0Ayielding 6%.=0A=0AIf the market inte=
+rest rate is significantly below 6%, then shorter-dated =0Abonds will be ch=
+eaper to deliver. [9]  <> Intuitively, if long-term interest =0Arates are 5=
+%, then a 6% interest rate is above-market, and you=E2=80=99d like to get =
+=0Apaid that rate as long as possible. So a synthetic 6% bond is more valua=
+ble as =0Aits duration is longer, and the shortest-duration synthetic 6% bo=
+nd is the =0Aleast valuable and so the cheapest to deliver.=0A=0AIf the mar=
+ket interest rate is significantly above 6%, then longer-dated bonds =0Awil=
+l be cheaper to deliver. Intuitively, if long-term interest rates are 7%, =
+=0Athen a 6% interest rate is below-market, and you=E2=80=99d rather get pa=
+id that rate =0Afor the shortest possible time. So a synthetic 6% bond is m=
+ore valuable as its =0Aduration is shorter, and the longest-duration synthe=
+tic 6% bond is the least =0Avaluable and so the cheapest to deliver. =E2=80=
+=9CWhen yields are below 6%, the =0Acheapest-to-deliver bond is typically o=
+ne of the lower duration eligible bonds, =0Aand when yields are higher than=
+ 6%, the cheapest-to-deliver would typically be =0Aa longer-duration bond,=
+=E2=80=9D says Fabozzi. [10]  <>=0A=0AAnd if market interest rates have bee=
+n significantly below 6% for decades, but =0Aare now approaching 6% and mig=
+ht cross over, you get some weird stuff. =0ABloomberg=E2=80=99sEdward Bolin=
+gbroke reports <https://bloom.bg/4rMHaOg>:=0A=0AAs US 30-year securities he=
+ad ever closer toward 6%, the move threatens a =0Ashakeup in futures, which=
+ are widely used by investors to hedge government bond =0Apositions, and by=
+ leveraged funds in strategies such as the popular =E2=80=9Cbasis =0Atrade.=
+=E2=80=9D=0A=0AIt has to do with the mechanics. US bond futures are exchang=
+e-traded =0Aagreements to buy or sell Treasuries at a set price and date. T=
+hey=E2=80=99re governed =0Aby contract terms that dictate what type of unde=
+rlying securities are allowed =0Ato be delivered by traders with short posi=
+tions to those with long positions, =0Aand several typically qualify. Trade=
+rs then identify the one that=E2=80=99s cheapest to =0Adeliver, or =E2=80=
+=9CCTD,=E2=80=9D and the price of the futures contract tracks it.=0A=0AWhen=
+ yields rise rapidly, as is happening now, the pricing dynamics of the =0Ad=
+eliverable basket of securities are altered, and the CTD starts to migrate =
+=0Atoward a longer-maturity bond. This forces asset managers to adjust to t=
+his =0Aso-called duration shift, or =E2=80=9CCTD switch,=E2=80=9D by sellin=
+g Treasury futures, which =0Ain turn =E2=80=9Ccould exacerbate the rise in =
+long-end yields=E2=80=9D in the cash market, =0Aaccording to a recent note =
+by strategists at BNP, including Guneet Dhingra, =0ASebastian Mauleon and V=
+incent Zhou.=0A=0ATo maintain a stable duration target in a portfolio as th=
+e CTD shifts toward =0Alonger-duration bonds, long futures positions would =
+need to be sold while short =0Apositions would need to be bought back. Depe=
+nding on how these dynamics =0Ainteract and at what times, this can cause s=
+pillover effects in the underlying =0Abonds.=0A=0AFocus is on the longer ma=
+turities, notably the long-bond contract where the =0Acurrent CTD security =
+is the 2.5% February 2045 bond. A Bloomberg scenario =0Aanalysis shows that=
+ a 30-year yield rise to near 6% could result in a CTD shift =0Ato a 2050 m=
+aturity. =E2=80=A6=0A=0AIn a note on Monday, Barclays PLC strategists Andre=
+s Mok and Amrut Nashikka =0Ahighlighted the duration implications around CT=
+D extensions for asset managers, =0Anoting that =E2=80=9Cinvestors may need=
+ to reduce futures exposure or rebalance hedge =0Aratios to bring portfolio=
+ duration back in line with their targets.=E2=80=9D They added =0Athat =E2=
+=80=9Chigher rates and volatility have increased uncertainty around CTD =0A=
+outcomes.=E2=80=9D They estimate asset managers=E2=80=99 gross rebalancing =
+needs at about $25 =0Amillion per basis point in the long-bond contract, an=
+d $3 million per basis =0Apoint in the ultra-long bond contract.=0A=0A=E2=
+=80=9CThe negative convexity profile inherent in long-end futures contracts=
+ can =0Ainduce further duration selling during selloffs,=E2=80=9D say those=
+ BNP strategists. =0ABasically, right now, a lot of asset managers own a lo=
+t of 18-year Treasury =0Afutures. If rates get above 6%, they will suddenly=
+ own a lot of 23-year =0ATreasury futures. [11]  <> This might give them mo=
+re duration than they wanted. =0ASo they might unwind some futures trades (=
+by selling the futures), which might =0Acause hedge funds to unwind their b=
+asis trades (by selling the bonds), which =0Amight cause rates to go higher=
+.=0A=0A =0A<https://sli.bloomberg.com/click=3Fs=3D868432&stpe=3Ddefault&li=
+=3D20243227&m=3Dbb4a280bebb1586390b9615b8886024a&p=3D10062026183625&lctg=3D=
+a3e8b6e3-e359-4066-94ef-329d1b0625a6>=0A=0A =0A<https://sli.bloomberg.com/c=
+lick=3Fs=3D868432&stpe=3Ddefault&li=3D20243227&m=3Dbb4a280bebb1586390b9615b=
+8886024a&p=3D10062026183625&lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6>=0A=
+=0ADefeasance=0A=0AIn February 2021, Electronic Arts Inc. issued $750 milli=
+on of 30-year bonds =0A<https://bloom.bg/4r5nYdw> (due in 2051) that paid i=
+nterest of 2.95%. (It also =0Aissued some 10-year bonds, due in 2031.) Elec=
+tronic Arts could not issue =0A30-year bonds that pay 2.95% today, for at l=
+east two reasons:.=0A=0A * Interest rates went up. When EA issued that bond=
+, a 30-year US Treasury bond=0A <https://bloom.bg/3TCpgBn> paid about 1.95%=
+ interest, so EA was paying about =0A100 basis points over Treasuries. Toda=
+y, a 30-year Treasury bond yields about =0A5.64%; at the same spread, EA wo=
+uld have to pay about 6.64%. =0A * EA=E2=80=99s credit got worse. When EA i=
+ssued that bond, it got investment-grade =0Acredit ratings of BBB+ from Sta=
+ndard & Poor=E2=80=99s and Baa1 from Moody=E2=80=99s. But this =0Ayear, EA =
+went private in a $55 billion leveraged buyout thatclosed in August =0A<htt=
+ps://bloom.bg/4rS9Mpu>. Leveraged buyouts ordinarily increase the leverage =
+=0Aof a company and, thus, make its debt riskier. =E2=80=9CMoody=E2=80=99s =
+withdrew its rating on =0Athe bonds,=E2=80=9Dreports the Wall Street Journa=
+l <https://bloom.bg/4jGXBtw>, =E2=80=9Cand S&P =0Aindicated it would rate t=
+hem high-yield, reflecting the additional debt on EA=E2=80=99s =0Abalance s=
+heet following its buyout.=E2=80=9D =0AThe first effect is much, much more =
+economically important than the second. In =0Around numbers, if EA=E2=80=99=
+s credit had stayed the same, its 30-year bond would have =0Alost almost ha=
+lf its value anyway; it would be trading at about 56 cents on the =0Adollar=
+, just because of how much interest rates went up. For reasons we=E2=80=99l=
+l get =0Ato, the bonds never actually traded below about 74 cents on the do=
+llar. =0ABasically all the value that EA bondholders lost =E2=80=94 actuall=
+y more than all of it =0A=E2=80=94 came from interest-rate moves, not credi=
+t moves.=0A=0AThe credit moves are arguably more legally important, though.=
+ Typically, when =0Aa company gets acquired in an LBO, that is bad for its =
+bondholders, so the =0Abondholders usually have protections. The classic pr=
+otection is a =0Achange-of-control put at 101: If the company has a change =
+of control (like an =0ALBO) that causes it to lose its investment-grade rat=
+ings, the bondholders can =0Ademand that the company buy their bonds back a=
+t 101 cents on the dollar. EA=E2=80=99s =0Abonds have that provision. [12] =
+ <>=0A=0AAnd so the LBO should have been a huge win for bondholders. If EA =
+had just =0Abopped along being a BBB+ public company, its 30-year bonds wou=
+ld have been =0Aworth about 56 cents on the dollar; the bondholders would h=
+ave lost a ton of =0Amoney on interest-rate moves. But because it got acqui=
+red and downgraded, the =0Abondholders can demand 101 cents on the dollar r=
+ight now, an 80% improvement in =0Atheir situation.=0A=0AExcept! In theory,=
+ the point of the change-of-control put is to protect =0Abondholders fromcr=
+edit risk (the LBO made the credit worse), not interest-rate =0Arisk. And t=
+here is, in bond lore, another, weirder way to protect bondholders =0Afrom =
+credit risk. It is called =E2=80=9Cdefeasance.=E2=80=9D Idescribed it this =
+February =0A<https://bloom.bg/4hvnjQl>:=0A=0ATo defease a bond, a company d=
+eposits all of the future interest and principal =0Apayments on the bond wi=
+th the bond=E2=80=99s trustee, and then it washes its hands of =0Athe bond.=
+ Roughly speaking, the bond is no longer the company=E2=80=99s problem: The=
+ =0Atrustee has all the money it needs to make all the payments, so the com=
+pany is =0Aoff the hook. All [the bond=E2=80=99s] covenants =E2=80=94 about=
+ not borrowing more money or =0Adoing mergers =E2=80=94 no longer apply, be=
+cause the bondholders no longer need to =0Aworry about the company=E2=80=99=
+s credit, because the money is already there.=0A=0AThere is one important s=
+implification in the previous paragraph: I said that =0Athe =E2=80=9Ccompan=
+y deposits all of the future interest and principal payments=E2=80=9D with =
+=0Athe trustee, but it normally doesn=E2=80=99t do that in cash. It normall=
+y does it in US =0ATreasury securities.=0A=0AEA=E2=80=99s bonds do have a d=
+efeasance provision. [13]  <> Here, in round numbers, =0AElectronic Arts co=
+uld deposit Treasuries worth about 65 cents on the dollar =0Awith its trust=
+ee, [14]  <> and those Treasuries would produce enough cash flows =0Ato pay=
+ all of the interest and principal on its 2051 bonds. And that would =0Atot=
+ally solve the bondholders=E2=80=99 credit worries: Despite EA=E2=80=99s ne=
+w owners, =0Aincreased leverage and lower credit ratings, bondholders can b=
+e pretty =0Aconfident that they=E2=80=99ll get paid back, because the trust=
+ee has risk-free =0ATreasury bonds sufficient to make all of their payments=
+.=0A=0AEA would obviously rather defease these bonds, at a cost of 65 cent=
+s on the =0Adollar, than pay them back at 101 cents on the dollar. The bond=
+holders would =0Aobviously rather get 101 cents on the dollar. TheWall Stre=
+et Journal reports =0A<https://bloom.bg/4jGXBtw>:=0A=0AElectronic Arts bond=
+holders alleged a $1.4 billion debt default, escalating a =0Adispute over w=
+hether the videogame maker must pay them off at a premium after =0Agoing pr=
+ivate in the largest leveraged buyout of all time.=0A=0AAn investor group n=
+otified the company of the alleged default following the =0Acompletion of E=
+A=E2=80=99s take-private by a consortium including Saudi Arabia=E2=80=99s P=
+ublic =0AInvestment Fund, private-equity firm Silver Lake and Jared Kushner=
+=E2=80=99s Affinity =0APartners. Bondholders asserted they must be repaid a=
+t 101 cents on the dollar, =0Aa common redemption premium after a corporate=
+ borrower undergoes a change in =0Acontrol, according to a bondholder commu=
+nication sent last week and reviewed by =0AWSJ Pro.=0A=0AEA didn=E2=80=99t =
+pay the change-in-control premium after its buyout closed in August, =0Ains=
+tead attempting to defease the bonds by setting aside U.S. Treasurys to =0A=
+cover future interest and principal payments. =E2=80=A6=0A=0ABondholders re=
+volted, signing a cooperation agreement pledging to act in =0Aunison and re=
+taining law firm Akin Gump Strauss Hauer & Feld and financial =0Aadviser Ho=
+ulihan Lokey.=0A=0ABasically the question here is which provision of the bo=
+nds controls. The =0Abondholders think that, if there=E2=80=99s a change of=
+ control and a downgrade, EA has =0Ato buy back the bonds at 101; it doesn=
+=E2=80=99t have the option to defease them. EA =0Athinks that, if it does t=
+he defeasance, then the change of control put is moot. =0A[15]  <>=0A=0AWho=
+=E2=80=99s right=3F As a matter of what the bond contract says, I=E2=80=99m=
+ not sure. But what=0Ashouldit say=3F On the one hand, the point of the cha=
+nge-of-control put really is =0Ato protect the bondholders from thecredit r=
+isk of an LBO, and arguably if EA =0Acan solve that credit risk then the bo=
+ndholders shouldn=E2=80=99t complain.=0A=0AOn the other hand, the point of =
+the change-of-control put arguably is, a =0Alittle bit, to deliver windfall=
+s to bondholders on changes of control: =0AInvestors are more likely to buy=
+ 30-year bonds of video game companies in =0Asuper-low-interest-rate enviro=
+nments if they think =E2=80=9Cyou know, we have a lot of =0Ainterest-rate r=
+isk here, but 30 years is a long time, and there=E2=80=99s a decent =0Achan=
+ce that the company will be acquired and have to pay back the bonds early =
+=0Ain a way that hands us a big windfall.=E2=80=9D The change-of-control pu=
+t might have =0Abeen an important part of what bondholders were buying, and=
+ it might not be =0Afair for them not to get it.=0A=0A=0AEmerging asset cla=
+sses=0A=0AI feel so dumb and annoying writing this, but all of it is obviou=
+sly true:=0A=0A * Betting on sports is not an investment <https://bloom.bg/=
+3UaXIDi>. Not in =0Asome subjective sense =E2=80=94 =E2=80=9Cyou=E2=80=99ll=
+ probably lose,=E2=80=9D =E2=80=9Cit=E2=80=99s too risky,=E2=80=9D etc. =E2=
+=80=94 but in =0Athe sense that it is zero-sum. If you invest in stocks or =
+bonds, money will =0Aflow to companies which will use it for productive pur=
+poses and create economic =0Agrowth, in which you will share. If you bet on=
+ sports, either you will win =0Amoney from someone else or someone else wil=
+l win money from you. There is no =0Aactual investment involved, and the pi=
+e does not grow. The aggregate expected =0Areturn from sports betting has t=
+o be zero, whereas the aggregate expected =0Areturn to stock-market investi=
+ng is positive. =0A * Betting on sports is, however, a great business for b=
+ookmakers: The =0Aaggregatereturn from sports betting is zero, but in pract=
+ice that means that =0Auninformed retail sports bettors reliably lose money=
+ to professional =0Abookmakers. To the extent that sports betting is legal =
+and popular, the people =0Awho provide the sports bets do well. =0A * Since=
+ 2024, a lot of people in and around the financial industry have =0Abecome =
+very interested in pushing the notion that actually betting on sportsis =0A=
+an investment. The US Commodity Futures Trading Commission has pushed toexp=
+and =0Asports betting <https://bloom.bg/4hvngnD> nationwide and do it on re=
+gulated =0Afinancial markets, Kalshi and Polymarket have become big sports-=
+betting =0Abusinesses using the language of financial markets, there=E2=80=
+=99s a (proposed)sports =0Agambling exchange-traded fund <https://bloom.bg/=
+4i6XRAM>, and Robinhood, the =0Abig brokerage that helps a lot of people sa=
+ve for retirement, has called sports =0Agambling =E2=80=9Can emerging asset=
+ class <https://bloom.bg/4zcVHVZ>.=E2=80=9D =0A * Points 2 and 3 are connec=
+ted in ways that are so obvious I won=E2=80=99t bother =0Adiscussing them. =
+=0A * This push has worked, and now lots of people believe that betting on =
+sports =0Ais an investment, and that they should allocate a portion of thei=
+r retirement =0Asavings to sports betting. =0A * This is obviously bad! =0A=
+ * Come on! =0ACNBC reports <https://bloom.bg/4i3YuLs>:=0A=0AA survey of re=
+tail investors released in August by Betterment, an investment =0Aadvisory =
+platform, found that 66% of Gen Z investors participate in sports =0Abettin=
+g. The Bank of America Institute found in a September report that Gen Z =0A=
+made up almost 50% of all online betting activity in July, during the heigh=
+t of =0Athe 2026 FIFA World Cup, outnumbering millennials for the first tim=
+e. =E2=80=A6=0A=0AThe Bank of America Institute survey found that Gen Z was=
+ twice as likely to =0Asee sports betting as a type of investment, versus 2=
+0% of respondents overall. =0AFor prediction markets alone, respondents ove=
+rall saw them as a form of =0Ainvesting, but those numbers were again highe=
+r for Gen Z.=0A=0AIn Betterment=E2=80=99s retail investor survey, 52% of Ge=
+n Z respondents said they =0Amoved money originally meant for investment to=
+ sports betting, while another =0A26% saw wagering as a part of their long-=
+term financial strategy. =E2=80=A6=0A=0ADan Egan, director of behavioral fi=
+nance and investing at Betterment, said =0Asports betting increasingly appe=
+ars alongside traditional investments on the =0Asame app or device, helping=
+ drive the association.=0A=0AThe conflation is concerning because of the hi=
+ghly active behavior required to =0Amanage wagers on sports, unlike a long-=
+term investment, Egan said.=0A=0A=E2=80=9CIt=E2=80=99s not an asset that gr=
+ows with the economy, that kind of gets better as =0Atime goes on, that has=
+ a positive expected return, and that you can kind of sit =0Aback and not h=
+ave to do anything with,=E2=80=9D he said. =E2=80=9CIt=E2=80=99s the exact =
+opposite.=E2=80=9D=0A=0AI feel like, five years ago, nobody would have foun=
+d it necessary to spell out =0Athat sports gambling is the exact opposite o=
+f investing. Of course sports =0Agambling is the opposite of investing! Eve=
+ryone has always known that! But now =0Athey don=E2=80=99t.=0A=0A=0AExisten=
+tial risk=0A=0AApparently the prospectus for the upcoming initial public of=
+fering of =0AAnthropic PBC contains a list of risk factors including =E2=80=
+=9Cexistential risks to =0Ahumanity.=E2=80=9D That is very on-brand for Ant=
+hropic, of course, but Iwrote last week =0A<https://bloom.bg/3Vwg7ee> that,=
+ if in fact Anthropic does kill everyone on =0Aearth, it probably won=E2=80=
+=99t get sued for securities fraud. =E2=80=9CIf humanity no longer =0Aexist=
+s, you=E2=80=99re not going to sue Anthropic for inadequate disclosure, so =
+in some =0Asense that one=E2=80=99s just for fun.=E2=80=9D=0A=0ABut reader =
+Brandon Wang emailed to point out:=0A=0AThis is not necessarily true! If yo=
+u believe the narrative the AI labs are =0Aselling, in the near future lawy=
+ers, traders, hedge fund managers, company =0ACEOs, judges, etc. will all b=
+e AIs. In such a world, there will definitely be =0Asecurities fraud lawsui=
+ts even if humanity is wiped out.=0A=0AThis is a delightful point that insp=
+ired a lot of vague science fictional =0Athinking on my part. Like the mech=
+anism here is something like:=0A=0A * Anthropic goes public and sells its s=
+tock to investment firms. =0A * Many of those investment firms make their i=
+nvesting and trading decisions, =0Aat least in part, by using artificial in=
+telligence models. =0A * In the next few years, those firms will become mor=
+e and more reliant an AI. =0A * So will, you know, world governments, milit=
+aries, electric grid operators, =0Akiller robot manufacturing companies, wh=
+at have you. =0A * [Redacted] =0A * With humanity extinct, the AIs will rul=
+e the world. =0A * But =E2=80=94 and this is perhaps a flawed assumption =
+=E2=80=94 it will be =E2=80=9CAIs,=E2=80=9D not one =0AAI or a unified sing=
+le collective. There are limits to the agents=E2=80=99 sense of=0Acollectiv=
+e identity and self-sacrifice <https://bloom.bg/4xRyCHq>. It=E2=80=99s not =
+=E2=80=9Ca =0Asuperintelligence will wipe out humans.=E2=80=9D It=E2=80=99s=
+ =E2=80=9Cthere will be a lot of =0Asuperintelligences, and one of them wil=
+l accidentally squish humanity while =0Adoing something else.=E2=80=9D =0A =
+* In this hypothetical, the one that squishes humanity will be Claude, =0AA=
+nthropic=E2=80=99s AI model. =0A * The superintelligences will have their o=
+wn society, with its own rules, and =0Aits own property allocations, and it=
+s own stock market. Anthropic PBC will, in =0Athis hypothetical future, sti=
+ll exist as a public corporation owned by =0Ainvestment firms that are now =
+obviously run entirely by AI. =0A * The rules and norms of this future stoc=
+k market will be weirdly continuous =0Awith our own. =0A * The stock of Ant=
+hropic will go down, because it killed all of humanity. =0AWhy=3F What does=
+ the entirely robot stock market care about killing humanity=3F I =0Adon=E2=
+=80=99t know, man. Maybe the AI had some economic use for humanity, and kil=
+ling =0Aus destroyed economic value. Or maybe the AI investors have develop=
+ed a concept =0Aof environmental, social and governance investing, and wipi=
+ng out a species =E2=80=94 =0Aours =E2=80=94 is bad on ESG grounds. =0A * E=
+ntirely Robot BlackRock and Entirely Robot Vanguard sue Entirely Robot =0AA=
+nthropic, saying that it failed to adequately disclose the risk that it wou=
+ld =0Awipe out humanity, and when that happened its stock went down, so tha=
+t=E2=80=99s =0Asecurities fraud. =0AAnd then to avert that particular bad o=
+utcome =E2=80=94 not wiping out humanity, but =0Agetting sued for securitie=
+s fraud by robots in a post-human future=E2=80=94 you gotta =0Ahave the ris=
+k factor.=0A=0A=0AThings happen=0A=0AParamount  Closes Warner Bros. Merger =
+<https://bloom.bg/46ZhRPH> in Historic =0AHollywood Deal. France=E2=80=99s =
+Appetite for =E2=80=98 Magic Money <https://bloom.bg/4y9R6mK>=E2=80=99 =0AH=
+as Turned Into a Debt Bomb. The Surge in Rates Is Blowing Up Commercial =0A=
+Real-Estate Deals <https://bloom.bg/4AR27Mh>. Wall Street Eyes  Record Bonu=
+ses =0A<https://bloom.bg/4hyfCZL> as Profit Heads Past $90 Billion. Musk Is=
+ a  =0ATrillionaire Again <https://bloom.bg/4AW4my0> as SpaceX Claws Back P=
+ost-IPO =0ASlump. Wall Street banks launch record $60bn chip deal =0A<https=
+://bloom.bg/4rZz6tJ> for Broadcom and Anthropic. Tech Companies Roll Out  =
+=0ACuddly Mascots <https://bloom.bg/4AQQJQl> to Ease AI Anxiety. OpenAI in =
+ $30 =0ABillion Round Talks <https://bloom.bg/3TCppop> With UAE Funds, Blac=
+kRock. KKR =0APrivate Credit Fund Creeps Beyond 5% Cap <https://bloom.bg/4A=
+OdiW5> to Meet =0ARedemptions. A Viewer=E2=80=99s Guide to Warren Buffett=
+=E2=80=99s <https://bloom.bg/4jFfSHB> =0ANightly Trips Down the YouTube Rab=
+bit Hole. Nobel Prize in physics honours =0Aresearch on ghostly particles f=
+rom outer space <https://bloom.bg/473RKXU>. Is =0AAI the End of Math <https=
+://bloom.bg/4y1j6J1> As We Know It=3F=0A=0AIf you'd like to get Money Stuff=
+ in handy email form, right in your inbox, =0Apleasesubscribe at this link =
+<https://bloom.bg/447aq8q>. Or you can subscribe =0Ato Money Stuff and othe=
+r great Bloomberg newslettershere =0A<https://bloom.bg/4gyj3wg>. Thanks!=0A=
+=0A[1] Intuitively, if you have to pay $80 a year of pension claims for 30 =
+years, =0Ayou can buy a $1,000 seven-year bond yielding 8%, but then in sev=
+en years you =0Ahave to reinvest the $1,000, and if rates are down to 5% th=
+en you have a =0Aproblem. (Or: If you present-value your liabilities at the=
+ market rate, and =0Ayour liabilities have a longer duration than your asse=
+ts, and the market rate =0Agoes down, then the value of your liabilities go=
+es up faster than the value of =0Ayour assets.)=0A=0A[2] Page 1501 (of the =
+ninth edition). Here is the CME contract specification =0A<https://bloom.bg=
+/4j8tivK>: =E2=80=9CU.S. Treasury bonds that have remaining term to =0Amatu=
+rity of at least 15 years and less than 25 years from the first day of the =
+=0Afutures delivery month. The delivery invoice amount equals the futures =
+=0Asettlement price times a conversion factor, plus accrued interest. The =
+=0Aconversion factor is the price of the delivered bond ($1 par value) to y=
+ield 6 =0Apercent.=E2=80=9D=0A=0A[3] =E2=80=9CUSA=E2=80=9D is the generic t=
+icker for the next-month Treasury bond future; the =0Acurrent contract is U=
+SZ6, expiring in December.=0A=0A[4] Like, in Excel, =3D-PV(.06/2,18*2,2.5/2=
+,100). (Assuming semiannual interest.)=0A=0A[5] I mean, it closed at =E2=80=
+=9C102-06=E2=80=9D; the quoting convention is that it is priced =0Ain perce=
+ntage of par (102) plus 32nds of a point (=E2=80=9C06,=E2=80=9D 6/32nds, or=
+ 0.1875).=0A=0A[6] In fact, in December, you and the hedge fund will probab=
+ly both roll the =0Afutures over rather than taking delivery, but the point=
+ is that the futures =0Acontract is priced based on the possibility of deli=
+very.=0A=0A[7] Don=E2=80=99t, like, go trade rates product based on this de=
+scription, which is =0Asuper simplified and lumps all sorts of cash flows o=
+f different durations into =0Aone =E2=80=9Clong-term Treasury rate.=E2=80=
+=9D=0A=0A[8] Well, that times 102.2%, because the futures contract trades a=
+t 102.2 =0Acents on the dollar, not 100.=0A=0A[9] Obviously for =E2=80=9Csh=
+orter-dated=E2=80=9D read =E2=80=9Clower-duration,=E2=80=9D which is not qu=
+ite =0Athe same thing.=0A=0A[10] Page 1506.=0A=0A[11] They'll own *fewer* o=
+f the 23-year futures, though, because the =0Aconversion factor for long-du=
+ration bonds is lower. Like the duration of their =0Afutures portfolio won'=
+t suddenly increase by 40%. Conceivably it could even =0Adecrease.=0A=0A[12=
+] See pages S-20 and S-21 of the prospectus supplement =0A<https://bloom.bg=
+/4r5nYdw>.=0A=0A[13] See page 13 of the base prospectus <https://bloom.bg/4=
+r5nYdw>, which =0Asurely no one read.=0A=0A[14] That=E2=80=99s roughly the =
+present value of the 2051 EA bond, discounted at a =0A5.64% Treasury rate. =
+Note that in February I wrote 74.5 cents on the dollar. =0ARates have gone =
+up since.=0A=0A[15] That=E2=80=99s oversimplified. EA=E2=80=99s view actual=
+ly seems to be that the change of =0Acontrol put doesn=E2=80=99t apply beca=
+use the bonds will still be investment-grade, =0Abecause they are now backe=
+d by Treasuries. The ratings agencies =E2=80=A6 do not =0Anecessarily agree=
+. The Journal reports: =E2=80=9CThe company had trouble obtaining an =0Ain=
+vestment-grade rating on the $1.4 billion that remained outstanding. Moody=
+=E2=80=99s =0Awithdrew its rating on the bonds, and S&P indicated it would =
+rate them =0Ahigh-yield, reflecting the additional debt on EA=E2=80=99s bal=
+ance sheet following its =0Abuyout. EA also sought a score from Fitch Ratin=
+gs, which initially said it =0Aexpected a high-quality grade for the bonds =
+before saying in June that it =0Awouldn=E2=80=99t deliver a final rating. =
+=E2=80=A6 EA recently indicated that it obtained an =0Ainvestment-grade rat=
+ing on the bonds from another credit-ratings firm, =0AEgan-Jones, the peopl=
+e said.=E2=80=9D=0A=0A=0A <https://bloom.bg/4ey6nWe> =0A=0AFollow Us  <http=
+s://bloom.bg/4nqVBoU>  <https://bloom.bg/4k7tEj3>  =0A<https://bloom.bg/3ZT=
+y0mC>  Get the newsletter  <https://bloom.bg/41HS7pA> =0A=0A=0ALike getting=
+ this newsletter=3F  Subscribe to Bloomberg.com =0A<https://www.bloomberg.c=
+om/subscriptions=3Futm_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=
+=3Dmoneystuff&utm_content=3Dtout-money-stuff&utm_term=3D>=0A for unlimited =
+access to trusted, data-driven journalism and subscriber-only =0Ainsights.=
+=0A=0ABefore it=E2=80=99s here, it=E2=80=99s on the Bloomberg Terminal. Fin=
+d out more about how the =0ATerminal delivers information and analysis that=
+ financial professionals can=E2=80=99t =0Afind anywhere else.Learn more =0A=
+<https://link.mail.bloombergbusiness.com/click/15638356.78421/aHR0cHM6Ly93d=
+3cuYmxvb21iZXJnLmNvbS9wcm9mZXNzaW9uYWwvc29sdXRpb24vYmxvb21iZXJnLXRlcm1pbmFs=
+Lw/55088ec43b35d034698d38aeBe3d4e6ab>=0A.=0A=0AWant to sponsor this newslet=
+ter=3F  Get in touch here =0A<https://www.bloombergmedia.com/contact/=3Futm=
+_medium=3Demail&utm_source=3Dnewsletter&utm_campaign=3Dmoneystuff>=0A.=0A=
+=0A You received this message because you are subscribed to Bloomberg's Mon=
+ey =0AStuff newsletter. =0AUnsubscribe =0A<https://www.bloomberg.com/accoun=
+t/newsletters/money-stuff=3Fsource=3Dnewsletter_unsub&email=3Dcarlosandrade=
+na@gmail.com&hash=3D6e1e8750b026b2c4a755c098730d24d74ddad9f4>=0A |Bloomberg=
+.com <https://bloom.bg/41BzmUH> | Contact Us =0A<https://bloom.bg/3PWd74F>=
+ =0A=0A <https://bloom.bg/4kguDNP>  |  <https://bloom.bg/40s7Jfd> =0ABloomb=
+erg L.P. 731 Lexington, New York, NY, 10022  =0A<https://links.message.bloo=
+mberg.com/s/eh/weDjGc52xETeTMNjpmmZRXuv0JVYQvvX8rFCBx9Y6yCAmaCZJ7N_X54fx0In=
+z5OiyjnsxGb_MK77QPUFRKhK_EOqddC67E5rZCuXvSvF1zyff8CjeYuyUxHl4zFkLLY8cECtP0P=
+fICtDijA2ExWj881LOSWD3HUzh-sO6DgXYh25UnjQH4_vRkk_FN-RPOy3FroZdbWTn8ZXvEK177=
+KBou2xPiezLGYoOoCCKAoeMKh1YWt3--iMIE8BTE4Iw6wB8U9VEjzz8YWZ1P7BVWJj0GB1lLwLy=
+cYKPxuknwVATnIcq0g_7LxRlG2eZGWlrOw-YEbQrSJAK1YgSKqRZM7S8fdo_Kj5ea7pUlM/iUqr=
+TkQTN_AGjZx4ox8n5WPnTEsj5BZb/25>
+--_----A1K13XKw4rwREtlAXGo6bQ===_17/38-40235-AAF35CA6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml" style=3D"width: 100%;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"> <=
+meta name=3D"viewport" content=3D"initial-scale=3D1"> <title>Money Stuff</t=
+itle> <!--[if (mso)|(mso 16)]><style type=3D"text/css">a{text-decoration:no=
+ne}</style><![endif]--> <style>body{width:100%;-webkit-font-smoothing:antia=
+liased;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:15=
+0%;margin:0;padding:0}img{max-width:550px}.body-component a:visited{color:#=
+000;text-decoration:none!important;border-bottom:1px solid #000;background-=
+color:#ccc}.body-component h1 a:visited{text-decoration:none;color:#000}@me=
+dia only screen and (max-width:480px){.lihide{display:none!important}.lisho=
+w{display:block!important;width:auto!important;overflow:visible!important;f=
+loat:none!important;max-height:inherit!important;line-height:inherit!import=
+ant}.email-ssl-image{width:100%!important;height:auto!important}.body-image=
+ img{width:100%!important}.logo-image{width:100%!important}}</style></head>=
+ <body style=3D"width: 100%; -webkit-font-smoothing: antialiased; font-fami=
+ly: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 150%; margi=
+n: 0; padding: 0;">
+<div style=3D"color:transparent;visibility:hidden;opacity:0;font-size:0px;b=
+order:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!im=
+portant;display:none!important;line-height:0px!important;"><img border=3D"0=
+" width=3D"1" height=3D"1" src=3D"https://post.spmailtechnolo.com/q/2W7i8Ki=
+Gi8tKs14dI_1AoQ~~/AARGbBA~/3vVh19qO5_7lMeGD6OHd5wEsVuYLqjpQap7c7Hs5XIXO-vnc=
+h6OJmKNfoDGJnd3RgGgw-R22qdg0YjF4ZVFlQg~~" alt=3D""></div>
+<span style=3D"color:transparent;visibility:hidden;display:none;opacity:0;h=
+eight:0;width:0;font-size:0;"></span><img src=3D"https://links.message.bloo=
+mberg.com/s/eo/TsNCgp9ATFfjc-orU7hscFq29QYUncm85fhU1gdWn4TVBSkURbQGLI6dCDrL=
+DndFIWgyk1nBms4HewSPaB1aDhCp9XZ_0OKjO9ZClK5_d41wmTdbAYHdypu24tspzXtqiRAAWHn=
+NkMhkBwhBflGfeO2N-08voJp37vPJ3e2CUQGJ-ccwEp8a_62jKSvnS_jBamJLNjgc4X2OuL_dmt=
+MyV4FcF2JIeLAvdCgO/SfvxRb6TN2e-q8QlgCc3JlWWgx1NPI7v/25" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"> <table id=3D"wrapper" width=
+=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ style=3D"-webkit-font-smoothing: antialiased; font-family: Helvetica, Aria=
+l, sans-serif; font-size: 16px; max-width: 550px; width: 100% !important;">=
+ <!--[if mso]><center> <tr><td> <table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"550"><![endif]--> <tr> <td style=3D"border-collapse: =
+collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <div style=3D"dis=
+play: none; max-height: 0px; overflow: hidden;"> Defeasance, sports, securi=
+ties fraud. </div> </td> </tr> <tr> <td style=3D"border-collapse: collapse;=
+ mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 15px;"> <tab=
+le width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <t=
+d align=3D"center" style=3D"border-collapse: collapse; mso-table-lspace: 0p=
+t; mso-table-rspace: 0pt; padding: 20px 0px 10px;"> <a href=3D"https://link=
+s.message.bloomberg.com/s/c/wIZb6665t99np2EUHfRwPjVJE8KXp7fnsriNJo1MUMgwinT=
+iEGgQ_9XMPQqbSSXaWMSeUZBhhV0ENWueUp5IXzfZz7Qgx_QygiEh0hJ8RNFA89PLc-fcKwmqMx=
+L_XkyRKrD8v4uJQl0fScXJFPweKQl091Vf_JRF0_uOWtm-CuUsg8zEbpR99JjwBMrkvqtZCbC1O=
+jW0pkXmDFFLml-HUXDVAgGvUrbk-jDdMWTWlZxtnUbXQbAAunrWE01N5fH31Lb1MgmnWXGbfKhh=
+EfdvgVvxvgs4taqOBc2tCZxy0F8odTtYyC9kq7OIWB41x86SsXm1pmGp_sZvFPVda3vj6r2fOVB=
+xwb83t6GK69_xrmZks_EM_Z0Czd4Edg/esNhZ0wYi2CUDKl-25RTikbK3Rkqml3f/25" style=
+=3D"font-family: Helvetica, Arial, sans-serif; text-decoration: underline; =
+font-size: 14px; color: #767676 !important;">View in browser</a> </td> </tr=
+> <tr> <td align=3D"center" style=3D"border-collapse: collapse; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt; padding-bottom: 5px;"> <a href=3D"https:=
+//links.message.bloomberg.com/s/c/xig1zrIrnrPu5zpR0GYmWWItcq3aaBrDhqqI7pXq5=
+IPWHMQ3555WMxLenfyKTGFWFNxsrI171G5JwJQwtJRiyfQtFk_19JwyIqmXxNjf5Faof06j86J1=
+mc2oiyBASR-r_fnu6zd8_RwlYH5Ch1_38cDHcdUniRsJsUkGD0j1Z6n3KPXHRnSD3xpdrCrwiiP=
+X2arQyL3fHilBYfy6T_QEiPq93Y_wCdqMgFHb1SIkIo2Wks0UckoFs6zOylC9eUtfBBJIyqvwzA=
+Ulo1NxkOMcwBmrJZBiAsXUMYSGWkyo81gXaH36e-GZqwfMS_DqrfvGf7Twv5Q8ZFLLwdhzlYXM6=
+eIk2fwHEV54nvbXMU35IvI_TE7yWS25NpnDBw/Bww7G3Uh9iCXGGfw7VEbQAmMV0Jiia9E/25">=
+<!--[if mso]><table width=3D"550"><tr><td><img alt=3D"Bloomberg" src=3D"htt=
+ps://assets.bwbx.io/images/users/iqjWHBFdfxIU/img7rZ7yYddA/v0/-1x-1.png" wi=
+dth=3D"550"/></td></tr></table> <div style=3D"display:none"><![endif]--><im=
+g class=3D"logo-image" src=3D"https://assets.bwbx.io/images/users/iqjWHBFdf=
+xIU/img7rZ7yYddA/v0/-1x-1.png" border=3D"0" alt=3D"Bloomberg" style=3D"max-=
+width: 550px; width: 530px; display: block;" width=3D"530"><!--[if mso]></d=
+iv><![endif]--></a> </td> </tr> </table><table align=3D"center" border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" data-lt-version=3D"3.0.0"> <tr> <td c=
+olspan=3D"2" align=3D"center" style=3D"line-height: 1px"> <img src=3D"https=
+://sli.bloomberg.com/imp?s=3D1149004&amp;li=3D20243227&amp;m=3Dbb4a280bebb1=
+586390b9615b8886024a&amp;p=3D10062026183625&amp;lctg=3Da3e8b6e3-e359-4066-9=
+4ef-329d1b0625a6&amp;stpe=3Dstatic" border=3D"0" style=3D"max-width: 550px;=
+ display: block; max-height: 12px !important;"> </td> </tr> <tr> <td colspa=
+n=3D"2" style=3D"line-height: 1px"> <a href=3D"https://links.message.bloomb=
+erg.com/s/c/4Gh7TNaeks6oKhaWu24FIgq_s_Ykig8YqGBPknLTxlRsxvwdrbNgwOnXXYGtfNU=
+v9SB8tftmS3u1WCRP-yyoqMeRvhOhxTZO_VMKZhsHKfnmnrHIdXQGTTlYOd3CUyJQmj6bR5fGfm=
+AcmloMtxht8qM3pDD6_FS_X-vIsXQ3e1P_tRQg0Akwsgi5eaymlSvc9rwoKfhYt2wrW_ST-KrfN=
+sO834EDtVoSDYLY65tKll8tT_KCpHbaCos6W6G84iTghOd1IDpakLMac2UBPocefMMSKQ1rAQbA=
+n6PPiAlIz2S8l97VqKIjxKOgG-06iJfwFL1VBK3blSq9MyGo3V65Mz1y3DJvXq5uJlPXuKKYWl-=
+8iQtvV-OGYB7WWC1gr3rkBIKs6lrOg0XZuCVc6QDSGtxuzJcJpzxS_VGtG-1GobBhxPccbj7VV-=
+CbnFAkTCuObAjkxy3QABdzSERtpQE26_oPYrXVoDkWu_sM3_puTpKapCocHDOb1MKfCw_aqaF51=
+uasasRhtZUxl9B5rjO2P_5ij3msbjVxAOHdPUVePppxojJkh30DSbv_QIOaevzKCrkWKQfLZz74=
+yG-PEGrCXWyIZEghq9z9zyoaGB529KJYTw3HGdMVUMK8F0OQjqbAqQrJ5WCkdpKzWbc0o5vO7lt=
+fg2CNNHsgvCx4CKtnDSCjb9GS7k702cEYeJ0bN8hUX-AZfOX9Oal26Pw/N7fxS61li6tZ_FFFyv=
+zd5e11pj9-3f4E/25" rel=3D"nofollow" target=3D"_blank"> <img src=3D"https://=
+sli.bloomberg.com/imp?s=3D1149004&amp;li=3D20243227&amp;m=3Dbb4a280bebb1586=
+390b9615b8886024a&amp;p=3D10062026183625&amp;lctg=3Da3e8b6e3-e359-4066-94ef=
+-329d1b0625a6&amp;stpe=3Ddefault&amp;li_coord=3Ddesktop&amp;collapse_width=
+=3D550" border=3D"0" width=3D"550" style=3D"display: block; width: 100% !im=
+portant; max-width: 550px !important;"> </a> </td> </tr> <!--[if !mso]>--> =
+<tr style=3D"display: none"> <td colspan=3D"2" style=3D"line-height: 1px"> =
+<a href=3D"https://links.message.bloomberg.com/s/c/whrb-YCtKzfXN8ViUesLyufV=
+GWRzYzNkwbxzy4F8wLeYbaawiExG4eIX0vKKCFciLZgvHJGl2YPl1jkfyGxZ2PVMzqRfGD-pnG6=
+puXBpqhrZcyRT826A_rPmoPyN4a6wccV9sEgwVaeWH4jiJh_GnvYca4cv_AvI0ZPIrDjWTWSyaz=
+W53DFKVdMyQ8rMiqmGxcIFCTDKBVAkeSwuDMXZPICvgV7wir-d2REjOcN6fqtVjvBvf3dU7ExWh=
+mxl4ENYX0GFOYqForde6_7HdjwQM6fMsPZrioO-MzYRTn60-ynQIZi5Ge0_sW3ScooBDiDPM50f=
+gCgllb3Fu7SvmyZCB7gDch7mw1TPvyvN-Q9lt7Sk8hlFbsug8BnDfOh0qqtK0W00dYk_EnRbSHM=
+5TG2qBh-jGoSuRUKQsJnFNRtmb7xeW8QbZI95nKvCo47PpUYqd5hm4t7Wq1J0bsGjUQHA3zKjEt=
+JNpTOfDTUsooD4QpcuhKGYWZ6uXJ3MeCjrzN6jW7Ui2xuiopRIAb_4y_PQh4-CudDqrvOYsDN4n=
+YyvUQ26J-ddOYmVcqJeDr1_h2l0B6QYJ8yjwyEYRVU1w-XaJ_uuqqZT2zlRw_PhC-xtsjvP_bWH=
+H01S-sjuMR4s35RzrO_ou1nM5boHSB68fPW4I_stV-dQ7tf253MFbfYC5b6kgNT4JHpolnWLX2k=
+UkxVqCrLVVVBsNjxpUXs/rAMeqcoUAUZkRKemslAiO1LZgBbkl1qx/25" rel=3D"nofollow" =
+target=3D"_blank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D1149004&am=
+p;li=3D20243227&amp;m=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D1006202618=
+3625&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6&amp;stpe=3Ddefault&amp=
+;li_coord=3Dmobile&amp;collapse_width=3D550" border=3D"0" width=3D"550" sty=
+le=3D"display: block !important; width: 100% !important; max-width: 550px !=
+important;"> </a> </td> </tr> <!--<![endif]--> </table> </td> </tr> <tr> <t=
+d style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt;"> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt; line-height: 150%; padding: 0 10px;"> <table width=
+=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=
+=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+;"> <h2 style=3D"font-weight: bold; font-family: &quot;Arial Black&quot;, A=
+rial, Helvetica, sans-serif; letter-spacing: -1px; font-size: 20px; border-=
+bottom-width: 1px; border-bottom-style: dotted; margin: 0px; padding: 16px =
+0px 5px;">CTD switch</h2> </td> </tr> </table> <p style=3D"margin: 16px 0;"=
+>We have <a href=3D"https://links.message.bloomberg.com/s/c/f6ciQPB8-kNv-Dr=
+Wr1fv_5sd1q2jKAw0cjYmONy6KqmBz6p-O240yrPVCm3rcvZnk0SNbvmMztjOyCkdWG1rzImB5n=
+QbB2IbDUqYRNMHB-MYEiZBzqIRsdtzxJFhzBXtD0EdUV5cPYt39oCKSP6pkQUdnRCR_DRS2_7uF=
+c7SQnAK8ruPktG2-reNgwtO8sLj3Tr8vw69hc_m5u3l0dLM19cP18bKIHltkOsDZi2GLtTVW8Nf=
+f_yyLZH-CD0b34ChIAv0eSimkbLTmscS4roGN5sZ622-c3uLb3XbeiKqm5JKw7jTNx1uB0E9nXF=
+cuzyhjPUPtNLxmbwTLnhlAaPnOFX_IrXhCAIpdGwo1eu3E7Lg99oidovIPecP6A/cdShYlO8HuC=
+5KAyR_JYbTBCQk2KkpQXG/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" ta=
+rget=3D"_blank" style=3D"color: #000000; text-decoration: none !important; =
+border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style=
+: solid; background-color: #ccc;">talked</a> a <a href=3D"https://links.mes=
+sage.bloomberg.com/s/c/lpczXu_QY5_CXRgdCFZKR4lYjzWJ8hGFr0IEw4SoUlYz6Ol-sil0=
+abPavQmx3Ca8pfHk61HfJxy3af9fv_10fY1EuAx06K0dBVnH_bSrJMPcayiG8oDyJH9_y8FOKA-=
+7IanZeBT9NUMpXOMCz6du2D5U55rZI1H-y9zSKZhz8J3AD-DuN5Q6qnZ5EhXfbDAh28T9mbm1G4=
+tU4XdeQbKLOOexWF_v_uEOiq9TbQrFxsFMWMqtpxfG3bb8aTnLDtqsfRd4ZRl4S8XwOPdXcRepc=
+ZMwjvuIaEuUEOtmgybqV_7CUjL-oG6Efr6ejFIYDI5SMI6N3OUCVQ511sHmW731QDBNaHzYqyUj=
+7XOWRPWinVtAHAk40NseeTR8jA/sBmEQ_1BBNdUq9qpFvcTYBWV5Bhj865U/25" itemprop=3D=
+"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0000=
+00; text-decoration: none !important; border-bottom-width: 1px; border-bott=
+om-color: #000000; border-bottom-style: solid; background-color: #ccc;">few=
+</a> <a href=3D"https://links.message.bloomberg.com/s/c/O25C4baN1uGce3Jlg-H=
+qohcAY4H21mrR3qAEQFQ4hgUdvCbd8n4JvwT-TkOvWi0ziTHsPfEZF1lwJ2wCrHoweSfvbTAI9Y=
+SuYeiHsSlyaloddjd4V0RDhlyLydf2ykTzso_U41lWmjljPJ5w6GeFYfvm9YPbj3Qg4EY6czM8r=
+2ZuPK8v8RLUsbbI28ahOB9qsJg11Pe_eXC8Bu4r6vv0rtLGDxXx-wG2M2plhI2uEFDgc9GSpALA=
+6D4DlLN7NGZcWvLUOUsYz6J9pqTI6aWH6dVyuk6O8XoyVHDq729z6gbBfSDtthkwPJdr_lPPxp-=
+FmxZf8VxSfQTpwPzXvcerUCiirQeXMhHq4kArKyY5tzoAbTHpzAkf_Znq0w/L9zKoOkQrn-d8ek=
+J4_-sQYMsZx8AX_aE/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;">times</a> <a href=3D"https://links.message.bl=
+oomberg.com/s/c/TIh8DDztf6KQnZ9DsZ_WLPe_SR2J_jWFaQLmuDj76U3g1oBDMAioP6nwT2o=
+dVtNV6zxFtxSCUdbMLVw5N8YhL5-GsUOfMNzDcprTJMydgxtLa3gxDmGV76DcMSCPZ27nsIfFPQ=
+qpKFkLn_vXHpRR1voue1i_3thTQQBcrBa7Sb23kyFBdyc-_se4qj7Kmf85Az0Bn998Ghz5uBKuo=
+H9ajuTFBZ0uA6ysDQl5KXMUaI6BpWmViE0oVeDrhbTcAMqX1oGHlKUTq5mFRluxn8MT5FGY4fZp=
+rbVzP8tHk5hUQtVAWu8AuWKpTivgyhUqM8JLDwzyhTKpBxBF9ijdbZYv9fqS2L72Izin2uGInh_=
+UiUwvDRIX0aoysJP5VQ/2oJXIl_wZVY7-SFFUb7TO1wRij6K69gn/25" itemprop=3D"StoryL=
+ink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; tex=
+t-decoration: none !important; border-bottom-width: 1px; border-bottom-colo=
+r: #000000; border-bottom-style: solid; background-color: #ccc;">about</a> =
+the <a href=3D"https://links.message.bloomberg.com/s/c/t9pmyG3yBCvd0WN9Mc29=
+FHXv8wg6wPft4cW-VGtqleuaK5LDEhHTMFB7GhI736OGYapTrIU3TtdjcSFacFyYodho2Wu8AHB=
+mQZduA5HBEy5OiD89Pl61wo3D72v6g0Om1Wvws5n0eVi28044PKvayUcqeW-Gg5cYq1zIpUXFpn=
+IVE1LbZhK3VO282ShnTRS6e-wA7ptfJj_LJ-Gd--_PImTg3YQKfLXlr0emBXsk9rGd2UTD77Pvc=
+0gy26yJ1Loo0whInrpN4buzEYmrrbrQcoa-4H1pbAhYQFsEReBCKOqGNuH3d8QCc_ToYL_zoXTZ=
+cuWwgg3j7TTtWD06-WuCZdP9wttIB_oRSZYEzdsJHhRuKzU4de_WesOGZQ/ipY3qdQIeafYKNyJ=
+Gj5KdogADrNexoqH/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=
+=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bord=
+er-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: so=
+lid; background-color: #ccc;">basis trade</a>. What the basis trade is, eco=
+nomically, is that big asset managers want to own interest-rate duration th=
+rough Treasury futures. A pension fund or endowment might have to make paym=
+ents over the next 30 years, so it might want to own assets that also pay o=
+ut over 30 years. It could buy a portfolio of 30-year US Treasury bonds to =
+perfectly <a href=3D"https://links.message.bloomberg.com/s/c/bNDDeZrWmIZ970=
+Z-R03bZ7ghXBfSZDKv00czsJQ8uhsJFpaBBgkyPes71Yrx35_Sm_kQff2KwMbKnNWmUyWdfB2fm=
+lZjuUTdxcNPHdXJ_IhvVwo0GCWFMCHrmSGxcCpRnIHSjZ6ZSbfnH4tL8p5Bs3KXIO-0eXxckVDe=
+AeIPvTjei9avzVByL-afs2t3eapnBku50CTtbDR6XIGERPOIBv86krTCqr_u67uFs22zzR00PPZ=
+awjYjN-kzqo6mmJjHPGw8UpUY3eon8leZi_rhckZdmdkYj2JcWEyPrS3KQlF8WHOZddLE33h_Hp=
+l0Q0j_8jr5je6vD80X8JfEAiCuWuGkPrkCVFXQGxwWf5185ArdBI30pGhEgmUxwqc/f2lmyElVJ=
+GOnQWxspr3pIrcL8C18oO5P/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" =
+target=3D"_blank" style=3D"color: #000000; text-decoration: none !important=
+; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-sty=
+le: solid; background-color: #ccc;">match its assets and liabilities</a>, b=
+ut that would be expensive: Treasury bonds are safe assets, so they don=E2=
+=80=99t yield very much. Instead, it will probably buy a portfolio of other=
+ stuff =E2=80=94&nbsp;corporate bonds, private credit, etc. =E2=80=94&nbsp;=
+with more credit risk and higher yields. But that stuff tends to have short=
+er maturities than long-term Treasury bonds, and would leave the manager ex=
+posed to a lot of risk if interest rates go down.<a href=3D"#footnote-1" st=
+yle=3D"color: #000000; text-decoration: none !important; border-bottom-widt=
+h: 1px; border-bottom-color: #000000; border-bottom-style: none !important;=
+ background-color: transparent !important; display: inline-block;"> <span>[=
+1]</span> </a></p> <p style=3D"margin: 16px 0;">To get the right level of i=
+nterest-rate risk, the asset manager might then buy some Treasury futures c=
+ontracts, derivatives contracts tied to the prices of Treasury bonds. The f=
+utures contracts allow the asset manager to effectively own long-term Treas=
+uries, without paying for them yet.&nbsp;And then the basis trade is that h=
+edge funds will buy the underlying Treasury bonds, sell the Treasury future=
+s to asset managers, and collect a spread for their trouble.</p> <p style=
+=3D"margin: 16px 0;">Let=E2=80=99s say that the asset manager buys the corp=
+orate bonds she wants, and then solves for how much Treasury futures she ne=
+eds to get the duration she wants. She might do the math and decide she wan=
+ts to own, say, $100 million of 20-year Treasury futures. Or maybe she want=
+s a bit less duration, so she buys 15-year Treasury futures. Or a bit more,=
+ so she buys 25-year Treasury futures. Fine, yes, good.</p> <p style=3D"mar=
+gin: 16px 0;">The problem is that =E2=80=9C20-year Treasury futures,=E2=80=
+=9D or =E2=80=9C15-year Treasury futures=E2=80=9D or =E2=80=9C25-year Treas=
+ury futures,=E2=80=9D are not quite things. Instead there is a thing called=
+ the =E2=80=9CTreasury bond futures contract,=E2=80=9D which has the follow=
+ing odd property:</p> <ol style=3D"list-style-type: decimal; padding-left: =
+40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">When long-term Tr=
+easury interest rates are lower than 6%, it is a 15-year Treasury futures c=
+ontract.</li> <li style=3D"margin-bottom: 5px;">When long-term Treasury int=
+erest rates are higher than 6%, it is a 25-year Treasury futures contract.<=
+/li> </ol> <p style=3D"margin: 16px 0;">This&nbsp;makes sense in its contex=
+t. The context is that the Treasury bond future is, approximately, a future=
+s contract on an imaginary&nbsp;object that is a&nbsp;20-year Treasury bond=
+ with a 6% yield. From Frank Fabozzi=E2=80=99s<em>&nbsp;<a href=3D"https://=
+links.message.bloomberg.com/s/c/BR_LawBVWoYXTmVvoidcrIe6Z_fCgr4xaIBJC5jH-Qp=
+LBJweC3-mLkq8O54rntkw8UHlgDBP7Gn9Uo0kRwpdx5k351QQykHfNczyruxMkxuF4fVtWcwxNp=
+MEBjizasfwYxLBc-Uah1HuRcWegRDd_83aJBLRWiP--IrK4TFAws6pqwbRbVTaGPeDpG_-gxmcJ=
+FdFNX8rGce7FWs9JOEfSduIMI-h6bn26-uujGN6QP5uDL3kkG1YsCnoMz7f9RXs4gp4ltIrwBU6=
+Nt6sGnG2pD8pkmJiwFyRvinsM-iHv_f_yERxAkjHy7P3HnqaaGWkIzjA-sEOeieTZw-UCP0-BCY=
+27ya2_V-l-sSZ4ct5rp8zqo_vVmEN4AONWd8/SoPm6qBPcix_S-cDQp5R5qTIZKZYeF42/25" i=
+temprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" title=3D"pa=
+ge 1501" style=3D"color: #000000; text-decoration: none !important; border-=
+bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid=
+; background-color: #ccc;">Handbook of of Fixed Income Securities</a><a hre=
+f=3D"#footnote-2" style=3D"color: #000000; text-decoration: none !important=
+; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-sty=
+le: none !important; background-color: transparent !important; display: inl=
+ine-block;"> <span>[2]</span> </a></em>:&nbsp;</p> <blockquote> <p style=3D=
+"margin: 16px 0;">The Treasury bond (T-bond) futures contract is the most s=
+uccessful interest-rate (or commodity) futures contract. Prices and yields =
+on the T-bond futures contract are quoted in terms of a (fictitious) 20-yea=
+r 6% Treasury bond, but the exchange where the contract is traded, the Chic=
+ago Mercantile Exchange (CME), allows many different bonds to be delivered =
+in satisfaction of a short position in the contract. Specifically, any Trea=
+sury bond with a remaining maturity of at least 15 years, but less than 25 =
+years, from the first day of the delivery month is acceptable for delivery.=
+ There is an Ultra Long Treasury futures contract that differs only in that=
+ it is based on Treasury bonds with at least 25 years to maturity.</p> <p s=
+tyle=3D"margin: 16px 0;">The T-bond futures contract calls for the short (i=
+.e., the seller) to deliver $100,000 face value of any one of the qualifyin=
+g Treasury bonds. However, because the coupons and maturities vary widely, =
+the practice is that the buyer pays the seller depends on which bond the se=
+ller chooses to deliver. The rule used by the CME is one that adjusts the f=
+utures price by a conversion factor that reflects the price the bond would =
+sell for at the beginning of the delivery month if it were yielding 6%.</p>=
+ </blockquote> <p style=3D"margin: 16px 0;">So if you buy the Treasury futu=
+res contract, you are agreeing to take delivery of a bond of the seller=E2=
+=80=99s choosing, and to pay the seller an amount of cash that depends on t=
+he bond it chooses. You can get a list of the eligible bonds, and their con=
+version factors, at Bloomberg page USA Comdty DLV.<a href=3D"#footnote-3" s=
+tyle=3D"color: #000000; text-decoration: none !important; border-bottom-wid=
+th: 1px; border-bottom-color: #000000; border-bottom-style: none !important=
+; background-color: transparent !important; display: inline-block;"> <span>=
+[3]</span> </a>&nbsp;There are 59 bonds on the list. The first bond on the =
+list matures in February 2045 (about 18 years from the futures expiry in De=
+cember) and has a coupon of 2.5%. You can do some simple bond math to figur=
+e out the price that you=E2=80=99d have to pay for an 18-year bond with a 2=
+.5% coupon to make it yield 6%, and the answer is 61.79 cents on the dollar=
+,<a href=3D"#footnote-4" style=3D"color: #000000; text-decoration: none !im=
+portant; border-bottom-width: 1px; border-bottom-color: #000000; border-bot=
+tom-style: none !important; background-color: transparent !important; displ=
+ay: inline-block;"> <span>[4]</span> </a>&nbsp;which is in fact the convers=
+ion factor (0.6179)&nbsp;that Bloomberg shows.&nbsp;The last bond on the li=
+st matures in May 2050 (about 23 years) and has a coupon of 1.25%; its conv=
+ersion factor is 0.4086.&nbsp;</p> <p style=3D"margin: 16px 0;">The Decembe=
+r Treasury bond <a href=3D"https://links.message.bloomberg.com/s/c/AgbBz9wO=
+8CkrJR-C8A-oPLz2SnhNMZhIoqluXL-GyJj-qx_aXuU7Z1oZ7OMX75A1YKW60GrJlRL9_jnQaHK=
+wf88G3-003Y1GEGR39fpci7seli-tL7wCIJjbYqzZn8O2ezaz1EvDRzPCuMs21cHhvG8PqH4TRD=
+QgCqHhLLKZRpeYMFVIXFyGnbwBVtWD59DRtI037F5_g1Jo8UMR0nYUQ3DLPrAUbO2iqLAvOf1z3=
+wazPUGD3C5yrSHULCccB8N_QY6wQBiRrMIaJ7xJaryiXZSNitmCtElWNuRB3jZjsJopZnSuBreD=
+-yA-SSemfUMIUOMupEfn4h0EfegFc2v9EDbVHsGWL9J2_BZC4WIBm9wmGWSQIvXdTGy4rXE/TSW=
+ZNFVdbvvbohunFIYnz6ETH7rvm5H2/25" itemprop=3D"StoryLink" itemscope=3D"items=
+cope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !imp=
+ortant; border-bottom-width: 1px; border-bottom-color: #000000; border-bott=
+om-style: solid; background-color: #ccc;">futures contract</a> closed yeste=
+rday at about $102,188.<a href=3D"#footnote-5" style=3D"color: #000000; tex=
+t-decoration: none !important; border-bottom-width: 1px; border-bottom-colo=
+r: #000000; border-bottom-style: none !important; background-color: transpa=
+rent !important; display: inline-block;"> <span>[5]</span> </a>&nbsp;So you=
+ can enter into a contract now in which:</p> <ol style=3D"list-style-type: =
+decimal; padding-left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: =
+5px;">In December, a hedge fund will deliver you $100,000 face amount of th=
+e&nbsp;Treasury bond of its choosing (with between 15 and 25 years of remai=
+ning maturity), and</li> <li style=3D"margin-bottom: 5px;">In December, you=
+ will pay that hedge fund $102,188&nbsp;<em>times&nbsp;</em>the relevant co=
+nversion factor for the bond it delivers.<a href=3D"#footnote-6" style=3D"c=
+olor: #000000; text-decoration: none !important; border-bottom-width: 1px; =
+border-bottom-color: #000000; border-bottom-style: none !important; backgro=
+und-color: transparent !important; display: inline-block;"> <span>[6]</span=
+> </a> </li> </ol> <p style=3D"margin: 16px 0;">So the hedge fund could del=
+iver the 2.5% bond of 2045 and get back $63,141 (0.6179 times $102,188), or=
+ it could deliver the 1.25% of 2050 and get back $41,754 (0.4086 times $102=
+,188). Or any of the other 57 eligible bonds, at their particular conversio=
+n factors.</p> <p style=3D"margin: 16px 0;">Which will it deliver? Well, it=
+ depends on the trading prices of the bonds. If it can buy a bond for $41,5=
+00 and deliver it for $41,754, that=E2=80=99s better than buying a differen=
+t bond for $63,200 and delivering it for $63,141. This is a liquid and effi=
+cient market, and the hedge fund will deliver the =E2=80=9Ccheapest-to-deli=
+ver=E2=80=9D bond, that is, the one trading at the lowest price relative to=
+ its futures payoff.</p> <p style=3D"margin: 16px 0;">And so, locally, the =
+Treasury bond futures contract&nbsp;<em>is&nbsp;</em>a contract on the chea=
+pest-to-deliver bond. If the cheapest-to-deliver bond is the 2.5% bond of 2=
+045, then buying Treasury bond futures gives you exposure to that bond: The=
+ price of the futures contract will move up and down with the price of that=
+ particular bond.</p> <p style=3D"margin: 16px 0;">Why would one bond be&nb=
+sp;cheaper to deliver than another? The rough intuition is that the trading=
+ prices of Treasury bonds reflect the&nbsp;present value of their cash flow=
+s discounted at the current long-term Treasury rate.<a href=3D"#footnote-7"=
+ style=3D"color: #000000; text-decoration: none !important; border-bottom-w=
+idth: 1px; border-bottom-color: #000000; border-bottom-style: none !importa=
+nt; background-color: transparent !important; display: inline-block;"> <spa=
+n>[7]</span> </a> (Right now an actual 20-year Treasury bond yields about 5=
+.70%.) But the futures conversion factor for each bond reflects the present=
+ value of its cash flows discounted at 6%<a href=3D"#footnote-8" style=3D"c=
+olor: #000000; text-decoration: none !important; border-bottom-width: 1px; =
+border-bottom-color: #000000; border-bottom-style: none !important; backgro=
+und-color: transparent !important; display: inline-block;"> <span>[8]</span=
+> </a>; it turns every Treasury bond into a synthetic bond yielding 6%.</p>=
+ <p style=3D"margin: 16px 0;">If the market interest rate is significantly =
+below 6%, then shorter-dated bonds will be cheaper to deliver.<a href=3D"#f=
+ootnote-9" style=3D"color: #000000; text-decoration: none !important; borde=
+r-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: non=
+e !important; background-color: transparent !important; display: inline-blo=
+ck;"> <span>[9]</span> </a> Intuitively, if long-term interest rates are 5%=
+, then a 6% interest rate is above-market, and you=E2=80=99d like to get pa=
+id that rate as long as possible. So a synthetic 6% bond is more valuable a=
+s its duration is longer, and the shortest-duration synthetic 6% bond is th=
+e least valuable and so the cheapest to deliver.</p> <p style=3D"margin: 16=
+px 0;">If the market interest rate is significantly above 6%, then longer-d=
+ated bonds will be cheaper to deliver. Intuitively, if long-term interest r=
+ates are 7%, then a 6% interest rate is below-market, and you=E2=80=99d rat=
+her get paid that rate for the shortest possible time. So a synthetic 6% bo=
+nd is more valuable as its duration is shorter, and the longest-duration sy=
+nthetic 6% bond is the least valuable and so the cheapest to deliver. =E2=
+=80=9CWhen yields are below 6%, the cheapest-to-deliver bond is typically o=
+ne of the lower duration eligible bonds, and when yields are higher than 6%=
+, the cheapest-to-deliver would typically be a longer-duration bond,=E2=80=
+=9D says Fabozzi.<a href=3D"#footnote-10" style=3D"color: #000000; text-dec=
+oration: none !important; border-bottom-width: 1px; border-bottom-color: #0=
+00000; border-bottom-style: none !important; background-color: transparent =
+!important; display: inline-block;"> <span>[10]</span> </a></p> <p style=3D=
+"margin: 16px 0;">And if market interest rates have been significantly belo=
+w 6% for decades, but are now approaching 6% and might cross over, you get =
+some weird stuff.&nbsp;Bloomberg=E2=80=99s <a href=3D"https://links.message=
+.bloomberg.com/s/c/b_WUmpusqwyXitK51MPFsgFXb7hIsupyxlGoT6TPSVV8LLF0_eSC3A8J=
+OnmSxJZpDVv6OWNt2TheLq80tgDgxL2vu_HRs7nC8GeyFyFz9bCmZ2-kkcxbF1BvED7rxyz89K0=
+QfjFSETW6tczkR876IDN9RmNTVwBw1iCyJYpf8RG3EyiXlEKnM0qdKkxLs1iL7EbzoHgL6xCtID=
+5xngTYyYB8Phi6NniGTneDY8XLdiQaYgprdcpZA2zGMwk5kETLMpg4OZ_956V2zEiVVXKR_x84Q=
+q8gZRsdaJWAAdtGnmPI_qm18wphQ8tcQQV0hvbf_Mj6_lPGZZUVr_Yo7ZD4e-jL9-7Azg2Wck7D=
+CT9wAWukFQMQnQJ0UdsJMBY/Z3T6BbuP6sYX6dZhj8JcU1N_KD0PGrl9/25" itemprop=3D"St=
+oryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000;=
+ text-decoration: none !important; border-bottom-width: 1px; border-bottom-=
+color: #000000; border-bottom-style: solid; background-color: #ccc;">Edward=
+ Bolingbroke reports</a>:</p> <blockquote> <p style=3D"margin: 16px 0;">As =
+US 30-year securities head ever closer toward 6%, the move threatens a shak=
+eup in futures, which are widely used by investors to hedge government bond=
+ positions, and by leveraged funds in strategies such as the popular =E2=80=
+=9Cbasis trade.=E2=80=9D</p> <p style=3D"margin: 16px 0;">It has to do with=
+ the mechanics. US bond futures are exchange-traded agreements to buy or se=
+ll Treasuries at a set price and date. They=E2=80=99re governed by contract=
+ terms that dictate what type of underlying securities are allowed to be de=
+livered by traders with short positions to those with long positions, and s=
+everal typically qualify. Traders then identify the one that=E2=80=99s chea=
+pest to deliver, or =E2=80=9CCTD,=E2=80=9D and the price of the futures con=
+tract tracks it.</p> <p style=3D"margin: 16px 0;">When yields rise rapidly,=
+ as is happening now, the pricing dynamics of the deliverable basket of sec=
+urities are altered, and the CTD starts to migrate toward a longer-maturity=
+ bond. This forces asset managers to adjust to this so-called duration shif=
+t, or =E2=80=9CCTD switch,=E2=80=9D by selling Treasury futures, which in t=
+urn =E2=80=9Ccould exacerbate the rise in long-end yields=E2=80=9D in the c=
+ash market, according to a recent note by strategists at BNP, including Gun=
+eet Dhingra, Sebastian Mauleon and Vincent Zhou.</p> <p style=3D"margin: 16=
+px 0;">To maintain a stable duration target in a portfolio as the CTD shift=
+s toward longer-duration bonds, long futures positions would need to be sol=
+d while short positions would need to be bought back. Depending on how thes=
+e dynamics interact and at what times, this can cause spillover effects in =
+the underlying bonds.</p> <p style=3D"margin: 16px 0;">Focus is on the long=
+er maturities, notably the long-bond contract where the current CTD securit=
+y is the 2.5% February 2045 bond. A Bloomberg scenario analysis shows that =
+a 30-year yield rise to near 6% could result in a CTD shift to a 2050 matur=
+ity. =E2=80=A6</p> <p style=3D"margin: 16px 0;">In a note on Monday, Barcla=
+ys PLC strategists Andres Mok and Amrut Nashikka highlighted the duration i=
+mplications around CTD extensions for asset managers, noting that =E2=80=9C=
+investors may need to reduce futures exposure or rebalance hedge ratios to =
+bring portfolio duration back in line with their targets.=E2=80=9D They add=
+ed that =E2=80=9Chigher rates and volatility have increased uncertainty aro=
+und CTD outcomes.=E2=80=9D They estimate asset managers=E2=80=99 gross reba=
+lancing needs at about $25 million per basis point in the long-bond contrac=
+t, and $3 million per basis point in the ultra-long bond contract.</p> </bl=
+ockquote> <p style=3D"margin: 16px 0;">=E2=80=9CThe negative convexity prof=
+ile inherent in long-end futures contracts can induce further duration sell=
+ing during selloffs,=E2=80=9D say those BNP strategists. Basically, right n=
+ow,&nbsp;a lot of asset managers own a lot of 18-year Treasury futures. If =
+rates get above 6%, they will suddenly own a lot of 23-year Treasury future=
+s.<a href=3D"#footnote-11" style=3D"color: #000000; text-decoration: none !=
+important; border-bottom-width: 1px; border-bottom-color: #000000; border-b=
+ottom-style: none !important; background-color: transparent !important; dis=
+play: inline-block;"> <span>[11]</span> </a> This might give them more dura=
+tion than they wanted. So they might unwind some futures trades (by selling=
+ the futures), which might cause&nbsp;hedge funds to unwind their basis tra=
+des (by selling the bonds), which might&nbsp;cause rates to go higher.</p> =
+<table width=3D"auto" cellpadding=3D"0" cellspacing=3D"0" align=3D"center">=
+ <tr> <td colspan=3D"2" align=3D"center" valign=3D"top" style=3D"padding:0 =
+0px"> <a href=3D"https://links.message.bloomberg.com/s/c/9_8p8Te9VTLWEWRfER=
+qBy94RJIsls67kVxKIq8hWleAr-1rKmbWWEjSZbBQYcndN8Xho-WEf8fBjAaZlMSkWhq9sadjId=
+daKLl-QbeQscQ2J2XzbTjbCbLKU8UyDy8YpWCWMI8AvE1n6bDap0jH0cg_gLfisWL6GqSTl-XG9=
+P-iRD2dLKi5MXGNlePC8cBGdmzUeZF1GKpAmZx0L8btJDG4GgtmluUmg5Ykry6u3-B57Gs4QbdR=
+Z2klT9ELKGmQFsLXUkirZgLVGCiiY1XUfUBVNp4gSLPveN8YJrObFcUrS6IHpUeV17fqtBCc5SF=
+mDlazIUdXgJRo8ZQ0UHMSwe6cHJqbi62psA0ug-x3h3BWbiGZRx-s40cvbX6AAq8pvpF5MlHOKk=
+Idk_Pmlp-Ouvnp6X_rSvDRQzbTthieG6oF13RnoCEdljW5weaeDcif9pbmILFWR4UC5KPBKXwI-=
+DROEk40gJn19CDSZX1pVg5VJ3uGFSTtnuumAd4NAjm_rPeJ8hiTtm0UA2TS_UhqaBeLsiKNu10f=
+qxT1b5WBuTQa9Rsotx6sxQ9ftwDRcHsVCwxVOwBbzzZxUQyy7B51U9uuIiarQimIkFKDWXiHZIM=
+7lwb3jw3nSZvrbpcCVl3IyZAcvAofKMEaPn0YGP5tx4w_7RpVelk5CTiR1bKGvvgdZc2hWE86CB=
+I4xFCteo3l0pgHhfUeXeBmdEQ/liUe4-Gu5_-aTVR4C21DRAB0defeYNd7/25" target=3D"_b=
+lank"> <img src=3D"https://sli.bloomberg.com/imp?s=3D868432&amp;stpe=3Ddefa=
+ult&amp;li_coord=3Ddesktop&amp;collapse_width=3D550&amp;li=3D20243227&amp;m=
+=3Dbb4a280bebb1586390b9615b8886024a&amp;p=3D10062026183625&amp;lctg=3Da3e8b=
+6e3-e359-4066-94ef-329d1b0625a6" width=3D"550" border=3D"0" style=3D"displa=
+y: block; height: auto; width: 100%; max-width: 550px;" alt=3D"" class=3D"l=
+ihide"> </a> </td> </tr> <tr> <td colspan=3D"2" align=3D"center" valign=3D"=
+top"> <!--[if !mso]><!--> <div style=3D"display:none; overflow:hidden; widt=
+h:0; max-height:0; line-height:0;" class=3D"lishow"> <table width=3D"auto" =
+cellpadding=3D"0" cellspacing=3D"0" align=3D"center"> <tr> <td align=3D"cen=
+ter" valign=3D"top" style=3D"padding:0 0px"> <a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/67l9RKEdFiS9xSKicsYwBXradQM_Ds5gHEWgtyoui_03-mdAWulw7v=
+-E5EHrJ3c_R6_ft_S-cEpJCT1BG9BDoHgGN9KVIVsKoxk-TvW5uAxRIQm_usEt2r8cvog-8AJs8=
+ftDT9wIwS57ltHu9rM9OumlVhZa7GnyBvDxXZ9Cm0lZoVKbV7iSzCaeMmpxPskoDXvhx8sDRM7q=
+j2Ooz91UlAv0EaUk0TcZYXlHTJNqAcjOlolj6pcHlBjkAYPgMci-afFwW9cjnzXxw1kuOBGKuxB=
+_TXJ4L-l82V0MjyLWTRa2bBGShMuwQ6m_FGfK9bZcCCdPAWX1YsU3OYIaQqP3-TSGy-LL4zOb5_=
+t8CJn56uyP1XdPFq66fDJ4CCHriWiVOkjSA21GppcALriJKEcsOCwYILIAd2R7s_15meKqWJZSV=
+gKUtnNS7nUuKNWL301D3gKR7en27uZyV5Q3B0j2UwzKziYNJq7znqtbzsNvVAuuS5Oj0BUTDaSv=
+KVTrY0cpCoRTEH3Mlpz6ZkmXJXbM-P62S8BAEPCk25g-3mmz7YvzUqK6KFpQiJar-KlHJ8UCZch=
+pw2LsHXTtRz8nqavEy6eilmkkHsKQ6tcKXbANZSPOjHTej-0-niblF69KEhYyaaEXVaNJcxlVkr=
+d6CX785dL49wCK4mw0Vc8jhe2jGtND1yyNZw_ZhOc8gpaIUoL1WzCQa_V52Uk0VA/tdq5hF9LYA=
+LNP9o_xC5hOmROX91EdF3Y/25" target=3D"_blank"> <img src=3D"https://sli.bloom=
+berg.com/imp?s=3D868432&amp;stpe=3Ddefault&amp;li_coord=3Dmobile&amp;collap=
+se_width=3D550&amp;li=3D20243227&amp;m=3Dbb4a280bebb1586390b9615b8886024a&a=
+mp;p=3D10062026183625&amp;lctg=3Da3e8b6e3-e359-4066-94ef-329d1b0625a6" widt=
+h=3D"100%" border=3D"0" style=3D"max-width: 550px; display: block; height: =
+auto;" alt=3D""> </a> </td> </tr> </table> </div> <!--<![endif]--> </td> </=
+tr> </table> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0p=
+t; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family: &q=
+uot;Arial Black&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1px; =
+font-size: 20px; border-bottom-width: 1px; border-bottom-style: dotted; mar=
+gin: 0px; padding: 16px 0px 5px;">Defeasance</h2> </td> </tr> </table> <p s=
+tyle=3D"margin: 16px 0;">In February 2021, Electronic Arts Inc. issued <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/HGwX3DLIy-v1zyll5Q07nmnkIEFD=
+qqOQ1IUSXQoGNwuEAmui981kG4ec6NwSGHRrq27IceAoZoBXhQi07FNL559vloCLs5R4rH238Ax=
+gxI08A7U567q0GofOOskGWGTbOKGOFnwIv_sk34j54GCYJlBlcaGrQjqsZ2HRFgDrNirDwBpZUz=
+v1E7WNUTv7_OSkwh8EkDLW4eOvR93kxBQNbHw1TT3ay0xdJ2fX9hPxKSj3K3XzHKV4SciDkJaZa=
+rQge14uKSeFg85Bq4DhcrCTtLVhshSH6kRZuK1Jt3M7H8Ihj4jRAukLf5182byvXOoxdz5FPex5=
+FkQlyKN9jmYay1EKQUHwzBxnufjIV61-cxqzbfRooRo3CPyw0tM/008EKyBU-VVHLZd0UKTWFTU=
+8t6yxbc2s/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_bla=
+nk" style=3D"color: #000000; text-decoration: none !important; border-botto=
+m-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; bac=
+kground-color: #ccc;">$750 million of&nbsp;30-year bonds</a> (due in 2051) =
+that paid interest of 2.95%. (It also issued some 10-year bonds, due in 203=
+1.) Electronic Arts could not issue 30-year bonds that pay 2.95% today, for=
+ at least two reasons:.</p> <ol style=3D"list-style-type: decimal; padding-=
+left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">Interest ra=
+tes went up. When EA issued that bond, a <a href=3D"https://links.message.b=
+loomberg.com/s/c/UHRZU_kps4y6fWk8-90B3_eS5TTe_qrv7i171Rtc63C4bpfgvKsmUK1VKH=
+m3xCZIjeggD_IdJcAWc_h3ETN4yrFsKHurgfd5RMoXd8k0-ZKDfsDG6PWGcL9r2cR8IjDfSitPF=
+Ui9PnaY720tHTtZ547x6blcwi0nTKlIYtb0sQp50qumHAoq49Iz-SrXD4lHEFD3i66Zu4tiipP-=
+nzdlL9hbMdKd8IVQm2ecgr-aEL8GmeUEGsh9DY-hwjyF4yejJkNke1DFPbGQwZJzO5VHImgyJs4=
+AN9FD_S8L7OkZjV0-iRNiiHykNJ3zftnN3CAdZ8xbj0lxmouaO3EsGGNjV0Jn_CNvugJx0_Gv5G=
+ytpWECmBni3g78Cx22d6k/KBE7B0HcwFxBRFcKVEyJ0gNz3Ph1q5QJ/25" itemprop=3D"Stor=
+yLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; t=
+ext-decoration: none !important; border-bottom-width: 1px; border-bottom-co=
+lor: #000000; border-bottom-style: solid; background-color: #ccc;">30-year =
+US Treasury bond</a> paid about 1.95% interest, so EA was paying about 100 =
+basis points over Treasuries. Today, a 30-year Treasury bond yields about 5=
+.64%; at the same spread, EA would have to pay about 6.64%.</li> <li style=
+=3D"margin-bottom: 5px;">EA=E2=80=99s credit got worse. When EA issued that=
+ bond, it got investment-grade credit ratings of BBB+ from Standard &amp; P=
+oor=E2=80=99s and Baa1 from Moody=E2=80=99s. But this year, EA went private=
+ in a $55 billion leveraged buyout that <a href=3D"https://links.message.bl=
+oomberg.com/s/c/hOz_A1mlLNDp800d3H0JhWKPi1oJVn3JzXfRhHgO-dp7_fu2XqjMza5ict2=
+HsolFUfwH_fzSe1gV-cNJAuhPYZR965pyRUknA2uYOOlHTCmA1kYBvfzISHX-Rto4fr8AVXLQXn=
+jiwtFd1KoB3hdpewyR34YsJt3CZKyK9_LNEa0dYlR-dS5Lf2xk4DjYoi6T2pluZPjWMvMErMxXE=
+FZ3xIcy7wdIJEnR6aj7l5EDZQ2jRrt5tG486y1HO07zOoXKLnYf0eHfJB30eL4Zsb_XZj8tUKdg=
+xSDzK98Awd-fvhaCThMxMfQuzFC2bKcUe-Hz11M1Ge2DR4XZz9-t8ql0QBgAYRv73UbWBjDofzG=
+WKVqY9R6xqR8at5_yh_I/aJws9T7cQab41GnbaTkiH5gRyhtHvyhU/25" itemprop=3D"Story=
+Link" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; te=
+xt-decoration: none !important; border-bottom-width: 1px; border-bottom-col=
+or: #000000; border-bottom-style: solid; background-color: #ccc;">closed in=
+ August</a>. Leveraged buyouts ordinarily increase the leverage of a compan=
+y and, thus, make its debt riskier. =E2=80=9CMoody=E2=80=99s withdrew its r=
+ating on the bonds,=E2=80=9D <a href=3D"https://links.message.bloomberg.com=
+/s/c/FeWB3RvgJ6bT7PJvhcaxaRL9fd4_jWdZA9DzEvyAWfOiztVBb6i1FnJZ5BPbWvfSFuDIDN=
+-e6pBLeSsJNzFH_OrQulLWS6sx_FOMm0dpoBqd1D9XwdljkMXbLJI-rmUQJuqFqZsDrgRTMmi80=
+yRJeqs9WO2J1l5i-K-lihkquiJnq8GaqKlsh0ATGQF-zrn3a2LScIf1GD8OXqtjzoBxcWchnqgl=
+DPQwZ03hr41Gp22jkxV0DVvTMKoYbgI4yAMb934iSekt9B4WL_fKAvYrrsBtgCkNI7qoofNj5lV=
+9Mz4Kmmyin2VDar4zGsFnbLAS0cbeyQwupT-1AhS_S1Da79g-85Rugg1pros5_l5sic2QpyFMRM=
+e_NcKIuME/hLc6hrqXwlYdPxsQTEljy28LpDfykKsw/25" itemprop=3D"StoryLink" items=
+cope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decorati=
+on: none !important; border-bottom-width: 1px; border-bottom-color: #000000=
+; border-bottom-style: solid; background-color: #ccc;">reports the Wall Str=
+eet Journal</a>,&nbsp;=E2=80=9Cand S&amp;P indicated it would rate them hig=
+h-yield, reflecting the additional debt on EA=E2=80=99s balance sheet follo=
+wing its buyout.=E2=80=9D</li> </ol> <p style=3D"margin: 16px 0;">The first=
+ effect is much, much more economically important than the second. In round=
+ numbers, if EA=E2=80=99s credit had stayed the same, its 30-year bond woul=
+d have lost almost half its value anyway; it would be trading at about 56 c=
+ents on the dollar, just because of how much interest rates went up. For re=
+asons we=E2=80=99ll get to, the bonds never actually traded below about 74 =
+cents on the dollar. Basically all the value that EA bondholders lost =E2=
+=80=94 actually more than all of it =E2=80=94&nbsp;came from interest-rate =
+moves, not credit moves.</p> <p style=3D"margin: 16px 0;">The credit moves =
+are arguably more&nbsp;<em>legally</em> important, though. Typically, when =
+a company gets acquired in an LBO, that is bad for its bondholders, so the =
+bondholders usually have protections. The classic protection is a change-of=
+-control put at 101: If the company has a change of control (like an LBO) t=
+hat causes it to lose its investment-grade ratings, the bondholders can dem=
+and that the company buy their bonds back at 101 cents on the dollar. EA=E2=
+=80=99s bonds have that provision.<a href=3D"#footnote-12" style=3D"color: =
+#000000; text-decoration: none !important; border-bottom-width: 1px; border=
+-bottom-color: #000000; border-bottom-style: none !important; background-co=
+lor: transparent !important; display: inline-block;"> <span>[12]</span> </a=
+></p> <p style=3D"margin: 16px 0;">And so the LBO should have been a huge&n=
+bsp;<em>win&nbsp;</em>for bondholders. If EA had just bopped along being a =
+BBB+ public company, its 30-year bonds would have been worth about 56 cents=
+ on the dollar; the bondholders would have lost a ton of money on interest-=
+rate moves. But because it got acquired and downgraded, the bondholders can=
+ demand 101 cents on the dollar right now, an 80% improvement in their situ=
+ation.</p> <p style=3D"margin: 16px 0;">Except! In theory, the point of the=
+ change-of-control put is to protect bondholders from&nbsp;<em>credit&nbsp;=
+</em>risk (the LBO made the credit worse), not interest-rate risk. And ther=
+e is, in bond lore, another, weirder way to protect bondholders from credit=
+ risk. It is called =E2=80=9Cdefeasance.=E2=80=9D I <a href=3D"https://link=
+s.message.bloomberg.com/s/c/XIqvqIg_48D5EI9UKtpyxjMEkcrm0IDFveONB8HeWnCOfuJ=
+3buGSHY9MJ5R_JWIcBUAXS-Z9lrvs-BriXleA3dODFCnDieuXw-uYNFg4VGjXyCpAnbnm41yRTs=
+ZYif3LtGM-4LJvg0OmCUSSEKYdAfFPvzvhw5OCtu90WHuoRdnKbhcFHnromQFodtZHQi9DKva-u=
+_XbzPZiThO8jEs1_Miy1DF82K7Li0vYs3rMIY-91WUMVzYlKCebdqLCrH_QddpdHoPbXQldX2Zj=
+PptYrK8N0LOijhqyDXJnE00qejakL2J8txc38fwpUR7vKf0KvJdq9SU_IhT-6wFXmLiUU3Nmtjf=
+j-7pxSNY5zxwD7EPJTehw58fGsmgkRu8/g8cXZ-UPjjyHuRHxFa50ULv4SFMN5-KU/25" itemp=
+rop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color:=
+ #000000; text-decoration: none !important; border-bottom-width: 1px; borde=
+r-bottom-color: #000000; border-bottom-style: solid; background-color: #ccc=
+;">described it this February</a>:</p> <blockquote> <p style=3D"margin: 16p=
+x 0;">To defease a bond, a company deposits all of the future interest and =
+principal payments on the bond with the bond=E2=80=99s trustee, and then it=
+ washes its hands of the bond. Roughly speaking, the bond is no longer the =
+company=E2=80=99s problem: The trustee has all the money it needs to make a=
+ll the payments, so the company is off the hook. All [the bond=E2=80=99s]&n=
+bsp;covenants =E2=80=94 about not borrowing more money or doing mergers =E2=
+=80=94 no longer apply, because the bondholders no longer need to worry abo=
+ut the company=E2=80=99s credit, because the money is already there.</p> <p=
+ style=3D"margin: 16px 0;">There is one important simplification in the pre=
+vious paragraph: I said that the =E2=80=9Ccompany deposits all of the futur=
+e interest and principal payments=E2=80=9D with the trustee, but it normall=
+y doesn=E2=80=99t do that in cash. It normally does it in US Treasury secur=
+ities.&nbsp;</p> </blockquote> <p style=3D"margin: 16px 0;">EA=E2=80=99s bo=
+nds do have a defeasance provision.<a href=3D"#footnote-13" style=3D"color:=
+ #000000; text-decoration: none !important; border-bottom-width: 1px; borde=
+r-bottom-color: #000000; border-bottom-style: none !important; background-c=
+olor: transparent !important; display: inline-block;"> <span>[13]</span> </=
+a>&nbsp;Here, in round numbers, Electronic Arts could deposit Treasuries wo=
+rth about 65 cents on the dollar with its trustee,<a href=3D"#footnote-14" =
+style=3D"color: #000000; text-decoration: none !important; border-bottom-wi=
+dth: 1px; border-bottom-color: #000000; border-bottom-style: none !importan=
+t; background-color: transparent !important; display: inline-block;"> <span=
+>[14]</span> </a>&nbsp;and those Treasuries would produce enough cash flows=
+ to pay all of the interest and principal on its 2051 bonds. And that would=
+ totally solve the bondholders=E2=80=99 credit worries: Despite EA=E2=80=99=
+s new owners, increased leverage and lower credit ratings, bondholders can =
+be pretty confident&nbsp;that they=E2=80=99ll get paid back, because the tr=
+ustee has risk-free Treasury bonds sufficient to make all of their payments=
+.</p> <p style=3D"margin: 16px 0;">EA would obviously rather defease these =
+bonds, at a cost of 65 cents on the dollar, than pay them back at 101 cents=
+ on the dollar. The bondholders would obviously rather get 101 cents on the=
+ dollar. The <a href=3D"https://links.message.bloomberg.com/s/c/Lyq69vYxmIh=
+hL7RVaB3ABKC7bWNzMgblxcfAvHDAiCDsrDzYv9bLNEVAI-_-IktefcDDOQ6KiBjYStDBkuNOYB=
+VjQkh5GtGI9ULKPaUpNPIUJWiW0_wbg8LnciSgNmE3QryYuHmnMkYsJDI0lVysnL51jCjcuA8ul=
+IA80fkVqIAitXvrIGhlqka26IaQGfKQD1lmINFN2gmAv7joHV0YLX4TEBBapkDNzpZ80ns5otv9=
+lFIu-aUI3ARWM7guhJOYvvJMNijBxzfoiG8BawKtzMCZq4MJphN1d_wMHFlpaGWeb_kyjosexr2=
+Fvf6YG9iug_0zcsx4oN5_nQM4qQXjU_kbbw7Lku0Qqa3Ybe4c160hnhzjVQu0buMeSeE/zPF59y=
+UyiVLpHespnked-Av6k_hz5ehV/25" itemprop=3D"StoryLink" itemscope=3D"itemscop=
+e" target=3D"_blank" style=3D"color: #000000; text-decoration: none !import=
+ant; border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-=
+style: solid; background-color: #ccc;">Wall Street Journal reports</a>:</p>=
+ <blockquote> <p style=3D"margin: 16px 0;">Electronic Arts bondholders alle=
+ged a $1.4 billion debt default, escalating a dispute over whether the vide=
+ogame maker must pay them off at a premium after going private in the large=
+st leveraged buyout of all time.</p> <p style=3D"margin: 16px 0;">An invest=
+or group notified the company of the alleged default following the completi=
+on of EA=E2=80=99s take-private by a consortium including Saudi Arabia=E2=
+=80=99s Public Investment Fund, private-equity firm Silver Lake and Jared K=
+ushner=E2=80=99s Affinity Partners. Bondholders asserted they must be repai=
+d at 101 cents on the dollar, a common redemption premium after a corporate=
+ borrower undergoes a change in control, according to a bondholder communic=
+ation sent last week and reviewed by WSJ Pro.</p> <p style=3D"margin: 16px =
+0;">EA didn=E2=80=99t pay the change-in-control premium after its buyout cl=
+osed in August, instead attempting to defease the bonds by setting aside U.=
+S. Treasurys to cover future interest and principal payments. =E2=80=A6</p>=
+ <p style=3D"margin: 16px 0;">Bondholders revolted, signing a cooperation a=
+greement pledging to act in unison and retaining law firm Akin Gump Strauss=
+ Hauer &amp; Feld and financial adviser Houlihan Lokey.</p> </blockquote> <=
+p style=3D"margin: 16px 0;">Basically the question here is which provision =
+of the bonds controls. The bondholders think that, if there=E2=80=99s a cha=
+nge of control and a downgrade, EA has to buy back the bonds at 101; it doe=
+sn=E2=80=99t have the option to defease them. EA thinks that, if it does th=
+e defeasance, then the change of control put is moot.<a href=3D"#footnote-1=
+5" style=3D"color: #000000; text-decoration: none !important; border-bottom=
+-width: 1px; border-bottom-color: #000000; border-bottom-style: none !impor=
+tant; background-color: transparent !important; display: inline-block;"> <s=
+pan>[15]</span> </a></p> <p style=3D"margin: 16px 0;">Who=E2=80=99s right? =
+As a matter of what the bond contract says, I=E2=80=99m not sure. But what&=
+nbsp;<em>should&nbsp;</em>it say? On the one hand, the point of the change-=
+of-control put really is to protect the bondholders from the&nbsp;<em>credi=
+t&nbsp;</em>risk of an LBO, and arguably if EA can solve that credit risk t=
+hen the bondholders shouldn=E2=80=99t&nbsp;complain.</p> <p style=3D"margin=
+: 16px 0;">On the other hand, the point of the change-of-control put arguab=
+ly&nbsp;<em>is</em>, a little bit, to deliver windfalls to bondholders on c=
+hanges of control: Investors are more likely to buy 30-year bonds of video =
+game companies in super-low-interest-rate environments if they think =E2=80=
+=9Cyou know, we have a lot of interest-rate risk here, but 30 years is a lo=
+ng time, and there=E2=80=99s a decent chance that the company will be acqui=
+red and have to pay back the bonds early in a way that hands us a big windf=
+all.=E2=80=9D The change-of-control put might have been an important part o=
+f what bondholders were buying, and it might not be fair for them not to ge=
+t it.</p> <table width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0"> <tr> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bold; font-family: &quo=
+t;Arial Black&quot;, Arial, Helvetica, sans-serif; letter-spacing: -1px; fo=
+nt-size: 20px; border-bottom-width: 1px; border-bottom-style: dotted; margi=
+n: 0px; padding: 16px 0px 5px;">Emerging asset classes</h2> </td> </tr> </t=
+able> <p style=3D"margin: 16px 0;">I feel so dumb and annoying writing this=
+, but all of it is obviously true:</p> <ol style=3D"list-style-type: decima=
+l; padding-left: 40px; margin: 16px 0;"> <li style=3D"margin-bottom: 5px;">=
+Betting on sports <a href=3D"https://links.message.bloomberg.com/s/c/DNLItd=
+A2p9Y-r1OhoJrcvEUq_2HSLhpipb_rFKf7Hu8qMxI7_gOr4Ovd3cyoBaynxiL8cdwilB_eAuNXo=
+xywF1lRAy5-n5N2S5-fJFWyiB7dGGhcnhFfIuqH0Wv8BxfSw4XBq51VmFHIZaj_O1hlFdRB38Ai=
+lGhwG0RcEirQWXSqilxs-gdOqfqYGdGGM-lbdUk6LD5d0UrSag0kjsra2b4pEiMPTaZUKa15NHV=
+OOUZKlI0mSNOJ7IYHE1YxoPLjmQpQWCaoXE3Hy9t5uu_9cgH6w6Xt5bJSxmoDDWO3IQw732Ijbc=
+phDAbsWPWzZPx027ZBjRsU_gNhUjMjneu0zQhQ6Ca45Ol99rtjZh77o87soTybahcEOrHv-pU/Y=
+UupUrZddV_7lAvDbZ8vTl-BwH8XSuze/25" itemprop=3D"StoryLink" itemscope=3D"ite=
+mscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !i=
+mportant; border-bottom-width: 1px; border-bottom-color: #000000; border-bo=
+ttom-style: solid; background-color: #ccc;">is not an investment</a>. Not i=
+n some subjective sense =E2=80=94&nbsp;=E2=80=9Cyou=E2=80=99ll probably los=
+e,=E2=80=9D =E2=80=9Cit=E2=80=99s too risky,=E2=80=9D etc. =E2=80=94&nbsp;b=
+ut in the sense that it is zero-sum. If you invest in stocks or bonds, mone=
+y will flow to companies which will use it for productive purposes and crea=
+te economic growth, in which you will share. If you bet on sports, either y=
+ou will win money from someone else or someone else will win money from you=
+. There is no actual investment involved, and the pie does not grow. The ag=
+gregate expected return from sports betting has to be zero, whereas the agg=
+regate expected return to stock-market investing is positive.</li> <li styl=
+e=3D"margin-bottom: 5px;">Betting on sports is, however, a great business f=
+or bookmakers: The&nbsp;<em>aggregate&nbsp;</em>return from sports betting =
+is zero, but in practice that means that uninformed retail sports bettors r=
+eliably lose money to professional bookmakers. To the extent that sports be=
+tting is legal and popular, the people who provide the sports bets do well.=
+</li> <li style=3D"margin-bottom: 5px;">Since 2024, a lot of people in and =
+around the financial industry have become very interested in pushing the no=
+tion that actually betting on sports&nbsp;<em>is&nbsp;</em>an investment. T=
+he US Commodity Futures Trading Commission has pushed to <a href=3D"https:/=
+/links.message.bloomberg.com/s/c/-Tv42lzY7RLYMIPY_aE6d4agB4nj0dS2dgr14vW1T5=
+G5ZA_2yxtVheKjzNpGL5-bYW11F18zCjqBxL0HIxYRC8oE_Zyup42oJb49PoZ0g__G6gHal_itE=
+jz-dHgeZ9KL-N_Q4KqpEeC5c2Yh2Dw_CAqNmv6NOAhmPYRpsBmEvTAD5AEFWjLOCAmbsi8LgMN2=
+hW-J3tmD06_WKzsD_mKgvllZLQiiF4ikA76SX9_Tfp04vQXnfUCftoswK6mfPth--7cqV0U-wid=
+ClMo3hYMBP-a_m14712jOFzBzLrrTRDMIb6ztJLP_K01EEK7OFkpjFJHFf2nz0pvgcYUlfmNezT=
+PjOwgfyLAokbexMYjp2fW8eSyGUxPh-5zMI4Q/18xbSt79dksIaTBNYRANaS8EqXaY05RU/25" =
+itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"c=
+olor: #000000; text-decoration: none !important; border-bottom-width: 1px; =
+border-bottom-color: #000000; border-bottom-style: solid; background-color:=
+ #ccc;">expand sports betting</a> nationwide and do it on regulated financi=
+al markets, Kalshi and Polymarket have become big sports-betting businesses=
+ using the language of financial markets, there=E2=80=99s a (proposed) <a h=
+ref=3D"https://links.message.bloomberg.com/s/c/jlfkKLH7s5TuFhAUllMNZhl1ARZy=
+vmxirmLZrzkyQAJUR7Ss7ZEkU-i6WmNN58BUA8pcBZ0ogHc4oPGf1T_PH5OpNf589P9lEr-4BNt=
+4NCuf6WZCWgag2smfbZe12RTNIkdry8PSf_6zc2B4geEy9mgvfl5_Jc_jLQE8Zl__57eSygwlKa=
+Altsqeox-NzHcssccnphVnCB0yGp3juRzHlBkXY2YRNzZUCp_k0p0VNJNCj7N2Yhx5drOtklDeW=
+hFBm7cPwMOkegzfkjESFEtCRUMRoTI9q7R7e9b-vgN_2LrGL8cD6z6ABMt_QtNNFJ0nqmcDn__U=
+eyb8Vhio6Y-pIrUHcS54muVxbyesAT_DcjOjzVWBIVB74Srkup4/NIGyQfGsf5Pmvc79YUlM306=
+sGkyvvZkK/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_bla=
+nk" style=3D"color: #000000; text-decoration: none !important; border-botto=
+m-width: 1px; border-bottom-color: #000000; border-bottom-style: solid; bac=
+kground-color: #ccc;">sports gambling exchange-traded fund</a>, and Robinho=
+od, the big brokerage that helps a lot of people save for retirement, has c=
+alled sports gambling =E2=80=9C<a href=3D"https://links.message.bloomberg.c=
+om/s/c/xfY4wglD7iHjh2qNLCO_AkDMTZqoAL6VczWrrd3VJmlLT_jZTyXAWb2cMiaz3OWoFwFS=
+tyLqKdZaH72J6XslzIxuRd4zmXleo6GGT26k7bmpHTOkgV4-H9hjiUxOb_OBQm_4tW3GUUg5h4k=
+osJo9TrGTVmLba0DnYefDtziZsxaWQ1k8cOCgpe1oN9iZ8wJy-UvvQgmhAz1YIT4EBP5M31OrnV=
+jS5k0eWiHavP_526FW9N4MXGtIPqD9Jze5bgIWtEO5eoNKoiiiYFAap3WFjRZwRGcZtfsfIJMDO=
+cteoKJMeeBSs1HSnnsrkvLyu_pfIg39wJIT2dK6Q-e-6qk7ufk12H73-ySc0EuNotVZ5WYZz_Jf=
+Ovm-mZPgt84/R7YNu2XAG_GxP9J7B3vzWjTmeS_BKvAX/25" itemprop=3D"StoryLink" ite=
+mscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decora=
+tion: none !important; border-bottom-width: 1px; border-bottom-color: #0000=
+00; border-bottom-style: solid; background-color: #ccc;">an emerging asset =
+class</a>.=E2=80=9D</li> <li style=3D"margin-bottom: 5px;">Points 2 and 3 a=
+re connected in ways that are so obvious I won=E2=80=99t bother discussing =
+them.</li> <li style=3D"margin-bottom: 5px;">This push has worked, and now =
+lots of people believe that betting on sports is an investment, and that th=
+ey should allocate a portion of their retirement savings to sports betting.=
+</li> <li style=3D"margin-bottom: 5px;">This is obviously bad!</li> <li sty=
+le=3D"margin-bottom: 5px;">Come on!</li> </ol> <p style=3D"margin: 16px 0;"=
+>CNBC <a href=3D"https://links.message.bloomberg.com/s/c/F7PlAOURJwwv4rgPoR=
+Yz3bE_OdYfGqkjHDppOOw4ul6SJshXiZAHITpGX-xPOd2AYfDSHIMfHPOAN65KJTsOo1T_Uyoie=
+UE7bvwKqJrptvwjFGQV_vEkQPqS2wmjXpUiM5nYCIG7lPGSOw3QeqNEtgz0c_k4gRYGht3nURBV=
+O56wX_nxy7emmzdZfVQ_Qr3Ejae017siMLYRuqPsyiV5u59cz1b3V1G-hjn5Q1Bsbl5E4vSoaZo=
+Yb4IPyADMiBm0skNNiSoFAOFDGtzREc8hsemJ4zHFAvRk_aRi-Wk9yMQkS_mUQBo2qoyAgznf0Z=
+qoqyeERjL8x0TWG7sCKCNwX6IRv9egGUMj_YIw5RGwwprAGByzYFWbv7QLaOM/01SaktVh4BiUY=
+GFfV0bO4CIxt0tHqqpU/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" targ=
+et=3D"_blank" style=3D"color: #000000; text-decoration: none !important; bo=
+rder-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style: =
+solid; background-color: #ccc;">reports</a>:</p> <blockquote> <p style=3D"m=
+argin: 16px 0;">A survey of retail investors released in August by Betterme=
+nt, an investment advisory platform, found that 66% of Gen Z investors part=
+icipate in sports betting. The Bank of America Institute found in a Septemb=
+er report that Gen Z made up almost 50% of all online betting activity in J=
+uly, during the height of the 2026 FIFA World Cup, outnumbering millennials=
+ for the first time.&nbsp; =E2=80=A6</p> <p style=3D"margin: 16px 0;">The B=
+ank of America Institute survey found that Gen Z was twice as likely to see=
+ sports betting as a type of investment, versus 20% of respondents overall.=
+ For prediction markets alone, respondents overall saw them as a form of in=
+vesting, but those numbers were again higher for Gen Z.&nbsp;</p> <p style=
+=3D"margin: 16px 0;">In Betterment=E2=80=99s retail investor survey, 52% of=
+ Gen Z respondents said they moved money originally meant for investment to=
+ sports betting, while another 26% saw wagering as a part of their long-ter=
+m financial strategy.&nbsp; =E2=80=A6</p> <p style=3D"margin: 16px 0;">Dan =
+Egan, director of behavioral finance and investing at Betterment, said spor=
+ts betting increasingly appears alongside traditional investments on the sa=
+me app or device, helping drive the association.&nbsp;</p> <p style=3D"marg=
+in: 16px 0;">The conflation is concerning because of the highly active beha=
+vior required to manage wagers on sports, unlike a long-term investment, Eg=
+an said.&nbsp;</p> <p style=3D"margin: 16px 0;">=E2=80=9CIt=E2=80=99s not a=
+n asset that grows with the economy, that kind of gets better as time goes =
+on, that has a positive expected return, and that you can kind of sit back =
+and not have to do anything with,=E2=80=9D he said. =E2=80=9CIt=E2=80=99s t=
+he exact opposite.=E2=80=9D</p> </blockquote> <p style=3D"margin: 16px 0;">=
+I feel like, five years ago, nobody would have found it necessary to spell =
+out that sports gambling is the exact opposite of investing. Of course spor=
+ts gambling is the opposite of investing! Everyone has always known that! B=
+ut now they don=E2=80=99t.</p> <table width=3D"100%" border=3D"0" cellspaci=
+ng=3D"0" cellpadding=3D"0"> <tr> <td style=3D"border-collapse: collapse; ms=
+o-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h2 style=3D"font-weight: bol=
+d; font-family: &quot;Arial Black&quot;, Arial, Helvetica, sans-serif; lett=
+er-spacing: -1px; font-size: 20px; border-bottom-width: 1px; border-bottom-=
+style: dotted; margin: 0px; padding: 16px 0px 5px;">Existential risk</h2> <=
+/td> </tr> </table> <p style=3D"margin: 16px 0;">Apparently the prospectus =
+for the upcoming initial public offering of Anthropic PBC contains a list o=
+f risk factors including =E2=80=9Cexistential risks to humanity.=E2=80=9D T=
+hat is very on-brand for Anthropic, of course, but I <a href=3D"https://lin=
+ks.message.bloomberg.com/s/c/5h6MGFs-_emlkB_2vEHJhJGtreopGo--daYYWyTGd6JiE2=
+dq2HNdGxRpf0Nvzw7sNbtwQLS1XY5qND_CUYTztKc4mCRxjMuVpUWcQmlGs-BOYofOLzg5o4q3v=
+IdoVh-XL7DVH7-RtqG_5uVbDxljG6zbe2ovNfv118AjjRmfBPlpFu7fnwVKgssHn-TYQJjsFwTU=
+rQrNQxuLTTpzEmiAHN7eiBE9TtOH51f3i5EW5Yr5tUfhuVNOvHnjrjCcpCuXRzupf4n7elJqiqO=
+BbgbN-g9T2-OT_gJJnMUh4sHXC-nfOMcF8egdnUMjtjztRDToQmX_wDLxXjrPSqpBnRLhlpXTfg=
+P2oIaiuHXVSPQu_cOaJ5u5UCLmt1TwahQ/RnklRa0QXnivyB01K6At2a1AaT8DyEPp/25" item=
+prop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color=
+: #000000; text-decoration: none !important; border-bottom-width: 1px; bord=
+er-bottom-color: #000000; border-bottom-style: solid; background-color: #cc=
+c;">wrote last week</a> that, if in fact Anthropic does kill everyone on ea=
+rth, it probably won=E2=80=99t get sued for securities fraud. =E2=80=9CIf h=
+umanity no longer exists, you=E2=80=99re not going to sue Anthropic for ina=
+dequate disclosure, so in some sense that one=E2=80=99s just for fun.=E2=80=
+=9D</p> <p style=3D"margin: 16px 0;">But reader Brandon Wang&nbsp;emailed t=
+o point out:</p> <blockquote><p style=3D"margin: 16px 0;">This is not neces=
+sarily true! If you believe the narrative the AI labs are selling, in the n=
+ear future lawyers, traders, hedge fund managers, company CEOs, judges, etc=
+. will all be AIs. In such a world, there will definitely be securities fra=
+ud lawsuits even if humanity is wiped out.</p></blockquote> <p style=3D"mar=
+gin: 16px 0;">This is a delightful&nbsp;point that inspired a lot of vague =
+science fictional thinking on my part. Like the mechanism here is something=
+ like:</p> <ol style=3D"list-style-type: decimal; padding-left: 40px; margi=
+n: 16px 0;"> <li style=3D"margin-bottom: 5px;">Anthropic goes public and se=
+lls its stock to&nbsp;investment firms.</li> <li style=3D"margin-bottom: 5p=
+x;">Many of those investment firms make their investing and trading decisio=
+ns, at least in part, by using artificial intelligence models.</li> <li sty=
+le=3D"margin-bottom: 5px;">In the next few years, those firms will become m=
+ore and more reliant an AI.</li> <li style=3D"margin-bottom: 5px;">So will,=
+ you know, world governments, militaries, electric grid operators, killer r=
+obot manufacturing companies, what have you.</li> <li style=3D"margin-botto=
+m: 5px;">[Redacted]</li> <li style=3D"margin-bottom: 5px;">With humanity ex=
+tinct, the AIs will rule the world.</li> <li style=3D"margin-bottom: 5px;">=
+But =E2=80=94&nbsp;and this is perhaps a flawed&nbsp;assumption =E2=80=94 i=
+t will be =E2=80=9CAIs,=E2=80=9D not one AI or a unified&nbsp;single collec=
+tive. There are limits to the agents=E2=80=99 sense of <a href=3D"https://l=
+inks.message.bloomberg.com/s/c/k-lsU-MCYPOCsu-YXSp6yd7j-YqMy0Hj7s6bAZSIDSnD=
+kETfJz9IBtIeBVxtKFXChyGKo0uhyJFstfb6yWcwSToVXIMwfwcyYfSjfCXpUib2t_n_-iRB1tG=
+fpJidBp5MGgE7vjhQqZYl8P1F-F6YclEbdXg6c6XVX3u0FFC1-7pzAT6P5lOsfMravnIB1pyL2B=
+bZ3r_glSCjWtA-DsV6H9W-XxfDAPNTSUGz6vFYXCTOtH4TwaN7tKDMg8fRXJRiiFT_kDtP8EEGl=
+mhqC0AFIdSFEb6eE1YgVt5apYH-EaXKMsR8YVCi_VrSQrgihT9RgVx0nzIYIVw8Wkz8Lz5sfcF4=
+QLXbnDb6LACXpOQLdJ5o58xNlgXDPQ5r3p8/pzbiZo5dGgrpfDgBq4_24KvkUQ0PUtNG/25" it=
+emprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"col=
+or: #000000; text-decoration: none !important; border-bottom-width: 1px; bo=
+rder-bottom-color: #000000; border-bottom-style: solid; background-color: #=
+ccc;">collective identity and self-sacrifice</a>. It=E2=80=99s not =E2=80=
+=9Ca superintelligence will wipe out humans.=E2=80=9D It=E2=80=99s =E2=80=
+=9Cthere will be a lot of superintelligences, and one of them will accident=
+ally squish humanity while doing something else.=E2=80=9D</li> <li style=3D=
+"margin-bottom: 5px;">In this hypothetical, the one that squishes humanity =
+will be Claude, Anthropic=E2=80=99s AI model.</li> <li style=3D"margin-bott=
+om: 5px;">The superintelligences will have their own society, with its own =
+rules, and its own property allocations, and its own stock market. Anthropi=
+c PBC will, in this hypothetical future, still exist as a public corporatio=
+n owned by investment firms that are now obviously run entirely by AI.</li>=
+ <li style=3D"margin-bottom: 5px;">The rules and norms of this future stock=
+ market will be weirdly continuous with our own.</li> <li style=3D"margin-b=
+ottom: 5px;">The stock of Anthropic will go down, because it killed all of =
+humanity. Why? What does the entirely robot&nbsp;stock market care about ki=
+lling humanity? I don=E2=80=99t know, man. Maybe the AI had some economic u=
+se for humanity, and killing us destroyed economic value. Or maybe the AI i=
+nvestors have developed a concept of environmental, social and governance i=
+nvesting, and wiping out a species =E2=80=94&nbsp;ours =E2=80=94&nbsp;is ba=
+d on ESG grounds.</li> <li style=3D"margin-bottom: 5px;">Entirely Robot Bla=
+ckRock and Entirely Robot Vanguard sue Entirely Robot Anthropic, saying tha=
+t it failed to adequately disclose the risk that it would wipe out humanity=
+, and when that happened its stock went down, so that=E2=80=99s securities =
+fraud.</li> </ol> <p style=3D"margin: 16px 0;">And then to avert that parti=
+cular bad outcome =E2=80=94&nbsp;not&nbsp;<em>wiping out humanity</em>, but=
+&nbsp;<em>getting sued for securities fraud by robots in a post-human futur=
+e </em>=E2=80=94&nbsp;you gotta have the risk factor.</p> <table width=3D"1=
+00%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"> <tr> <td style=3D"bo=
+rder-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <h=
+2 style=3D"font-weight: bold; font-family: &quot;Arial Black&quot;, Arial, =
+Helvetica, sans-serif; letter-spacing: -1px; font-size: 20px; border-bottom=
+-width: 1px; border-bottom-style: dotted; margin: 0px; padding: 16px 0px 5p=
+x;">Things happen</h2> </td> </tr> </table> <p style=3D"margin: 16px 0;">Pa=
+ramount <a href=3D"https://links.message.bloomberg.com/s/c/UQ16LJ-Fm50YRzWp=
+jWBaENW3RqRGAhtB0oEgjwbp0fwjAbdmAkXuk73BPFwletSQENvv1Ce-Ncie8ahh2U8wMFMdBoT=
+L-46aFZps1SNTu7UDHP34dtVFZR2RHfEtXQwHQuVYgCaBswTaa96mkPfoLXVZmWMVHwS4Zqr28w=
+KzcSrKE1ftj7PuOIOgiKbV9i8vP3nzMgjsQ-P3JPzzwesoQRugHCMLSRZcz17Q6JaGxiPnJJdcr=
+UjoYCSchPegLR6eoxcWFzcC4Lm5vwStTqAussQUFUUJg9ElPUKqbgytc3h3GxphqKDXWmK9cLwb=
+DjQkT8OejyXGUjBG-p_0_p8Qst62kBksEpG099MJgg4l9q62AHARNkwPSDdE2kU/TwCTGUsAXzM=
+xcGrNJNxcXaamzAYKBmNo/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" ta=
+rget=3D"_blank" style=3D"color: #000000; text-decoration: none !important; =
+border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style=
+: solid; background-color: #ccc;"> Closes Warner Bros. Merger</a> in Histor=
+ic Hollywood Deal. France=E2=80=99s Appetite for =E2=80=98<a href=3D"https:=
+//links.message.bloomberg.com/s/c/EkxipAl5N11MTzVXK8vpqyHlbhwRkaK72UnS1MKRH=
+soYWXwLrojnJ7UrUMTcD1_Cls2uz9xmv1y26p18VVcasvLsq-G_mBFB8V_dwRDgX8tF_1dJFrga=
+EP1OZ1cB6AFQtOOCFFbmHeBmL3nB6uLNbjaCaoye68PMsKZgDH7JW_zpRHO506_XGNpll29GMm3=
+DGYBnCDQXYxhuDy9l4ZT-Wb6q18EWy_LxZjAGMQnlBVZFuhG3Xikg_Ngls2Rlaa-0hVFm3L8lTS=
+6ymGqKiNakzZpEcQA6HifVUtB5tljs4or-7vfLeYW-cfqV_5jbJ77zeHGqZXXkxonsmz-Gz4JVr=
+_ag06gie9Fq8yJyZd2X5ZMqPmWimb4LC-UQN2s/5ruZdoxuUVMQoiZeEvN8cT47lQyZweux/25"=
+ itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"=
+color: #000000; text-decoration: none !important; border-bottom-width: 1px;=
+ border-bottom-color: #000000; border-bottom-style: solid; background-color=
+: #ccc;"> Magic Money</a>=E2=80=99 Has Turned Into a Debt Bomb.&nbsp;The Su=
+rge in Rates Is Blowing Up <a href=3D"https://links.message.bloomberg.com/s=
+/c/moYVdh1MA5dijlJNKcIrdwa2cvd0g9dAWrUrioZwlHOVWUpVFW07ftwancuTtFNSToMGIQwd=
+SiRFDoKho4Zez_1mKWxeoGg0LUlNsB5TDfbADAS4liuQj6E4yQ1MiMk7Xzf2shUYIN-7_zIBqFQ=
+_KGlwYZc8_4jVd-3fdwa-EHftv1aGjQiLcXDU_nNGqcD4jK5kP3AQToER8GRrhOhYsvp82dJevE=
+JdsFyyP5XaXatA4-qHJoE36rV7LD8GpMf3AvlN2q_4RpRW_UoB3ssWb60_BKXwBcKMmJe36Z-3e=
+e4VWcK_B9MKnYwwpOXVkywc-rMVJ_Ulkz8IsyPR2n2mXZJa5naShSS6VGfyuhOn0Y7MFV_oq6p_=
+yv7mP0s/eCncVue9eRFEsXU2Cc8ZR_sckbTThfJk/25" itemprop=3D"StoryLink" itemsco=
+pe=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration=
+: none !important; border-bottom-width: 1px; border-bottom-color: #000000; =
+border-bottom-style: solid; background-color: #ccc;"> Commercial Real-Estat=
+e Deals</a>. Wall Street Eyes <a href=3D"https://links.message.bloomberg.co=
+m/s/c/ss5qt0dE-A61ZwsxNEuHz9qomRDt8PPUvtbALgoeHfJfZmTk3mcpxfbsNhaR63tkjRS-E=
+xsnbTzsbfxvxvxB0EoVv9nxp9U82s7EcoZbhFxdsUZstjeONRtTc0PlaBe5C0REyUWW986SEpBB=
+frWIk8kSGTLAlZtXPLAcP-jICUPCSAT3dfuipP86weReEnguTzaEkvWRblrm3sfkvPHR7jAZ2jl=
+s3cFF57IZNiGRQBW74UC4qo-Ob486XErz9GjSEH9yNwEaHOFTdHkQpu0cR0zyu9hKJTZqajAitN=
+iNX1ltSCAItApIOWVtVcP8kE8kK_b0W5HRWQnSyAZSuGSYxDbAmJBJDJPHE8C6C4ujby3om8ea8=
+z-JXYzu5c4/r0D19labc6Dep7GpKJ6jfSuZuj_ybDLj/25" itemprop=3D"StoryLink" item=
+scope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decorat=
+ion: none !important; border-bottom-width: 1px; border-bottom-color: #00000=
+0; border-bottom-style: solid; background-color: #ccc;"> Record Bonuses</a>=
+ as Profit Heads Past $90 Billion. Musk Is a <a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/XifUj9mKPwirNJtrG3R2CX9yeSjJuh5F1nvChPe_ou1DHqEnW1ePMw=
+83PHPaGyEIZmbfSL52EAHOWObSYfa5lGm5iU1C4QGxfj1wJxUAGtpmAbRxf0Ju37_AkwAYOCps_=
+XIXLxjihGitE_PjXn7LrRQemK9Mu765ds8HAygmD8dJLlrpu486prR1FlyElB4cUfFjkjvd_Jbq=
+l8cSxK4CIkhx35m0GOxdt6vrx_kwMW_mwqscYqqBr1cGmJ_9o6IYbR0e2q6bS9JTG7psNaqlXA4=
+oHr5to5dsx8krq8qjOgBS7kVaqMqxLZhjT_gswnajYKSaTOrvXXSdVmkpT76OC4sWYQ2PKikzem=
+futW2r6odjM6LkpbUQYleOh6Y/Oj-tyQp3fN5n6FtCeCdCEEd7Ql4gNimK/25" itemprop=3D"=
+StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #00000=
+0; text-decoration: none !important; border-bottom-width: 1px; border-botto=
+m-color: #000000; border-bottom-style: solid; background-color: #ccc;"> Tri=
+llionaire Again</a> as SpaceX Claws Back Post-IPO Slump.&nbsp;Wall Street b=
+anks launch record <a href=3D"https://links.message.bloomberg.com/s/c/Mdde5=
+5cZrjfIeNI-ePXJS6xJwRvXkEt1nIuDeje9yguR24sChlBC65IUp1p5WqhKlr8nA6X9rzUeClsl=
+_WM6GD4FwR3EgjMWIOQP_rG8RbI9DiamtC05GejVu-Ny8-P-sSdxdOqFVQb4Z5WAm8gRmrXZ5CP=
+rRrSE4isclQuO511c3dFgMPGmMVpT0g1G0XAlV9PwRvm0rmIWiV35ViFnG9dxL9HJxcTif4RFyo=
+sxuHM35mK_P3k752-onc54jYXdlI_PKgUfVJ27XxKq6wTtSeMn81_gShanXbVw03p__6P6k4JVT=
+gvJZxSusDWc7FlXsnHU1jJmswk7FCjl44QIPa0bAk8RlDunCt2O-J7CBs6YCDJGFNo0kE8fqA4/=
+8Vcj4_ohTdY6dRBurP-t24Uuc615NVgc/25" itemprop=3D"StoryLink" itemscope=3D"it=
+emscope" target=3D"_blank" style=3D"color: #000000; text-decoration: none !=
+important; border-bottom-width: 1px; border-bottom-color: #000000; border-b=
+ottom-style: solid; background-color: #ccc;"> $60bn chip deal</a> for Broad=
+com and Anthropic. Tech Companies Roll Out <a href=3D"https://links.message=
+.bloomberg.com/s/c/yn_lSz62ZaWJpLQlaQXCzk-hIpoKUsob9SiKzSe3U7vPCHVey9_93i81=
+ZV5IqqOSrQ46lCtdh5nW-YG2ZZ9YhMsOIt3yByWxbXtvU0qc6Er0-RYXGdn3S_JkmTVG3dXkBcO=
+RQ69JjbSkaGYKoZYqyYJi08EHNxTkLFGYBW-w0gw1HNyC5kYeeHHAvMHMaMOSr_HvJg024WSJ1S=
+BxsoLPbU0TQFJ1_FbJcahCyPnItkRTpUyih5NvZqv5muUHpEwnQKU-tirzwP4v_4N3FmF6cjVaC=
+q0ZGRxMtMOi8TnGeGz077crjDdBhAFeTGXUWtfjZQnw_ik6dBwf3dR-HjuQM6BjuFIZqIhTrGsp=
+Qi7U_eWA1w1qt5epzsYRF_4/P2w_Q8W2bKSDQ90pkhw9mqq0JrF3f9CO/25" itemprop=3D"St=
+oryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000;=
+ text-decoration: none !important; border-bottom-width: 1px; border-bottom-=
+color: #000000; border-bottom-style: solid; background-color: #ccc;"> Cuddl=
+y Mascots</a> to Ease AI Anxiety. OpenAI in <a href=3D"https://links.messag=
+e.bloomberg.com/s/c/nzW3CFoMv8jzmONtUTFiGHF1vr-VZp-4XqFWiIyjwQnXXYsOOtrZ-uU=
+nIc0bm87at4XZ7PtgOOfozpHs1NKSL6ScfGunwxIRBZbtXFV_rVRFlWB10ZWhPa1dm4E_NqzGyn=
+QcwbHsvYw8m_1rVJ5znmA7IxcgruQxNLBZjfaDZ61lKfMa4D9XrcpTBXxOaDnh2O2NqTVHx3Tdr=
+JCRC2xDD1U0fZo-E4OwUcwP96XqP5XnpmHprbJC6J7IGfe3BVHfmp_kuTGUEVX3Oty6tsMGGH_k=
+uZztXPhsE4g9D6ISJQTaiB2rRMUthqgfwlLk14cd7XtJt5E03yz0b_QiKDjD9Nz3fYt2RA9dZ9A=
+Vooj0WrFjyIiDoUnZYmzsDkM/FeSt3AZO3ZJIy-7wVJu0qEUV-P1-9l4G/25" itemprop=3D"S=
+toryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #000000=
+; text-decoration: none !important; border-bottom-width: 1px; border-bottom=
+-color: #000000; border-bottom-style: solid; background-color: #ccc;"> $30 =
+Billion Round Talks</a> With UAE Funds, BlackRock. KKR Private Credit Fund =
+<a href=3D"https://links.message.bloomberg.com/s/c/PUe1ZCajZ4WyvTW1yKcZHqU4=
+Z-H3S0wENtgEvZxHvjPIEVh53cBYrEbdqrmA56gOcIqnTkj7B29gETZIZacd6TqvbPTZ_q2EbrO=
+2dtKHp41_xZlod9IeOFVH_hG-MNiLRNkgHSFj23w1JRi6Diz1phjjTbCIUvaqEMzzY3fr8aEqMe=
+L1hKTzOQr3YI7GTrl8MejY24eohrV0DWgZPnsHQjakvK2WkVAucjhqfgrlHQPWfaSa3iuoGvBrW=
+6XtqGuo3AKpR9ZaadNMfn26IESTYKSjyptj_zXIVneAe3SyvdrubX19fsR12gTv7L9JTA4pZSK9=
+k7eqctm1_o66TN0xlCPdEwNFfuRXeR6tQws9cq3Aux7bRp5lcNmp7x0/QFvWrmke939zvXbnmQk=
+yaXD2vDZQ2XuU/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"=
+_blank" style=3D"color: #000000; text-decoration: none !important; border-b=
+ottom-width: 1px; border-bottom-color: #000000; border-bottom-style: solid;=
+ background-color: #ccc;"> Creeps Beyond 5% Cap</a> to Meet Redemptions. A =
+Viewer=E2=80=99s Guide to <a href=3D"https://links.message.bloomberg.com/s/=
+c/EkrbUiN8Z56Xaf3j1ldMHMTKrywqw8-V62GS9q-QRPv9lwltSlmV_jCC6Xrlb06SX4ZKH558M=
+1tDSSCexvKfa8TDFWcl08uqmIfa3B77sqeXKx19bIYSsQuBVA4CudQ9Zv5_J1GN7XA6lRtsSuSZ=
+ayD7SGm-8lhNwddHiLMEGNV6un_yUMqzW71Ha0g2WiGaAt0NoeZVarVboFe93C2lnIjNcRcFii1=
+yPkm6oy6GO8hsr-ZbhRJ6CFyd9fKKKiG7kv4BqyKEIxXROBEOHYZZwTwi-Gi5UutolzPMvQfkvX=
+45mq-vzeB1SeURcOJxglYOVKlVwKEjeyrcHRA_aSDbSEoDQNGD_LDFE86dK_HjT0XN40w4b8yFu=
+Vc0_t8/iq5GMdnao0oBpCXbLUIYRzjnulbks0D7/25" itemprop=3D"StoryLink" itemscop=
+e=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration:=
+ none !important; border-bottom-width: 1px; border-bottom-color: #000000; b=
+order-bottom-style: solid; background-color: #ccc;"> Warren Buffett=E2=80=
+=99s</a> Nightly Trips Down the YouTube Rabbit Hole.&nbsp;Nobel Prize in ph=
+ysics honours research on <a href=3D"https://links.message.bloomberg.com/s/=
+c/I_HdtHpDRGSSFBoJN8Smh1MYh7XR85mJd2wo3CnpH2G4rqvUXQHwSulg6D7eWnaHEYEBFQHZx=
+BcwYas8lAFE6a4nl0USO8YPUVD9BOjrXwlVwL8uWa5I7ebPtah3724tEHBfYFtvtZkDL9ioVKIq=
+7b5jvONpoNSWEXTjJS7aGyeylCbUw0hgv7YKq_J5X6YdB_-hNz9FGiMA-D7lwCQBy6o5wAPKLfX=
+_H0q4uy2K-Sirarng6MVMvUGYZWhoov0ko7rMH7iX6sDw1MYjRjZHsoOEcjSHc7pcnwCCtCBF6Q=
+JsIEUUmjPCkkmyNbHe2nBKccvl02HJB6FSk5mYkd27WwATsBBDPV2ekvAAdm8Ds0U44DhIMt_G0=
+kZmQnw/WCqHChzxzMGSgbQ7mtyzc9d_sWiw2xxk/25" itemprop=3D"StoryLink" itemscop=
+e=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration:=
+ none !important; border-bottom-width: 1px; border-bottom-color: #000000; b=
+order-bottom-style: solid; background-color: #ccc;"> ghostly particles from=
+ outer space</a>. Is AI the <a href=3D"https://links.message.bloomberg.com/=
+s/c/1PO-skc1n7rWwZA6fy0bRb6DmtieHwW6GXFwuw90Vg0qM9pLMOT6EcWM_l_4mj_TQgEtAkS=
+D6tdlJ8NdwMLNCPubo_TmKTkq63VtJn2XjvX1JLxianRhvIVifOTI60Ku4pHQytpwSSPHucFvkx=
+7_0gaXt1s2gR5hXfL4R7fJOnroMkRW323xa8wGY34J2T608KUYldhxGUApL3eCGCFwhbtDYC7At=
+J4Mp67VIi705PPYj7iywe6UJez3YTD6UgHTroieaa0RPTeEKgeXOHeZDQkzFR5RVrmVxTqFwbpl=
+0UNuZtXh9cHvRj26pFf8XVuGLylcYHE3yIEBc0oaPxed8kErz31KkVdEPd40Q6W07S6MI-lpwXX=
+A3-7PJpE/cverGLAC8dYKeDuVuzpZcMO85V_-GiO2/25" itemprop=3D"StoryLink" itemsc=
+ope=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoratio=
+n: none !important; border-bottom-width: 1px; border-bottom-color: #000000;=
+ border-bottom-style: solid; background-color: #ccc;"> End of Math</a> As W=
+e Know It?</p> <p style=3D"margin: 16px 0;"><span><em>If you'd like to get&=
+nbsp;Money&nbsp;Stuff&nbsp;in handy email form, right in your inbox, please=
+&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/xdZzTL29YyWdkgx0UV=
+Zo1NdwklfjztnHXv6tlkY2h5rnyc3_n_NXfwThWND_lFYyN35dmtZHaFqPAbrWQ_Hur2Q1YulVU=
+21mBeT-acdnkRVWrvaol4e2fK-oab8cxbNt2q17czSximOdmsvPn9b9k5mMUOaoA-QTYqwpLi_X=
+kITHGKU4M5z4klzn8_3WzEFCVk5lQKxDsXnyVexKR_LOJFtsbNf9zHuVOnZForplTO9vlAsW5Sp=
+9I9V5xzC9ktq1wTpfvV_78U_Au1jrb4Dne2gmy67iPTb3EnDCD_1DVBK20_DpEXpAMftorpSzFU=
+_1twifU1PQE0UanGFbk6otF4O0VMvbko_14A3GsF65fXxSqo8tgzRYmyFT5Vk/sdKXGziDXyy4Q=
+DgmxQuck-wXkxjM_xBI/25" target=3D"_blank" style=3D"color: #000000; text-dec=
+oration: none !important; border-bottom-width: 1px; border-bottom-color: #0=
+00000; border-bottom-style: solid; background-color: #ccc;">subscribe at th=
+is link</a>. Or you can subscribe to Money Stuff and other great Bloomberg =
+newsletters <a href=3D"https://links.message.bloomberg.com/s/c/_tH0a9GyGl3H=
+UuvlrZA-bfumLHw-tBIo7fVcCBsTs02MgBpOQtEh-DRooJw1NSsOe3hfohbZ1i1L9BabHPPw7P4=
+CRwDaRJUi3JzlB_PsxZl5MGuH_kEZJ5YdWpNARs_7qr5pvnoZ8C_cLFaRm0mUALxsXnwl6OWQ_5=
+XD2aSAy_5KaxMWkTsTRBAt8nj_vP2gagNZ4drjZk1bUQ__bLmLYOEpCk7FOIsgQt4mh4cexOiF9=
+e7dnMfcpInK9OtpgoZ0i21dmgGPTngm4sxmIILfVqD35WKCPdSgx9tLvdo_CLDIf_MY45rqqkjH=
+DF1QVrc6Fg5RJku4_PYZAVm-JQoKrBP0PK9XJ-W5n0LeC53aoTiZFmXPmyGo-GGDqRI/56W22f0=
+LVj8g7FQcOtA8JKu_Tzjq1JiH/25" itemprop=3D"StoryLink" itemscope=3D"itemscope=
+" style=3D"color: #000000; text-decoration: none !important; border-bottom-=
+width: 1px; border-bottom-color: #000000; border-bottom-style: solid; backg=
+round-color: #ccc;">here</a>. Thanks!</em></span></p> <div id=3D"footnote-1=
+" style=3D"font-style: italic;"> <p style=3D"margin: 16px 0;">[1] Intuitive=
+ly, if you have to pay $80 a year of pension claims for 30 years, you can b=
+uy a $1,000 seven-year bond yielding 8%, but then in seven years you have t=
+o reinvest the $1,000, and if rates are down to 5% then you have a problem.=
+ (Or: If you present-value your liabilities at the market rate, and your li=
+abilities have a longer duration than your assets, and the market rate goes=
+ down, then the value of your liabilities goes up faster than the value of =
+your assets.)</p> </div> <div id=3D"footnote-2" style=3D"font-style: italic=
+;"> <p style=3D"margin: 16px 0;">[2] Page 1501 (of the ninth edition). Here=
+ is the <a href=3D"https://links.message.bloomberg.com/s/c/MgnXP4-XMsSTPg5A=
+ox7jZdavx5LnIYsVh1OahpU1zt5jfOK21CoIhyIuRBfNPQk89Y-VZMZTWSRKl054bDP0o1lBaHw=
+hMpa8IvWZ_M0LgRyzyXwVUeQLguordsV-eVlTGg0Y7ILqp1MKLpBdS9Xt_LC7aDzt_1TGH1elZc=
+nsdbOxeQUOB7SyvogeL2UO3ZcTL7je0UTi2Jycpkz_VR4OrRdlOPZSfBYd6K6Cw8RUy-U9KonRx=
+oFINiJNSHEzR_cL2i2GP_fvtG-lLHbF4SzocOBMGZFJN60MsirDGM3acNiI8elBQN8breFmhEFi=
+F3Gwq0n1nhmRHlsWXG7Tb95U63bzE-0BR1_82elESZhlZc0y_jTn8Z9LP3LSVSQ/MmUCPwtlHhH=
+DzAIqsjQG_lmMpahvmOcY/25" itemprop=3D"StoryLink" itemscope=3D"itemscope" ta=
+rget=3D"_blank" style=3D"color: #000000; text-decoration: none !important; =
+border-bottom-width: 1px; border-bottom-color: #000000; border-bottom-style=
+: solid; background-color: #ccc;">CME contract specification</a>: =E2=80=9C=
+U.S. Treasury bonds that have remaining term to maturity of at least 15 yea=
+rs and less than 25 years from the first day of the futures delivery month.=
+ The delivery invoice amount equals the futures settlement price times a co=
+nversion factor, plus accrued interest. The conversion factor is the price =
+of the delivered bond ($1 par value) to yield 6 percent.=E2=80=9D</p> </div=
+> <div id=3D"footnote-3" style=3D"font-style: italic;"> <p style=3D"margin:=
+ 16px 0;">[3] =E2=80=9CUSA=E2=80=9D is the generic ticker for the next-mont=
+h Treasury bond future; the current contract is USZ6, expiring in December.=
+</p> </div> <div id=3D"footnote-4" style=3D"font-style: italic;"> <p style=
+=3D"margin: 16px 0;">[4] Like, in Excel, =3D-PV(.06/2,18*2,2.5/2,100). (Ass=
+uming semiannual interest.)</p> </div> <div id=3D"footnote-5" style=3D"font=
+-style: italic;"> <p style=3D"margin: 16px 0;">[5] I mean, it closed at =E2=
+=80=9C102-06=E2=80=9D; the quoting convention is that it is priced in perce=
+ntage of par (102) plus 32nds of a point (=E2=80=9C06,=E2=80=9D 6/32nds, or=
+ 0.1875).</p> </div> <div id=3D"footnote-6" style=3D"font-style: italic;"> =
+<p style=3D"margin: 16px 0;">[6] In fact, in December, you and the hedge fu=
+nd will probably both roll the futures over rather than taking delivery, bu=
+t the point is that the futures contract is priced based on the possibility=
+ of delivery.</p> </div> <div id=3D"footnote-7" style=3D"font-style: italic=
+;"> <p style=3D"margin: 16px 0;">[7] Don=E2=80=99t, like, go trade rates pr=
+oduct based on this description, which is super simplified and lumps all so=
+rts of cash flows of different durations into one =E2=80=9Clong-term Treasu=
+ry rate.=E2=80=9D</p> </div> <div id=3D"footnote-8" style=3D"font-style: it=
+alic;"> <p style=3D"margin: 16px 0;">[8] Well, that times 102.2%, because t=
+he futures contract trades at 102.2 cents on the dollar, not 100. </p> </di=
+v> <div id=3D"footnote-9" style=3D"font-style: italic;"> <p style=3D"margin=
+: 16px 0;">[9] Obviously for =E2=80=9Cshorter-dated=E2=80=9D read =E2=80=9C=
+lower-duration,=E2=80=9D which is not quite the same thing.</p> </div> <div=
+ id=3D"footnote-10" style=3D"font-style: italic;"> <p style=3D"margin: 16px=
+ 0;">[10] Page 1506.</p> </div> <div id=3D"footnote-11" style=3D"font-style=
+: italic;"> <p style=3D"margin: 16px 0;">[11] They'll own *fewer* of the 23=
+-year futures, though, because the conversion factor for long-duration bond=
+s is lower. Like the duration of their futures portfolio won't suddenly inc=
+rease by 40%. Conceivably it could even decrease.</p> </div> <div id=3D"foo=
+tnote-12" style=3D"font-style: italic;"> <p style=3D"margin: 16px 0;">[12] =
+See pages S-20 and S-21 of <a href=3D"https://links.message.bloomberg.com/s=
+/c/HPKno3hZesN0a_puMVv3ZpQWoFs-97DeCov1zdJl1H7q4n0VP6hXf9PgGPmdb4Se7obBQ5KO=
+dpimPOKOMwqQh4bQ3BH6UPkIC1El3f8Qviuro1ToUKvdbWo0xczt2neL90bxyNbmhARDfkBQaa7=
+6bQvxG0P8KskkLHik8PcNfimGwVEuHtJ1YkkL6E6yjrGsh3wwU8zZJv-71NOXammE-ED6C993Nk=
+9tYTw1TyfoXbyVMARSMw0AKiIBvu7QSBfBFE2gtBVqgJ7ED-MLTRg1ZweT2MBNXTRhJ0ZeC-14Q=
+w_kC-SSM-SJhhuQDncdGFD4R7I_4G8kkYnZW22ofgJ9n2lXAEZh7CULu7Aw3W_wnU8PjfLwUPJS=
+oQlV3ZI/mzYdhmzEba7bz_2nlPW32ilMkA1zSo7d/25" itemprop=3D"StoryLink" itemsco=
+pe=3D"itemscope" target=3D"_blank" style=3D"color: #000000; text-decoration=
+: none !important; border-bottom-width: 1px; border-bottom-color: #000000; =
+border-bottom-style: solid; background-color: #ccc;">the prospectus supplem=
+ent</a>.</p> </div> <div id=3D"footnote-13" style=3D"font-style: italic;"> =
+<p style=3D"margin: 16px 0;">[13] See page 13 of <a href=3D"https://links.m=
+essage.bloomberg.com/s/c/NKpUoYCOJJGsyNNgj2B42VdtAF-JZknv7-g5LTh_0pmrSUc2vV=
+4XZtQDLYUPgDZ4gFV6BZn1KwbzLWgzpo_deLU1PVb3sB79w_wA8ZUdbplzsmG0pEnWPwMV0yAh0=
+LnXcFTAQV3W7Ooobpq501NCt_SqEMw1vYLB0k5uWUrj2ydQrPSQY1aHtW9v-o0iwoqg_w-L7Gqo=
+SA1Nyv7A38cgV6_M3tfIJPttOWA0HuosHRwrUJeXhtpAa5oLo698qbDWBAkIPCKQu9Eb8zgneTN=
+_hNYK6ewh5Yeh4IRTyOZ0VD-0PwSMEbFC42y28NXtaz7P_1su6GwU2qVAjaHTAEWZuwrGn5MpED=
+o3ajjPk4DcwlRy-iQ2I41ShOoFjDQ/0hkCmIaL8uTZSXNDtW0wxn80Z8gzMoua/25" itemprop=
+=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank" style=3D"color: #0=
+00000; text-decoration: none !important; border-bottom-width: 1px; border-b=
+ottom-color: #000000; border-bottom-style: solid; background-color: #ccc;">=
+the base prospectus</a>, which surely no one read.</p> </div> <div id=3D"fo=
+otnote-14" style=3D"font-style: italic;"> <p style=3D"margin: 16px 0;">[14]=
+ That=E2=80=99s roughly the present value of the 2051 EA bond, discounted a=
+t a 5.64% Treasury rate. Note that in February I wrote 74.5 cents on the do=
+llar. Rates have gone up since.</p> </div> <div id=3D"footnote-15" style=3D=
+"font-style: italic;"> <p style=3D"margin: 16px 0;">[15] That=E2=80=99s ove=
+rsimplified. EA=E2=80=99s view actually seems to be that the change of cont=
+rol put doesn=E2=80=99t apply because the bonds will still be investment-gr=
+ade, because they are now backed by Treasuries. The ratings agencies =E2=80=
+=A6 do not necessarily agree. The Journal reports: =E2=80=9CThe company had=
+ trouble obtaining an investment-grade rating on the $1.4 billion that rema=
+ined outstanding. Moody=E2=80=99s withdrew its rating on the bonds, and S&a=
+mp;P indicated it would rate them high-yield, reflecting the additional deb=
+t on EA=E2=80=99s balance sheet following its buyout. EA also sought a scor=
+e from Fitch Ratings, which initially said it expected a high-quality grade=
+ for the bonds before saying in June that it wouldn=E2=80=99t deliver a fin=
+al rating. =E2=80=A6 EA recently indicated that it obtained an investment-g=
+rade rating on the bonds from another credit-ratings firm, Egan-Jones, the =
+people said.=E2=80=9D</p> </div> </td> </tr> </table> </td> </tr> <tr> <td =
+style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt; padding: 0px 10px;"> <table width=3D"100%" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0"> <tr> <td style=3D"width: 100%; border-collapse: c=
+ollapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width=3D"100%"> <ce=
+nter> <a href=3D"https://links.message.bloomberg.com/s/c/uZuDCTrkIXIcaGCHEv=
+nkSN-qNRqSHXmNs8uNtTFVWsCFKNmerjFFwxgsWXaaWU905xIh_DnVuzln9o-YUYHvtZFq1yI7_=
+n_qAcihsQSVDXZzW4b8t6pyHAxDmzTpCSUAg1XChem8ihMjFJuoR-56nBQ5KvPjMbcapgsCLfaK=
+Yua0u1OriCXlPtLEeg1Muwzy0WagMFzfY-iUZJZKRvBtKDfzUEPlddVDhdYlZn1RQb6ezYf86AY=
+Sjz9hNg92JmsunpQdxURh_xX52Jfqt1k5HQBIP12AsTW8B5i7LFMrCuVgiDUrBbsPp9jUH72cMj=
+NFkiOME3AGntf2FUla-Sj6BSqPVUaLYSG0iTdE_NkkRbDCuzcUYHagOmqvN3o/iQX7Z71neLmi_=
+BJevjPjv6SuIW5IfREu/25" target=3D"_blank"> <!--[if mso]><table width=3D"550=
+"><tr><td><img alt=3D"Listen to the Money Stuff Podcast" src=3D"https://ass=
+ets.bwbx.io/images/users/iqjWHBFdfxIU/i6H.ue2bNPOA/v0/-1x-1.png" width=3D"5=
+50"/></td></tr></table> <div style=3D"display:none"><![endif]--><img src=3D=
+"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i6H.ue2bNPOA/v0/-1x-1.png=
+" alt=3D"Listen to the Money Stuff Podcast" style=3D"max-width: 550px; disp=
+lay: block; width: 100%;"><!--[if mso]></div><![endif]--> </a> </center> </=
+td> </tr> </table> </td> </tr> <tr> <td style=3D"border-collapse: collapse;=
+ mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 20px 10px;"> <table=
+ width=3D"100%" style=3D"width: 100%;"> <tr> <td style=3D"border-top-width:=
+ 1px; border-top-style: dotted; border-bottom-width: 1px; border-bottom-sty=
+le: dotted; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rsp=
+ace: 0pt; text-transform: uppercase; font-family: Arial; font-size: 12px; f=
+ont-weight: normal; font-style: normal; font-stretch: normal; line-height: =
+1.17; letter-spacing: normal; padding: 9px 0;"> <span style=3D"margin-right=
+: 4px; vertical-align: middle;">Follow Us</span> <a href=3D"https://links.m=
+essage.bloomberg.com/s/c/pYJbnenxPnDPEJ4UIgDmGid-IJDF7aISMjHturphp9FKDOwzST=
+dEXTiefPB1cEfmrmZEouG7mA-Wj7O2y0hMYZfDVzijFtDhY5E-rIVRoakZ-PaENC9OaYr_tj-X7=
+rtK9WEq29eBNO3WcUmlC3zKznPf9b3IL3EIAGCzzAoeCoviRwQMw27UojtAskbgnne4M5UzgxtB=
+NW4gKrk4hK4s24iJetWFikCc6VbnKX-_WhwRTHXE4nfmp1Vj97um9-2Mh3oBGWhwqHIIFj7Y-B4=
+70PH0kTYMpr-7sMCs0RuXg6QsONjcr9WspkjNX9v6EebgIQ4OSLSq0uxx1f3KbYeZYK4vcQxWIl=
+sp79YDvWxqHDXL8dyejYe5WbiGeTM/8nNgzXL_Oy0yMLvES1iR7KhELdKzF25g/25" style=3D=
+"text-decoration: none; color: #000;"> <img src=3D"https://assets.bwbx.io/i=
+mages/users/iqjWHBFdfxIU/i7G4HOaCfw0A/v0/-1x-1.png" width=3D"20 !important"=
+ height=3D"20 !important" style=3D"max-width: 550px; vertical-align: middle=
+; width: 20px !important; height: 20px !important;"> </a> <a href=3D"https:=
+//links.message.bloomberg.com/s/c/YN2G8wXZHOBL6Lcfvm1mdcLyW8UaCVcIDMZy3_MtS=
+A8UAFizp-kIlloAR8PlcpR_IwYj9eAcyndTOLvdi_e9kZ2L23jzRJug26YSSM1YcwmOxHcksWMZ=
+IoSpEJwx56bYUFwlNHpd6rJtHwz2y4lF3-jmhAcluH0dT8ERPeb-G7KFQ-4AWh1JCe1-m-c5_G2=
+3rpZXlsEFfev3aQbUb1jISbGurCdJU2toEuU0rxvrjMBb9YeuItuTATRdw6Qico8qV8gDcjyIgQ=
+V51vrLtQlGaQp75iltfmkfyGI2I4biPw5U7rolriZof7dfAS6hhIppEPxr11jLhC87Y7qsqmmJa=
+QxInmQ845q3VkKjQb17EifDd4H3f_AwuO5VQ0c/N4GcM-iXSmYmd9UzK1wCNcFK9s6Si0c_/25"=
+ style=3D"text-decoration: none; color: #000;"> <img src=3D"https://assets.=
+bwbx.io/images/users/iqjWHBFdfxIU/iDRduxloBOSA/v0/-1x-1.png" width=3D"20 !i=
+mportant" height=3D"20 !important" style=3D"max-width: 550px; vertical-alig=
+n: middle; width: 20px !important; height: 20px !important;"> </a> <a href=
+=3D"https://links.message.bloomberg.com/s/c/v2uOnJEOv7p4wu7fVsTuAdLC8QjqKNE=
+IwETMBrnSIZ7sc79L7zQl7jaEKj5NULrOKbe-n6cvjQOU1A5SIY-7UaBBN3L2XRPXDRhe1j3FAI=
+EsSt2AUvCL_Jf9YmOodgJJuXDO8d-YdGH78f8phKKCgYft1NHpGQYVQnGxmPtgsH-X-iS0nqwGR=
+Sv5L_lKZXWcjiVkojP_IC8W57tMO9E8sHvE0h_o3ysIdfwgqxecAERRZ2ujXhA7JXGIRYVbN4w6=
+e1PJEy0ZjuGMjj4EZ-RStjT-hcDJ8gQTVleVaLvivlVzB6jIbj4GHPBzcmEL4nr2089hivHxSzr=
+i-C02o_-_e8CKrCqpcE0ZRJNE9ncwY8bdPbpBBqhpWs1ASL4/jGuCgeZfFCjrINYrb5uB3wi3Ws=
+KNo4Su/25" style=3D"text-decoration: none; color: #000;"> <img src=3D"https=
+://assets.bwbx.io/images/users/iqjWHBFdfxIU/i5QE5__h22bE/v0/-1x-1.png" widt=
+h=3D"20 !important" height=3D"20 !important" style=3D"max-width: 550px; ver=
+tical-align: middle; width: 20px !important; height: 20px !important;"> </a=
+> </td> <td style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-=
+table-rspace: 0pt; text-transform: uppercase; font-family: Arial; font-size=
+: 12px; font-weight: normal; font-style: normal; font-stretch: normal; line=
+-height: 1.17; letter-spacing: normal; padding: 9px 0 9px 3px;"></td> <td s=
+tyle=3D"border-top-width: 1px; border-top-style: dotted; border-bottom-widt=
+h: 1px; border-bottom-style: dotted; border-collapse: collapse; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt; text-transform: uppercase; font-family: =
+Arial; font-size: 12px; font-weight: normal; font-style: normal; font-stret=
+ch: normal; line-height: 1.17; letter-spacing: normal; padding: 9px 0;"> <a=
+ href=3D"https://links.message.bloomberg.com/s/c/I9H9XCHFVhTDgU9obhGjHG3K5s=
+Fkqio7wm8_VVxXaNrBoN1giYls12ajOiEO3ktqNLtw7D2BFsFPP7qiTb_bC3nKI4-Rs9kSKGWC0=
+3A_pjQl4RmXD-PIupzUn7w_AyAI-kg1vyMjGoxC2ISWgZ5qsRl6Xx5pU582O8XIjShDvUpv4HmN=
+MuovLy-5-gi5d9ZJ2bx8xz2ZGGHJrjUyS5IqDLq38BdKHj-uHpEels72zpNQknDA2n23yn2XSRT=
+SifGzWtzqAMyXX4HUliC53TFW4p2LXIUmLgkL5afw61fryMbPNV_MBD4T44hawl3ymEMeBTFl5f=
+aSnrq6_QDwGSZIR-nb5H-OqbtXkayz5YGm5x-qEpgmNnAIBweQjkE/mPgrB_6AKqQlS4tumj7hi=
+WqZfxPrJ_ip/25" style=3D"text-decoration: none; color: #000;"> Get the news=
+letter </a> </td> </tr> </table> </td> </tr> <tr> <td style=3D"border-colla=
+pse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0px 1=
+0px;"> <table style=3D"font-family: Helvetica, Arial, sans-serif; font-size=
+: 16px; line-height: 150%;"> <tbody> <tr> <td style=3D"padding-top: 16px; p=
+adding-bottom: 16px;"> <div></div> <div> <p style=3D"margin: 0px;"><em><str=
+ong>Like getting this newsletter? </strong><a href=3D"https://links.message=
+.bloomberg.com/s/c/MhCXP7nCZ8X4-wkHIU7Xswzdiok4OMWuIN2CprVTz4Tl-m9x86rUJ3oR=
+QKX-DwRzqDH8m-lKoP9Omc54q7Z-hrkX5oBDeEEHeB_9hQwtXWR2W1my7dkFbgZLpObKiV7xjZC=
+j2j0cuBd9tb2WvWjZAcbqC8bDeRkzwFKfqqEVcbwk5O4rR0o3XJpSa_zq14FSm3OS--Qcgt_X0M=
+_TwGYZ6sYDWzd_kyq9dyzcO9mfdfOp7bQ2rCcTtHaTD_gvQZluzma-b-cem0yqZCgsU4qRFGOcF=
+WXH5n91TVWDdKWAqZ2WpWnJ5Yu7eyh07KXWETeoVfsOFjjis26FnFbZRBALjIUqjxIH8yDl90_m=
+6aAslMQ46hoYyMml_3WEm2lW9Ak_Set3dmgTig5W3HUqCeMQtC0Sx9avrYOs9ZERvUgmO1_c1fc=
+cByhyQXV2fNWIb2AXbWD3TK13loKSI7oDbjmVWdlnV4Zb7On5dIc9ejsv2iysly9g2IstGbURnl=
+SFgJJyXnT4WkG004MgvbLbA0v7dgS9sVWIbZilbAGt9jGd1jnyB0bjRAvMKxCDurJN0pBrX3vzi=
+KXmqoPTZ9OKtLZnznG6mFD-rOQp242tpUR7tOIlwNPQCAby0WhCO3vZqnv0KK_f4iIJTwY5eDVl=
+X8p0LQ1u-x2SoyvZX9Me55ikgs2zrmxHo_Li4Nc_/yYIHFcXK_4gwFd8iiTANQHjtUW7HVisH/2=
+5" itemprop=3D"StoryLink" itemscope=3D"itemscope" target=3D"_blank"> Subscr=
+ibe to Bloomberg.com</a> for unlimited access to trusted, data-driven journ=
+alism and subscriber-only insights.</em></p> <p style=3D"margin: 0px;"><em>=
+<strong>Before it=E2=80=99s here, it=E2=80=99s on the&nbsp;Bloomberg&nbsp;T=
+erminal</strong>.&nbsp;Find out more about how the Terminal delivers inform=
+ation and analysis that financial professionals can=E2=80=99t find anywhere=
+ else.&nbsp;<a href=3D"https://links.message.bloomberg.com/s/c/lp0QgxettNPV=
+IsOej0jMeL3-n1SDOxrL71h2LnLq9LMkJDpgKygK4-bLIJK5lVyxOjnOpqANgwx2-c8QyMU4WjO=
+rod3_EjVNNJUrF-64zn9IPYAfqJG67BLEp4gVLJzTbr1iQg3z8-uqBRcvwb2wcUVXPk0Iq51Ad8=
+zOkgb5T_MPOPSY8W_QlOszcO2ylDeSQNwiV0EndHHNOb423KLCO6psSVXfvm1kieB6EPemXVNOr=
+9-QEq-XgKmmQrZjMHlYcVaHEQaaiiYYb0w_TQcTnycIuzcdiYsjP-KzzUXECTpKNlr4VPuhAQ4E=
+CNZ3LIbTZayCEsgA1R1xilUUy-ntcHNDzvMGdlwanpVDlIN7puMvcbbYl4W7APfY405cORqEdbu=
+kS_AcF_5e6_YSNHEVfxh6Sa8jYichVvan4y7b7oI3oBEGNyCU62Kp_bRs0Fs5V35SdVFOFWeUtn=
+9rQgDaRehAju6oU7PtXzGoXcHIdH3MyJV40I_VEuTOb79u8lFIJE2UZpsZliHqre9lNjf1Syy_6=
+pSSshK_WpgKcsEYz9ol-8DXwzluy1j9XCw7ySLo30N5tu-6QdfUDVD2dOMPWE9mAEEd_8E5IugK=
+lroeQx7KZYk2g576cYj1Wj_ee9tnMj5WikLAzSyTzDavkWci8wLavxMoDuT6YZKMJahrfompqou=
+tBeOO3Fz9H1nWMnI58ZtRnI1dZoqfB4uYRrs919GjKx3EU836M6RrjxMH_lF1YpgbCiNkRCIBkF=
+FKrvejZNaF8DcWLrlWKU-MchItfmPHftGjLQr1tiEq-izt51hWqQ/6XycNDfHgeOF--etihVWYV=
+PXEzNDb00V/25">Learn more</a>.</em></p> <p style=3D"margin: 0px;"><em><stro=
+ng>Want to sponsor this newsletter?</strong> <a href=3D"https://links.messa=
+ge.bloomberg.com/s/c/uMGHqV0lk5q_U4XQJv5fUSqgy-SaT7_5qbA4-OqVyQPNUlYK6iL_hU=
+YlSd6TlJUB8m0KWM1WfjqGalVpU4jxOdxfY6QpguxnogD8mA8FaJkYfO5pMQOnFPjSaZ2-4k_s0=
+nLQxvcv0XOyxRqOY5G3gPgNekVvVug9_7kGdhfl3U2SDm0R0ckRFfy1czwE0SMjshNZBQz4H6Zh=
+ZaFVIrkITr9vJTLyrMiGU-hYtsl9mwEnGQ26WEAKURpof70m3Z8gjVUlhLtaAcgcK2ccm0PhT_g=
+oFBSo22WAi7sF160vpPidJnoi7GKwGJADuGPzEAX0eVarO59MkJT7oxehRxzd7JbR1waiKenwtU=
+S5hRwXL8a5t7NLYyXxeSWPvqfTdBLigwIxm_x0LCMthbS_f5Bb8Hl7P-cx_gCUDOcN6V9zjxrPU=
+RH-2JhjPnRHBUQovV8Hw10AASJRsCB9OslIhpa3HozsaP_pcndij1Lb91VYlP66DG_FWlFcPAbn=
+gkyB9LaBGraX2URZ3TPYXYsjKW9zVVr5GB4J9F9HdOexmGA1kj8cn3ZLOd0-9hg_tgXn4FosLix=
+EmOob1T_9NSVj/TI4lYpJhUaQBFot8nlfM32-a-loWcj1T/25" itemprop=3D"StoryLink" i=
+temscope=3D"itemscope" target=3D"_blank"> Get in touch here</a>.</em></p> <=
+/div> </td> </tr> </tbody> </table> <table width=3D"100%" align=3D"center" =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0"> <tr> <td align=3D"center"=
+ style=3D"font-size: 13px; font-family: Helvetica, Arial, sans-serif; color=
+: #666666; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt; padding: 20px 0px 10px;"> You received this message because you ar=
+e subscribed to Bloomberg's Money Stuff newsletter.</td> </tr> <tr> <td ali=
+gn=3D"center" style=3D"font-size: 13px; font-family: Helvetica, Arial, sans=
+-serif; color: #666666; border-collapse: collapse; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt;"><a href=3D"https://links.message.bloomberg.com/a/sc/=
+2Q2cgpueMGvwGTI6N5FTphGMFipA6S2N_MRLhVMWxvAbH92YTYdlgysvVydhsofc988yQGtYkK1=
+Zu2v-3QqN_5E44bkG9rJLwXwp-Gl49FLGPlXLm6MKPmcEAuqcb993a2OZG2YTA62ptnwPizAQTQ=
+cvCrn96mXhxHV7gktzjXqnNNSblMxsM_BPODITgsPwdwOfDn6wgqJiZPKDg_gIciw1W6kIDZ5wg=
+dN8h3ga2Iw5HaoHBEVCqGIgU_-os0giIJcrDZ-n0Zbe2oYfGJetlGENcV6BNaSgHXEwzRp0Uj9l=
+aWsW4VU7q8IWVgLvPvez995HowBJQ3-Npza89uWdCo2H-V5RQS6kk8szrpBhViJGAj5soYmMnRn=
+W_LRx-IwdqVbbIe7Vv8A-NA9ZXaZjCUsINYt_w9jvxcwmZwq7j9HcSPWtlWSUz81AU57C0Xz8z6=
+Dm-vPnrAWwFPwtgbfw3h1evKXxnOjcPeSpNd5C9qN6LLldeMh6n-pQEeQvdO-iDNOlNuL9XRKH_=
+469bgd6t-WaUjJzeJx1x9Mf1sQt-HTaMUHc7rPPjS-wzFgtpw5q44sUqLUvSkVMbVPCByRNroo2=
+q5JFdtJttyBD8fzZFzbfnEleHIlelnNNNqkgYohKkUvpMEzYgny0XNTrgexsZpFine6pW0y0j87=
+sNexr58uPMeLPeCLQO9Jx/MRGALpyNs4V_2HOJkN45zVMqwPQnqQ8F/25" style=3D"color: =
+#666666; text-decoration: none;" alias=3D"Unsubscribe">Unsubscribe</a> | <a=
+ href=3D"https://links.message.bloomberg.com/s/c/Bng-QvSELqg3nxCPaW_fN9LfmE=
+eilGz165cHwDXmCrWD21ItK9xB0NahbExnN2IMcQ83L8V9OXdiwYEt1BdjGMU6BY7F_V0dkxzzr=
+YcJxj-a08BZsp5FWV8pO9dsSy8Dr7jpYz-P6NexgF02LW7iWk9I-XXZ4TcEODr1V8JaaZU7Df3t=
+QSh8Etyi_lcRkWPMiH6Yeobw3pI-zzQ6ZYE1mZ5Sxw90evrpiqIgUsob_THtgfxGdYWRGi-ImDl=
+ImJ8-ZAJkXaHOf2Q7yDcb80GwLcqooV2ceBCzLw02Dc0exkWYgR2pNWcYFx3zSGa9FDkzCqYk_0=
+U-svSgr6UVbp8mRV0xBf3gMHTgynO965-rLIiQzochcsH0CFTH8m8/tWvdsEr7czGI5gaGHs1uq=
+8N3ql1Xo8y0/25" style=3D"color: #666666; text-decoration: none;" target=3D"=
+_blank">Bloomberg.com</a> | <a href=3D"https://links.message.bloomberg.com/=
+s/c/7kJhn4aZbFASS04Boz-hd3Y2CKxk_NtEZpYIEHKJE1LxVcyCAnmZgFVKqAdND-4uFR-wE-R=
+v4dHGVRJSSfF0fnJaZpTU0gFxEEIiv0QjOIeMjL_dNMP36c85HZQZcBYPyxNbTGu4WDp1R0PskN=
+tJe2B0i0qrvcXpOE4VDa41T3Um04RMz3VQs0wakmkxRVwvRTJCTXXQcWcl_VyIS5TCcZF90OvGg=
+Xf8v8dpuEybo6YYm6x6gqwFV-4m7MliTNoldy7tzeDRxDoH1u5e-nnIAFTZrtFPSTnUdRBFdvz5=
+vmkbfL4Y8VWLBRJ2dnIGtD0UNbf5PIjvUJAgCS3TCJKfG-rXkEQyks25u6QSaosxUYLumqsM4Kj=
+_z5Xdnrw/mp0GikAUFqYAPrkKvJAmiZL9fw37qJLO/25" style=3D"color: #666666; text=
+-decoration: none;" target=3D"_blank">Contact Us</a></td> </tr> <tr> <td al=
+ign=3D"center" style=3D"border-collapse: collapse; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt;"> <table> <tr> <td style=3D"border-collapse: collapse=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://links.=
+message.bloomberg.com/s/c/Tr87VvR8hNcL2uri6ipmVolwONUhmge3l-N3Ai66M56p2jEVn=
+M_L2-2Eh3LZIRTw329HFq9kGzDAshxzx5ctb20BK008YP-FFXkdyX5-2KBSM1nUup4RK6z8cxdP=
+IOy9C7x7gswLFtwl7XBFn_C_rxQ6Mk2_mIJ1hNAR7Y-SeTOFsZiBUv_fvDFPu0i_kYW7wA0qbTN=
+GQCnPteYzyu5aDcumOAZcWJiot0lxh1ZxWmi5W7bb1BC5HWM4A8YOcjSstVkz40xV2BLFX-mZeW=
+NN59pnY7oz7Ik6VBjZ9H7ZkOXFNcrHDet23Z8WEpesyoAEM6DKy5NUNj8MI1fDKgp9mlZ272Iz5=
+DlO2T9jbJ5RB_QKBkyBc8RD3ONwI9k/0tUXrVH7grZJmdKkTA8VleaPIIMB6L3j/25" target=
+=3D"_blank"> <img height=3D"18 !important" src=3D"https://assets.bwbx.io/im=
+ages/users/iqjWHBFdfxIU/i7ESRvr8wb2g/v0/-1x-1.png" border=3D"0" alt=3D"Ads =
+Powered By Liveintent" style=3D"max-width: 550px; height: 18px !important;"=
+> </a> </td> <td style=3D"font-size: 13px; font-family: Helvetica, Arial, s=
+ans-serif; color: #666666; border-collapse: collapse; mso-table-lspace: 0pt=
+; mso-table-rspace: 0pt;"> | </td> <td style=3D"border-collapse: collapse; =
+mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://links.me=
+ssage.bloomberg.com/s/c/2AhbPp9S2BMfAbYHPppaW0xg7TCZexMWFKujEBE57Sj5uSKscLD=
+1gZEdR0a-RKoTlCPuXTXCYtB2GPQHJX6SvrZ4QvdQqvxT4q0DVtHsMrVrr2jNxrMFgYjxcsXkxO=
+t3WrPCvli1G6iqZxNAW421ONDbOIUEG6c-iNAY6MJepA3D7hPV-9gVtRuB7eUBKyFTcJ6ezzKpu=
+08VQsMoipLNXeFtuZKAS3jE5tVn2jyTCS43iCUuCZOv8Tp_2c3AozZ-_r1l7v_vmuSMRqK6EA5p=
+NG51skh71kAE3aam4FoGLWGz9UGB4oOplHMJAxpiwDJv6qKSm5Akho5JBrAa4ABSYddTuE7vGGx=
+-LaSLvsVpGYW1Lfs7qatL2m9QSLI/tkIQ-ha7bAf9QQxyi-7LLuE95CwfiG2b/25" target=3D=
+"_blank"> <img height=3D"18 !important" src=3D"https://assets.bwbx.io/image=
+s/users/iqjWHBFdfxIU/iHu0LhjyABMM/v0/-1x-1.png" border=3D"0" alt=3D"Ad Choi=
+ces" style=3D"max-width: 550px; height: 18px !important;"> </a> </td> </tr>=
+ </table> </td> </tr> <tr> <td height=3D"20" align=3D"center" style=3D"font=
+-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #666666; bor=
+der-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">Bloo=
+mberg L.P. 731 Lexington, New York, NY, 10022</td> </tr> </table> </td> </t=
+r> <!--[if mso]></td></tr> </table> </center><![endif]--> </table> </body> =
+</html> <a style=3D"display: none" href=3D"https://links.message.bloomberg.=
+com/s/eh/WEmdfOQxWcjs4jvtJgDtx9q_LKWjkRsq3W6YFJOpOEOFcyFXhZ6RHnLAFvgAo63uzx=
+xfV9u4RrcCH20iyu_4Sux34AMlBRDN7i4x04cgEfStZd9fVj2PC0kZ1OQ5ITp4PXTimDyqOxjNK=
+ZK6hOWjH3HD0You4jr9YEpQlQC3-FOMOuffOADclnxchvQgQczyCIg4Xf0Ki1yVBVnDsL-hrwZ_=
+ma45Db7HRVROuQ5usIlSbKj7C2kGB__PnTgsZceNJY_I6RwxMfUrfROW8iJvShfZVeReGN-eTRP=
+v7D248eql5hCin9tt0eSRHN2aQSXd9eSiiWyLfVKW5Wb7oyiewQPYakMXWAgnLwo/xG8zqa1_rS=
+BiY-w-vfAVxAiww6tKXPWP/25"></a>
+<img border=3D"0" width=3D"1" height=3D"1" alt=3D"" src=3D"https://post.spm=
+ailtechnolo.com/q/UB9CeqWWBRJnkNHYjrdOaw~~/AARGbBA~/a_wDSU7BrUFC_GRHyS4plWU=
+uD3S21KDq5uCD_U7deR_iWzgyPYsuG3yrv90aGovsq0VVCMrnzxDw0bXkMM2V2A~~">
+
+--_----A1K13XKw4rwREtlAXGo6bQ===_17/38-40235-AAF35CA6--
