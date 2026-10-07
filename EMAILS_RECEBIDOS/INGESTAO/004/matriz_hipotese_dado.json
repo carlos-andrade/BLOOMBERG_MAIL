@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "ingestion_id": "004",
+  "status": "MAPEADO_PARA_TESTE",
+  "header": {
+    "project": "BLOOMBERG_MAIL",
+    "date": "2026-10-07",
+    "purpose": "mapear variáveis independentes necessárias para testar as hipóteses do INGESTAO 002/003 no Brasil"
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "name": "concentration_reduces_breadth",
+      "required_data": ["IBOV_return", "IBOV_constituents_historical", "constituent_weight", "constituent_return", "advancers", "decliners", "top5_contribution", "top10_contribution"],
+      "derived_features": ["breadth_ratio", "HHI_weight", "top5_weight", "top10_weight", "leadership_divergence"],
+      "primary_sources": ["B3"]
+    },
+    {
+      "id": "H2",
+      "name": "equity_supply_can_compress_valuation",
+      "required_data": ["offer_date", "offer_type", "primary_secondary", "offer_value", "issuer", "market_turnover", "index_return", "sector_return"],
+      "derived_features": ["equity_supply_brl", "supply_to_turnover", "post_offer_return"],
+      "primary_sources": ["CVM", "B3"]
+    },
+    {
+      "id": "H3",
+      "name": "lockup_is_supply_shock",
+      "required_data": ["lockup_event_date", "shares_released", "free_float", "trading_volume", "price", "volatility"],
+      "derived_features": ["released_shares_to_free_float", "released_shares_to_turnover", "event_return", "event_volatility"],
+      "primary_sources": ["CVM", "B3"],
+      "status": "PENDENTE_DE_FONTE_DE_EVENTOS_DE_LOCKUP"
+    },
+    {
+      "id": "H4",
+      "name": "fiscal_political_duration_matters",
+      "required_data": ["DI_curve", "NTNB_yield_price", "NTNF_yield_price", "duration", "DV01", "BRLUSD", "VIX", "fiscal_event_timestamp", "IBOV_return"],
+      "derived_features": ["curve_slope", "duration_shock", "mtm_proxy", "fx_regime", "global_risk_regime", "cross_asset_response"],
+      "primary_sources": ["B3", "Tesouro", "BCB", "Cboe"],
+      "status": "MVP_DI_DURATION_FX_VIX"
+    }
+  ]
+}
