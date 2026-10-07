@@ -11,8 +11,9 @@ EVIDENCE_MD="EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/aquisic
 
 def sha256(path):
     h=hashlib.sha256()
-    with open(path,"rb") as f:
-        for b in iter(lambda:f.read(1024*1024),b): h.update(b)
+    with open(path,"rb") as fh:
+        for chunk in iter(lambda: fh.read(1024*1024), b""):
+            h.update(chunk)
     return h.hexdigest()
 
 def validate(path):
