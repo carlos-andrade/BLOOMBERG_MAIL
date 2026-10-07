@@ -3,9 +3,22 @@ name: BLOOMBERG_MAIL REC-001 BCB
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   rec001-bcb:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 scripts/reconciliacao_bcb_sgs_005.py
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Executar REC-001 BCB SGS 1178
+        run: python3 scripts/reconciliacao_bcb_sgs_005.py
+      - name: Publicar evidência
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_bcb_sgs_1178.json EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_bcb_sgs_1178.md
+          git diff --cached --quiet || git commit -m "evidence: REC-001 BCB SGS 1178"
+          git push
