@@ -56,3 +56,18 @@ Identificar fonte oficial B3 que defina TPMERC 021 para COTAHIST A2026. Somente 
 4. exigir PASS;
 5. publicar a evidência final;
 6. só então liberar o normalizador B3.
+
+
+## Pesquisa de reconciliação — 2026-10-07
+
+### Evidência oficial B3
+A página oficial de Cotações Históricas confirma que o COTAHIST usa um layout para interpretar o TXT e que o produto contém o tipo de mercado. O PDF oficial B3 v2.0/revisão 02 mantém a tabela TPMERC com os códigos 010, 012, 013, 017, 020, 030, 050, 060, 070 e 080; **021 não aparece nessa tabela**.
+
+Fonte oficial: https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/historico/mercado-a-vista/cotacoes-historicas/
+PDF oficial: https://www.b3.com.br/data/files/33/67/B9/50/D84057102C784E47AC094EA8/SeriesHistoricas_Layout.pdf
+
+### Evidência histórica/externa
+Foi localizada uma reprodução de catálogo de domínios que contém `TpMerc 21` entre os valores de um catálogo posterior, mas a fonte localizada não fornece, no trecho disponível, a descrição semântica do código 21. Essa evidência demonstra que o código pode existir em um domínio mais recente, mas **não autoriza atribuir significado ao TPMERC=021 do COTAHIST A2026**. Portanto, permanece apenas como pista de investigação.
+
+### Decisão de governança
+Não alterar o significado de `021`, não substituir por outro código e não liberar o validador. O próximo gate é obter uma fonte B3 autoritativa que associe explicitamente `21/021` a uma descrição de mercado aplicável ao COTAHIST A2026. Até lá: FAIL/BLOCKED.
