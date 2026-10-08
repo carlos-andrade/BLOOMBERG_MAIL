@@ -1,0 +1,2211 @@
+{
+  "schema_version": "1.0-rec001-b3-convergencia-por-data",
+  "purpose": "Encontrar pregões em que BLOOMBERG_MAIL RAW e snapshot B3 possuem exatamente o mesmo multiconjunto de registros 01 completos de 245 bytes.",
+  "method": "order-independent full-record multiset per trading date; SHA-256 of each complete 245-byte record; sorted digest multiset hash; no economic adjustment.",
+  "raw_preserved": true,
+  "bloomberg_mail": {
+    "path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+    "zip_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "retrieval_timestamp_utc": "2026-10-07T11:37:56Z"
+  },
+  "b3": {
+    "url": "https://raw.githubusercontent.com/carlos-andrade/B3/main/dados/cotahist/raw/anual/COTAHIST_A2026.ZIP",
+    "zip_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768"
+  },
+  "overlap": {
+    "date_min": "20260102",
+    "date_max": "20260923",
+    "dates_tested": 182
+  },
+  "convergent_dates": [
+    "20260102",
+    "20260105",
+    "20260106",
+    "20260107",
+    "20260108",
+    "20260109",
+    "20260112",
+    "20260113",
+    "20260114",
+    "20260115",
+    "20260116",
+    "20260119",
+    "20260120",
+    "20260121",
+    "20260122",
+    "20260123",
+    "20260126",
+    "20260127",
+    "20260128",
+    "20260129",
+    "20260130",
+    "20260202",
+    "20260203",
+    "20260204",
+    "20260205",
+    "20260206",
+    "20260209",
+    "20260210",
+    "20260211",
+    "20260212",
+    "20260213",
+    "20260218",
+    "20260219",
+    "20260220",
+    "20260223",
+    "20260224",
+    "20260225",
+    "20260226",
+    "20260227",
+    "20260302",
+    "20260303",
+    "20260304",
+    "20260305",
+    "20260306",
+    "20260309",
+    "20260310",
+    "20260311",
+    "20260312",
+    "20260313",
+    "20260316",
+    "20260317",
+    "20260318",
+    "20260319",
+    "20260320",
+    "20260323",
+    "20260324",
+    "20260325",
+    "20260326",
+    "20260327",
+    "20260330",
+    "20260331",
+    "20260401",
+    "20260402",
+    "20260406",
+    "20260407",
+    "20260408",
+    "20260409",
+    "20260410",
+    "20260413",
+    "20260414",
+    "20260415",
+    "20260416",
+    "20260417",
+    "20260420",
+    "20260422",
+    "20260423",
+    "20260424",
+    "20260427",
+    "20260428",
+    "20260429",
+    "20260430",
+    "20260504",
+    "20260505",
+    "20260506",
+    "20260507",
+    "20260508",
+    "20260511",
+    "20260512",
+    "20260513",
+    "20260514",
+    "20260515",
+    "20260518",
+    "20260519",
+    "20260520",
+    "20260521",
+    "20260522",
+    "20260525",
+    "20260526",
+    "20260527",
+    "20260528",
+    "20260529",
+    "20260601",
+    "20260602",
+    "20260603",
+    "20260605",
+    "20260608",
+    "20260609",
+    "20260610",
+    "20260611",
+    "20260612",
+    "20260615",
+    "20260616",
+    "20260617",
+    "20260618",
+    "20260619",
+    "20260622",
+    "20260623",
+    "20260624",
+    "20260625",
+    "20260626",
+    "20260629",
+    "20260630",
+    "20260701",
+    "20260702",
+    "20260703",
+    "20260706",
+    "20260707",
+    "20260708",
+    "20260709",
+    "20260710",
+    "20260713",
+    "20260714",
+    "20260715",
+    "20260716",
+    "20260717",
+    "20260720",
+    "20260721",
+    "20260722",
+    "20260723",
+    "20260724",
+    "20260727",
+    "20260728",
+    "20260729",
+    "20260730",
+    "20260731",
+    "20260803",
+    "20260804",
+    "20260805",
+    "20260806",
+    "20260807",
+    "20260810",
+    "20260811",
+    "20260812",
+    "20260813",
+    "20260814",
+    "20260817",
+    "20260818",
+    "20260819",
+    "20260820",
+    "20260821",
+    "20260824",
+    "20260825",
+    "20260826",
+    "20260827",
+    "20260828",
+    "20260831",
+    "20260901",
+    "20260902",
+    "20260903",
+    "20260904",
+    "20260908",
+    "20260909",
+    "20260910",
+    "20260911",
+    "20260914",
+    "20260915",
+    "20260916",
+    "20260917",
+    "20260918",
+    "20260921",
+    "20260922",
+    "20260923"
+  ],
+  "count_only_convergent_dates": [
+    "20260102",
+    "20260105",
+    "20260106",
+    "20260107",
+    "20260108",
+    "20260109",
+    "20260112",
+    "20260113",
+    "20260114",
+    "20260115",
+    "20260116",
+    "20260119",
+    "20260120",
+    "20260121",
+    "20260122",
+    "20260123",
+    "20260126",
+    "20260127",
+    "20260128",
+    "20260129",
+    "20260130",
+    "20260202",
+    "20260203",
+    "20260204",
+    "20260205",
+    "20260206",
+    "20260209",
+    "20260210",
+    "20260211",
+    "20260212",
+    "20260213",
+    "20260218",
+    "20260219",
+    "20260220",
+    "20260223",
+    "20260224",
+    "20260225",
+    "20260226",
+    "20260227",
+    "20260302",
+    "20260303",
+    "20260304",
+    "20260305",
+    "20260306",
+    "20260309",
+    "20260310",
+    "20260311",
+    "20260312",
+    "20260313",
+    "20260316",
+    "20260317",
+    "20260318",
+    "20260319",
+    "20260320",
+    "20260323",
+    "20260324",
+    "20260325",
+    "20260326",
+    "20260327",
+    "20260330",
+    "20260331",
+    "20260401",
+    "20260402",
+    "20260406",
+    "20260407",
+    "20260408",
+    "20260409",
+    "20260410",
+    "20260413",
+    "20260414",
+    "20260415",
+    "20260416",
+    "20260417",
+    "20260420",
+    "20260422",
+    "20260423",
+    "20260424",
+    "20260427",
+    "20260428",
+    "20260429",
+    "20260430",
+    "20260504",
+    "20260505",
+    "20260506",
+    "20260507",
+    "20260508",
+    "20260511",
+    "20260512",
+    "20260513",
+    "20260514",
+    "20260515",
+    "20260518",
+    "20260519",
+    "20260520",
+    "20260521",
+    "20260522",
+    "20260525",
+    "20260526",
+    "20260527",
+    "20260528",
+    "20260529",
+    "20260601",
+    "20260602",
+    "20260603",
+    "20260605",
+    "20260608",
+    "20260609",
+    "20260610",
+    "20260611",
+    "20260612",
+    "20260615",
+    "20260616",
+    "20260617",
+    "20260618",
+    "20260619",
+    "20260622",
+    "20260623",
+    "20260624",
+    "20260625",
+    "20260626",
+    "20260629",
+    "20260630",
+    "20260701",
+    "20260702",
+    "20260703",
+    "20260706",
+    "20260707",
+    "20260708",
+    "20260709",
+    "20260710",
+    "20260713",
+    "20260714",
+    "20260715",
+    "20260716",
+    "20260717",
+    "20260720",
+    "20260721",
+    "20260722",
+    "20260723",
+    "20260724",
+    "20260727",
+    "20260728",
+    "20260729",
+    "20260730",
+    "20260731",
+    "20260803",
+    "20260804",
+    "20260805",
+    "20260806",
+    "20260807",
+    "20260810",
+    "20260811",
+    "20260812",
+    "20260813",
+    "20260814",
+    "20260817",
+    "20260818",
+    "20260819",
+    "20260820",
+    "20260821",
+    "20260824",
+    "20260825",
+    "20260826",
+    "20260827",
+    "20260828",
+    "20260831",
+    "20260901",
+    "20260902",
+    "20260903",
+    "20260904",
+    "20260908",
+    "20260909",
+    "20260910",
+    "20260911",
+    "20260914",
+    "20260915",
+    "20260916",
+    "20260917",
+    "20260918",
+    "20260921",
+    "20260922",
+    "20260923"
+  ],
+  "convergent_date_details": {
+    "20260102": {
+      "bloomberg_mail": {
+        "count": 12949,
+        "multiset_sha256": "bfe10ed88a04aad4900c690584dd30458efdba02c9131b929a3b48bb2baf6080"
+      },
+      "b3": {
+        "count": 12949,
+        "multiset_sha256": "bfe10ed88a04aad4900c690584dd30458efdba02c9131b929a3b48bb2baf6080"
+      }
+    },
+    "20260105": {
+      "bloomberg_mail": {
+        "count": 13808,
+        "multiset_sha256": "8dbb314feed39cd5042fce46cc826b9899b27dd321ac55b4f6b0519a83042bfc"
+      },
+      "b3": {
+        "count": 13808,
+        "multiset_sha256": "8dbb314feed39cd5042fce46cc826b9899b27dd321ac55b4f6b0519a83042bfc"
+      }
+    },
+    "20260106": {
+      "bloomberg_mail": {
+        "count": 13964,
+        "multiset_sha256": "890dbb38e35a10d8d955899019af6762349af812d595357f12b11d8caaafecb6"
+      },
+      "b3": {
+        "count": 13964,
+        "multiset_sha256": "890dbb38e35a10d8d955899019af6762349af812d595357f12b11d8caaafecb6"
+      }
+    },
+    "20260107": {
+      "bloomberg_mail": {
+        "count": 13583,
+        "multiset_sha256": "dae7b094629e0bc06bf864e057d646e2a1828017112267ac6191daf1dfafda3f"
+      },
+      "b3": {
+        "count": 13583,
+        "multiset_sha256": "dae7b094629e0bc06bf864e057d646e2a1828017112267ac6191daf1dfafda3f"
+      }
+    },
+    "20260108": {
+      "bloomberg_mail": {
+        "count": 13667,
+        "multiset_sha256": "121f2eadd7bb767e5c611fe7a8cde4c16fae3172aa04f97e605681bca5dbc38b"
+      },
+      "b3": {
+        "count": 13667,
+        "multiset_sha256": "121f2eadd7bb767e5c611fe7a8cde4c16fae3172aa04f97e605681bca5dbc38b"
+      }
+    },
+    "20260109": {
+      "bloomberg_mail": {
+        "count": 14551,
+        "multiset_sha256": "68af770f1653491b99ca1b8e6ed289640747d811338645e4819b779f573ccaa0"
+      },
+      "b3": {
+        "count": 14551,
+        "multiset_sha256": "68af770f1653491b99ca1b8e6ed289640747d811338645e4819b779f573ccaa0"
+      }
+    },
+    "20260112": {
+      "bloomberg_mail": {
+        "count": 15176,
+        "multiset_sha256": "cad568e272d890fca27858040d831813dda967d6287307f5dda2a29559c38e1f"
+      },
+      "b3": {
+        "count": 15176,
+        "multiset_sha256": "cad568e272d890fca27858040d831813dda967d6287307f5dda2a29559c38e1f"
+      }
+    },
+    "20260113": {
+      "bloomberg_mail": {
+        "count": 15744,
+        "multiset_sha256": "8e825621d0aad00e9eaba0c4ba24c89874d8c3ed2cbb51fd64449e4e5d97a519"
+      },
+      "b3": {
+        "count": 15744,
+        "multiset_sha256": "8e825621d0aad00e9eaba0c4ba24c89874d8c3ed2cbb51fd64449e4e5d97a519"
+      }
+    },
+    "20260114": {
+      "bloomberg_mail": {
+        "count": 15812,
+        "multiset_sha256": "2cd4d687255d9f5b2ac06bb79bf2a249a007c67f2c55e06f67eddf60b58beae7"
+      },
+      "b3": {
+        "count": 15812,
+        "multiset_sha256": "2cd4d687255d9f5b2ac06bb79bf2a249a007c67f2c55e06f67eddf60b58beae7"
+      }
+    },
+    "20260115": {
+      "bloomberg_mail": {
+        "count": 16474,
+        "multiset_sha256": "cc19028a559d1bc6a51f45ea2fb7faea7e3fd10f71aec8b4f0e1b048bd216721"
+      },
+      "b3": {
+        "count": 16474,
+        "multiset_sha256": "cc19028a559d1bc6a51f45ea2fb7faea7e3fd10f71aec8b4f0e1b048bd216721"
+      }
+    },
+    "20260116": {
+      "bloomberg_mail": {
+        "count": 20384,
+        "multiset_sha256": "f70002804bdb7ff7f71f697262f0394239db97a79b7aaa34af978928b21e7a3b"
+      },
+      "b3": {
+        "count": 20384,
+        "multiset_sha256": "f70002804bdb7ff7f71f697262f0394239db97a79b7aaa34af978928b21e7a3b"
+      }
+    },
+    "20260119": {
+      "bloomberg_mail": {
+        "count": 13137,
+        "multiset_sha256": "c84cb76e66bf00d2f2ddf296bb2e168bd3b610bd2f28f012c2d5258bde3d5acb"
+      },
+      "b3": {
+        "count": 13137,
+        "multiset_sha256": "c84cb76e66bf00d2f2ddf296bb2e168bd3b610bd2f28f012c2d5258bde3d5acb"
+      }
+    },
+    "20260120": {
+      "bloomberg_mail": {
+        "count": 13709,
+        "multiset_sha256": "c62abcf64aa56971088a9dbddf50e745ae7e6b6ab462084b609bdc81b36ee051"
+      },
+      "b3": {
+        "count": 13709,
+        "multiset_sha256": "c62abcf64aa56971088a9dbddf50e745ae7e6b6ab462084b609bdc81b36ee051"
+      }
+    },
+    "20260121": {
+      "bloomberg_mail": {
+        "count": 15023,
+        "multiset_sha256": "eb215bb968c1d827007b09a05ca4d69be197d81bedd77a03a775b4824836c9a6"
+      },
+      "b3": {
+        "count": 15023,
+        "multiset_sha256": "eb215bb968c1d827007b09a05ca4d69be197d81bedd77a03a775b4824836c9a6"
+      }
+    },
+    "20260122": {
+      "bloomberg_mail": {
+        "count": 16324,
+        "multiset_sha256": "0fbb8270dc994dfbe7be113742d1329797dc80008fe1d38c61cbcad4cc702887"
+      },
+      "b3": {
+        "count": 16324,
+        "multiset_sha256": "0fbb8270dc994dfbe7be113742d1329797dc80008fe1d38c61cbcad4cc702887"
+      }
+    },
+    "20260123": {
+      "bloomberg_mail": {
+        "count": 16303,
+        "multiset_sha256": "a608e310157d29d13883c96b3e71707770f2896686dea543b8510c6447ab5d9c"
+      },
+      "b3": {
+        "count": 16303,
+        "multiset_sha256": "a608e310157d29d13883c96b3e71707770f2896686dea543b8510c6447ab5d9c"
+      }
+    },
+    "20260126": {
+      "bloomberg_mail": {
+        "count": 15268,
+        "multiset_sha256": "82625446e4ee9f7d5d28fbe32473b1ee24ad92658be26cde18fad00d23b973e2"
+      },
+      "b3": {
+        "count": 15268,
+        "multiset_sha256": "82625446e4ee9f7d5d28fbe32473b1ee24ad92658be26cde18fad00d23b973e2"
+      }
+    },
+    "20260127": {
+      "bloomberg_mail": {
+        "count": 16484,
+        "multiset_sha256": "0dfd0bd8cc4b12dfa70ab8224324a852ab309f6af9ab082c8a63a899fa10d055"
+      },
+      "b3": {
+        "count": 16484,
+        "multiset_sha256": "0dfd0bd8cc4b12dfa70ab8224324a852ab309f6af9ab082c8a63a899fa10d055"
+      }
+    },
+    "20260128": {
+      "bloomberg_mail": {
+        "count": 16329,
+        "multiset_sha256": "53e4dca5218820ddfa3ba8a9b67bc6e38f923815dfa42b5ac72e09daca5ba291"
+      },
+      "b3": {
+        "count": 16329,
+        "multiset_sha256": "53e4dca5218820ddfa3ba8a9b67bc6e38f923815dfa42b5ac72e09daca5ba291"
+      }
+    },
+    "20260129": {
+      "bloomberg_mail": {
+        "count": 16096,
+        "multiset_sha256": "cef5b5dd98f4420950a84babf95e2ba72c7892f49905b9354151596e0569eb70"
+      },
+      "b3": {
+        "count": 16096,
+        "multiset_sha256": "cef5b5dd98f4420950a84babf95e2ba72c7892f49905b9354151596e0569eb70"
+      }
+    },
+    "20260130": {
+      "bloomberg_mail": {
+        "count": 15056,
+        "multiset_sha256": "85a5cd53f8f8a522d86cefe0172c584caf1520f88e137a8d78cf8dbcebdd4a5e"
+      },
+      "b3": {
+        "count": 15056,
+        "multiset_sha256": "85a5cd53f8f8a522d86cefe0172c584caf1520f88e137a8d78cf8dbcebdd4a5e"
+      }
+    },
+    "20260202": {
+      "bloomberg_mail": {
+        "count": 14347,
+        "multiset_sha256": "e3e8966f6c797ae8b6ca8f68508730cf1c61438f3cf061cd701f446a2dd563c1"
+      },
+      "b3": {
+        "count": 14347,
+        "multiset_sha256": "e3e8966f6c797ae8b6ca8f68508730cf1c61438f3cf061cd701f446a2dd563c1"
+      }
+    },
+    "20260203": {
+      "bloomberg_mail": {
+        "count": 15613,
+        "multiset_sha256": "2aea4c18b6125c1471d1ba86c5e5ea973f66028c2b60df670a10277fa0734200"
+      },
+      "b3": {
+        "count": 15613,
+        "multiset_sha256": "2aea4c18b6125c1471d1ba86c5e5ea973f66028c2b60df670a10277fa0734200"
+      }
+    },
+    "20260204": {
+      "bloomberg_mail": {
+        "count": 15504,
+        "multiset_sha256": "4f7dcb3579c428b7dddfb6db83b8962b442145c5efb2c7f11a5f6c93097d0129"
+      },
+      "b3": {
+        "count": 15504,
+        "multiset_sha256": "4f7dcb3579c428b7dddfb6db83b8962b442145c5efb2c7f11a5f6c93097d0129"
+      }
+    },
+    "20260205": {
+      "bloomberg_mail": {
+        "count": 14897,
+        "multiset_sha256": "4b69eccdfcf04428d8551a4b50b035bdad00ffb277a44bb265772aa754d0f450"
+      },
+      "b3": {
+        "count": 14897,
+        "multiset_sha256": "4b69eccdfcf04428d8551a4b50b035bdad00ffb277a44bb265772aa754d0f450"
+      }
+    },
+    "20260206": {
+      "bloomberg_mail": {
+        "count": 14670,
+        "multiset_sha256": "d2792139052d45611f7f844a1b024e13199340518148b42dc34c79e587c96bb4"
+      },
+      "b3": {
+        "count": 14670,
+        "multiset_sha256": "d2792139052d45611f7f844a1b024e13199340518148b42dc34c79e587c96bb4"
+      }
+    },
+    "20260209": {
+      "bloomberg_mail": {
+        "count": 14706,
+        "multiset_sha256": "9c9cf8f2178192d94b4721c3efa81b5938c01709e0c22b889767f365079d8a22"
+      },
+      "b3": {
+        "count": 14706,
+        "multiset_sha256": "9c9cf8f2178192d94b4721c3efa81b5938c01709e0c22b889767f365079d8a22"
+      }
+    },
+    "20260210": {
+      "bloomberg_mail": {
+        "count": 14849,
+        "multiset_sha256": "c933a8521dab8b4ac4db206ef2dd6b2b4f7ff4fa063ff7fd48cd33a7a69cacec"
+      },
+      "b3": {
+        "count": 14849,
+        "multiset_sha256": "c933a8521dab8b4ac4db206ef2dd6b2b4f7ff4fa063ff7fd48cd33a7a69cacec"
+      }
+    },
+    "20260211": {
+      "bloomberg_mail": {
+        "count": 16246,
+        "multiset_sha256": "9648c8751a7963eba37aab92b6a908877e8daf89c3b6ef0b00453857ef68c695"
+      },
+      "b3": {
+        "count": 16246,
+        "multiset_sha256": "9648c8751a7963eba37aab92b6a908877e8daf89c3b6ef0b00453857ef68c695"
+      }
+    },
+    "20260212": {
+      "bloomberg_mail": {
+        "count": 16471,
+        "multiset_sha256": "d4fc217be00d1deaecabf67d85951bb65b44b8ed7fdd1392345686c49bbe0f36"
+      },
+      "b3": {
+        "count": 16471,
+        "multiset_sha256": "d4fc217be00d1deaecabf67d85951bb65b44b8ed7fdd1392345686c49bbe0f36"
+      }
+    },
+    "20260213": {
+      "bloomberg_mail": {
+        "count": 17183,
+        "multiset_sha256": "ceba88a01cab5919ad216976cc30cf2269390cdfbcec81f09b92cedb6251c222"
+      },
+      "b3": {
+        "count": 17183,
+        "multiset_sha256": "ceba88a01cab5919ad216976cc30cf2269390cdfbcec81f09b92cedb6251c222"
+      }
+    },
+    "20260218": {
+      "bloomberg_mail": {
+        "count": 15680,
+        "multiset_sha256": "41e6bba600aba146daf32d3b85a2b8bfe8e9c0b72bba53882580742600e64e3e"
+      },
+      "b3": {
+        "count": 15680,
+        "multiset_sha256": "41e6bba600aba146daf32d3b85a2b8bfe8e9c0b72bba53882580742600e64e3e"
+      }
+    },
+    "20260219": {
+      "bloomberg_mail": {
+        "count": 18950,
+        "multiset_sha256": "60e286a9b56a47f53614c8f17a5f3b5cf41304ef98c8728e8ff04a5f850a934c"
+      },
+      "b3": {
+        "count": 18950,
+        "multiset_sha256": "60e286a9b56a47f53614c8f17a5f3b5cf41304ef98c8728e8ff04a5f850a934c"
+      }
+    },
+    "20260220": {
+      "bloomberg_mail": {
+        "count": 22100,
+        "multiset_sha256": "17e6f1d37e4cc6c0b1e77535771a1c21c044557244267ffc9d99062c5893bb04"
+      },
+      "b3": {
+        "count": 22100,
+        "multiset_sha256": "17e6f1d37e4cc6c0b1e77535771a1c21c044557244267ffc9d99062c5893bb04"
+      }
+    },
+    "20260223": {
+      "bloomberg_mail": {
+        "count": 15009,
+        "multiset_sha256": "3f7a40119cd7c689d5daf555d2bfb004e5707a69ff080a943004bbf43986119e"
+      },
+      "b3": {
+        "count": 15009,
+        "multiset_sha256": "3f7a40119cd7c689d5daf555d2bfb004e5707a69ff080a943004bbf43986119e"
+      }
+    },
+    "20260224": {
+      "bloomberg_mail": {
+        "count": 15090,
+        "multiset_sha256": "9031cb4ba573d5ee5b558613b28ecdf2ea1c37303aee53b94718910c0b5360e3"
+      },
+      "b3": {
+        "count": 15090,
+        "multiset_sha256": "9031cb4ba573d5ee5b558613b28ecdf2ea1c37303aee53b94718910c0b5360e3"
+      }
+    },
+    "20260225": {
+      "bloomberg_mail": {
+        "count": 15070,
+        "multiset_sha256": "d363182849b98d7d1fcb7378434f5e65032a31aaed4ef94c87d748269c1a46bb"
+      },
+      "b3": {
+        "count": 15070,
+        "multiset_sha256": "d363182849b98d7d1fcb7378434f5e65032a31aaed4ef94c87d748269c1a46bb"
+      }
+    },
+    "20260226": {
+      "bloomberg_mail": {
+        "count": 14840,
+        "multiset_sha256": "b09f9b707acbbd53ab73bce24a2a80d9139245e4011fabd81cd4c92382d79085"
+      },
+      "b3": {
+        "count": 14840,
+        "multiset_sha256": "b09f9b707acbbd53ab73bce24a2a80d9139245e4011fabd81cd4c92382d79085"
+      }
+    },
+    "20260227": {
+      "bloomberg_mail": {
+        "count": 15291,
+        "multiset_sha256": "ad50c80812e95d929b5f75ec71e19430a1d73b2a17c7f22aed39ef512f48f696"
+      },
+      "b3": {
+        "count": 15291,
+        "multiset_sha256": "ad50c80812e95d929b5f75ec71e19430a1d73b2a17c7f22aed39ef512f48f696"
+      }
+    },
+    "20260302": {
+      "bloomberg_mail": {
+        "count": 14990,
+        "multiset_sha256": "20b685a563c3d8509c886d3dc54bb9cf4b188d55dbc0f2f1aabb1804335a19ed"
+      },
+      "b3": {
+        "count": 14990,
+        "multiset_sha256": "20b685a563c3d8509c886d3dc54bb9cf4b188d55dbc0f2f1aabb1804335a19ed"
+      }
+    },
+    "20260303": {
+      "bloomberg_mail": {
+        "count": 16758,
+        "multiset_sha256": "bab2aa67715ab6f30c7269ff7517f5284565ea02fc59f563e2ca135e97fd1d4f"
+      },
+      "b3": {
+        "count": 16758,
+        "multiset_sha256": "bab2aa67715ab6f30c7269ff7517f5284565ea02fc59f563e2ca135e97fd1d4f"
+      }
+    },
+    "20260304": {
+      "bloomberg_mail": {
+        "count": 14664,
+        "multiset_sha256": "780b4d787762cdce22235937f00fe8b424d93b4659f045ae5af58a97d22522af"
+      },
+      "b3": {
+        "count": 14664,
+        "multiset_sha256": "780b4d787762cdce22235937f00fe8b424d93b4659f045ae5af58a97d22522af"
+      }
+    },
+    "20260305": {
+      "bloomberg_mail": {
+        "count": 15886,
+        "multiset_sha256": "ced8cd68f94334b7cfb146612e6f8b2ac70ce5ad8ef27a3c240bbbff7d60868c"
+      },
+      "b3": {
+        "count": 15886,
+        "multiset_sha256": "ced8cd68f94334b7cfb146612e6f8b2ac70ce5ad8ef27a3c240bbbff7d60868c"
+      }
+    },
+    "20260306": {
+      "bloomberg_mail": {
+        "count": 16775,
+        "multiset_sha256": "fe4255e10aba87ba157b5e841804dbc55a0e53eb98d1d77ae0dc83f6e5dd3cc8"
+      },
+      "b3": {
+        "count": 16775,
+        "multiset_sha256": "fe4255e10aba87ba157b5e841804dbc55a0e53eb98d1d77ae0dc83f6e5dd3cc8"
+      }
+    },
+    "20260309": {
+      "bloomberg_mail": {
+        "count": 16052,
+        "multiset_sha256": "b3d453bed50c647d524f33fb0f41a0c5a4db4ce0d0ab9caca5838397dd4ee984"
+      },
+      "b3": {
+        "count": 16052,
+        "multiset_sha256": "b3d453bed50c647d524f33fb0f41a0c5a4db4ce0d0ab9caca5838397dd4ee984"
+      }
+    },
+    "20260310": {
+      "bloomberg_mail": {
+        "count": 15708,
+        "multiset_sha256": "8cb1cb0a89ecd63ec33fd1fb4b60663e0401fe7e91ed6f62cbc130a6420d4491"
+      },
+      "b3": {
+        "count": 15708,
+        "multiset_sha256": "8cb1cb0a89ecd63ec33fd1fb4b60663e0401fe7e91ed6f62cbc130a6420d4491"
+      }
+    },
+    "20260311": {
+      "bloomberg_mail": {
+        "count": 14713,
+        "multiset_sha256": "8f163371af3a97311a054e0a80badb8c5f50e9debc8bfab934a7dd1e0f2ee43d"
+      },
+      "b3": {
+        "count": 14713,
+        "multiset_sha256": "8f163371af3a97311a054e0a80badb8c5f50e9debc8bfab934a7dd1e0f2ee43d"
+      }
+    },
+    "20260312": {
+      "bloomberg_mail": {
+        "count": 16082,
+        "multiset_sha256": "27f366b2837b4e385a3413ddc70102788acf164c09de892840fc235b81f56d06"
+      },
+      "b3": {
+        "count": 16082,
+        "multiset_sha256": "27f366b2837b4e385a3413ddc70102788acf164c09de892840fc235b81f56d06"
+      }
+    },
+    "20260313": {
+      "bloomberg_mail": {
+        "count": 17470,
+        "multiset_sha256": "682d4f79459e3edbfb3097840eb766ba9d40cab911154d366b6eb6ac9af8bd96"
+      },
+      "b3": {
+        "count": 17470,
+        "multiset_sha256": "682d4f79459e3edbfb3097840eb766ba9d40cab911154d366b6eb6ac9af8bd96"
+      }
+    },
+    "20260316": {
+      "bloomberg_mail": {
+        "count": 16702,
+        "multiset_sha256": "4a0dacba097a408282df2c864aa7e7aac362cf1e09c667afd6485d33f7134516"
+      },
+      "b3": {
+        "count": 16702,
+        "multiset_sha256": "4a0dacba097a408282df2c864aa7e7aac362cf1e09c667afd6485d33f7134516"
+      }
+    },
+    "20260317": {
+      "bloomberg_mail": {
+        "count": 17105,
+        "multiset_sha256": "4df0a989d4157bb488391a675c9211cb063d11cfb4cf5f64f998d71e8d47630f"
+      },
+      "b3": {
+        "count": 17105,
+        "multiset_sha256": "4df0a989d4157bb488391a675c9211cb063d11cfb4cf5f64f998d71e8d47630f"
+      }
+    },
+    "20260318": {
+      "bloomberg_mail": {
+        "count": 17589,
+        "multiset_sha256": "9192a811e9199d2b9d0d7274f6f1f3a21aeffa6be74f40653aff5a1001eed093"
+      },
+      "b3": {
+        "count": 17589,
+        "multiset_sha256": "9192a811e9199d2b9d0d7274f6f1f3a21aeffa6be74f40653aff5a1001eed093"
+      }
+    },
+    "20260319": {
+      "bloomberg_mail": {
+        "count": 19752,
+        "multiset_sha256": "5fa9ee408404fe88135f42f3509be03de640111b001b71b8f817b887bfa88010"
+      },
+      "b3": {
+        "count": 19752,
+        "multiset_sha256": "5fa9ee408404fe88135f42f3509be03de640111b001b71b8f817b887bfa88010"
+      }
+    },
+    "20260320": {
+      "bloomberg_mail": {
+        "count": 22965,
+        "multiset_sha256": "e4f2b8b76e648758e6f6c531e334771215dd3db43be1ff27291632d145dc69e8"
+      },
+      "b3": {
+        "count": 22965,
+        "multiset_sha256": "e4f2b8b76e648758e6f6c531e334771215dd3db43be1ff27291632d145dc69e8"
+      }
+    },
+    "20260323": {
+      "bloomberg_mail": {
+        "count": 15587,
+        "multiset_sha256": "04f3fb5c22503795956c9a65b23184607816f163e033bc715c91a9eb273cfe0d"
+      },
+      "b3": {
+        "count": 15587,
+        "multiset_sha256": "04f3fb5c22503795956c9a65b23184607816f163e033bc715c91a9eb273cfe0d"
+      }
+    },
+    "20260324": {
+      "bloomberg_mail": {
+        "count": 14158,
+        "multiset_sha256": "328381a724e8d0323d502cc1a3885ab40c289b7c6bad462e50b1c15eeb82f5bf"
+      },
+      "b3": {
+        "count": 14158,
+        "multiset_sha256": "328381a724e8d0323d502cc1a3885ab40c289b7c6bad462e50b1c15eeb82f5bf"
+      }
+    },
+    "20260325": {
+      "bloomberg_mail": {
+        "count": 15312,
+        "multiset_sha256": "022708e32686167d79c3c10de5406d1ec5c7fc8ea8293c28683e2f2a1c67586a"
+      },
+      "b3": {
+        "count": 15312,
+        "multiset_sha256": "022708e32686167d79c3c10de5406d1ec5c7fc8ea8293c28683e2f2a1c67586a"
+      }
+    },
+    "20260326": {
+      "bloomberg_mail": {
+        "count": 14794,
+        "multiset_sha256": "1b41bdc569ed66ab1798abf346c8b88ab112699de2f3074320b61e2144d81fd4"
+      },
+      "b3": {
+        "count": 14794,
+        "multiset_sha256": "1b41bdc569ed66ab1798abf346c8b88ab112699de2f3074320b61e2144d81fd4"
+      }
+    },
+    "20260327": {
+      "bloomberg_mail": {
+        "count": 15804,
+        "multiset_sha256": "5f5025feabbbe6189fdbdd83bcc96e2bdef14e65532cfcd7468852c0a80b0a8c"
+      },
+      "b3": {
+        "count": 15804,
+        "multiset_sha256": "5f5025feabbbe6189fdbdd83bcc96e2bdef14e65532cfcd7468852c0a80b0a8c"
+      }
+    },
+    "20260330": {
+      "bloomberg_mail": {
+        "count": 14638,
+        "multiset_sha256": "e83152351b221d3ff04bd9688538de28c8c3ba8346a77ce1b7ca5b8c8f476a98"
+      },
+      "b3": {
+        "count": 14638,
+        "multiset_sha256": "e83152351b221d3ff04bd9688538de28c8c3ba8346a77ce1b7ca5b8c8f476a98"
+      }
+    },
+    "20260331": {
+      "bloomberg_mail": {
+        "count": 15517,
+        "multiset_sha256": "11411de5631a0fb0c3d7fd3cb51ae2c7fc2a2d410e9cdd8fef5bf9417b8692f4"
+      },
+      "b3": {
+        "count": 15517,
+        "multiset_sha256": "11411de5631a0fb0c3d7fd3cb51ae2c7fc2a2d410e9cdd8fef5bf9417b8692f4"
+      }
+    },
+    "20260401": {
+      "bloomberg_mail": {
+        "count": 15611,
+        "multiset_sha256": "8bb5a88ea9d5b68f6cfe36ebc5217aab18b56e0e0ecbd4f4931742ac16d08fbc"
+      },
+      "b3": {
+        "count": 15611,
+        "multiset_sha256": "8bb5a88ea9d5b68f6cfe36ebc5217aab18b56e0e0ecbd4f4931742ac16d08fbc"
+      }
+    },
+    "20260402": {
+      "bloomberg_mail": {
+        "count": 15011,
+        "multiset_sha256": "6dd39a6d051f1d0a5c91d4bcd3c52ec00b000611e7f980a1658c757a234f1bd9"
+      },
+      "b3": {
+        "count": 15011,
+        "multiset_sha256": "6dd39a6d051f1d0a5c91d4bcd3c52ec00b000611e7f980a1658c757a234f1bd9"
+      }
+    },
+    "20260406": {
+      "bloomberg_mail": {
+        "count": 14540,
+        "multiset_sha256": "66a238076c45987de7d37ec30cc199d45a3fd1895d39499426dbcdb71a89ec9e"
+      },
+      "b3": {
+        "count": 14540,
+        "multiset_sha256": "66a238076c45987de7d37ec30cc199d45a3fd1895d39499426dbcdb71a89ec9e"
+      }
+    },
+    "20260407": {
+      "bloomberg_mail": {
+        "count": 15075,
+        "multiset_sha256": "8a6c74f9f212f115c94249237149e1ccacf4868bab89b2536059573633ceedab"
+      },
+      "b3": {
+        "count": 15075,
+        "multiset_sha256": "8a6c74f9f212f115c94249237149e1ccacf4868bab89b2536059573633ceedab"
+      }
+    },
+    "20260408": {
+      "bloomberg_mail": {
+        "count": 17053,
+        "multiset_sha256": "faf8f967d56a3cd3fd334502940af6df0ad30b5ce35ebb7d52b4bc2e092abc8e"
+      },
+      "b3": {
+        "count": 17053,
+        "multiset_sha256": "faf8f967d56a3cd3fd334502940af6df0ad30b5ce35ebb7d52b4bc2e092abc8e"
+      }
+    },
+    "20260409": {
+      "bloomberg_mail": {
+        "count": 16048,
+        "multiset_sha256": "1e5bcdd5acd696863b4b4d4b6a16032ec0bafb673c451cb35f6cb9e51b03f2a2"
+      },
+      "b3": {
+        "count": 16048,
+        "multiset_sha256": "1e5bcdd5acd696863b4b4d4b6a16032ec0bafb673c451cb35f6cb9e51b03f2a2"
+      }
+    },
+    "20260410": {
+      "bloomberg_mail": {
+        "count": 16876,
+        "multiset_sha256": "feb55cbc8690043b60488bc37271c9029c6e52146640fd92376e6d3f47a38aeb"
+      },
+      "b3": {
+        "count": 16876,
+        "multiset_sha256": "feb55cbc8690043b60488bc37271c9029c6e52146640fd92376e6d3f47a38aeb"
+      }
+    },
+    "20260413": {
+      "bloomberg_mail": {
+        "count": 16963,
+        "multiset_sha256": "5dee2e9b1cb07d32891dda70f20f24424614ad42dc0ae2897f8b68819f8e6c13"
+      },
+      "b3": {
+        "count": 16963,
+        "multiset_sha256": "5dee2e9b1cb07d32891dda70f20f24424614ad42dc0ae2897f8b68819f8e6c13"
+      }
+    },
+    "20260414": {
+      "bloomberg_mail": {
+        "count": 17334,
+        "multiset_sha256": "d742c3ad1137f4aabb8176cad15917d0ab56400817cae2b27f3bc324c2422866"
+      },
+      "b3": {
+        "count": 17334,
+        "multiset_sha256": "d742c3ad1137f4aabb8176cad15917d0ab56400817cae2b27f3bc324c2422866"
+      }
+    },
+    "20260415": {
+      "bloomberg_mail": {
+        "count": 17215,
+        "multiset_sha256": "5888c907674caa19c18c471d536bde7bd5fea9295d7872886f0f05721920d0be"
+      },
+      "b3": {
+        "count": 17215,
+        "multiset_sha256": "5888c907674caa19c18c471d536bde7bd5fea9295d7872886f0f05721920d0be"
+      }
+    },
+    "20260416": {
+      "bloomberg_mail": {
+        "count": 17555,
+        "multiset_sha256": "495ac3ea1e19eb1a37b90565d02e046c223ea8eeb5429e61354c8fc2925de9bf"
+      },
+      "b3": {
+        "count": 17555,
+        "multiset_sha256": "495ac3ea1e19eb1a37b90565d02e046c223ea8eeb5429e61354c8fc2925de9bf"
+      }
+    },
+    "20260417": {
+      "bloomberg_mail": {
+        "count": 23021,
+        "multiset_sha256": "fe7024e3eb21ee7457f7dfa354585ce55c670c66354196398d42cd196eb72c41"
+      },
+      "b3": {
+        "count": 23021,
+        "multiset_sha256": "fe7024e3eb21ee7457f7dfa354585ce55c670c66354196398d42cd196eb72c41"
+      }
+    },
+    "20260420": {
+      "bloomberg_mail": {
+        "count": 14697,
+        "multiset_sha256": "1efaf9131db0f9a0c2f4d118f7efc4e10c2f7a2dc3beb9464c1626dcf237b1cc"
+      },
+      "b3": {
+        "count": 14697,
+        "multiset_sha256": "1efaf9131db0f9a0c2f4d118f7efc4e10c2f7a2dc3beb9464c1626dcf237b1cc"
+      }
+    },
+    "20260422": {
+      "bloomberg_mail": {
+        "count": 15319,
+        "multiset_sha256": "c3326885137e826a8b2a8939248371cdd9147c6b4ec43a810911d5948711a76e"
+      },
+      "b3": {
+        "count": 15319,
+        "multiset_sha256": "c3326885137e826a8b2a8939248371cdd9147c6b4ec43a810911d5948711a76e"
+      }
+    },
+    "20260423": {
+      "bloomberg_mail": {
+        "count": 15048,
+        "multiset_sha256": "b8895d32296830e7cd75b315db8b504c3edbbb826a6ce83dffa1bcf823ec90bc"
+      },
+      "b3": {
+        "count": 15048,
+        "multiset_sha256": "b8895d32296830e7cd75b315db8b504c3edbbb826a6ce83dffa1bcf823ec90bc"
+      }
+    },
+    "20260424": {
+      "bloomberg_mail": {
+        "count": 15443,
+        "multiset_sha256": "f22e5cd409dbe542d667d2283769eaf41cb89e081a534b28cfe68d0165f0b365"
+      },
+      "b3": {
+        "count": 15443,
+        "multiset_sha256": "f22e5cd409dbe542d667d2283769eaf41cb89e081a534b28cfe68d0165f0b365"
+      }
+    },
+    "20260427": {
+      "bloomberg_mail": {
+        "count": 14337,
+        "multiset_sha256": "a513f46054064cb53502662deab0c8728d358929be5d3e96404b95ad89e4b66f"
+      },
+      "b3": {
+        "count": 14337,
+        "multiset_sha256": "a513f46054064cb53502662deab0c8728d358929be5d3e96404b95ad89e4b66f"
+      }
+    },
+    "20260428": {
+      "bloomberg_mail": {
+        "count": 14709,
+        "multiset_sha256": "c63f2e8ee49292016b27c80ee92b005763c3e4e48f99ae18a5f0907497b582d6"
+      },
+      "b3": {
+        "count": 14709,
+        "multiset_sha256": "c63f2e8ee49292016b27c80ee92b005763c3e4e48f99ae18a5f0907497b582d6"
+      }
+    },
+    "20260429": {
+      "bloomberg_mail": {
+        "count": 15756,
+        "multiset_sha256": "95cb2999153d63ea4f035446e9730f5611d4f8786e2b2f9d76ea89427efc66e3"
+      },
+      "b3": {
+        "count": 15756,
+        "multiset_sha256": "95cb2999153d63ea4f035446e9730f5611d4f8786e2b2f9d76ea89427efc66e3"
+      }
+    },
+    "20260430": {
+      "bloomberg_mail": {
+        "count": 14845,
+        "multiset_sha256": "b607e4d9802855cd8caa9c5cbdd8645c2668f1d02bbb2690050d2e9bc9d95b8c"
+      },
+      "b3": {
+        "count": 14845,
+        "multiset_sha256": "b607e4d9802855cd8caa9c5cbdd8645c2668f1d02bbb2690050d2e9bc9d95b8c"
+      }
+    },
+    "20260504": {
+      "bloomberg_mail": {
+        "count": 14916,
+        "multiset_sha256": "23dbf52b148bbda61b15ef3d3ac1d2f8f303be2270db3826070e9b7259eed974"
+      },
+      "b3": {
+        "count": 14916,
+        "multiset_sha256": "23dbf52b148bbda61b15ef3d3ac1d2f8f303be2270db3826070e9b7259eed974"
+      }
+    },
+    "20260505": {
+      "bloomberg_mail": {
+        "count": 14644,
+        "multiset_sha256": "0b0e3cc145c1da97cf056c22088d25ab0aef68d633d7a5f07651a8d52b8be2e2"
+      },
+      "b3": {
+        "count": 14644,
+        "multiset_sha256": "0b0e3cc145c1da97cf056c22088d25ab0aef68d633d7a5f07651a8d52b8be2e2"
+      }
+    },
+    "20260506": {
+      "bloomberg_mail": {
+        "count": 15395,
+        "multiset_sha256": "6326046b5148e7af2b0c2a1574341174778b7d1fa4e4e022ccd7f5af9665af3b"
+      },
+      "b3": {
+        "count": 15395,
+        "multiset_sha256": "6326046b5148e7af2b0c2a1574341174778b7d1fa4e4e022ccd7f5af9665af3b"
+      }
+    },
+    "20260507": {
+      "bloomberg_mail": {
+        "count": 15541,
+        "multiset_sha256": "1ecdba8e0378748d1399b1cf108e72794b256b321d3f699a1384172a99226632"
+      },
+      "b3": {
+        "count": 15541,
+        "multiset_sha256": "1ecdba8e0378748d1399b1cf108e72794b256b321d3f699a1384172a99226632"
+      }
+    },
+    "20260508": {
+      "bloomberg_mail": {
+        "count": 16068,
+        "multiset_sha256": "ba3e70fbaa80a602816d267f33e4cf2010456a1278ffe44f8827fc0d611c3408"
+      },
+      "b3": {
+        "count": 16068,
+        "multiset_sha256": "ba3e70fbaa80a602816d267f33e4cf2010456a1278ffe44f8827fc0d611c3408"
+      }
+    },
+    "20260511": {
+      "bloomberg_mail": {
+        "count": 16730,
+        "multiset_sha256": "ad3100ed45d6f55c8e93e11784c02ea8b942f8a1f0b849d01feec310e7961df0"
+      },
+      "b3": {
+        "count": 16730,
+        "multiset_sha256": "ad3100ed45d6f55c8e93e11784c02ea8b942f8a1f0b849d01feec310e7961df0"
+      }
+    },
+    "20260512": {
+      "bloomberg_mail": {
+        "count": 16617,
+        "multiset_sha256": "0d9207cbf6f8231fe7950b383f56b0e6c1bf5a0ea3b19c61242c049ed829e31b"
+      },
+      "b3": {
+        "count": 16617,
+        "multiset_sha256": "0d9207cbf6f8231fe7950b383f56b0e6c1bf5a0ea3b19c61242c049ed829e31b"
+      }
+    },
+    "20260513": {
+      "bloomberg_mail": {
+        "count": 17737,
+        "multiset_sha256": "51c1922049db1bd849ebf4af902e40b751073f1b41bfc748156b604e4039ffbc"
+      },
+      "b3": {
+        "count": 17737,
+        "multiset_sha256": "51c1922049db1bd849ebf4af902e40b751073f1b41bfc748156b604e4039ffbc"
+      }
+    },
+    "20260514": {
+      "bloomberg_mail": {
+        "count": 17578,
+        "multiset_sha256": "0e7bdb995981f8e8697bf604a11dcdbe91b3d12342fdd3db252569402ff48f61"
+      },
+      "b3": {
+        "count": 17578,
+        "multiset_sha256": "0e7bdb995981f8e8697bf604a11dcdbe91b3d12342fdd3db252569402ff48f61"
+      }
+    },
+    "20260515": {
+      "bloomberg_mail": {
+        "count": 21806,
+        "multiset_sha256": "08116cbf7ece17b1fb176f5961047d79ecc15a81270b0d7496f0a5ae0b5a7718"
+      },
+      "b3": {
+        "count": 21806,
+        "multiset_sha256": "08116cbf7ece17b1fb176f5961047d79ecc15a81270b0d7496f0a5ae0b5a7718"
+      }
+    },
+    "20260518": {
+      "bloomberg_mail": {
+        "count": 14427,
+        "multiset_sha256": "a22d4cb6133426db83af56a00995eb4f12c4e69bd99ec4caafb9d8054307dc66"
+      },
+      "b3": {
+        "count": 14427,
+        "multiset_sha256": "a22d4cb6133426db83af56a00995eb4f12c4e69bd99ec4caafb9d8054307dc66"
+      }
+    },
+    "20260519": {
+      "bloomberg_mail": {
+        "count": 14305,
+        "multiset_sha256": "1258e62df09720d0bcf56ef0cab51476d0349de09b9d7f6e94188ab65632e324"
+      },
+      "b3": {
+        "count": 14305,
+        "multiset_sha256": "1258e62df09720d0bcf56ef0cab51476d0349de09b9d7f6e94188ab65632e324"
+      }
+    },
+    "20260520": {
+      "bloomberg_mail": {
+        "count": 14211,
+        "multiset_sha256": "613d9e497d65567ad280925a0c843b983be790bbb2fd450ddedf1730f35b067c"
+      },
+      "b3": {
+        "count": 14211,
+        "multiset_sha256": "613d9e497d65567ad280925a0c843b983be790bbb2fd450ddedf1730f35b067c"
+      }
+    },
+    "20260521": {
+      "bloomberg_mail": {
+        "count": 13431,
+        "multiset_sha256": "fe1673bea41c9fde7779b86c91ee996e5134aa075a91b2407ff6474e3d16f636"
+      },
+      "b3": {
+        "count": 13431,
+        "multiset_sha256": "fe1673bea41c9fde7779b86c91ee996e5134aa075a91b2407ff6474e3d16f636"
+      }
+    },
+    "20260522": {
+      "bloomberg_mail": {
+        "count": 14201,
+        "multiset_sha256": "352586b8ad1d2fa1c334aaa3b4718ceb08142a297215fd0666d21243fac20c5c"
+      },
+      "b3": {
+        "count": 14201,
+        "multiset_sha256": "352586b8ad1d2fa1c334aaa3b4718ceb08142a297215fd0666d21243fac20c5c"
+      }
+    },
+    "20260525": {
+      "bloomberg_mail": {
+        "count": 13132,
+        "multiset_sha256": "0111a6ae27f98735ad838796756cfed4b31e41434b4be7c40fd09849b4b17f35"
+      },
+      "b3": {
+        "count": 13132,
+        "multiset_sha256": "0111a6ae27f98735ad838796756cfed4b31e41434b4be7c40fd09849b4b17f35"
+      }
+    },
+    "20260526": {
+      "bloomberg_mail": {
+        "count": 12825,
+        "multiset_sha256": "7b57a544e005c5690117a50e476307add48420e263b6a034053f0843aaa4c8eb"
+      },
+      "b3": {
+        "count": 12825,
+        "multiset_sha256": "7b57a544e005c5690117a50e476307add48420e263b6a034053f0843aaa4c8eb"
+      }
+    },
+    "20260527": {
+      "bloomberg_mail": {
+        "count": 13433,
+        "multiset_sha256": "61fd54d094541b590c1c5ea79e6cc6a65bfec23bbf95abb40fe0a107acd17432"
+      },
+      "b3": {
+        "count": 13433,
+        "multiset_sha256": "61fd54d094541b590c1c5ea79e6cc6a65bfec23bbf95abb40fe0a107acd17432"
+      }
+    },
+    "20260528": {
+      "bloomberg_mail": {
+        "count": 13123,
+        "multiset_sha256": "baf2762789217b43c549f2570505d17315d35c17b8156767db1acedf068aa48f"
+      },
+      "b3": {
+        "count": 13123,
+        "multiset_sha256": "baf2762789217b43c549f2570505d17315d35c17b8156767db1acedf068aa48f"
+      }
+    },
+    "20260529": {
+      "bloomberg_mail": {
+        "count": 14472,
+        "multiset_sha256": "60e8dbb72349ceada957b858a322522e866e4c33d72564b437b918b653e9e4e6"
+      },
+      "b3": {
+        "count": 14472,
+        "multiset_sha256": "60e8dbb72349ceada957b858a322522e866e4c33d72564b437b918b653e9e4e6"
+      }
+    },
+    "20260601": {
+      "bloomberg_mail": {
+        "count": 14206,
+        "multiset_sha256": "c17dc9c2071be5c1d8dc3f1b20b1e62c3a2738ff4fc9cb9f082a1dd5c991c2e4"
+      },
+      "b3": {
+        "count": 14206,
+        "multiset_sha256": "c17dc9c2071be5c1d8dc3f1b20b1e62c3a2738ff4fc9cb9f082a1dd5c991c2e4"
+      }
+    },
+    "20260602": {
+      "bloomberg_mail": {
+        "count": 14074,
+        "multiset_sha256": "75f47a785f28382c31a3c9e443653f5723fefc374f4058397fa44cd7615d80f0"
+      },
+      "b3": {
+        "count": 14074,
+        "multiset_sha256": "75f47a785f28382c31a3c9e443653f5723fefc374f4058397fa44cd7615d80f0"
+      }
+    },
+    "20260603": {
+      "bloomberg_mail": {
+        "count": 14941,
+        "multiset_sha256": "d12791ec787dc621acb4763efc48d038de24a52b3249e80c81db7487c5bf6061"
+      },
+      "b3": {
+        "count": 14941,
+        "multiset_sha256": "d12791ec787dc621acb4763efc48d038de24a52b3249e80c81db7487c5bf6061"
+      }
+    },
+    "20260605": {
+      "bloomberg_mail": {
+        "count": 15417,
+        "multiset_sha256": "a79e14dd377da880a3d58acb7deac5134569cb0255997584ac87ca6a79aa11a1"
+      },
+      "b3": {
+        "count": 15417,
+        "multiset_sha256": "a79e14dd377da880a3d58acb7deac5134569cb0255997584ac87ca6a79aa11a1"
+      }
+    },
+    "20260608": {
+      "bloomberg_mail": {
+        "count": 14548,
+        "multiset_sha256": "d39f79ad80df31123b3bd3af80ccd0b142c2fe8ac29d21922689ab1571465347"
+      },
+      "b3": {
+        "count": 14548,
+        "multiset_sha256": "d39f79ad80df31123b3bd3af80ccd0b142c2fe8ac29d21922689ab1571465347"
+      }
+    },
+    "20260609": {
+      "bloomberg_mail": {
+        "count": 14299,
+        "multiset_sha256": "caf1777976c9468849f411b55e80da0d31784c2f39aebed9b3913df3a0873a23"
+      },
+      "b3": {
+        "count": 14299,
+        "multiset_sha256": "caf1777976c9468849f411b55e80da0d31784c2f39aebed9b3913df3a0873a23"
+      }
+    },
+    "20260610": {
+      "bloomberg_mail": {
+        "count": 13898,
+        "multiset_sha256": "4b3d2c928766a77d6eac57640f926d0cb3f5332fdb7fec4ac3d9b18fd1f03b08"
+      },
+      "b3": {
+        "count": 13898,
+        "multiset_sha256": "4b3d2c928766a77d6eac57640f926d0cb3f5332fdb7fec4ac3d9b18fd1f03b08"
+      }
+    },
+    "20260611": {
+      "bloomberg_mail": {
+        "count": 15042,
+        "multiset_sha256": "7da83abbea209c1875a7d19732101d247fc1788ea60c90f78ecf110b5b60870f"
+      },
+      "b3": {
+        "count": 15042,
+        "multiset_sha256": "7da83abbea209c1875a7d19732101d247fc1788ea60c90f78ecf110b5b60870f"
+      }
+    },
+    "20260612": {
+      "bloomberg_mail": {
+        "count": 15155,
+        "multiset_sha256": "6688d8a6b9d2c51f9bdbe0b8415f62530a086025b9ffb4677ed8b602dc21e236"
+      },
+      "b3": {
+        "count": 15155,
+        "multiset_sha256": "6688d8a6b9d2c51f9bdbe0b8415f62530a086025b9ffb4677ed8b602dc21e236"
+      }
+    },
+    "20260615": {
+      "bloomberg_mail": {
+        "count": 16554,
+        "multiset_sha256": "2926ddba1be33b1dc9825691b0eb828c308f6b137a359851df9a7b9b9111f266"
+      },
+      "b3": {
+        "count": 16554,
+        "multiset_sha256": "2926ddba1be33b1dc9825691b0eb828c308f6b137a359851df9a7b9b9111f266"
+      }
+    },
+    "20260616": {
+      "bloomberg_mail": {
+        "count": 15448,
+        "multiset_sha256": "c02d87ae331a327a3a5b729a2227c4c0ed8820c3b5269497eee5c32f8e893657"
+      },
+      "b3": {
+        "count": 15448,
+        "multiset_sha256": "c02d87ae331a327a3a5b729a2227c4c0ed8820c3b5269497eee5c32f8e893657"
+      }
+    },
+    "20260617": {
+      "bloomberg_mail": {
+        "count": 17097,
+        "multiset_sha256": "450860ecc2daf826a57044c0264cebecb6faf53fc48e1bd2c96da069c430d3d6"
+      },
+      "b3": {
+        "count": 17097,
+        "multiset_sha256": "450860ecc2daf826a57044c0264cebecb6faf53fc48e1bd2c96da069c430d3d6"
+      }
+    },
+    "20260618": {
+      "bloomberg_mail": {
+        "count": 17997,
+        "multiset_sha256": "217679a86194a77369078c8ee95c603c3cff2e39ffa22f666ecedb0e8330e8e0"
+      },
+      "b3": {
+        "count": 17997,
+        "multiset_sha256": "217679a86194a77369078c8ee95c603c3cff2e39ffa22f666ecedb0e8330e8e0"
+      }
+    },
+    "20260619": {
+      "bloomberg_mail": {
+        "count": 21662,
+        "multiset_sha256": "ca052b78efd2d044e89364cf7a4e9c50747d8b6b3e8c85b49bbbb55f03be7663"
+      },
+      "b3": {
+        "count": 21662,
+        "multiset_sha256": "ca052b78efd2d044e89364cf7a4e9c50747d8b6b3e8c85b49bbbb55f03be7663"
+      }
+    },
+    "20260622": {
+      "bloomberg_mail": {
+        "count": 14496,
+        "multiset_sha256": "d75fcb54d4a517ee786dbdea30062fcc86fb994c995168a58fc8e0aeba286987"
+      },
+      "b3": {
+        "count": 14496,
+        "multiset_sha256": "d75fcb54d4a517ee786dbdea30062fcc86fb994c995168a58fc8e0aeba286987"
+      }
+    },
+    "20260623": {
+      "bloomberg_mail": {
+        "count": 14194,
+        "multiset_sha256": "22ee487cfa6121c137721eef876a07813f0353222640ecb4c3a8e3343c950d89"
+      },
+      "b3": {
+        "count": 14194,
+        "multiset_sha256": "22ee487cfa6121c137721eef876a07813f0353222640ecb4c3a8e3343c950d89"
+      }
+    },
+    "20260624": {
+      "bloomberg_mail": {
+        "count": 14299,
+        "multiset_sha256": "9f49be900ba78a5ad6c6e74b655494897cd49a98a76e51523cb83ccf09f7451d"
+      },
+      "b3": {
+        "count": 14299,
+        "multiset_sha256": "9f49be900ba78a5ad6c6e74b655494897cd49a98a76e51523cb83ccf09f7451d"
+      }
+    },
+    "20260625": {
+      "bloomberg_mail": {
+        "count": 14815,
+        "multiset_sha256": "0830ace593e5cc8c6449c4dc80ecd07307cbbf50f4eabdf0b309e227d6b1d5fe"
+      },
+      "b3": {
+        "count": 14815,
+        "multiset_sha256": "0830ace593e5cc8c6449c4dc80ecd07307cbbf50f4eabdf0b309e227d6b1d5fe"
+      }
+    },
+    "20260626": {
+      "bloomberg_mail": {
+        "count": 14954,
+        "multiset_sha256": "d45c200fe50b599b8194b80d2bcf2d482737c6cb0fe5692851e1d4c323c81522"
+      },
+      "b3": {
+        "count": 14954,
+        "multiset_sha256": "d45c200fe50b599b8194b80d2bcf2d482737c6cb0fe5692851e1d4c323c81522"
+      }
+    },
+    "20260629": {
+      "bloomberg_mail": {
+        "count": 12018,
+        "multiset_sha256": "aac61e0ced0bd59b0730b31da80da2ab37fe56e1223372472504dce353c35236"
+      },
+      "b3": {
+        "count": 12018,
+        "multiset_sha256": "aac61e0ced0bd59b0730b31da80da2ab37fe56e1223372472504dce353c35236"
+      }
+    },
+    "20260630": {
+      "bloomberg_mail": {
+        "count": 12874,
+        "multiset_sha256": "6de3a7ad4dc339246653e7cad4b3d03a43d1c43b663592d6eb6197432153c7a1"
+      },
+      "b3": {
+        "count": 12874,
+        "multiset_sha256": "6de3a7ad4dc339246653e7cad4b3d03a43d1c43b663592d6eb6197432153c7a1"
+      }
+    },
+    "20260701": {
+      "bloomberg_mail": {
+        "count": 13258,
+        "multiset_sha256": "f5142677b2c8a70f29d83122a56d580a5fdc6fc1951956759b74edb34dec0ba7"
+      },
+      "b3": {
+        "count": 13258,
+        "multiset_sha256": "f5142677b2c8a70f29d83122a56d580a5fdc6fc1951956759b74edb34dec0ba7"
+      }
+    },
+    "20260702": {
+      "bloomberg_mail": {
+        "count": 13491,
+        "multiset_sha256": "7ebb6e11d9fe862ebde3481cc7691d5436e957877488c5114706c36ba7052dd4"
+      },
+      "b3": {
+        "count": 13491,
+        "multiset_sha256": "7ebb6e11d9fe862ebde3481cc7691d5436e957877488c5114706c36ba7052dd4"
+      }
+    },
+    "20260703": {
+      "bloomberg_mail": {
+        "count": 14121,
+        "multiset_sha256": "557aeb25680f74c7df321cc0ce26f2c998ca45254828e9098a6ad4f521c0e083"
+      },
+      "b3": {
+        "count": 14121,
+        "multiset_sha256": "557aeb25680f74c7df321cc0ce26f2c998ca45254828e9098a6ad4f521c0e083"
+      }
+    },
+    "20260706": {
+      "bloomberg_mail": {
+        "count": 13323,
+        "multiset_sha256": "0f95a058fb786a3bb5a08f7dc671342ae70e6ef2abc5c772b0621fbb443d5107"
+      },
+      "b3": {
+        "count": 13323,
+        "multiset_sha256": "0f95a058fb786a3bb5a08f7dc671342ae70e6ef2abc5c772b0621fbb443d5107"
+      }
+    },
+    "20260707": {
+      "bloomberg_mail": {
+        "count": 13456,
+        "multiset_sha256": "9df160cd01ec0be76e09a49c037cc432e15ebb9e9f7db4dd41ea6697641bcbfb"
+      },
+      "b3": {
+        "count": 13456,
+        "multiset_sha256": "9df160cd01ec0be76e09a49c037cc432e15ebb9e9f7db4dd41ea6697641bcbfb"
+      }
+    },
+    "20260708": {
+      "bloomberg_mail": {
+        "count": 14381,
+        "multiset_sha256": "74195a5174832313c322d1ed74460cbdb7bf7b700b222196b297b78f158e7e8b"
+      },
+      "b3": {
+        "count": 14381,
+        "multiset_sha256": "74195a5174832313c322d1ed74460cbdb7bf7b700b222196b297b78f158e7e8b"
+      }
+    },
+    "20260709": {
+      "bloomberg_mail": {
+        "count": 14788,
+        "multiset_sha256": "4c5d045f791eb83ae6529df568ed610073e8884f31e7613be0f5729b9ace34d6"
+      },
+      "b3": {
+        "count": 14788,
+        "multiset_sha256": "4c5d045f791eb83ae6529df568ed610073e8884f31e7613be0f5729b9ace34d6"
+      }
+    },
+    "20260710": {
+      "bloomberg_mail": {
+        "count": 17700,
+        "multiset_sha256": "be2f78b5e5f5dd71d0c54b5a83c3d9ee239504cca703edd5193d70010a03f34a"
+      },
+      "b3": {
+        "count": 17700,
+        "multiset_sha256": "be2f78b5e5f5dd71d0c54b5a83c3d9ee239504cca703edd5193d70010a03f34a"
+      }
+    },
+    "20260713": {
+      "bloomberg_mail": {
+        "count": 16824,
+        "multiset_sha256": "29ed96749af950ab7b337403657c135336bb921d08183a9e6f36f7539cf207e5"
+      },
+      "b3": {
+        "count": 16824,
+        "multiset_sha256": "29ed96749af950ab7b337403657c135336bb921d08183a9e6f36f7539cf207e5"
+      }
+    },
+    "20260714": {
+      "bloomberg_mail": {
+        "count": 16117,
+        "multiset_sha256": "ffc644eacc1f2b03a7cc7f5ea76832143fccbb721cc2d6337666a7a2709a8b53"
+      },
+      "b3": {
+        "count": 16117,
+        "multiset_sha256": "ffc644eacc1f2b03a7cc7f5ea76832143fccbb721cc2d6337666a7a2709a8b53"
+      }
+    },
+    "20260715": {
+      "bloomberg_mail": {
+        "count": 16946,
+        "multiset_sha256": "62a19d8b9381e7d366300e536b3f1cb4afa66b435a09fc6cd90b184618798bc0"
+      },
+      "b3": {
+        "count": 16946,
+        "multiset_sha256": "62a19d8b9381e7d366300e536b3f1cb4afa66b435a09fc6cd90b184618798bc0"
+      }
+    },
+    "20260716": {
+      "bloomberg_mail": {
+        "count": 18171,
+        "multiset_sha256": "877992e5485fa7743ac50abee80d4a55f6b8a6112f66bb81678280f5a93e6107"
+      },
+      "b3": {
+        "count": 18171,
+        "multiset_sha256": "877992e5485fa7743ac50abee80d4a55f6b8a6112f66bb81678280f5a93e6107"
+      }
+    },
+    "20260717": {
+      "bloomberg_mail": {
+        "count": 22433,
+        "multiset_sha256": "65e1ff821f5dcebc921173d97b1e9f7b4feb289ecf6101bdcbd1c8a9e107bca9"
+      },
+      "b3": {
+        "count": 22433,
+        "multiset_sha256": "65e1ff821f5dcebc921173d97b1e9f7b4feb289ecf6101bdcbd1c8a9e107bca9"
+      }
+    },
+    "20260720": {
+      "bloomberg_mail": {
+        "count": 15224,
+        "multiset_sha256": "e14de5d3bf423af690cca4731300f6275939fdfd3c65a3adce7e3b76c895575e"
+      },
+      "b3": {
+        "count": 15224,
+        "multiset_sha256": "e14de5d3bf423af690cca4731300f6275939fdfd3c65a3adce7e3b76c895575e"
+      }
+    },
+    "20260721": {
+      "bloomberg_mail": {
+        "count": 14688,
+        "multiset_sha256": "3de5141ee3dc8858c8585780ab1ac8d48c99867dcb3c7f291f04a54137927924"
+      },
+      "b3": {
+        "count": 14688,
+        "multiset_sha256": "3de5141ee3dc8858c8585780ab1ac8d48c99867dcb3c7f291f04a54137927924"
+      }
+    },
+    "20260722": {
+      "bloomberg_mail": {
+        "count": 15638,
+        "multiset_sha256": "881a507aaf766fc89cc699bf7ef866c46066672d4297df86491838b8fb9c0b99"
+      },
+      "b3": {
+        "count": 15638,
+        "multiset_sha256": "881a507aaf766fc89cc699bf7ef866c46066672d4297df86491838b8fb9c0b99"
+      }
+    },
+    "20260723": {
+      "bloomberg_mail": {
+        "count": 14822,
+        "multiset_sha256": "853761ed25ffc94637e3c29f32e053d38556d1d581ad598e6ec76ea47c37c5bb"
+      },
+      "b3": {
+        "count": 14822,
+        "multiset_sha256": "853761ed25ffc94637e3c29f32e053d38556d1d581ad598e6ec76ea47c37c5bb"
+      }
+    },
+    "20260724": {
+      "bloomberg_mail": {
+        "count": 15099,
+        "multiset_sha256": "bf6d8a9ed72a5ba17fff771974e7caafcec6c3a366a8eb86c830e0eae9af3c80"
+      },
+      "b3": {
+        "count": 15099,
+        "multiset_sha256": "bf6d8a9ed72a5ba17fff771974e7caafcec6c3a366a8eb86c830e0eae9af3c80"
+      }
+    },
+    "20260727": {
+      "bloomberg_mail": {
+        "count": 14832,
+        "multiset_sha256": "1c8e109b99c5517efb6fec9636c92aa1ab0425ed6ee89b19a64f345f618c6cf6"
+      },
+      "b3": {
+        "count": 14832,
+        "multiset_sha256": "1c8e109b99c5517efb6fec9636c92aa1ab0425ed6ee89b19a64f345f618c6cf6"
+      }
+    },
+    "20260728": {
+      "bloomberg_mail": {
+        "count": 15136,
+        "multiset_sha256": "e8aef5daf128b4ab27ea5fa120602cbb43a7f460810aa4f0732a70f1802035d3"
+      },
+      "b3": {
+        "count": 15136,
+        "multiset_sha256": "e8aef5daf128b4ab27ea5fa120602cbb43a7f460810aa4f0732a70f1802035d3"
+      }
+    },
+    "20260729": {
+      "bloomberg_mail": {
+        "count": 14854,
+        "multiset_sha256": "f50d68ada35d9895aa1c06c81f9c7075f710b9682547a2c53ff3abda83da54a3"
+      },
+      "b3": {
+        "count": 14854,
+        "multiset_sha256": "f50d68ada35d9895aa1c06c81f9c7075f710b9682547a2c53ff3abda83da54a3"
+      }
+    },
+    "20260730": {
+      "bloomberg_mail": {
+        "count": 15058,
+        "multiset_sha256": "554466aebd600a82d7bd35be826f4a2d5fcdf86b5279c3a5bc7b6f8438e951d8"
+      },
+      "b3": {
+        "count": 15058,
+        "multiset_sha256": "554466aebd600a82d7bd35be826f4a2d5fcdf86b5279c3a5bc7b6f8438e951d8"
+      }
+    },
+    "20260731": {
+      "bloomberg_mail": {
+        "count": 13821,
+        "multiset_sha256": "d7b866cfebd54770ef5e270dff1211991c4f462b6f0c6a28540ffb279d6dfede"
+      },
+      "b3": {
+        "count": 13821,
+        "multiset_sha256": "d7b866cfebd54770ef5e270dff1211991c4f462b6f0c6a28540ffb279d6dfede"
+      }
+    },
+    "20260803": {
+      "bloomberg_mail": {
+        "count": 15258,
+        "multiset_sha256": "8b1eafe2e7b70e59cd3ec5139f7b774643707fc3458a32b3c040d938bf437d21"
+      },
+      "b3": {
+        "count": 15258,
+        "multiset_sha256": "8b1eafe2e7b70e59cd3ec5139f7b774643707fc3458a32b3c040d938bf437d21"
+      }
+    },
+    "20260804": {
+      "bloomberg_mail": {
+        "count": 15436,
+        "multiset_sha256": "68f444afdaa5f109fca623a0ba4d763251a41ea059915e3fa690c9e04a4faff2"
+      },
+      "b3": {
+        "count": 15436,
+        "multiset_sha256": "68f444afdaa5f109fca623a0ba4d763251a41ea059915e3fa690c9e04a4faff2"
+      }
+    },
+    "20260805": {
+      "bloomberg_mail": {
+        "count": 15267,
+        "multiset_sha256": "7278534918aeef698aefecf37b20915ab0ba8c8e83fbeb0a70eb6487a0d34fef"
+      },
+      "b3": {
+        "count": 15267,
+        "multiset_sha256": "7278534918aeef698aefecf37b20915ab0ba8c8e83fbeb0a70eb6487a0d34fef"
+      }
+    },
+    "20260806": {
+      "bloomberg_mail": {
+        "count": 15512,
+        "multiset_sha256": "a8cacfc529e25e3ced77c36c506088ec5f5dbee0238d1a6b0617057c57fff23b"
+      },
+      "b3": {
+        "count": 15512,
+        "multiset_sha256": "a8cacfc529e25e3ced77c36c506088ec5f5dbee0238d1a6b0617057c57fff23b"
+      }
+    },
+    "20260807": {
+      "bloomberg_mail": {
+        "count": 17238,
+        "multiset_sha256": "325d2ab23fef6652c1527cfbbee05ab0eb814c13918ea3a01d4846521f9fa4d6"
+      },
+      "b3": {
+        "count": 17238,
+        "multiset_sha256": "325d2ab23fef6652c1527cfbbee05ab0eb814c13918ea3a01d4846521f9fa4d6"
+      }
+    },
+    "20260810": {
+      "bloomberg_mail": {
+        "count": 16274,
+        "multiset_sha256": "19507c672951a15e97a064772d1758d5acd55774995d5d427c0ed10f8c841262"
+      },
+      "b3": {
+        "count": 16274,
+        "multiset_sha256": "19507c672951a15e97a064772d1758d5acd55774995d5d427c0ed10f8c841262"
+      }
+    },
+    "20260811": {
+      "bloomberg_mail": {
+        "count": 17476,
+        "multiset_sha256": "1f7350c475241da76f963c58511eba389dcece3bc31ae02d52aaba258ab5b018"
+      },
+      "b3": {
+        "count": 17476,
+        "multiset_sha256": "1f7350c475241da76f963c58511eba389dcece3bc31ae02d52aaba258ab5b018"
+      }
+    },
+    "20260812": {
+      "bloomberg_mail": {
+        "count": 16545,
+        "multiset_sha256": "4239158a5303f7eba44c614d9adc4514b2f7febc9fcff0fa3715b39a2bfd37a8"
+      },
+      "b3": {
+        "count": 16545,
+        "multiset_sha256": "4239158a5303f7eba44c614d9adc4514b2f7febc9fcff0fa3715b39a2bfd37a8"
+      }
+    },
+    "20260813": {
+      "bloomberg_mail": {
+        "count": 17415,
+        "multiset_sha256": "117ea6388cf47fb0a6d7dd92ccc5590489586bd66082e52c6d94a72c3569d9c9"
+      },
+      "b3": {
+        "count": 17415,
+        "multiset_sha256": "117ea6388cf47fb0a6d7dd92ccc5590489586bd66082e52c6d94a72c3569d9c9"
+      }
+    },
+    "20260814": {
+      "bloomberg_mail": {
+        "count": 19481,
+        "multiset_sha256": "e3dbd93f4a5271da21025b05a515028cba217e05059989868c6f0ee578cd7db5"
+      },
+      "b3": {
+        "count": 19481,
+        "multiset_sha256": "e3dbd93f4a5271da21025b05a515028cba217e05059989868c6f0ee578cd7db5"
+      }
+    },
+    "20260817": {
+      "bloomberg_mail": {
+        "count": 18375,
+        "multiset_sha256": "9da5c71dc2842a850b426fd268df54284ab3d262ea9e2fefd0046626c33a90a7"
+      },
+      "b3": {
+        "count": 18375,
+        "multiset_sha256": "9da5c71dc2842a850b426fd268df54284ab3d262ea9e2fefd0046626c33a90a7"
+      }
+    },
+    "20260818": {
+      "bloomberg_mail": {
+        "count": 18332,
+        "multiset_sha256": "667aeb4caef07831334c0b8190847ac12dbd1cd213e5b47dd49abec883cf9c81"
+      },
+      "b3": {
+        "count": 18332,
+        "multiset_sha256": "667aeb4caef07831334c0b8190847ac12dbd1cd213e5b47dd49abec883cf9c81"
+      }
+    },
+    "20260819": {
+      "bloomberg_mail": {
+        "count": 19232,
+        "multiset_sha256": "f3ee3970c7c694c488358c8db37473ccad3a877187f3de3e7da8b1d62ad3e127"
+      },
+      "b3": {
+        "count": 19232,
+        "multiset_sha256": "f3ee3970c7c694c488358c8db37473ccad3a877187f3de3e7da8b1d62ad3e127"
+      }
+    },
+    "20260820": {
+      "bloomberg_mail": {
+        "count": 20268,
+        "multiset_sha256": "21b379e0e3ed0d9ee8c065c173e1953fde82960c79f02050afe99e6797d320f4"
+      },
+      "b3": {
+        "count": 20268,
+        "multiset_sha256": "21b379e0e3ed0d9ee8c065c173e1953fde82960c79f02050afe99e6797d320f4"
+      }
+    },
+    "20260821": {
+      "bloomberg_mail": {
+        "count": 24710,
+        "multiset_sha256": "fa9f8dec37d5b29979ee17cea220e7ad281c65f167d04a9b80a7dcc353f2839c"
+      },
+      "b3": {
+        "count": 24710,
+        "multiset_sha256": "fa9f8dec37d5b29979ee17cea220e7ad281c65f167d04a9b80a7dcc353f2839c"
+      }
+    },
+    "20260824": {
+      "bloomberg_mail": {
+        "count": 17003,
+        "multiset_sha256": "2ccc41293442c69fe0ca6d6bcef68468fb6b8f1731450d87e00b5ca6649c26c0"
+      },
+      "b3": {
+        "count": 17003,
+        "multiset_sha256": "2ccc41293442c69fe0ca6d6bcef68468fb6b8f1731450d87e00b5ca6649c26c0"
+      }
+    },
+    "20260825": {
+      "bloomberg_mail": {
+        "count": 16846,
+        "multiset_sha256": "64fafb6ae16af4862b06acfad144d011db2f19efe1532a80ec22629dcb74db08"
+      },
+      "b3": {
+        "count": 16846,
+        "multiset_sha256": "64fafb6ae16af4862b06acfad144d011db2f19efe1532a80ec22629dcb74db08"
+      }
+    },
+    "20260826": {
+      "bloomberg_mail": {
+        "count": 17040,
+        "multiset_sha256": "13d6966938532f5811376bd2f0cffe5d4ef1aad3472c0682216f125c2c46b6df"
+      },
+      "b3": {
+        "count": 17040,
+        "multiset_sha256": "13d6966938532f5811376bd2f0cffe5d4ef1aad3472c0682216f125c2c46b6df"
+      }
+    },
+    "20260827": {
+      "bloomberg_mail": {
+        "count": 16775,
+        "multiset_sha256": "3299dfed622dde3445f5b6bf90192f32e60ee7899e8e14f9661f0aa91733ad83"
+      },
+      "b3": {
+        "count": 16775,
+        "multiset_sha256": "3299dfed622dde3445f5b6bf90192f32e60ee7899e8e14f9661f0aa91733ad83"
+      }
+    },
+    "20260828": {
+      "bloomberg_mail": {
+        "count": 16857,
+        "multiset_sha256": "1133b1c77061c814cb5f0c4da71ca509d076f44b9e91f4729de65fa7bb9cd1da"
+      },
+      "b3": {
+        "count": 16857,
+        "multiset_sha256": "1133b1c77061c814cb5f0c4da71ca509d076f44b9e91f4729de65fa7bb9cd1da"
+      }
+    },
+    "20260831": {
+      "bloomberg_mail": {
+        "count": 16854,
+        "multiset_sha256": "a3b9cc0148fea80bb8531573431c966dd03372bc5d22dcbc0f8aeb810f8a9892"
+      },
+      "b3": {
+        "count": 16854,
+        "multiset_sha256": "a3b9cc0148fea80bb8531573431c966dd03372bc5d22dcbc0f8aeb810f8a9892"
+      }
+    },
+    "20260901": {
+      "bloomberg_mail": {
+        "count": 17785,
+        "multiset_sha256": "378d599f162283265e3c82f316198e0739c07c0eb183fc800d447d0ab119297b"
+      },
+      "b3": {
+        "count": 17785,
+        "multiset_sha256": "378d599f162283265e3c82f316198e0739c07c0eb183fc800d447d0ab119297b"
+      }
+    },
+    "20260902": {
+      "bloomberg_mail": {
+        "count": 19754,
+        "multiset_sha256": "5355d69045c979aafd5d4e25da5d4dd18144f07135343678310a4c6ebe1c7134"
+      },
+      "b3": {
+        "count": 19754,
+        "multiset_sha256": "5355d69045c979aafd5d4e25da5d4dd18144f07135343678310a4c6ebe1c7134"
+      }
+    },
+    "20260903": {
+      "bloomberg_mail": {
+        "count": 18490,
+        "multiset_sha256": "b4b1d0dce48029ce9ac28ff368aee1bbe2ecd230afffef55d75571d0b615972f"
+      },
+      "b3": {
+        "count": 18490,
+        "multiset_sha256": "b4b1d0dce48029ce9ac28ff368aee1bbe2ecd230afffef55d75571d0b615972f"
+      }
+    },
+    "20260904": {
+      "bloomberg_mail": {
+        "count": 17890,
+        "multiset_sha256": "6e209d60ef03c3e8b25a36a74916871b9b323d013a444e13cda69b7146583de8"
+      },
+      "b3": {
+        "count": 17890,
+        "multiset_sha256": "6e209d60ef03c3e8b25a36a74916871b9b323d013a444e13cda69b7146583de8"
+      }
+    },
+    "20260908": {
+      "bloomberg_mail": {
+        "count": 18473,
+        "multiset_sha256": "93b0afd2722ed6601cf82ca853693c93c616e7241059f4d073bf01a1c7e544bc"
+      },
+      "b3": {
+        "count": 18473,
+        "multiset_sha256": "93b0afd2722ed6601cf82ca853693c93c616e7241059f4d073bf01a1c7e544bc"
+      }
+    },
+    "20260909": {
+      "bloomberg_mail": {
+        "count": 16694,
+        "multiset_sha256": "67006911143793c055a1cb5450d9c7e3f37fdc1448f07425c95c235c20ca82d6"
+      },
+      "b3": {
+        "count": 16694,
+        "multiset_sha256": "67006911143793c055a1cb5450d9c7e3f37fdc1448f07425c95c235c20ca82d6"
+      }
+    },
+    "20260910": {
+      "bloomberg_mail": {
+        "count": 17170,
+        "multiset_sha256": "05bb26fe7b2455b3d86118dfe234992f2e78fba4198a1be0205dc08a3163dfb0"
+      },
+      "b3": {
+        "count": 17170,
+        "multiset_sha256": "05bb26fe7b2455b3d86118dfe234992f2e78fba4198a1be0205dc08a3163dfb0"
+      }
+    },
+    "20260911": {
+      "bloomberg_mail": {
+        "count": 17137,
+        "multiset_sha256": "171e49801bb49782ba78c5786ffcf4ceda556e661e5618415d8a5d1ee8e33bc1"
+      },
+      "b3": {
+        "count": 17137,
+        "multiset_sha256": "171e49801bb49782ba78c5786ffcf4ceda556e661e5618415d8a5d1ee8e33bc1"
+      }
+    },
+    "20260914": {
+      "bloomberg_mail": {
+        "count": 17612,
+        "multiset_sha256": "3d75c836b1d1102304b939e1dca486c8bf49cc8542b26b8edd238f4bbeb65fa1"
+      },
+      "b3": {
+        "count": 17612,
+        "multiset_sha256": "3d75c836b1d1102304b939e1dca486c8bf49cc8542b26b8edd238f4bbeb65fa1"
+      }
+    },
+    "20260915": {
+      "bloomberg_mail": {
+        "count": 17101,
+        "multiset_sha256": "cd84a8f1415589c5f5a6f5472dc9d7a65ebc023180fee88cf09f86ea3c30091a"
+      },
+      "b3": {
+        "count": 17101,
+        "multiset_sha256": "cd84a8f1415589c5f5a6f5472dc9d7a65ebc023180fee88cf09f86ea3c30091a"
+      }
+    },
+    "20260916": {
+      "bloomberg_mail": {
+        "count": 17846,
+        "multiset_sha256": "fe312ba8d05ce06a439540214c6467820e1fe4dceffa1b7d7dbbdf51decb3a2d"
+      },
+      "b3": {
+        "count": 17846,
+        "multiset_sha256": "fe312ba8d05ce06a439540214c6467820e1fe4dceffa1b7d7dbbdf51decb3a2d"
+      }
+    },
+    "20260917": {
+      "bloomberg_mail": {
+        "count": 19210,
+        "multiset_sha256": "543f45a4c672ecc0acd6d17ea7a179e99b9843d591b14a0a26e00e1c404a6ddd"
+      },
+      "b3": {
+        "count": 19210,
+        "multiset_sha256": "543f45a4c672ecc0acd6d17ea7a179e99b9843d591b14a0a26e00e1c404a6ddd"
+      }
+    },
+    "20260918": {
+      "bloomberg_mail": {
+        "count": 23792,
+        "multiset_sha256": "96d79ec6174dc61c7fdb602f8b880ad9f2cfbbe8baad66f81dc7e50b65e71424"
+      },
+      "b3": {
+        "count": 23792,
+        "multiset_sha256": "96d79ec6174dc61c7fdb602f8b880ad9f2cfbbe8baad66f81dc7e50b65e71424"
+      }
+    },
+    "20260921": {
+      "bloomberg_mail": {
+        "count": 16625,
+        "multiset_sha256": "1911314f3cf88a7be23930370850a7bccd1dac0f3f83e99862fb2b33a652b25d"
+      },
+      "b3": {
+        "count": 16625,
+        "multiset_sha256": "1911314f3cf88a7be23930370850a7bccd1dac0f3f83e99862fb2b33a652b25d"
+      }
+    },
+    "20260922": {
+      "bloomberg_mail": {
+        "count": 15645,
+        "multiset_sha256": "4310769bd6fa38d2ecc89600a9a393fa0db514ce2993ee3d54a066b86cf9020e"
+      },
+      "b3": {
+        "count": 15645,
+        "multiset_sha256": "4310769bd6fa38d2ecc89600a9a393fa0db514ce2993ee3d54a066b86cf9020e"
+      }
+    },
+    "20260923": {
+      "bloomberg_mail": {
+        "count": 15747,
+        "multiset_sha256": "7946576c921c1340970cd5e53e88b10fccf7bfeda70dce8c35f9462601a42d6a"
+      },
+      "b3": {
+        "count": 15747,
+        "multiset_sha256": "7946576c921c1340970cd5e53e88b10fccf7bfeda70dce8c35f9462601a42d6a"
+      }
+    }
+  },
+  "interpretation": "Uma data em convergent_dates prova convergência física exata naquele pregão. Isso permite isolar o problema para diferenças posteriores, snapshot/revisão ou método de comparação, sem inferir divergência econômica."
+}
