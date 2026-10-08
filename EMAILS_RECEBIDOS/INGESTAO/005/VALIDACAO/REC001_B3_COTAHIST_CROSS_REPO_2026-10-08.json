@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.1-rec001-b3-cross-repo",
+  "schema_version": "1.2-rec001-b3-cross-repo",
   "result": "FAIL_CONTENT_DIVERGENCE",
   "raw_preserved": true,
-  "comparison_scope": "COTAHIST record type 01 only; file headers/trailers excluded from equality test",
+  "comparison_scope": "COTAHIST record type 01; logical-key multiset comparison; headers/trailers excluded",
   "bloomberg_mail": {
     "path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
     "zip_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
@@ -13,7 +13,7 @@
       "record01_count": 3070831,
       "date_min": "20260102",
       "date_max": "20261006",
-      "generation_date": "0261006 ",
+      "generation_date": "0261006",
       "record01_stream_sha256": "dfa227861ece28a88b60a10fc5e16f74210614f30dde2d7873022db306a39ad1"
     }
   },
@@ -25,26 +25,95 @@
       "record01_count": 2919760,
       "date_min": "20260102",
       "date_max": "20260923",
-      "generation_date": "0260923 ",
+      "generation_date": "0260923",
       "record01_stream_sha256": "d149f8db585a56b0e152f8943321d30cebade2fbeebe851fe330f9be4f7a30d0"
     }
   },
   "temporal_evidence": {
-    "bloomberg_mail_generation_date": "0261006 ",
-    "b3_generation_date": "0260923 ",
+    "bloomberg_mail_generation_date": "0261006",
+    "b3_generation_date": "0260923",
     "generation_date_difference_days": null
   },
   "comparison": {
-    "common_record01_count": 222002,
-    "bloom_record01_exhausted": false,
-    "b3_record01_exhausted": false,
-    "first_difference": {
-      "position_record01": 222003,
-      "bloom_sha256": "dcaac3efc9eae9bd5cd223d4af31378254e5709c6348a7cff8b42d5e989fa308",
-      "b3_sha256": "d6352b082f68643024aa016bdf4ce2d06b3d0e7190af87e75b03b17908471e3d",
-      "bloom_prefix": "012026010278ABCBA243    070ABCBE    /EJP",
-      "b3_prefix": "012026010278ABCBA235    070ABCB    /EJSP"
-    }
+    "comparison_method": "logical_key_multiset",
+    "logical_key": "DATA DO PREGAO + CODBDI + CODNEG + TPMERC",
+    "bloom_distinct_logical_keys": 3061156,
+    "b3_distinct_logical_keys": 2910749,
+    "common_logical_keys": 2910749,
+    "bloom_only_key_hash_rows": 151071,
+    "b3_only_key_hash_rows": 0,
+    "content_mismatch_samples": [
+      {
+        "logical_key": "2026010262AXIA3T      030",
+        "bloom_hash": "5cccb85e4baf9c29508e1209be7091a8ede1df3819454e7f6cb97dbf883db4b8",
+        "bloom_count": 1,
+        "b3_hash": "638b99501a4d36b4ef761e3a1a582fe98774473f284f23c7cd602ec5053ad320",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262AXIA3T      030",
+        "bloom_hash": "638b99501a4d36b4ef761e3a1a582fe98774473f284f23c7cd602ec5053ad320",
+        "bloom_count": 1,
+        "b3_hash": "5cccb85e4baf9c29508e1209be7091a8ede1df3819454e7f6cb97dbf883db4b8",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "dc729c375ac29b1e285df42f0312e34eec93b19a11ddc93e266c1b7de192c0e8",
+        "bloom_count": 1,
+        "b3_hash": "be86b05cbaea6be6561c7d9802850656bbf8e474bb3a464c470fe9ac277009cf",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "dc729c375ac29b1e285df42f0312e34eec93b19a11ddc93e266c1b7de192c0e8",
+        "bloom_count": 1,
+        "b3_hash": "c1774516534c7c3abb4faac1df1823ca504537443924e80e6faa5ff988324bc5",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "be86b05cbaea6be6561c7d9802850656bbf8e474bb3a464c470fe9ac277009cf",
+        "bloom_count": 1,
+        "b3_hash": "dc729c375ac29b1e285df42f0312e34eec93b19a11ddc93e266c1b7de192c0e8",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "be86b05cbaea6be6561c7d9802850656bbf8e474bb3a464c470fe9ac277009cf",
+        "bloom_count": 1,
+        "b3_hash": "c1774516534c7c3abb4faac1df1823ca504537443924e80e6faa5ff988324bc5",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "c1774516534c7c3abb4faac1df1823ca504537443924e80e6faa5ff988324bc5",
+        "bloom_count": 1,
+        "b3_hash": "dc729c375ac29b1e285df42f0312e34eec93b19a11ddc93e266c1b7de192c0e8",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BBAS3T      030",
+        "bloom_hash": "c1774516534c7c3abb4faac1df1823ca504537443924e80e6faa5ff988324bc5",
+        "bloom_count": 1,
+        "b3_hash": "be86b05cbaea6be6561c7d9802850656bbf8e474bb3a464c470fe9ac277009cf",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BEEF3T      030",
+        "bloom_hash": "0ebb71a4a740a3a65a1a45cb1fc2cc4513b2e9e495a610ee75960cfe8d1dce28",
+        "bloom_count": 1,
+        "b3_hash": "227fc7f9a99e7a15ce267b35c7de1612d98121a75bfebb109eff9a3f373fe809",
+        "b3_count": 1
+      },
+      {
+        "logical_key": "2026010262BEEF3T      030",
+        "bloom_hash": "0ebb71a4a740a3a65a1a45cb1fc2cc4513b2e9e495a610ee75960cfe8d1dce28",
+        "bloom_count": 1,
+        "b3_hash": "e1d14c231109bf1d673c2ce81fb8c3e6a9528c26f87defc3d9782d2e31b86aa0",
+        "b3_count": 1
+      }
+    ]
   },
   "promotion_impact": "BLOCKED_CONTENT_DIVERGENCE"
 }
