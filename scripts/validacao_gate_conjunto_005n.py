@@ -85,7 +85,7 @@ def main() -> int:
         c["duplicate_count"] = m.get("duplicate_count", m.get("duplicates", m.get("physical_counts", {}).get("duplicates")))
         c["missing_count"] = m.get("missing_count", m.get("missing_record_field_count"))
 
-        acq_id = "B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else ("BCB_SGS" if dataset_id == "BCB_SGS_1178" else dataset_id)\n        expected_raw = acq_map.get(acq_id)
+        acq_id = "B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else (\n            "BCB_SGS" if dataset_id == "BCB_SGS_1178" else dataset_id\n        )\n        expected_raw = acq_map.get(acq_id)
         if not expected_raw:
             errors.append(f"{dataset_id}: não encontrado no manifesto de aquisição")
         else:
@@ -112,19 +112,24 @@ def main() -> int:
             # BCB/VIX persistem como JSON normalizado.
             c["derived_outputs_exist"] = manifest_path.exists()
 
-        c["individual_validation"] = "PASS" if dataset_id == "B3_COTAHIST_A2026" else (
-            "PASS" if joint["checks"].get({
-                "BCB_SGS_1178": "BCB_SGS_1178",
-                "VIX": "VIX",
-                "CVM_OFERTAS": "CVM_OFERTAS",
-                "TESOURO_HISTORICO": "TESOURO_HISTORICO",
-            }.get(dataset_id), {}).get("raw_sha_match") else "PASS"
-        )
+        if dataset_id != "B3_COTAHIST_A2026":
+            joint_check = joint.get("checks", {}).get(dataset_id)
+            if not isinstance(joint_check, dict):
+                errors.append(f"{dataset_id}: validação conjunta ausente")
+            elif not (
+                joint_check.get("raw_sha_match") is True
+                and joint_check.get("normalized_raw_link_match") is True
+                and joint_check.get("quality_status") == "NORMALIZED_DERIVED"
+                and joint_check.get("output_exists") is True
+            ):
+                errors.append(f"{dataset_id}: validação conjunta não confirma PASS")
+            else:
+                c["individual_validation"] = "PASS"
 
-        c["policy_ok"] = all(
-            x is not False for x in [
-                m.get("raw_sha256"),
-            ]
+        c["policy_ok"] = (
+            c["raw_sha_match"] is True
+            and c["quality_status"] == "NORMALIZED_DERIVED"
+            and c["provenance_present"] is True
         )
 
         if c["quality_status"] != "NORMALIZED_DERIVED":
