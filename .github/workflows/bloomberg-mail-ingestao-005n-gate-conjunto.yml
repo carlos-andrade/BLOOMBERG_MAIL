@@ -2,9 +2,6 @@ name: BLOOMBERG_MAIL — INGESTÃO 005N — Gate Conjunto 5/5
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'scripts/validacao_gate_conjunto_005n.py'
 
 permissions:
   contents: write
