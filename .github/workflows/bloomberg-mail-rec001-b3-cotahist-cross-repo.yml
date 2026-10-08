@@ -1,9 +1,6 @@
 name: BLOOMBERG_MAIL — REC-001 B3 COTAHIST Cross-Repo
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'scripts/rec001_b3_cotahist_cross_repo.py'
 permissions:
   contents: write
 jobs:
