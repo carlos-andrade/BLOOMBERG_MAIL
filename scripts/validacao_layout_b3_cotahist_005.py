@@ -2,7 +2,7 @@
 """BLOOMBERG_MAIL — validação determinística do layout B3 COTAHIST 005.
 
 Lê somente o RAW COTAHIST_A2026.ZIP. Não altera RAW nem produz dados normalizados.
-Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.\n\nValidador 1.1: TPMERC, INDOPC e CODBDI possuem validação semântica explícita.
+Valida estrutura física e campos contra o mapeamento oficial B3 v2.0/rev.02.\n\nValidador 1.2: TPMERC=021 foi incorporado após reconciliação controlada com dados validados do repositório B3 e documentação oficial B3 BBT.
 """
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ PRICE_FIELDS = [(57,69),(70,82),(83,95),(96,108),(109,121),(122,134),(135,147),(
 INT_FIELDS = [(148,152),(153,170),(243,245)]
 DATE_FIELDS = [(3,10),(203,210)]
 VALID_TYPES = {b"00", b"01", b"99"}
-VALID_TPMERC = {b"010", b"012", b"013", b"017", b"020", b"030", b"050", b"060", b"070", b"080"}
+VALID_TPMERC = {b"010", b"012", b"013", b"017", b"020", b"021", b"030", b"050", b"060", b"070", b"080"}
 VALID_INDOPC = {b" ", b"0", b"1", b"2", b"8", b"9"}
 
 def sha256(path: Path) -> str:
@@ -197,7 +197,7 @@ report = {
     "status": status,
     "dataset_id": "B3_COTAHIST_A2026",
     "source": "B3 — Cotações Históricas",
-    "layout_reference": "SeriesHistoricas_Layout.pdf — versão 2.0, revisão 02, atualização 05/10/2020",
+    "layout_reference": "SeriesHistoricas_Layout.pdf — versão 2.0, revisão 02, atualização 05/10/2020; TPMERC=021 reconciliado separadamente em 2026-10-08.",
     "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
     "raw_sha256": raw_sha,
     "checks": checks,
