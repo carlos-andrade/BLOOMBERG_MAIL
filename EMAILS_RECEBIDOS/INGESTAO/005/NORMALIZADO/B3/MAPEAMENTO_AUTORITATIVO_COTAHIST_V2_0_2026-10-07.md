@@ -154,3 +154,31 @@ Entretanto, antes de liberar o normalizador para produção, deve ser feita uma 
 ## Achado de reconciliação — COTAHIST A2026
 
 A validação determinística do RAW A2026 (SHA-256 `c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f`) encontrou 1.696 registros com `TPMERC=021`. Esse código **não consta** na tabela TPMERC do documento B3 v2.0/revisão 02 usado como referência. O projeto não atribui significado ao código 021 por inferência. Até identificação de fonte oficial B3 que o reconcilie, o gate de validação permanece FAIL/BLOCKED e o normalizador B3 não pode ser promovido.
+
+
+## Reconciliação controlada de TPMERC=021 — 2026-10-08
+
+O código 021 não consta da tabela TPMERC do layout B3 v2.0/revisão 02 de 2020. A investigação foi ampliada para dados já validados no repositório carlos-andrade/B3.
+
+No COTAHIST A2026 preservado e validado no repositório B3 foram encontrados 1.544 registros com TPMERC=021, em 255 CODNEG distintos e 179 pregões até 23/09/2026. As ocorrências observadas usam o padrão de código de negociação terminado em Q, com exemplos como EMET11Q, GGRC11Q, MCRE11Q, SBFG3Q, AXIA3Q, CPTS11Q, BBAS3Q e VALE3Q.
+
+A documentação oficial atual da B3 para o Book of Block Trade (BBT) define simultaneamente:
+- código de negociação: Final Q;
+- código de mercado: 21 — BLOCK LOT.
+
+A reconciliação entre o COTAHIST validado do repositório B3 e a especificação operacional oficial B3 estabelece uma correspondência operacional determinística forte entre TPMERC=021 e o mercado BLOCK LOT/BBT.
+
+### Classificação
+
+- significado operacional aceito: BLOCK LOT / BBT;
+- base: dados COTAHIST validados no repositório B3 + documentação oficial B3 BBT;
+- natureza: reconciliação controlada, não simples inclusão arbitrária de código;
+- RAW BLOOMBERG_MAIL: imutável;
+- ajuste econômico: proibido;
+- interpolação: proibida.
+
+### Limitação documental
+
+Não foi localizada uma especificação B3 que contenha literalmente a frase COTAHIST.TPMERC=021 = Market 21. Portanto, o projeto registra esta ponte como reconciliação operacional validada, mantendo a proveniência e a distinção em relação à tabela textual do layout 2020.
+
+Evidência detalhada: RECONCILIACAO_TPMERC021_COM_REPOSITORIO_B3_2026-10-08.md.
