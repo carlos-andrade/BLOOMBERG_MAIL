@@ -1,0 +1,32 @@
+name: BLOOMBERG_MAIL — Migração Automática de Cabeçalhos
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Aplicar cabeçalho canônico
+        run: python scripts/aplicar_cabecalho_documental.py
+
+      - name: Commit da migração
+        run: |
+          if git diff --quiet; then
+            echo "Nenhum documento pendente."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.md' '**/*.md'
+          git commit -m "GOVERNANCA: normalizar cabecalhos documentais [skip ci]"
+          git push
