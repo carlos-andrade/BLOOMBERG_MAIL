@@ -1,0 +1,23 @@
+name: BLOOMBERG_MAIL — REC-001 B3 COTAHIST Convergência por Data
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Diagnosticar convergência por pregão
+        run: python scripts/diagnostico_convergencia_b3_cotahist_por_data.py
+      - name: Publicar evidência
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_CONVERGENCIA_POR_DATA_2026-10-08.json
+          git diff --cached --quiet || git commit -m "feat(rec001): evidência convergência COTAHIST por data"
+          git push
