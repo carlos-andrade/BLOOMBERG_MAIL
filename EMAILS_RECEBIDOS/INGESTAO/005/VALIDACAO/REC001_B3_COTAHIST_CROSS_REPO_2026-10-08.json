@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.1-rec001-b3-cross-repo",
+  "result": "FAIL_CONTENT_DIVERGENCE",
+  "raw_preserved": true,
+  "comparison_scope": "COTAHIST record type 01 only; file headers/trailers excluded from equality test",
+  "bloomberg_mail": {
+    "path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+    "zip_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "retrieval_timestamp_utc": "2026-10-07T11:37:56Z",
+    "source_url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP",
+    "stats": {
+      "member": "COTAHIST_A2026.TXT",
+      "record01_count": 3070831,
+      "date_min": "20260102",
+      "date_max": "20261006",
+      "generation_date": "0261006 ",
+      "record01_stream_sha256": "dfa227861ece28a88b60a10fc5e16f74210614f30dde2d7873022db306a39ad1"
+    }
+  },
+  "b3": {
+    "url": "https://raw.githubusercontent.com/carlos-andrade/B3/main/dados/cotahist/raw/anual/COTAHIST_A2026.ZIP",
+    "zip_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
+    "stats": {
+      "member": "COTAHIST_A2026.TXT",
+      "record01_count": 2919760,
+      "date_min": "20260102",
+      "date_max": "20260923",
+      "generation_date": "0260923 ",
+      "record01_stream_sha256": "d149f8db585a56b0e152f8943321d30cebade2fbeebe851fe330f9be4f7a30d0"
+    }
+  },
+  "temporal_evidence": {
+    "bloomberg_mail_generation_date": "0261006 ",
+    "b3_generation_date": "0260923 ",
+    "generation_date_difference_days": null
+  },
+  "comparison": {
+    "common_record01_count": 222002,
+    "bloom_record01_exhausted": false,
+    "b3_record01_exhausted": false,
+    "first_difference": {
+      "position_record01": 222003,
+      "bloom_sha256": "dcaac3efc9eae9bd5cd223d4af31378254e5709c6348a7cff8b42d5e989fa308",
+      "b3_sha256": "d6352b082f68643024aa016bdf4ce2d06b3d0e7190af87e75b03b17908471e3d",
+      "bloom_prefix": "012026010278ABCBA243    070ABCBE    /EJP",
+      "b3_prefix": "012026010278ABCBA235    070ABCB    /EJSP"
+    }
+  },
+  "promotion_impact": "BLOCKED_CONTENT_DIVERGENCE"
+}
