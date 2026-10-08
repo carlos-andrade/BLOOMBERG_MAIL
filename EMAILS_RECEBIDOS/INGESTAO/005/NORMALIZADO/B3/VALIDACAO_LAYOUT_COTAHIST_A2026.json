@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0-b3-layout-validation",
+  "schema_version": "1.1-b3-layout-validation",
   "status": "PASS",
   "dataset_id": "B3_COTAHIST_A2026",
   "source": "B3 — Cotações Históricas",
-  "layout_reference": "SeriesHistoricas_Layout.pdf — versão 2.0, revisão 02, atualização 05/10/2020",
+  "layout_reference": "SeriesHistoricas_Layout.pdf — versão 2.0, revisão 02, atualização 05/10/2020; TPMERC=021 reconciliado separadamente em 2026-10-08.",
   "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
   "raw_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
   "checks": {
@@ -25,6 +25,7 @@
     "date_invalid": 0,
     "numeric_invalid": 0,
     "tpmec_invalid": 0,
+    "tpmec_invalid_values": {},
     "codbdi_blank_count": 0,
     "indopc_invalid": 0,
     "trailer_total_records": 3070831,
