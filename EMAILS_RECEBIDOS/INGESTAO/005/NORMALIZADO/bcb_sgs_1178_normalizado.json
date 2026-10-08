@@ -7,7 +7,7 @@
   "raw_sha256": "7343beba0c0d8fad8593bf7d4d74746f7981fd186bc1b25bece94a6d3bd71f36",
   "retrieval_timestamp_utc": "2026-10-07T10:34:56Z",
   "reference_period": "2026-09-23/2026-10-06",
-  "processed_at_utc": "2026-10-07T21:34:13.929628Z",
+  "processed_at_utc": "2026-10-08T10:43:31.904373Z",
   "date_representation": "ISO-8601 derived from RAW DD/MM/YYYY; date_raw preserved",
   "value_representation": "RAW decimal string preserved; no numeric coercion",
   "frequency": "daily",
