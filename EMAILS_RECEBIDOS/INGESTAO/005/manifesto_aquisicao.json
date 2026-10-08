@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-07T15:20:00Z",
+  "updated_at": "2026-10-08T00:00:00Z",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -32,7 +32,16 @@
       "format": "ZIP",
       "encoding": "binary ZIP archive",
       "schema_version": "1.0-ingest-005",
-      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml"
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml",
+      "incremental_storage_policy": {
+        "enabled": true,
+        "frequency": "daily",
+        "raw_increment_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/B3/COTAHIST/2026/DIARIO/",
+        "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/B3/COTAHIST/2026/SNAPSHOTS/",
+        "immutable": true,
+        "cross_repository_target": "carlos-andrade/B3",
+        "cross_repository_rule": "validated increments are propagated to B3 without replacing historical RAW"
+      }
     },
     {
       "id": "CVM_OFERTAS",
@@ -157,5 +166,10 @@
   "decision": {
     "layer_A_approved": false,
     "reason": "GAT-001 PASS confirmado pela INGESTÃO 005D #4. A revisão de proveniência foi corrigida com valores recuperados de evidências versionadas no próprio repositório para B3, BCB e CVM. Todos os datasets possuem agora os campos required_provenance. Layer A continua bloqueada até nova execução 005D, revisão final de promoção e aprovação explícita. RAW permanece imutável; não há autorização para normalização operacional ou geração de sinais."
+  },
+  "architecture": {
+    "incremental_alignment": true,
+    "governing_document": "EMAILS_RECEBIDOS/INGESTAO/005/CARTA_ALINHAMENTO_INCREMENTAL_B3_V1_0_2026-10-08.md",
+    "layout_document": "EMAILS_RECEBIDOS/INGESTAO/005/LAYOUT_INCREMENTOS_DIARIOS_B3_V1_0_2026-10-08.md"
   }
 }
