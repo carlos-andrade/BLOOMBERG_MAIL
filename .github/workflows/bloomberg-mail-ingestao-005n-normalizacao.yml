@@ -2,6 +2,10 @@ name: BLOOMBERG_MAIL — INGESTÃO 005N — Normalização Determinística
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/normalizacao_b3_005.py'
+      - '.github/workflows/bloomberg-mail-ingestao-005n-normalizacao.yml'
 
 permissions:
   contents: write
@@ -27,10 +31,13 @@ jobs:
       - name: Run Tesouro deterministic normalization
         run: python scripts/normalizacao_tesouro_005.py
 
+      - name: Run B3 COTAHIST deterministic normalization
+        run: python scripts/normalizacao_b3_005.py
+
       - name: Validate generated normalized manifests
         run: |
           python - <<'PY'
-          import json, gzip
+          import gzip, json
           from pathlib import Path
           p=Path("EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO")
           expected={
@@ -38,18 +45,28 @@ jobs:
             "vix_normalizado.json":"normalizacao-005-v1.1",
             "cvm_ofertas_normalizado.json":"normalizacao-005-cvm-v1.1",
             "tesouro_normalizado.json":"normalizacao-005-tesouro-v1.1",
+            "B3/b3_cotahist_normalizado.json":"normalizacao-005-b3-v1.0",
           }
           for f,parser in expected.items():
             x=json.loads((p/f).read_text(encoding="utf-8"))
             assert x["quality_status"]=="NORMALIZED_DERIVED"
             assert x["raw_sha256"]
             assert x["parser_version"]==parser
+          b3=json.loads((p/"B3/b3_cotahist_normalizado.json").read_text(encoding="utf-8"))
+          assert b3["tpmerc_021_semantics"]=="BLOCK LOT / BBT"
+          assert b3["tpmerc_021_count"]>0
+          assert b3["record_count"]==3070831
+          for name in b3["output_files"]:
+            path=p/"B3"/name
+            assert path.exists() and path.stat().st_size > 0
+            with gzip.open(path,"rt",encoding="utf-8") as g:
+              assert g.readline()
           for f in ("cvm_ofertas_normalizado.json","tesouro_normalizado.json"):
             x=json.loads((p/f).read_text(encoding="utf-8"))
             fs=[m["output_file"] for m in x["members"]] if "members" in x else [x["output_file"]]
             for name in fs:
-              with gzip.open(p/name,"rt",encoding="utf-8") as g: g.readline()
-          print("NORMALIZATION STRUCTURAL CHECK 4/5 IMPLEMENTED DATASETS: PASS")
+              with gzip.open(p/name,"rt",encoding="utf-8") as g: assert g.readline()
+          print("NORMALIZATION STRUCTURAL CHECK 5/5 DATASETS: PASS")
           PY
 
       - name: Publish derived outputs
@@ -60,6 +77,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nenhuma saída nova."
           else
-            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N comprimida"
+            git commit -m "BLOOMBERG_MAIL: publicar normalização determinística 005N B3"
             git push
           fi
