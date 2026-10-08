@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# controlled execution trigger 2026-10-08
 import hashlib, json, os, tempfile, urllib.request, zipfile
 
 BLOOM="EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP"
