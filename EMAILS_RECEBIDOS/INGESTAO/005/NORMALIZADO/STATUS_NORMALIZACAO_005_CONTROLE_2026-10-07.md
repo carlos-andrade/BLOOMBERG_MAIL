@@ -1,3 +1,51 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "FASE-005-INGESTAO"
+id_documento: "BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-NORMALIZADO-STATUS-NORMALIZACAO-005-CONTROLE-2026-10-07-MD"
+titulo: "BLOOMBERG_MAIL — NORMALIZAÇÃO 005 — CONTROLE DE ESTADO"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-08"
+data_atualizacao: "2026-10-08"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/STATUS_NORMALIZACAO_005_CONTROLE_2026-10-07.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# BLOOMBERG_MAIL — NORMALIZAÇÃO 005 — CONTROLE DE ESTADO
+
+## Contexto Histórico
+
+Documento histórico do projeto BLOOMBERG_MAIL integrado à governança documental central de carlos-andrade.
+
+## Estado
+
+IMPLEMENTADO — cabeçalho migrado para o padrão canônico.
+
+## Evidências
+
+Modelo canônico: Curioso-da-Internet-IA/CABEÇALHO/MODELO-PADRAO-CABECALHO.md.
+
+## Validação
+
+Cabeçalho, identificação documental e rastreabilidade foram normalizados.
+
+## Resultado
+
+O conteúdo original abaixo foi preservado.
+
+## Próxima Ação
+
+Atualizar versão, data e rastreabilidade em alterações relevantes.
+
+---
+
 # BLOOMBERG_MAIL — NORMALIZAÇÃO 005 — CONTROLE DE ESTADO
 
 > Cabeçalho histórico: documento de governança criado em 2026-10-07 para registrar o estado verificável da etapa 005N após a promoção da CAMADA_A e atualizado após a validação conjunta 005N #5.

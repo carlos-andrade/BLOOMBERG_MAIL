@@ -1,3 +1,51 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "FASE-005-INGESTAO"
+id_documento: "BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-NORMALIZADO-B3-RECONCILIACAO-AVANCADA-MARKET21-TPMERC-2026-10-07-MD"
+titulo: "BLOOMBERG_MAIL — B3 — RECONCILIAÇÃO AVANÇADA MARKET 21 E TPMERC — 2026-10-07"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-08"
+data_atualizacao: "2026-10-08"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/RECONCILIACAO_AVANCADA_MARKET21_TPMERC_2026-10-07.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# BLOOMBERG_MAIL — B3 — RECONCILIAÇÃO AVANÇADA MARKET 21 E TPMERC — 2026-10-07
+
+## Contexto Histórico
+
+Documento histórico do projeto BLOOMBERG_MAIL integrado à governança documental central de carlos-andrade.
+
+## Estado
+
+IMPLEMENTADO — cabeçalho migrado para o padrão canônico.
+
+## Evidências
+
+Modelo canônico: Curioso-da-Internet-IA/CABEÇALHO/MODELO-PADRAO-CABECALHO.md.
+
+## Validação
+
+Cabeçalho, identificação documental e rastreabilidade foram normalizados.
+
+## Resultado
+
+O conteúdo original abaixo foi preservado.
+
+## Próxima Ação
+
+Atualizar versão, data e rastreabilidade em alterações relevantes.
+
+---
+
 # BLOOMBERG_MAIL — B3 — RECONCILIAÇÃO AVANÇADA MARKET 21 E TPMERC — 2026-10-07
 
 > Cabeçalho histórico: nova rodada de pesquisa oficial B3 realizada em 2026-10-07. A validação do COTAHIST A2026 encontrou 1.696 registros com TPMERC=021. Esta nota registra somente evidências oficiais e mantém separada a evidência direta da hipótese de correspondência.

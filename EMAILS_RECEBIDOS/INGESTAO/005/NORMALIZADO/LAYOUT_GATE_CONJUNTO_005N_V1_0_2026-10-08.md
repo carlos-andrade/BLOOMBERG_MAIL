@@ -1,3 +1,51 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "FASE-005-INGESTAO"
+id_documento: "BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-NORMALIZADO-LAYOUT-GATE-CONJUNTO-005N-V1-0-2026-10-08-MD"
+titulo: "BLOOMBERG_MAIL — LAYOUT — GATE CONJUNTO 005N — 5/5"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-08"
+data_atualizacao: "2026-10-08"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/LAYOUT_GATE_CONJUNTO_005N_V1_0_2026-10-08.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# BLOOMBERG_MAIL — LAYOUT — GATE CONJUNTO 005N — 5/5
+
+## Contexto Histórico
+
+Documento histórico do projeto BLOOMBERG_MAIL integrado à governança documental central de carlos-andrade.
+
+## Estado
+
+IMPLEMENTADO — cabeçalho migrado para o padrão canônico.
+
+## Evidências
+
+Modelo canônico: Curioso-da-Internet-IA/CABEÇALHO/MODELO-PADRAO-CABECALHO.md.
+
+## Validação
+
+Cabeçalho, identificação documental e rastreabilidade foram normalizados.
+
+## Resultado
+
+O conteúdo original abaixo foi preservado.
+
+## Próxima Ação
+
+Atualizar versão, data e rastreabilidade em alterações relevantes.
+
+---
+
 # BLOOMBERG_MAIL — LAYOUT — GATE CONJUNTO 005N — 5/5
 
 > Cabeçalho histórico: layout técnico criado em 2026-10-08 para a validação determinística conjunta dos cinco normalizadores da INGESTÃO 005.
