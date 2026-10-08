@@ -127,3 +127,48 @@ A INTEGRAÇÃO continua bloqueada até a validação completa dos cinco datasets
 - B3 normalizer: BLOQUEADO.
 - Integração: BLOQUEADA.
 - Próximo gate: reconciliação oficial do TPMERC 021 antes de qualquer PASS.
+
+
+## 2026-10-08 — B3 COTAHIST normalizado e validado
+
+- Normalizador: `scripts/normalizacao_b3_005.py`
+- Parser: `normalizacao-005-b3-v1.0`
+- Workflow controlado de normalização: run **37765338810** (#4)
+- Resultado: **SUCCESS**
+- Registros físicos: **3.070.833**
+- Registros 00/01/99: **1 / 3.070.831 / 1**
+- Saída: **31 partições JSONL gzip**, 100.000 registros por partição
+- SHA RAW confirmado: `c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f`
+- TPMERC=021: **1.696 registros**, sem erro semântico após reconciliação controlada.
+- Duplicidades pela chave operacional `data_pregao+codbdi+codneg+tpmerc`: **9.675**; reportadas, não removidas silenciosamente.
+- Missing fields: **0**.
+
+### Validação independente
+
+Workflow: **BLOOMBERG_MAIL — INGESTÃO 005N — Validação Independente Normalização B3**
+
+- Check run: **113275405446**
+- Resultado: **SUCCESS**
+- Duração: aproximadamente **2m26s**
+- Partições verificadas: **31**
+- Registros verificados: **3.070.831**
+- JSON inválido: **0**
+- Datas inválidas: **0**
+- Decimais inválidos: **0**
+- Erros na semântica reconciliada de TPMERC=021: **0**
+- Evidência: `B3/VALIDACAO_NORMALIZACAO_B3_A2026.json`
+- SHA da evidência: `016566c0fc5f6857c4ac4a3f14c7c4d4f43952aa`
+
+O gatilho `push` utilizado para execução controlada foi removido imediatamente após a validação. O workflow de validação independente voltou a `workflow_dispatch`/manual-only.
+
+## Estado atualizado dos datasets
+
+| Dataset | Estado |
+|---|---|
+| BCB SGS 1178 | VALIDADO |
+| VIX | VALIDADO |
+| CVM Ofertas | VALIDADO |
+| Tesouro Direto | VALIDADO |
+| B3 COTAHIST | **NORMALIZADO + VALIDAÇÃO INDEPENDENTE PASS** |
+
+**Integração:** permanece **BLOCKED** até revisão/promulgação do gate conjunto 5/5. A conclusão da normalização B3 não autoriza automaticamente a integração.
