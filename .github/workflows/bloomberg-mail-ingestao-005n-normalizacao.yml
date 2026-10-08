@@ -2,10 +2,6 @@ name: BLOOMBERG_MAIL — INGESTÃO 005N — Normalização Determinística
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'scripts/normalizacao_b3_005.py'
-      - '.github/workflows/bloomberg-mail-ingestao-005n-normalizacao.yml'
 
 permissions:
   contents: write
