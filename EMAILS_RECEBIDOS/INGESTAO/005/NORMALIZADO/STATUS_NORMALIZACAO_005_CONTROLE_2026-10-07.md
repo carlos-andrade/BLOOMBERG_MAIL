@@ -172,3 +172,42 @@ O gatilho `push` utilizado para execução controlada foi removido imediatamente
 | B3 COTAHIST | **NORMALIZADO + VALIDAÇÃO INDEPENDENTE PASS** |
 
 **Integração:** permanece **BLOCKED** até revisão/promulgação do gate conjunto 5/5. A conclusão da normalização B3 não autoriza automaticamente a integração.
+
+
+## 2026-10-08 — Gate Conjunto 005N 5/5 — verificação, correção e execução controlada
+
+Foi criado o contrato do Gate Conjunto 5/5:
+
+- `CARTA_GATE_CONJUNTO_005N_V1_0_2026-10-08.md`
+- `LAYOUT_GATE_CONJUNTO_005N_V1_0_2026-10-08.md`
+- `scripts/validacao_gate_conjunto_005n.py`
+- `.github/workflows/bloomberg-mail-ingestao-005n-gate-conjunto.yml`
+
+### Primeira execução verificável
+
+A execução acionada pelo workflow produziu evidência persistida:
+
+`VALIDACAO_GATE_CONJUNTO_005N_5X5.json`
+
+Resultado: **FAIL**.
+
+O FAIL não foi atribuído aos cinco datasets. Foram identificados dois defeitos no executor:
+
+1. os arquivos particionados do B3 são relativos à subpasta `NORMALIZADO/B3/`;
+2. o manifesto de aquisição identifica o BCB como `BCB_SGS`, enquanto o manifesto normalizado usa `BCB_SGS_1178`.
+
+### Correção
+
+O executor foi corrigido e publicado no commit `e3a97b78410d8c2ae91a55dae163bc8c7fd45eed`.
+
+A tentativa seguinte de disparo por `push` não produziu nova execução verificável; portanto, **nenhum PASS é declarado**.
+
+O workflow foi restaurado para **manual-only** no commit `8fa83affe269be1e746d8377b4897f7f6f85a6c2`.
+
+### Estado do gate
+
+**005N CONJUNTO 5/5: BLOQUEADO — execução manual pós-correção ainda necessária.**
+
+A evidência FAIL existente é preservada como histórico e não deve ser sobrescrita como se fosse uma execução posterior.
+
+**REC-001 de integração permanece bloqueado.**
