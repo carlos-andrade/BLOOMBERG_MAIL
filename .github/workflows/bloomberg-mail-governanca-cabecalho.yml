@@ -1,0 +1,19 @@
+name: BLOOMBERG_MAIL — Governança de Cabeçalhos
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validar-cabecalhos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar cabeçalhos Markdown
+        run: python scripts/validar_cabecalho_documental.py
