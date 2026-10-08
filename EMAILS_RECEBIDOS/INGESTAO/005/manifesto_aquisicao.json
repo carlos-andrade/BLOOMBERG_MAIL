@@ -4,7 +4,7 @@
   "ingestion_id": "005",
   "status": "PARTIALLY_EXECUTED_CONTROLLED_ACQUISITION",
   "created_at": "2026-10-07",
-  "updated_at": "2026-10-08T00:00:00Z",
+  "updated_at": "2026-10-08T15:00:00Z",
   "raw_policy": "immutable",
   "normalization_policy": "derived_from_raw",
   "datasets": [
@@ -40,7 +40,9 @@
         "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/B3/COTAHIST/2026/SNAPSHOTS/",
         "immutable": true,
         "cross_repository_target": "carlos-andrade/B3",
-        "cross_repository_rule": "validated increments are propagated to B3 without replacing historical RAW"
+        "cross_repository_rule": "validated increments are propagated to B3 without replacing historical RAW",
+        "increment_unit": "trading_day_or_official_daily_file",
+        "consolidation_target": "carlos-andrade/B3"
       }
     },
     {
@@ -65,7 +67,16 @@
       "quality_status": "PASS_ARCHIVE_VALIDATION_REC001_RECONCILED",
       "reconciliation_status": "PASS",
       "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_cvm.json",
-      "reference_period": "current official endpoint snapshot; event dataset"
+      "reference_period": "current official endpoint snapshot; event dataset",
+      "incremental_storage_policy": {
+        "enabled": true,
+        "frequency": "on_source_update_or_event",
+        "increment_unit": "new_official_event_or_source_version",
+        "raw_increment_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/CVM/INCREMENTOS/",
+        "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/CVM/SNAPSHOTS/",
+        "immutable": true,
+        "consolidation_target": null
+      }
     },
     {
       "id": "BCB_SGS",
@@ -88,7 +99,16 @@
       "format": "JSON",
       "encoding": "UTF-8",
       "schema_version": "1.0-ingest-005",
-      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml"
+      "parser_version": ".github/workflows/bloomberg-mail-ingestao-005b.yml",
+      "incremental_storage_policy": {
+        "enabled": true,
+        "frequency": "series_dependent",
+        "increment_unit": "observation_date_per_series",
+        "raw_increment_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/BCB/INCREMENTOS/",
+        "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/BCB/SNAPSHOTS/",
+        "immutable": true,
+        "consolidation_target": null
+      }
     },
     {
       "id": "TESOURO_HISTORICO",
@@ -110,7 +130,16 @@
       "parser_version": "scripts/aquisicao_tesouro_direto_005.py",
       "quality_status": "PASS_STRUCTURAL_VALIDATION_NO_MISSING_ROWS_NO_DUPLICATE_ROWS",
       "reconciliation_status": "PASS",
-      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_tesouro.json"
+      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_tesouro.json",
+      "incremental_storage_policy": {
+        "enabled": true,
+        "frequency": "daily_or_source_update",
+        "increment_unit": "new_observation_or_official_file_version",
+        "raw_increment_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/TESOURO/INCREMENTOS/",
+        "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/TESOURO/SNAPSHOTS/",
+        "immutable": true,
+        "consolidation_target": null
+      }
     },
     {
       "id": "VIX",
@@ -133,7 +162,16 @@
       "parser_version": ".github/workflows/bloomberg-mail-ingestao-005c-tesouro-vix.yml",
       "quality_status": "PASS_STRUCTURAL_VALIDATION_DATE_CLOSE_NONEMPTY",
       "reconciliation_status": "PASS",
-      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_vix.json"
+      "reconciliation_evidence": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/EXECUCAO_AUTOMATICA/rec001_vix.json",
+      "incremental_storage_policy": {
+        "enabled": true,
+        "frequency": "daily",
+        "increment_unit": "trading_day",
+        "raw_increment_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/VIX/INCREMENTOS/",
+        "snapshot_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/VIX/SNAPSHOTS/",
+        "immutable": true,
+        "consolidation_target": null
+      }
     }
   ],
   "required_provenance": [
@@ -171,5 +209,17 @@
     "incremental_alignment": true,
     "governing_document": "EMAILS_RECEBIDOS/INGESTAO/005/CARTA_ALINHAMENTO_INCREMENTAL_B3_V1_0_2026-10-08.md",
     "layout_document": "EMAILS_RECEBIDOS/INGESTAO/005/LAYOUT_INCREMENTOS_DIARIOS_B3_V1_0_2026-10-08.md"
+  },
+  "incremental_policy": {
+    "enabled": true,
+    "scope": "ALL_DATASETS_IN_INGESTAO_005",
+    "governing_document": "EMAILS_RECEBIDOS/INGESTAO/005/CARTA_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md",
+    "layout_document": "EMAILS_RECEBIDOS/INGESTAO/005/LAYOUT_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md",
+    "rule": "EVERY_DATASET_MUST_RECEIVE_INCREMENTAL_UPDATES_TO_REMAIN_CURRENT",
+    "raw_immutable": true,
+    "snapshots_are_reference_only": true,
+    "silent_overwrite": false,
+    "same_period_sha_change": "PRESERVE_BOTH_AND_RECONCILE",
+    "promotion_requires_validation": true
   }
 }
