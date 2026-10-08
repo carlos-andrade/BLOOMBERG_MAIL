@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import hashlib, json, os, sqlite3, tempfile, urllib.request, zipfile
+import hashlib, json, os, tempfile, urllib.request, zipfile
 from datetime import datetime
 
 BLOOM="EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP"
@@ -21,115 +21,95 @@ def inspect(p):
             for raw in f:
                 line=raw.rstrip(b"\r\n")
                 if len(line)!=245: raise RuntimeError(f"invalid record length {len(line)}")
-                typ=line[:2]
-                if typ==b"00":
+                if line[:2]==b"00":
                     generation=line[24:32].decode("ascii",errors="replace").strip()
-                elif typ==b"01":
+                elif line[:2]==b"01":
                     count += 1; dates.append(line[2:10].decode("ascii",errors="replace"))
                     record01_hash.update(raw)
             return {"member":n,"record01_count":count,"date_min":min(dates),"date_max":max(dates),
                     "generation_date":generation,"record01_stream_sha256":record01_hash.hexdigest()}
 
-def key(line):
-    return (line[2:10], line[10:12], line[12:24], line[24:27])
-
-def build_index(path, db_path, table):
-    conn=sqlite3.connect(db_path)
-    conn.execute(f"CREATE TABLE {table} (k BLOB NOT NULL, rh BLOB NOT NULL, c INTEGER NOT NULL, PRIMARY KEY(k,rh))")
-    conn.execute(f"CREATE INDEX idx_{table}_k ON {table}(k)")
-    with zipfile.ZipFile(path) as z:
-        n=next(x for x in z.namelist() if x.upper().endswith("COTAHIST_A2026.TXT"))
-        with z.open(n) as f:
-            pending={}
-            for raw in f:
-                line=raw.rstrip(b"\r\n")
-                if line[:2]!=b"01": continue
-                k=line[2:27]
-                rh=hashlib.sha256(raw).digest()
-                pair=(k,rh); pending[pair]=pending.get(pair,0)+1
-                if len(pending)>=10000:
-                    conn.executemany(f"INSERT INTO {table}(k,rh,c) VALUES(?,?,?) ON CONFLICT(k,rh) DO UPDATE SET c=c+excluded.c",
-                                     [(k,rh,c) for (k,rh),c in pending.items()])
-                    conn.commit(); pending.clear()
-            if pending:
-                conn.executemany(f"INSERT INTO {table}(k,rh,c) VALUES(?,?,?) ON CONFLICT(k,rh) DO UPDATE SET c=c+excluded.c",
-                                 [(k,rh,c) for (k,rh),c in pending.items()])
-                conn.commit()
-    return conn
-
-def compare_by_key(a,b):
+def compare_common_date_multiset(a,b,common_max):
+    def records(path):
+        with zipfile.ZipFile(path) as z:
+            n=next(x for x in z.namelist() if x.upper().endswith("COTAHIST_A2026.TXT"))
+            with z.open(n) as f:
+                for raw in f:
+                    line=raw.rstrip(b"\r\n")
+                    if line[:2]==b"01" and line[2:10].decode("ascii",errors="replace") <= common_max:
+                        yield raw
+    # COTAHIST is sorted, but cross-repo snapshots may have different ordering.
+    # Compare the complete 245-byte record multiset for the common trading-date range.
+    ha=hashlib.sha256(); hb=hashlib.sha256()
+    ca=cb=0
+    only_a=[]; only_b=[]
     with tempfile.TemporaryDirectory() as td:
-        db=os.path.join(td,"rec001.sqlite")
-        ca=build_index(a,db,"a")
-        ca.close()
-        cb=sqlite3.connect(db)
-        build_index(b,db,"b").close()
-        # Multiset comparison by logical instrument/date key + complete record hash.
-        common_keys=cb.execute("SELECT COUNT(*) FROM (SELECT k FROM a INTERSECT SELECT k FROM b)").fetchone()[0]
-        a_keys=cb.execute("SELECT COUNT(DISTINCT k) FROM a").fetchone()[0]
-        b_keys=cb.execute("SELECT COUNT(DISTINCT k) FROM b").fetchone()[0]
-        mismatches=[]
-        for k,rha,ca_count,rhb,cb_count in cb.execute("""
-            SELECT a.k,a.rh,a.c,b.rh,b.c
-            FROM a JOIN b USING(k)
-            WHERE a.rh<>b.rh OR a.c<>b.c
-            LIMIT 10
-        """):
-            mismatches.append({
-                "logical_key":k.decode("ascii","replace"),
-                "bloom_hash":rha.hex(),"bloom_count":ca_count,
-                "b3_hash":rhb.hex(),"b3_count":cb_count
-            })
-        # Exact multiset equality over the common logical-key universe.
-        divergence=cb.execute("""
-            SELECT COUNT(*) FROM (
-              SELECT k,rh,c FROM a
-              EXCEPT
-              SELECT k,rh,c FROM b
-            )
-        """).fetchone()[0]
-        reverse=cb.execute("""
-            SELECT COUNT(*) FROM (
-              SELECT k,rh,c FROM b
-              EXCEPT
-              SELECT k,rh,c FROM a
-            )
-        """).fetchone()[0]
-        return {
-            "comparison_method":"logical_key_multiset",
-            "logical_key":"DATA DO PREGAO + CODBDI + CODNEG + TPMERC",
-            "bloom_distinct_logical_keys":a_keys,
-            "b3_distinct_logical_keys":b_keys,
-            "common_logical_keys":common_keys,
-            "bloom_only_key_hash_rows":divergence,
-            "b3_only_key_hash_rows":reverse,
-            "content_mismatch_samples":mismatches
-        }
+        pa=os.path.join(td,"a.records"); pb=os.path.join(td,"b.records")
+        with open(pa,"wb") as fa:
+            for r in records(a):
+                fa.write(hashlib.sha256(r).digest()); ca+=1
+        with open(pb,"wb") as fb:
+            for r in records(b):
+                fb.write(hashlib.sha256(r).digest()); cb+=1
+        # Sort fixed 32-byte digests externally without loading raw records into memory.
+        sa=sorted(open(pa,"rb").read()[i:i+32] for i in range(0,os.path.getsize(pa),32))
+        sb=sorted(open(pb,"rb").read()[i:i+32] for i in range(0,os.path.getsize(pb),32))
+        ia=ib=0
+        while ia<len(sa) and ib<len(sb):
+            if sa[ia]==sb[ib]: ia+=1; ib+=1
+            elif sa[ia]<sb[ib]:
+                if len(only_a)<10: only_a.append(sa[ia].hex())
+                ia+=1
+            else:
+                if len(only_b)<10: only_b.append(sb[ib].hex())
+                ib+=1
+        while ia<len(sa):
+            if len(only_a)<10: only_a.append(sa[ia].hex())
+            ia+=1
+        while ib<len(sb):
+            if len(only_b)<10: only_b.append(sb[ib].hex())
+            ib+=1
+        for d in sa: ha.update(d)
+        for d in sb: hb.update(d)
+    return {
+        "comparison_method":"order_independent_full_record_multiset",
+        "record_identity":"complete 245-byte record type 01",
+        "common_date_max":common_max,
+        "bloom_common_record01_count":ca,
+        "b3_common_record01_count":cb,
+        "bloom_common_multiset_sha256":ha.hexdigest(),
+        "b3_common_multiset_sha256":hb.hexdigest(),
+        "bloom_only_record_hash_samples":only_a,
+        "b3_only_record_hash_samples":only_b,
+        "exact_common_multiset":ca==cb and not only_a and not only_b
+    }
 
 def main():
     with open(MANIFEST,encoding="utf-8") as f: manifest=json.load(f)
     bloom_meta=next(d for d in manifest["datasets"] if d["id"]=="B3_COTACOES")
     with tempfile.TemporaryDirectory() as td:
         b3=os.path.join(td,"COTAHIST_A2026.ZIP")
-        req=urllib.request.Request(B3URL,headers={"User-Agent":"BLOOMBERG_MAIL-REC001/1.2"})
+        req=urllib.request.Request(B3URL,headers={"User-Agent":"BLOOMBERG_MAIL-REC001/1.3"})
         with urllib.request.urlopen(req,timeout=300) as r, open(b3,"wb") as f:
             for x in iter(lambda:r.read(1024*1024),b""): f.write(x)
-        bs=inspect(BLOOM); ss=inspect(b3); cmp=compare_by_key(BLOOM,b3)
-        exact=cmp["bloom_only_key_hash_rows"]==0 and cmp["b3_only_key_hash_rows"]==0
-        if exact and ss["date_max"] < bs["date_max"]:
+        bs=inspect(BLOOM); ss=inspect(b3)
+        common_max=min(bs["date_max"],ss["date_max"])
+        cmp=compare_common_date_multiset(BLOOM,b3,common_max)
+        if cmp["exact_common_multiset"] and ss["date_max"] < bs["date_max"]:
             result="PASS_OVERLAP_EXACT"
-        elif exact and ss["date_max"] == bs["date_max"]:
+        elif cmp["exact_common_multiset"] and ss["date_max"] == bs["date_max"]:
             result="PASS_EXACT"
         else:
             result="FAIL_CONTENT_DIVERGENCE"
         evidence={
-          "schema_version":"1.2-rec001-b3-cross-repo",
+          "schema_version":"1.3-rec001-b3-cross-repo",
           "result":result,"raw_preserved":True,
-          "comparison_scope":"COTAHIST record type 01; logical-key multiset comparison; headers/trailers excluded",
+          "comparison_scope":"COTAHIST record type 01; order-independent full-record multiset over common trading-date range; headers/trailers excluded",
           "bloomberg_mail":{"path":BLOOM,"zip_sha256":sha(BLOOM),"retrieval_timestamp_utc":bloom_meta.get("retrieval_timestamp_utc"),
                             "source_url":bloom_meta.get("source_url"),"stats":bs},
           "b3":{"url":B3URL,"zip_sha256":sha(b3),"stats":ss},
-          "temporal_evidence":{"bloomberg_mail_generation_date":bs["generation_date"],"b3_generation_date":ss["generation_date"]},
+          "temporal_evidence":{"bloomberg_mail_generation_date":bs["generation_date"],"b3_generation_date":ss["generation_date"],
+                               "common_date_min":bs["date_min"],"common_date_max":common_max},
           "comparison":cmp,
           "promotion_impact":"REC001_B3_PASS_OVERLAP" if result=="PASS_OVERLAP_EXACT" else ("REC001_B3_PASS" if result=="PASS_EXACT" else "BLOCKED_CONTENT_DIVERGENCE")
         }
