@@ -211,3 +211,8 @@ O workflow foi restaurado para **manual-only** no commit `8fa83affe269be1e746d83
 A evidência FAIL existente é preservada como histórico e não deve ser sobrescrita como se fosse uma execução posterior.
 
 **REC-001 de integração permanece bloqueado.**
+
+
+## 2026-10-08 — Gate Conjunto 005N 5/5 — PASS
+
+Run #7 (`37776431192`) concluído com SUCCESS. O gate 5/5 confirmou os cinco datasets normalizados, SHA RAW compatível, derivados presentes, integridade gzip e validações individuais PASS. Foram corrigidos o mapeamento B3/BCB, o escape literal que invalidava o executor e a lógica permissiva de validação individual. RAW permanece imutável. A evidência está em `VALIDACAO_GATE_CONJUNTO_005N_5X5.json`. O workflow foi restaurado para execução manual. Próxima etapa: REC-001 integração cross-source controlada.
