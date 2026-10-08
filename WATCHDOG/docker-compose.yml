@@ -1,0 +1,14 @@
+services:
+  watchdog:
+    image: python:3.12-slim
+    container_name: bloomberg-mail-watchdog
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: ["python","WATCHDOG/scripts/watchdog.py"]
+    environment:
+      WATCHDOG_B3_ENDPOINT: "${WATCHDOG_B3_ENDPOINT:-}"
+      WATCHDOG_CRYPTO_ENDPOINT: "${WATCHDOG_CRYPTO_ENDPOINT:-}"
+      WATCHDOG_BLOOMBERG_MAIL_ENDPOINT: "${WATCHDOG_BLOOMBERG_MAIL_ENDPOINT:-}"
+      WATCHDOG_ALERT_WEBHOOK: "${WATCHDOG_ALERT_WEBHOOK:-}"
