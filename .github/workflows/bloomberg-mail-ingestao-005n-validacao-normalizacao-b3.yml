@@ -2,6 +2,10 @@ name: BLOOMBERG_MAIL — INGESTÃO 005N — Validação Independente Normalizaç
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/validacao_normalizacao_b3_005.py'
+      - '.github/workflows/bloomberg-mail-ingestao-005n-validacao-normalizacao-b3.yml'
 
 permissions:
   contents: write
