@@ -56,3 +56,20 @@ Prioridade máxima: recuperar o catálogo técnico “ExternalCodeListiMercadoMo
 ## Estado
 
 **RECONCILIAÇÃO AVANÇADA — EVIDÊNCIA OFICIAL SUFICIENTE PARA FORMULAR HIPÓTESE FORTE, MAS NÃO PARA PROMOVER TPMERC=021 AINDA.**
+
+
+## Atualização da pesquisa — 2026-10-08
+
+Nova verificação nas fontes oficiais B3 confirmou que a página de Soluções de Blocos lista explicitamente:
+
+- alteração de catálogo: BVBG.028;
+- material de apoio `ExternalCodeListiMercadoModuloArquivos - v1 17022023`, formato sheet, 183 KB, datado de 17/02/2023;
+- material `ExternalCodeLists_iMERCADO - v1 17022023`, formato sheet, 560 KB, datado de 17/02/2023.
+
+A página oficial também informa que o CE 016/2023-VNC introduziu o domínio 21 — BLOCK LOT no campo Market do BVBG.028.02. A própria página não expõe, no conteúdo recuperado publicamente, o URL direto do arquivo sheet para inspeção independente.
+
+A busca adicional por `TPMERC`, `021` e `BLOCK LOT` nas páginas públicas B3 não encontrou documento oficial que faça a equivalência textual direta entre o campo TPMERC do COTAHIST e o domínio Market=21. Portanto, a hipótese permanece forte, porém não é prova direta.
+
+### Conclusão operacional atualizada
+
+**NÃO alterar ainda o conjunto autorizado de TPMERC no validador.** O próximo passo correto é obter o catálogo técnico do domínio Market ou um documento B3 que contenha simultaneamente COTAHIST/TPMERC e BLOCK LOT/21. Até isso ocorrer, o FAIL determinístico dos 1.696 registros TPMERC=021 deve ser preservado como comportamento correto do gate.
