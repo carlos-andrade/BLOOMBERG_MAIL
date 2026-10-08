@@ -3,6 +3,17 @@
 > Cabeçalho histórico — 2026-10-07.  
 > Status: ESPECIFICAÇÃO DE AQUISIÇÃO — nenhum dado de mercado foi fabricado.
 
+## Política incremental permanente
+
+Todas as bases adquiridas pela INGESTÃO 005 devem receber **incrementos** para permanecerem atualizadas. Snapshots são referências e não substituem a sequência incremental.
+
+- [Carta — Política Incremental das Bases](./CARTA_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md)
+- [Layout — Política Incremental das Bases](./LAYOUT_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md)
+- [Status — Política Incremental](./STATUS_POLITICA_INCREMENTAL_BASES_2026-10-08.md)
+- [Carta — Alinhamento Incremental B3](./CARTA_ALINHAMENTO_INCREMENTAL_B3_V1_0_2026-10-08.md)
+
+A regra abrange B3, CVM, BCB/SGS, Tesouro Direto e VIX. Cada incremento deve manter RAW, proveniência, SHA-256, validação e reconciliação quando aplicável.
+
 ## Objetivo
 
 Iniciar a aquisição histórica controlada para testar H1–H4, preservando separação entre fonte, RAW e NORMALIZADO.
