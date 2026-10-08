@@ -3,7 +3,7 @@
 > Cabeçalho histórico — 2026-10-07.
 
 - Endpoint oficial: https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip
-- Observado UTC: 2026-10-08T12:54:49.187165+00:00
+- Observado UTC: 2026-10-08T12:57:26.211202+00:00
 - RAW preservado: True
 - SHA RAW: 72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306
 - SHA endpoint independente: 4b0ab625aa94267968e841c8c1fc2acbcc40b3fe111213b3f9852a832095212f

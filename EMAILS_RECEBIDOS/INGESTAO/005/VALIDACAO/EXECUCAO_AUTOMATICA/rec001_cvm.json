@@ -2,7 +2,7 @@
   "dataset": "CVM_OFERTAS",
   "result": "SOURCE_UPDATED_SINCE_RAW",
   "endpoint": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
-  "observed_at_utc": "2026-10-08T12:54:49.187165+00:00",
+  "observed_at_utc": "2026-10-08T12:57:26.211202+00:00",
   "raw_sha256": "72574a340f39da1d9f541647d5f9e740754a607344b6f979eb4c32c64a91c306",
   "endpoint_sha256": "4b0ab625aa94267968e841c8c1fc2acbcc40b3fe111213b3f9852a832095212f",
   "raw_preserved": true,
