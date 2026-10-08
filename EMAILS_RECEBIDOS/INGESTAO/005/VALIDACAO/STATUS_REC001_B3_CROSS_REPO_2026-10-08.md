@@ -33,6 +33,20 @@ O executor:
 7. distingue igualdade exata, igualdade por sobreposição temporal e divergência de conteúdo;
 8. grava evidência JSON no repositório central.
 
+## Atualização da implementação — política incremental
+
+A regra permanente de atualização incremental foi formalizada em:
+- `EMAILS_RECEBIDOS/INGESTAO/005/CARTA_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md`
+- `EMAILS_RECEBIDOS/INGESTAO/005/LAYOUT_POLITICA_INCREMENTAL_BASES_V1_0_2026-10-08.md`
+
+Para este REC-001, o executor foi reforçado para:
+- comparar somente registros COTAHIST tipo 01;
+- excluir cabeçalho/trailer da igualdade de conteúdo, pois são metadados do arquivo;
+- registrar data de geração dos dois arquivos;
+- registrar o timestamp de aquisição do BLOOMBERG_MAIL;
+- calcular a diferença entre datas de geração quando disponíveis;
+- classificar somente em `PASS_EXACT`, `PASS_OVERLAP_EXACT` ou `FAIL_CONTENT_DIVERGENCE`, mantendo bloqueio quando não houver evidência.
+
 ## Resultado desta tentativa
 A execução controlada foi preparada e disparada por alteração do executor, mas a evidência de saída não foi materializada no repositório dentro da janela de verificação. Portanto:
 
