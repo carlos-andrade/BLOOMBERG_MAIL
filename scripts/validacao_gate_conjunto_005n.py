@@ -85,7 +85,10 @@ def main() -> int:
         c["duplicate_count"] = m.get("duplicate_count", m.get("duplicates", m.get("physical_counts", {}).get("duplicates")))
         c["missing_count"] = m.get("missing_count", m.get("missing_record_field_count"))
 
-        acq_id = "B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else (\n            "BCB_SGS" if dataset_id == "BCB_SGS_1178" else dataset_id\n        )\n        expected_raw = acq_map.get(acq_id)
+        acq_id = "B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else (
+            "BCB_SGS" if dataset_id == "BCB_SGS_1178" else dataset_id
+        )
+        expected_raw = acq_map.get(acq_id)
         if not expected_raw:
             errors.append(f"{dataset_id}: não encontrado no manifesto de aquisição")
         else:
