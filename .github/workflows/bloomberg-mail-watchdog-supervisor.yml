@@ -1,0 +1,42 @@
+name: BLOOMBERG_MAIL — WATCHDOG Supervisor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bloomberg-mail-watchdog-supervisor
+  cancel-in-progress: true
+
+jobs:
+  supervisor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python syntax check
+        run: python -m py_compile WATCHDOG/scripts/watchdog.py
+
+      - name: Contract validation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          schema = json.loads(Path("WATCHDOG/schema/event.schema.json").read_text())
+          config = json.loads(Path("WATCHDOG/config/watchdog.example.json").read_text())
+          assert schema["properties"]["severity"]["enum"] == ["INFO","LOW","MEDIUM","HIGH","CRITICAL"]
+          assert config["heartbeat_interval_seconds"] > 0
+          assert config["sources"]
+          print("WATCHDOG contract OK")
+          PY
+
+      - name: Supervisor note
+        run: |
+          echo "WATCHDOG supervisor check OK"
+          echo "GitHub Actions is auxiliary supervision, not the production 24x7 runtime."
