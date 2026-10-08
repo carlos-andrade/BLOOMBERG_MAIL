@@ -202,4 +202,3 @@ def main() -> int:
 if __name__ == "__main__":
     raise SystemExit(main())
 
-# controle de disparo 005N: execução determinística pós-correção.
