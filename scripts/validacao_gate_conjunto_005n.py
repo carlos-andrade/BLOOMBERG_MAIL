@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """BLOOMBERG_MAIL — Gate Conjunto 005N — validação determinística 5/5."""
+# revisão de execução: paths derivados B3 são relativos à subpasta B3.
 
 from __future__ import annotations
 
