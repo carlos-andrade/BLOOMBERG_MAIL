@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0-b3-normalization-validation",
+  "status": "PASS",
+  "dataset_id": "B3_COTAHIST_A2026",
+  "raw_path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+  "raw_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+  "parser_version": "normalizacao-005-b3-v1.0",
+  "manifest_path": "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/b3_cotahist_normalizado.json",
+  "checks": {
+    "raw_sha_match": true,
+    "manifest_parser_match": true,
+    "partition_count": 31,
+    "record_count": 3070831,
+    "record_count_expected": 3070831,
+    "tpmerc_021_count": 1696,
+    "tpmerc_021_expected": 1696,
+    "duplicate_count": 9675,
+    "missing_field_count": 0,
+    "invalid_json_records": 0,
+    "invalid_dates": 0,
+    "invalid_decimals": 0,
+    "tpmerc_021_semantics_errors": 0
+  },
+  "policy": {
+    "raw_immutable": true,
+    "economic_adjustment": false,
+    "interpolation": false,
+    "invention": false
+  }
+}
