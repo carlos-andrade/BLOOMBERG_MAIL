@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# execution revision 2026-10-08
 import hashlib, json, os, tempfile, urllib.request, zipfile
 from datetime import datetime
 
