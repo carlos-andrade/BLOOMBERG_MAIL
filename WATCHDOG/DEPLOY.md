@@ -1,3 +1,51 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO_TECNICO"
+fase: "FASE-01-WATCHDOG"
+id_documento: "BLOOMBERG-MAIL-WATCHDOG-DEPLOY-MD"
+titulo: "WATCHDOG — Deploy 24x7"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-08"
+data_atualizacao: "2026-10-08"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "WATCHDOG/DEPLOY.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# WATCHDOG — Deploy 24x7
+
+## Contexto Histórico
+
+Documento do WATCHDOG integrado à governança documental central de carlos-andrade.
+
+## Estado
+
+IMPLEMENTADO.
+
+## Evidências
+
+Modelo canônico de cabeçalho do projeto Curioso-da-Internet-IA.
+
+## Validação
+
+Front Matter YAML e seções de rastreabilidade aplicados.
+
+## Resultado
+
+Documento normalizado.
+
+## Próxima Ação
+
+Atualizar versão, data e rastreabilidade em alterações relevantes.
+
+---
+
 # WATCHDOG — Deploy 24x7
 
 ## Cabeçalho histórico
