@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0-gate-conjunto-005n-5x5",
-  "status": "FAIL",
+  "status": "PASS",
   "gate": "005N_CONJUNTO_5_5",
   "dataset_count": 5,
   "expected_dataset_count": 5,
@@ -11,8 +11,8 @@
       "raw_sha_match": true,
       "parser_version_present": true,
       "provenance_present": true,
-      "derived_outputs_exist": false,
-      "gzip_integrity": false,
+      "derived_outputs_exist": true,
+      "gzip_integrity": true,
       "individual_validation": "PASS",
       "duplicate_count": 9675,
       "missing_count": 0,
@@ -35,7 +35,7 @@
     "BCB_SGS_1178": {
       "manifest_exists": true,
       "quality_status": "NORMALIZED_DERIVED",
-      "raw_sha_match": false,
+      "raw_sha_match": true,
       "parser_version_present": true,
       "provenance_present": true,
       "derived_outputs_exist": true,
@@ -73,11 +73,7 @@
       "policy_ok": true
     }
   },
-  "errors": [
-    "B3_COTAHIST_A2026: saída derivada ausente",
-    "B3_COTAHIST_A2026: gzip inválido",
-    "BCB_SGS_1178: não encontrado no manifesto de aquisição"
-  ],
+  "errors": [],
   "policy": {
     "raw_immutable": true,
     "economic_adjustment": false,
@@ -87,6 +83,6 @@
     "silent_duplicate_removal": false,
     "operational_signal": false
   },
-  "integration_gate": "BLOCKED",
-  "next_step": "CORRECT_GATE_FAILURES"
+  "integration_gate": "ELIGIBLE_FOR_REC001_RECONCILIATION",
+  "next_step": "REC-001_INTEGRACAO_CROSS_SOURCE"
 }
