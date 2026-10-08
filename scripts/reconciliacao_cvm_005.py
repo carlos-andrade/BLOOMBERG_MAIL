@@ -59,7 +59,7 @@ def main() -> int:
 
 A reconciliação baixa o arquivo atual para área temporária, calcula SHA-256 independentemente e nunca substitui o RAW. Igualdade é PASS; divergência é classificada como atualização da fonte e mantém a promoção bloqueada.
 """,encoding="utf-8")
-    return 0 if status in {"PASS","SOURCE_UPDATED_SINCE_RAW"} else 1
+    return 0 if status == "PASS" else 1
 
 if __name__=="__main__":
     raise SystemExit(main())
