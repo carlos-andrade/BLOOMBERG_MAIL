@@ -1,3 +1,51 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO_TECNICO"
+fase: "FASE-01-WATCHDOG"
+id_documento: "BLOOMBERG-MAIL-WATCHDOG-README-MD"
+titulo: "BLOOMBERG_MAIL — WATCHDOG"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-08"
+data_atualizacao: "2026-10-08"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "WATCHDOG/README.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# BLOOMBERG_MAIL — WATCHDOG
+
+## Contexto Histórico
+
+Este documento pertence ao projeto BLOOMBERG_MAIL e passa a obedecer ao padrão de cabeçalho canônico adotado na governança de carlos-andrade.
+
+## Estado
+
+IMPLEMENTADO — cabeçalho normalizado em 2026-10-08.
+
+## Evidências
+
+Modelo canônico: carlos-andrade/Curioso-da-Internet-IA/CABEÇALHO/MODELO-PADRAO-CABECALHO.md.
+
+## Validação
+
+Estrutura revisada para Front Matter YAML, identificação documental, contexto histórico, estado, evidências, validação, resultado e próxima ação.
+
+## Resultado
+
+Documento integrado à governança documental central.
+
+## Próxima Ação
+
+Manter o cabeçalho atualizado em toda alteração relevante.
+
+---
+
 # BLOOMBERG_MAIL — WATCHDOG
 
 ## Cabeçalho histórico
