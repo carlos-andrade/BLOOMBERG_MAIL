@@ -84,7 +84,7 @@ def main() -> int:
         c["duplicate_count"] = m.get("duplicate_count", m.get("duplicates", m.get("physical_counts", {}).get("duplicates")))
         c["missing_count"] = m.get("missing_count", m.get("missing_record_field_count"))
 
-        expected_raw = acq_map.get("B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else dataset_id)
+        acq_id = "B3_COTACOES" if dataset_id == "B3_COTAHIST_A2026" else ("BCB_SGS" if dataset_id == "BCB_SGS_1178" else dataset_id)\n        expected_raw = acq_map.get(acq_id)
         if not expected_raw:
             errors.append(f"{dataset_id}: não encontrado no manifesto de aquisição")
         else:
@@ -99,7 +99,7 @@ def main() -> int:
             outputs = [x.get("output_file") for x in m["members"] if x.get("output_file")]
 
         if outputs:
-            paths = [NORM / dataset_id if False else NORM / p for p in outputs]
+            paths = [(NORM / "B3" / p) if dataset_id == "B3_COTAHIST_A2026" else (NORM / p) for p in outputs]
             # CVM/Tesouro/B3 paths are relative to NORMALIZADO.
             c["derived_outputs_exist"] = all(p.exists() for p in paths)
             c["gzip_integrity"] = all(gzip_ok(p) for p in paths if p.suffix == ".gz")
