@@ -2,9 +2,6 @@ name: BLOOMBERG_MAIL — INGESTÃO 005E — REC-001 CVM
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/bloomberg-mail-ingestao-005e-rec001-cvm.yml'
 
 permissions:
   contents: write
