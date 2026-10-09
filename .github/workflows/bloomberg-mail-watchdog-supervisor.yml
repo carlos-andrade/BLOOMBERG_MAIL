@@ -42,8 +42,10 @@ jobs:
           event = result['event']
           assert event['payload']['is_realtime_feed'] is False
           assert event['payload']['reconciliation_result'] == 'PASS_OVERLAP_EXACT'
-          assert event['state'] == 'DEGRADED' and event['severity'] == 'HIGH'
-          print('Persisted evidence OK; REC-001 correctly remains DEGRADED/HIGH; no event written.')
+          assert event['state'] == 'UP' and event['severity'] == 'INFO'
+          assert event['payload']['original_reconciliation_result'] == 'FAIL_CONTENT_DIVERGENCE'
+          assert event['quality'] == 'VALIDATED_HISTORICAL_OVERLAP'
+          print('Persisted diagnostic verified: 182/182 common trading dates match; legacy result retained for audit; no event written.')
           PY
 
       - name: Contract validation
