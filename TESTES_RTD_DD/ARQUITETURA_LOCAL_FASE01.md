@@ -6,43 +6,57 @@ fase: "FASE-01-PREPARACAO-LOCAL"
 id_documento: "BLOOMBERG-MAIL-ARQ-LOCAL-RTD-001"
 titulo: "Arquitetura local — RTD/Profit e sincronização Git manual"
 status: "PREPARACAO_LOCAL_EXECUTADA; REVISAO_GIT_E_CAPTURA_PENDENTES"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
-origem: "Aprovação do utilizador para arquitetura local"
-autoridade_documental: "GOVERNANÇA"
+origem: "Aprovação do utilizador e saída PowerShell fornecida pelo utilizador"
+autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-escopo: "Ambiente Windows local e preparação segura do clone Git"
+rastreabilidade: "TESTES_RTD_DD/VERIFICACAO_FASE01_AMBIENTE_LOCAL_2026-10-09.md; scripts/windows/preparar_ambiente_local.ps1"
+escopo: "Preparação segura do ambiente Windows local e clone Git; não inclui implementação do gravador RTD"
+objetivo: "Registar arquitetura, validação local, proteções e gates para a futura captura RTD/Profit"
+dependencias: "Windows; Git for Windows; Excel e Profit instalados para os testes operacionais; confirmação dos direitos de armazenamento"
 ---
 
 # Arquitetura local — RTD/Profit e sincronização Git manual
 
-## 1. Contexto histórico
+> **Projeto:** BLOOMBERG_MAIL  
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL  
+> **Tipo:** ARQUITETURA_OPERACIONAL_LOCAL  
+> **Fase:** FASE-01-PREPARACAO-LOCAL  
+> **ID:** BLOOMBERG-MAIL-ARQ-LOCAL-RTD-001  
+> **Status:** PREPARACAO_LOCAL_EXECUTADA; REVISAO_GIT_E_CAPTURA_PENDENTES  
+> **Versão:** 1.2  
+> **Criação:** 2026-10-09  
+> **Atualização:** 2026-10-09  
+> **Origem:** Aprovação do utilizador e saída PowerShell fornecida pelo utilizador  
+> **Autoridade:** LAYOUT  
+> **Rastreabilidade:** TESTES_RTD_DD/VERIFICACAO_FASE01_AMBIENTE_LOCAL_2026-10-09.md; scripts/windows/preparar_ambiente_local.ps1
 
-Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL com os seguintes parâmetros:
-- Raiz Windows confirmada pelo utilizador: `D:\BLOOMBERG_MAIL`
-- Repositório GitHub: público, `carlos-andrade/BLOOMBERG_MAIL`
-- Captura futura: por alteração observada
-- Sincronização Git: manual
-- Preservação obrigatória: não modificar nem substituir os ficheiros RTD existentes nesta fase.
+## Contexto Histórico
 
-A preparação local foi executada pelo utilizador em 2026-10-09. A saída do PowerShell confirmou a criação do clone e das pastas. A verificação local é evidência fornecida pelo utilizador, não execução remota deste assistente.
+Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL. A raiz Windows definida pelo utilizador é `D:\BLOOMBERG_MAIL`; o repositório central é público e a sincronização Git permanece manual. O workbook RTD original deve ser preservado nesta fase.
 
-## 2. Inspeção inicial
+A preparação foi executada pelo utilizador em 2026-10-09. A saída do PowerShell confirmou a criação do clone e das pastas. Esta evidência foi fornecida pelo utilizador e não resulta de acesso remoto ao computador Windows.
 
-Na inspeção de `main` foram encontrados, entre outros:
-- `TESTES_RTD_DD/RDT_PROFIT.xlsx`
-- auditoria estática do workbook e evidências CSV/Markdown;
-- `WATCHDOG/ARQUITETURA.md`, documentação de deploy e cartas/layouts de feeds;
-- `scripts/`, `GOVERNANCA/`, `FONTES/`, `INTELIGENCIA/`, `EMAILS_RECEBIDOS/` e workflows em `.github/workflows/`.
+## Estado
 
-Não foi encontrado um `.gitignore` na raiz. Já existe `WATCHDOG/.gitignore`, que não substitui uma política geral da raiz.
+- Preparação de diretórios: EXECUTADA.
+- Clone Git: criado em `D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL`.
+- Branch/commit reportados: `main`, `56ee032`.
+- Estado reportado: `## main...origin/main`, sem alterações locais.
+- Remoto: `https://github.com/carlos-andrade/BLOOMBERG_MAIL.git`.
+- Captura RTD: NÃO IMPLEMENTADA nem ativa.
+- Direitos/licença para armazenamento persistente: PENDENTES.
+- PR #1: draft; não incorporada em `main`.
 
-A auditoria disponível indica 36 fórmulas RTD, 38 colunas e o identificador `WINFUT_F_0`; a atualização ao vivo e a reconexão continuam por validar no computador com Profit.
+## Evidências
 
-## 3. Estrutura local
+O utilizador reportou estas pastas locais: `dados_locais/RAW`, `HISTORICO`, `NORMALIZADOS`, `QUARENTENA`, `MANIFESTOS`, bem como `logs`, `backups` e `configuracao_local`. Também reportou os ficheiros `RDT_PROFIT.xlsx` e `~$RDT_PROFIT.xlsx` na raiz local.
 
-O script `scripts/windows/preparar_ambiente_local.ps1` prepara esta estrutura sem eliminar conteúdos existentes:
+O script reportou que não abriu nem modificou o workbook, não executou commit/push e não ativou captura. Não foi feita uma nova inspeção binária do workbook após a execução.
+
+Estrutura local pretendida:
 
 ```text
 D:\BLOOMBERG_MAIL\
@@ -61,94 +75,34 @@ D:\BLOOMBERG_MAIL\
 └── configuracao_local\
 ```
 
-Os dados operacionais ficam fora do clone Git. Esta separação reduz o risco de adicionar acidentalmente dados de mercado, logs e backups ao repositório público.
+## Validação
 
-## 4. Comportamento do script de preparação
+O script `scripts/windows/preparar_ambiente_local.ps1` verifica Git e remoto, cria apenas diretórios em falta e clona apenas quando o destino não existe. Não faz pull, commit, push, não inicia a captura e não abre nem altera o Excel.
 
-O script:
-1. verifica se o comando `git` está disponível;
-2. verifica, antes de usar um clone existente, se o destino é um repositório Git e se o remoto `origin` corresponde ao projeto esperado;
-3. cria apenas diretórios em falta;
-4. clona o repositório apenas quando o destino ainda não existe;
-5. não faz pull, commit, push nem inicia a captura;
-6. não abre nem altera o Excel;
-7. falha de forma explícita se encontrar um destino ambíguo ou um remoto inesperado.
+A branch local `main` foi clonada antes da incorporação desta PR. Portanto, o `.gitignore` adicionado na branch de trabalho não está garantidamente presente no clone local até que a PR seja incorporada e o clone seja sincronizado. O `.gitignore` também não remove ficheiros já rastreados.
 
-Execução prevista em PowerShell:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-& "D:\CAMINHO\PARA\preparar_ambiente_local.ps1"
-```
-
-O utilizador deve substituir o caminho pelo local onde guardou o script obtido do repositório. A política de execução é alterada apenas para o processo atual; não se recomenda alterar a política global do Windows.
-
-## 5. Política Git e publicação
-
-A sincronização é manual. Antes de qualquer commit:
-1. executar `git status --short --branch`;
-2. rever a lista de ficheiros alterados;
-3. confirmar que não há dados brutos, credenciais, logs operacionais ou configurações privadas;
-4. adicionar apenas caminhos aprovados;
-5. rever o diff e os ficheiros staged;
-6. criar commit com mensagem específica;
-7. executar `git push` apenas depois da revisão;
-8. confirmar o SHA do commit publicado.
-
-Comandos de inspeção:
+Comandos para nova verificação local:
 
 ```powershell
 git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" status --short --branch
-git -C "C:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" remote -v
-git -C "C:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais logs backups configuracao_local
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" remote -v
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais logs backups configuracao_local
 ```
 
-O último comando é uma verificação útil apenas para caminhos dentro do clone. A arquitetura recomendada mantém os dados operacionais fora do clone desde o início.
+## Resultado
 
-## 6. Política de exclusão
+A preparação local e a validação do clone estão confirmadas com base na saída do utilizador. A revisão documental encontrou caminhos antigos em `C:\BLOOMBERG_MAIL`; esta versão corrige os comandos para a raiz efetiva em D:. A validação CI do repositório falhou porque o validador atual identificou numerosos documentos pré-existentes com cabeçalhos incompletos; esta falha não deve ser ocultada nem considerada aprovada.
 
-O `.gitignore` da raiz exclui pastas locais comuns, segredos, caches e livros `.xlsm` por defeito. O workbook original `RDT_PROFIT.xlsx` permanece rastreável porque é um ficheiro existente do projeto e não se aplica uma exclusão geral a `.xlsx`.
+A publicação desta PR continua em draft até a revisão de CI e a governação documental estarem resolvidas. Nenhum ficheiro de mercado bruto deve ser publicado sem revisão dos direitos de armazenamento e aprovação explícita.
 
-Importante: `.gitignore` não remove do Git ficheiros que já estejam rastreados. Antes de publicar, deve-se verificar o estado real com `git status` e rever o conteúdo a adicionar. Não executar `git add .` como procedimento de publicação.
+## Próxima Ação
 
-O repositório é público. Nenhum dado bruto de mercado ou conteúdo de email deve ser publicado sem avaliação dos direitos de armazenamento/redistribuição e aprovação explícita.
+1. Rever o resultado do validador documental e definir uma migração controlada para os documentos preexistentes, sem alterar 99 documentos em lote sem plano aprovado.
+2. Confirmar os controlos de integração no GitHub.
+3. Após a revisão, incorporar as proteções Git e sincronizar o clone local.
+4. Mapear as células RTD e desenhar o gravador por alteração observável.
+5. Testar deduplicação, timestamps, interrupção e reconexão.
+6. Rever os direitos de utilização antes de qualquer armazenamento persistente ou publicação.
 
-## 7. Captura por alteração — fora do âmbito da Fase 1
-
-A captura por alteração não está implementada nem ativa nesta fase. O futuro gravador deverá:
-- preservar as fórmulas RTD atuais;
-- detetar mudanças observáveis em campos selecionados, evitando duplicados causados por recálculo;
-- gravar os valores como dados estáticos num arquivo local;
-- registar falhas e reconexões sem inventar ticks perdidos;
-- manter separados timestamp da fonte e timestamp local de observação;
-- gerar manifestos com contagens e hashes;
-- permanecer independente do acesso à Internet/GitHub.
-
-O Excel/RTD pode expor apenas uma parte das mudanças que ocorreram no mercado. A captura por alteração não equivale a uma garantia de captura integral de todos os negócios/ticks.
-
-## 8. Critérios de aceitação da Fase 1
-
-- [x] Script descarregado e executado no computador Windows (a cópia do script está em Downloads; o clone local contém main).
-- [x] Estrutura criada no Windows; diretórios esperados confirmados pela saída PowerShell.
-- [x] Clone validado e remoto confirmado pela saída PowerShell.
-- [x] Diretórios de dados/logs/backups/configuração criados ao lado do clone, fora dele.
-- [ ] `.gitignore` da raiz verificado no clone.
-- [x] O script informou que não abriu nem modificou o workbook; a integridade binária posterior não foi revalidada.
-- [x] Nenhum commit/push local executado pelo script.
-- [x] Evidência da execução registada em VERIFICACAO_FASE01_AMBIENTE_LOCAL_2026-10-09.md.
-
-## 9. Roadmap
-
-| Fase | Objetivo | Estado |
-|---|---|---|
-| 0 | Inspeção e arquitetura | CONCLUÍDA |
-| 1 | Preparação local | EXECUTADA; alinhar documentação e incorporar proteções Git após revisão |
-| 2 | Desenho e implementação do gravador RTD | BLOQUEADA até confirmar a estrutura e mapear as células |
-| 3 | Arquivo, deduplicação, reconexão e validação | PENDENTE |
-| 4 | Publicação Git manual por lista autorizada | PENDENTE |
-
-## 10. Resultado
-
-Foram preparados o `.gitignore` da raiz e um script idempotente. O utilizador executou o script e confirmou o clone em `main`, o remoto `origin` e as pastas locais. A preparação de diretórios está concluída. A revisão da branch do PR, a incorporação do `.gitignore` no clone local e os testes RTD continuam pendentes.
-
-Na validação inicial do utilizador, `D:\BLOOMBERG_MAIL` contém `RDT_PROFIT.xlsx` e o ficheiro temporário do Excel, mas não foi encontrado um clone Git nas subpastas imediatas. O script foi ajustado para usar D: por omissão. A próxima ação é executar a preparação ajustada e validar o clone sem tocar no workbook original. Só depois deve começar o desenho do gravador de alterações RTD.
+---
+Documento operacional. A preparação de ambiente não equivale a validar o funcionamento do RTD em tempo real.
