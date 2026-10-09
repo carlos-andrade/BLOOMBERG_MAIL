@@ -14,7 +14,23 @@ autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # TESTES_RTD_DD
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** README_GOVERNANCA_DE_EVIDENCIAS
+> **Fase:** FASE-03-FEED-INTRADAY
+> **ID:** BLOOMBERG-MAIL-TESTES-RTD-DD-README
+> **Status:** ATIVO
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** Decisão do utilizador
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** N/A
+
 
 ## Finalidade
 
