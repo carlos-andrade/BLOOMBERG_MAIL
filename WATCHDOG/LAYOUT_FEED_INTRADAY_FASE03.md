@@ -6,7 +6,7 @@ fase: "FASE-03-FEED-INTRADAY"
 id_documento: "BLOOMBERG-MAIL-LAYOUT-FEED-INTRADAY-FASE03"
 titulo: "Layout único da matriz de avaliação do feed intradiário"
 status: "EM_ANALISE"
-versao: "1.2"
+versao: "1.3"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md"
@@ -26,7 +26,7 @@ dependencias: "WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md"
 > **Fase:** FASE-03-FEED-INTRADAY  
 > **ID:** BLOOMBERG-MAIL-LAYOUT-FEED-INTRADAY-FASE03  
 > **Status:** EM_ANALISE  
-> **Versão:** 1.1  
+> **Versão:** 1.3  
 > **Criação:** 2026-10-09  
 > **Atualização:** 2026-10-09  
 > **Origem:** WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md  
@@ -92,10 +92,10 @@ EM_ANALISE — o layout define a matriz e os gates; não aprova fornecedores nem
 
 ## Resultado
 
-A matriz inicial de triagem foi gravada em `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json`. Ela identifica quatro caminhos: Profit RTD/DDE, ProfitDLL, distribuidores licenciados B3 e acesso direto B3. A classificação é preliminar; não existe fornecedor aprovado, pois acesso real, cobertura, licença, timestamps, freshness e custo ainda exigem evidência específica da conta e do contrato.
+A matriz inicial de triagem foi gravada em `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json`. Ela identifica quatro caminhos: Profit RTD/DDE, ProfitDLL, distribuidores licenciados B3 e acesso direto B3. O utilizador confirmou a presença do menu de exportação do Profit, mas o ensaio funcional permanece por executar. O procedimento `WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md` e o registo `WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json` definem a captura controlada de evidências. Não existe fornecedor aprovado, pois cobertura, campos, timestamps, freshness, recuperação, licença e custo ainda exigem prova específica da conta e do contrato.
 
 O código só é autorizado por atualização posterior da Carta e deste Layout.
 
 ## Próxima Ação
 
-Começar por um teste assistido de RTD/DDE no Profit instalado, se disponível na edição e conta atuais. Guardar evidência de campos exportados, timestamps, latência observada e comportamento em desconexão; verificar separadamente direitos de captura e armazenamento. Não colocar credenciais no repositório. Só depois preencher a decisão e propor eventual `APPROVED`.
+Executar `WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md` no Profit instalado e preencher `WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json` apenas com resultados observados. Guardar evidência redigida de campos, timestamps, latência calculável e comportamento em desconexão; verificar separadamente direitos de captura e armazenamento. Não colocar credenciais no repositório. Só depois preencher a decisão e propor eventual `APPROVED`.
