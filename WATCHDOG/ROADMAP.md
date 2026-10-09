@@ -6,13 +6,13 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
 status: "EM_DESENVOLVIMENTO"
-versao: "1.6"
+versao: "1.7"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
 autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md; WATCHDOG/REC001_CAUSA_RAIZ_001.md; REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json"
+rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md; WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md; WATCHDOG/LAYOUT_FEED_INTRADAY_FASE03.md; REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json"
 escopo: "WATCHDOG/ROADMAP.md"
 objetivo: "Controlar a sequência de implementação e a evidência de cada fase do WATCHDOG."
 dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
@@ -73,7 +73,10 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 - [ ] mini-índice (WIN), mini-dólar (WDO), IBOV, VIX e Tesouro
 - [ ] cripto 24/7
 
-### FASE 03 — Fluxo
+### FASE 03 — Fonte intradiária e fluxo
+- [x] carta de seleção de feed intradiário com gates legais, temporais, de cobertura e integridade
+- [x] layout único da matriz comparativa; código de ingestão continua bloqueado até fonte aprovada
+- [ ] preencher matriz de fornecedores e validar plataforma existente, fonte autorizada, custo, licença e freshness
 - [ ] VWAP/TWAP
 - [ ] cumulative delta
 - [ ] volume financeiro
@@ -111,4 +114,4 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 
 ## Próxima Ação
 
-Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. Em paralelo, selecionar e validar uma fonte de feed intradiário; COTAHIST permanece dado histórico, não tempo real.
+Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. A Carta e o Layout da FASE 03 já estão versionados; próximo passo é preencher a matriz de fontes e validar acesso, licença, cobertura, custos e freshness antes de autorizar código. COTAHIST permanece dado histórico, não tempo real.
