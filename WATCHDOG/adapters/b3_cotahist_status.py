@@ -14,6 +14,7 @@ DEFAULTS = {
     "layout": "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/VALIDACAO_LAYOUT_COTAHIST_A2026.json",
     "normalization": "EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/VALIDACAO_NORMALIZACAO_B3_A2026.json",
     "reconciliation": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_CROSS_REPO_2026-10-08.json",
+    "diagnostic": "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json",
 }
 
 
@@ -39,6 +40,8 @@ def build_event(root: Path) -> dict:
     layout = read_json(root, DEFAULTS["layout"])
     normalization = read_json(root, DEFAULTS["normalization"])
     reconciliation = read_json(root, DEFAULTS["reconciliation"])
+    diagnostic_path = root / DEFAULTS["diagnostic"]
+    diagnostic = read_json(root, DEFAULTS["diagnostic"]) if diagnostic_path.exists() else None
 
     raw_sha = manifest.get("raw_sha256")
     if not isinstance(raw_sha, str) or len(raw_sha) != 64:
@@ -49,10 +52,35 @@ def build_event(root: Path) -> dict:
         if report.get("status") != "PASS":
             raise EvidenceError(f"validação de {label} não está PASS")
 
-    rec_result = reconciliation.get("result")
-    allowed = {"PASS_EXACT", "PASS_OVERLAP_EXACT", "FAIL_CONTENT_DIVERGENCE", "BLOCKED_EXECUTION"}
-    if rec_result not in allowed:
-        raise EvidenceError(f"resultado REC-001 ausente ou desconhecido: {rec_result!r}")
+    original_rec_result = reconciliation.get("result")
+    rec_result = original_rec_result
+    rec_scope = reconciliation.get("comparison_scope")
+    evidence_path = DEFAULTS["reconciliation"]
+    allowed = {"PASS_EXACT", "PASS_OVERLAP_EXACT", "FAIL_CONTENT_DIVERGENCE", "BLOCKED_EXECUTION", "BLOCKED_B3_SNAPSHOT_CHANGED"}
+    if diagnostic is not None:
+        rec_result = diagnostic.get("result")
+        evidence_path = DEFAULTS["diagnostic"]
+        rec_scope = diagnostic.get("comparison_scope")
+        if rec_result not in allowed:
+            raise EvidenceError(f"resultado diagnóstico REC-001 ausente ou desconhecido: {rec_result!r}")
+        if rec_result in {"PASS_EXACT", "PASS_OVERLAP_EXACT"}:
+            bloom = diagnostic.get("bloomberg_mail", {})
+            b3 = diagnostic.get("b3", {})
+            comparison = diagnostic.get("comparison", {})
+            if bloom.get("zip_sha256") != raw_sha:
+                raise EvidenceError("diagnóstico refere SHA-256 diferente do RAW validado")
+            if b3.get("snapshot_hash_matches_manifest_reference") is not True:
+                raise EvidenceError("snapshot B3 não coincide com o hash de referência do manifesto")
+            if comparison.get("exact_common_period") is not True:
+                raise EvidenceError("diagnóstico não confirma igualdade do período comum")
+            if comparison.get("divergent_dates_count") != 0:
+                raise EvidenceError("diagnóstico PASS contém datas divergentes")
+            if not isinstance(comparison.get("dates_tested"), int) or comparison["dates_tested"] < 1:
+                raise EvidenceError("diagnóstico PASS não tem datas testadas válidas")
+            if comparison.get("convergent_dates") != comparison.get("dates_tested"):
+                raise EvidenceError("contagem de pregões convergentes inconsistente")
+    elif original_rec_result not in allowed:
+        raise EvidenceError(f"resultado REC-001 ausente ou desconhecido: {original_rec_result!r}")
 
     quality_pass = rec_result in {"PASS_EXACT", "PASS_OVERLAP_EXACT"}
     state = "UP" if quality_pass else "DEGRADED"
@@ -72,7 +100,7 @@ def build_event(root: Path) -> dict:
         "severity": severity,
         "state": state,
         "latency_ms": None,
-        "quality": "VALIDATED_HISTORICAL_DATASET" if quality_pass else "RECONCILIATION_BLOCKED_OR_DIVERGENT",
+        "quality": ("VALIDATED_HISTORICAL_DATASET" if rec_result == "PASS_EXACT" else "VALIDATED_HISTORICAL_OVERLAP") if quality_pass else "RECONCILIATION_BLOCKED_OR_DIVERGENT",
         "payload": {
             "dataset_id": dataset_id,
             "reference_period": manifest.get("reference_period"),
@@ -81,7 +109,9 @@ def build_event(root: Path) -> dict:
             "layout_status": layout.get("status"),
             "normalization_status": normalization.get("status"),
             "reconciliation_result": rec_result,
-            "reconciliation_scope": reconciliation.get("comparison_scope"),
+            "original_reconciliation_result": original_rec_result,
+            "reconciliation_evidence": evidence_path,
+            "reconciliation_scope": rec_scope,
             "is_realtime_feed": False,
             "economic_adjustment": False,
         },
