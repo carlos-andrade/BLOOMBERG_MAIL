@@ -6,13 +6,13 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
 status: "EM_DESENVOLVIMENTO"
-versao: "1.2"
+versao: "1.3"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
 autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md"
+rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md; WATCHDOG/REC001_CAUSA_RAIZ_001.md"
 escopo: "WATCHDOG/ROADMAP.md"
 objetivo: "Controlar a sequência de implementação e a evidência de cada fase do WATCHDOG."
 dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
@@ -26,12 +26,12 @@ dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
 > **Fase:** FASE-02-WATCHDOG
 > **ID:** BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD
 > **Status:** EM_DESENVOLVIMENTO
-> **Versão:** 1.2
+> **Versão:** 1.3
 > **Criação:** 2026-10-08
 > **Atualização:** 2026-10-09
 > **Origem:** BLOOMBERG_MAIL
 > **Autoridade:** GOVERNANÇA
-> **Rastreabilidade:** WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md
+> **Rastreabilidade:** WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md; WATCHDOG/REC001_CAUSA_RAIZ_001.md
 
 ## Contexto Histórico
 
@@ -52,7 +52,7 @@ EM_DESENVOLVIMENTO — adapter histórico implementado e integrado nos testes au
 
 ## Validação
 
-O workflow compila os scripts, executa testes determinísticos e verifica o contrato. A evidência cross-repo atual declara `FAIL_CONTENT_DIVERGENCE`; o adapter deve produzir `DEGRADED/HIGH`, nunca `UP`, enquanto essa evidência não for substituída por reconciliação aprovada.
+O workflow compila os scripts, executa testes determinísticos, verifica o contrato e valida o adapter em modo `--validate-only` contra as evidências reais persistidas. A evidência cross-repo atual declara `FAIL_CONTENT_DIVERGENCE`; o adapter deve produzir `DEGRADED/HIGH`, nunca `UP`, enquanto essa evidência não for substituída por reconciliação aprovada.
 
 ## Resultado
 
@@ -67,7 +67,8 @@ O workflow compila os scripts, executa testes determinísticos e verifica o cont
 - [x] testes de validação, append e deduplicação
 - [x] carta/layout do adapter de qualidade COTAHIST
 - [x] classificação de divergência cross-repo como `DEGRADED/HIGH`
-- [ ] execução aprovada do workflow com ambos os adapters
+- [x] workflow executado com testes dos adapters e validação contra evidências B3 persistidas
+- [ ] reconciliação REC-001 reavaliada após diagnóstico de causa raiz
 - [ ] feed intradiário real, com fonte, licença, timestamps, heartbeat e freshness verificados
 - [ ] mini-índice (WIN), mini-dólar (WDO), IBOV, VIX e Tesouro
 - [ ] cripto 24/7
@@ -110,4 +111,4 @@ O workflow compila os scripts, executa testes determinísticos e verifica o cont
 
 ## Próxima Ação
 
-Executar o workflow e confirmar a classificação do COTAHIST histórico. Depois, corrigir a divergência REC-001 através de análise de causa raiz antes de promover a reconciliação; só então avançar para seleção do feed intradiário.
+Confirmar o workflow com validação das evidências reais. Investigar REC-001 pela triagem em `WATCHDOG/REC001_CAUSA_RAIZ_001.md`; não promover reconciliação até uma comparação reproduzível com data de corte comum. Selecionar feed intradiário somente após esta etapa.
