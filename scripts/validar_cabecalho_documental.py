@@ -44,7 +44,7 @@ for path in ROOT.rglob("*.md"):
         errors.append(f"{path.relative_to(ROOT)}: título Markdown não está imediatamente após o Front Matter")
         continue
     for label in VISIBLE:
-        if not re.search(rf"(?m)^> \*\*{re.escape(label)}:\*\*", metadata):
+        if not re.search(rf"(?m)^> \*\*{re.escape(label)}:\*\*", body):
             errors.append(f"{path.relative_to(ROOT)}: metadado visível ausente: {label}")
     for section in SECTIONS:
         if not re.search(rf"(?m)^## {re.escape(section)}\s*$", body):
