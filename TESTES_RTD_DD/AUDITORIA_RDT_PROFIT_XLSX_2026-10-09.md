@@ -12,6 +12,10 @@ data_atualizacao: "2026-10-09"
 origem: "Ficheiro RDT_PROFIT.xlsx anexado pelo utilizador"
 autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "TESTES_RTD_DD/RDT_PROFIT.xlsx; evidência de auditoria estática anexada pelo utilizador"
+escopo: "Inspeção estática do workbook Excel, sem testar RTD ao vivo"
+objetivo: "Documentar estrutura, fórmulas e limitações da auditoria do workbook RTD"
+dependencias: "Cópia do workbook; leitor de XLSX; confirmação local de RTD para testes operacionais"
 ---
 
 
@@ -121,3 +125,22 @@ Validação aritmética: `208070 - 207185 = 885`, consistente com o campo `Varia
 
 ---
 Relatório gerado a partir da inspeção do workbook anexado em 2026-10-09. Não contém credenciais.
+
+
+## Contexto Histórico
+A auditoria foi feita sobre uma cópia do workbook fornecido em 2026-10-09. O original não foi alterado.
+
+## Estado
+A presença de fórmulas RTD e valores em cache foi confirmada. Atualização ao vivo, reconexão, semântica temporal e direitos de armazenamento continuam por confirmar.
+
+## Evidências
+O relatório regista 36 fórmulas RTD, 38 colunas, uma folha e o identificador WINFUT_F_0. Os valores em cache representam apenas o estado guardado no momento da gravação.
+
+## Validação
+A validação é estática. Não foi executado um teste de ligação ao Profit, de DDE, de WDO nem de reconexão a partir desta auditoria.
+
+## Resultado
+WORKBOOK_STATIC_AUDIT=PASS; RTD_FORMULAS_PRESENT=PASS; RTD_LIVE_UPDATE=NOT_VERIFIED; RECONNECT=NOT_RUN; STORAGE_RIGHTS=PENDING.
+
+## Próxima Ação
+Executar o ensaio manual RTD no computador com Profit, registar observações com timestamp e confirmar os direitos de armazenamento antes de iniciar ingestão persistente.

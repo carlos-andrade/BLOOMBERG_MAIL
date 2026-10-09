@@ -27,9 +27,11 @@ dependencias: "Acesso local ao Profit; aplicação de folha de cálculo compatí
 > **ID:** BLOOMBERG-MAIL-TESTE-RTD-DDE-PROFIT-001  
 > **Status:** AGUARDA_EXECUCAO_LOCAL  
 > **Versão:** 1.0  
-> **Criação/atualização:** 2026-10-09  
+> **Criação:** 2026-10-09  
+> **Atualização:** 2026-10-09  
+> **Origem:** WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md; confirmação do utilizador  
 > **Autoridade:** LAYOUT  
-> **Cadeia:** PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO
+> **Rastreabilidade:** WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json; WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json
 
 ## 1. Contexto e evidência inicial
 
@@ -115,3 +117,22 @@ Não preencher resultados por suposição. Se o ensaio não tiver sido executado
 A fonte permanece PENDING_EVIDENCE até haver evidência funcional, cobertura dos instrumentos prioritários, timestamp/freshness, comportamento em falha e confirmação dos direitos de utilização. A presença do menu, isoladamente, não satisfaz nenhum gate de aprovação.
 
 **Próximo passo:** executar as Etapas A e B no computador do utilizador e registar os campos que a interface realmente disponibiliza. Não será criado coletor nem código de ingestão nesta etapa.
+
+
+## Contexto Histórico
+Este procedimento foi criado para verificar de forma controlada a exportação RTD/DDE do Profit sem enviar ordens e sem ativar um coletor automático.
+
+## Estado
+O procedimento aguarda execução local. A disponibilidade do menu não comprova a funcionalidade do feed.
+
+## Evidências
+A evidência inicial é a confirmação do utilizador de que a opção Arquivo → Exportar em Tempo Real está disponível. O resultado operacional deve ser registado no manifesto identificado no cabeçalho.
+
+## Validação
+A validação exige observação de campos reais, timestamp/fuso identificados quando disponíveis, registo de interrupção/reconexão e revisão dos direitos de armazenamento. Não inferir latência se o timestamp de origem não existir.
+
+## Resultado
+TEST_STATUS=AGUARDA_EXECUCAO_LOCAL; LIVE_UPDATE=NOT_VERIFIED; RECONNECT=NOT_RUN; STORAGE_RIGHTS=PENDING.
+
+## Próxima Ação
+Executar primeiro as etapas A e B no computador do utilizador, preservar evidências redigidas e atualizar o manifesto sem preencher resultados por suposição.
