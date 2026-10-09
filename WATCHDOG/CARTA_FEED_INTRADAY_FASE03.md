@@ -6,7 +6,7 @@ fase: "FASE-03-FEED-INTRADAY"
 id_documento: "BLOOMBERG-MAIL-CARTA-FEED-INTRADAY-FASE03"
 titulo: "Carta de seleção e validação de feed intradiário"
 status: "EM_ANALISE"
-versao: "1.0"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/ROADMAP.md; pesquisa de fontes oficiais"
@@ -26,18 +26,33 @@ dependencias: "Reconciliação REC-001; contrato de eventos WATCHDOG; licenças 
 > **Fase:** FASE-03-FEED-INTRADAY  
 > **ID:** BLOOMBERG-MAIL-CARTA-FEED-INTRADAY-FASE03  
 > **Status:** EM_ANALISE  
-> **Versão:** 1.0  
-> **Criação/atualização:** 2026-10-09  
+> **Versão:** 1.1  
+> **Criação:** 2026-10-09  
+> **Atualização:** 2026-10-09  
+> **Origem:** WATCHDOG/ROADMAP.md; pesquisa de fontes oficiais  
 > **Autoridade:** GOVERNANÇA  
-> **Cadeia:** PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO
+> **Rastreabilidade:** REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json; fontes oficiais B3 e TradingView
 
-## Contexto histórico
+## Contexto Histórico
 
 A reconciliação oficial do COTAHIST concluiu `PASS_INCREMENTAL_EXACT`: 9/9 pregões entre 2026-09-24 e 2026-10-06 convergentes. Isto valida a extensão histórica do período comparado, mas não transforma COTAHIST em feed intradiário.
 
 A B3 descreve o Market Data como distribuição por UMDF, com dados em tempo real ou atraso de 15 minutos, profundidade L1 ou L2. O acesso direto requer conectividade e contratos; o acesso indireto é feito por distribuidores autorizados. A disponibilidade e o custo dependem do produto, licença e utilizador.
 
-## Regra de decisão
+## Estado
+
+EM_ANALISE — fase de seleção e validação de fonte. Nenhum fornecedor intradiário foi aprovado e nenhum código de ingestão está autorizado por esta Carta.
+
+## Evidências
+
+- Reconciliação incremental oficial: `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json`.
+- Workflow de reconciliação: https://github.com/carlos-andrade/BLOOMBERG_MAIL/actions/runs/37918438688
+- B3 — [Perguntas frequentes sobre Market Data](https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/distribuidores/perguntas-frequentes/).
+- B3 — [Plataformas de difusão](https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/plataformas-de-difusao/).
+- B3 — [Política comercial Market Data 2026 (PDF)](https://www.b3.com.br/data/files/EF/F6/93/D7/364599100A29E189AC094EA8/Market%20Data%20Commercial%20Policy%202026.pdf).
+- TradingView — [Assinaturas adicionais de dados de mercado](https://br.tradingview.com/support/solutions/43000471705/).
+
+## Validação
 
 Nenhum fornecedor será selecionado apenas por exibir uma cotação num gráfico. Antes da integração, devem ser demonstrados:
 
@@ -52,29 +67,26 @@ Nenhum fornecedor será selecionado apenas por exibir uma cotação num gráfico
 9. Replay e reconciliação independentes antes de qualquer uso operacional.
 10. Sem geração automática de ordens nesta fase.
 
-## Ordem de avaliação
+### Ordem de avaliação
 
 1. Verificar primeiro as capacidades de exportação ou integração da plataforma de mercado já utilizada no ecossistema do utilizador. Não presumir que exista API pública nem que os dados possam ser redistribuídos.
 2. Avaliar distribuidores licenciados pela B3 e condições comerciais oficiais, caso a fonte atual não permita uma integração autorizada.
 3. Considerar fontes públicas atrasadas apenas para pesquisa, observabilidade ou comparação, nunca rotulando-as como tempo real.
 4. Manter COTAHIST como referência histórica e ferramenta de reconciliação, não como substituto de cotações intradiárias.
 
-## Fontes consultadas
-
-- B3 — [Perguntas frequentes sobre Market Data](https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/distribuidores/perguntas-frequentes/): níveis L1/L2, tempo real/atraso e requisitos de acesso.
-- B3 — [Plataformas de difusão](https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/plataformas-de-difusao/): distribuição de dados e plataformas/protocolos.
-- B3 — [Política comercial Market Data 2026 (PDF)](https://www.b3.com.br/data/files/EF/F6/93/D7/364599100A29E189AC094EA8/Market%20Data%20Commercial%20Policy%202026.pdf): licenças e condições comerciais.
-- TradingView — [Assinaturas adicionais de dados de mercado](https://br.tradingview.com/support/solutions/43000471705/): assinaturas de bolsa podem ser cobradas separadamente do plano da plataforma; verificar a condição específica do instrumento.
-
-**Data da consulta:** 2026-10-09. As condições comerciais devem ser revalidadas no momento da contratação.
-
-## Bloqueios de promoção
+### Bloqueios de promoção
 
 - A fonte não está aprovada até haver prova documental dos itens acima.
 - Dados atrasados não podem ser promovidos a `UP` como se fossem tempo real.
 - Sem timestamp/freshness verificável, estado máximo permitido: `UNKNOWN` ou `STALE`.
-- Não se autoriza sinal de negociação, paper trading automatizado ou execução real nesta carta.
+- Não se autoriza sinal de negociação, paper trading automatizado ou execução real nesta Carta.
 
-## Próxima ação
+## Resultado
+
+A Carta estabelece os critérios de seleção e impede a implementação prematura. A fonte permanece `PENDING_EVIDENCE` até que a matriz comparativa seja preenchida e revista.
+
+## Próxima Ação
 
 Preencher uma matriz comparativa de fontes, começando pela plataforma existente e pelas alternativas licenciadas. Produzir evidências de acesso, latência/freshness, cobertura, custos e direitos antes de escolher a fonte. Só depois o Layout poderá autorizar código.
+
+**Data da consulta das fontes:** 2026-10-09. As condições comerciais devem ser revalidadas no momento da contratação.
