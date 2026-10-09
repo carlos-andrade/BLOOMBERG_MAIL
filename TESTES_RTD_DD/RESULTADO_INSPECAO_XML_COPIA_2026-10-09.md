@@ -18,7 +18,23 @@ objetivo: "Confirmar a localização das fórmulas RTD e preparar o mapeamento d
 dependencias: "Cópia local RDT_PROFIT_DIAGNOSTICO.xlsx; inspeção XML PowerShell"
 ---
 
+
+
 # Resultado da inspeção XML — cópia de diagnóstico
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** RELATORIO_EVIDENCIA_INSPECAO_XML
+> **Fase:** FASE-02-MAPEAMENTO-RTD
+> **ID:** BLOOMBERG-MAIL-RTD-XML-001
+> **Status:** INSPECAO_ESTRUTURAL_CONCLUIDA; MAPEAMENTO_DE_CABECALHOS_PENDENTE
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** Saída PowerShell fornecida pelo utilizador após leitura de uma cópia local
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** TESTES_RTD_DD/ESPECIFICACAO_MAPEAMENTO_CAPTURA_RTD_FASE02.md; TESTES_RTD_DD/AUDITORIA_RDT_PROFIT_XLSX_2026-10-09.md
+
 
 ## Contexto Histórico
 
