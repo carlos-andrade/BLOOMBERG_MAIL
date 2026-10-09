@@ -6,13 +6,13 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
 status: "EM_DESENVOLVIMENTO"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
 autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-rastreabilidade: "WATCHDOG/CARTA_ADAPTERS_FASE02.md; WATCHDOG/LAYOUT_ADAPTERS_FASE02.md"
+rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md"
 escopo: "WATCHDOG/ROADMAP.md"
 objetivo: "Controlar a sequência de implementação e a evidência de cada fase do WATCHDOG."
 dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
@@ -26,95 +26,88 @@ dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
 > **Fase:** FASE-02-WATCHDOG
 > **ID:** BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD
 > **Status:** EM_DESENVOLVIMENTO
-> **Versão:** 1.1
+> **Versão:** 1.2
 > **Criação:** 2026-10-08
 > **Atualização:** 2026-10-09
 > **Origem:** BLOOMBERG_MAIL
 > **Autoridade:** GOVERNANÇA
-> **Rastreabilidade:** WATCHDOG/CARTA_ADAPTERS_FASE02.md; WATCHDOG/LAYOUT_ADAPTERS_FASE02.md
+> **Rastreabilidade:** WATCHDOG/CARTA_B3_COTAHIST_FASE02.md; WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md
 
 ## Contexto Histórico
 
-A FASE 01 criou contrato de eventos, configuração, heartbeat, persistência incremental, reinício Docker e supervisor auxiliar. Em 2026-10-09 iniciou-se a FASE 02 com carta, layout e replay determinístico. O replay é infraestrutura de validação; não equivale a feed intradiário real.
+A FASE 01 criou contrato, configuração, heartbeat, persistência incremental, Docker restart e supervisor auxiliar. A FASE 02 adicionou replay JSONL e um adapter de qualidade que lê evidências históricas COTAHIST existentes. A divergência de REC-001 continua explicitamente sinalizada; este adapter não representa feed intradiário.
 
 ## Estado
 
-EM_DESENVOLVIMENTO — infraestrutura de replay implementada; testes automatizados incorporados ao supervisor. Integrações de dados de mercado permanecem pendentes.
+EM_DESENVOLVIMENTO — adapter histórico implementado e integrado nos testes automatizados. Promoção condicionada à execução do workflow e manutenção do estado real da reconciliação.
 
 ## Evidências
 
-- Carta: `WATCHDOG/CARTA_ADAPTERS_FASE02.md`.
-- Layout único: `WATCHDOG/LAYOUT_ADAPTERS_FASE02.md`.
-- Implementação: `WATCHDOG/adapters/replay.py`.
-- Testes: `WATCHDOG/tests/test_replay.py`.
-- Workflow: `.github/workflows/bloomberg-mail-watchdog-supervisor.yml`.
+- Replay: `WATCHDOG/adapters/replay.py`.
+- Adapter histórico B3: `WATCHDOG/adapters/b3_cotahist_status.py`.
+- Carta: `WATCHDOG/CARTA_B3_COTAHIST_FASE02.md`.
+- Layout: `WATCHDOG/LAYOUT_B3_COTAHIST_FASE02.md`.
+- Testes: `WATCHDOG/tests/`.
+- Supervisor: `.github/workflows/bloomberg-mail-watchdog-supervisor.yml`.
 
 ## Validação
 
-O workflow deve compilar os scripts Python, executar os testes de replay e verificar os enums do contrato. O sucesso do workflow será a evidência de execução; não declarar a FASE 02 concluída apenas por existir código.
+O workflow compila os scripts, executa testes determinísticos e verifica o contrato. A evidência cross-repo atual declara `FAIL_CONTENT_DIVERGENCE`; o adapter deve produzir `DEGRADED/HIGH`, nunca `UP`, enquanto essa evidência não for substituída por reconciliação aprovada.
 
 ## Resultado
 
 ### FASE 01 — Fundação
-- [x] pasta WATCHDOG
-- [x] contrato de evento
-- [x] configuração base
-- [x] heartbeat
-- [x] persistência incremental
-- [x] Docker restart policy
-- [x] supervisor GitHub Actions
+- [x] contrato de evento e configuração
+- [x] heartbeat e persistência incremental
+- [x] política Docker restart
+- [x] supervisor GitHub Actions auxiliar
 
-### FASE 02 — Mercado e adapters
-- [x] carta e layout do adapter de replay
-- [x] replay JSONL append-only com deduplicação por `event_id`
-- [x] validação do contrato e rejeição de entradas inválidas
-- [x] testes determinísticos no workflow
-- [ ] B3 intraday — feed real validado
-- [ ] mini-índice (WIN)
-- [ ] mini-dólar (WDO)
-- [ ] IBOV
-- [ ] VIX
-- [ ] Tesouro
+### FASE 02 — Adapters e dados históricos
+- [x] carta/layout/replay JSONL determinístico
+- [x] testes de validação, append e deduplicação
+- [x] carta/layout do adapter de qualidade COTAHIST
+- [x] classificação de divergência cross-repo como `DEGRADED/HIGH`
+- [ ] execução aprovada do workflow com ambos os adapters
+- [ ] feed intradiário real, com fonte, licença, timestamps, heartbeat e freshness verificados
+- [ ] mini-índice (WIN), mini-dólar (WDO), IBOV, VIX e Tesouro
 - [ ] cripto 24/7
 
 ### FASE 03 — Fluxo
 - [ ] VWAP/TWAP
 - [ ] cumulative delta
 - [ ] volume financeiro
-- [ ] FVG/estrutura ICT como detector
+- [ ] estrutura ICT como detector
 - [ ] divergência preço/fluxo
 - [ ] regime de volatilidade
 
 ### FASE 04 — Macro/notícias
-- [ ] calendário econômico
+- [ ] calendário económico
 - [ ] PCE/Fed/BCB
 - [ ] Bloomberg Mail
 - [ ] classificação de impacto
 
 ### FASE 05 — Alertas
 - [ ] webhook
-- [ ] n8n
-- [ ] Mailgun
-- [ ] deduplicação/cooldown
+- [ ] n8n/Mailgun
+- [ ] deduplicação e cooldown
 
 ### FASE 06 — Qualidade
-- [ ] replay com dados reais históricos
-- [ ] gaps
-- [ ] reconciliação entre fontes
-- [ ] falso positivo
+- [ ] reconciliação de fontes em execução periódica
+- [ ] análise de gaps e falsos positivos
+- [ ] replay com histórico real
 - [ ] auditoria determinística
 
 ### FASE 07 — Produção
 - [ ] VPS/cloud 24x7
 - [ ] persistência externa
 - [ ] watchdog do watchdog
-- [ ] backup/DR
+- [ ] backup e recuperação de desastre
 
 ### FASE 08 — Decisão
-- [ ] sinais para ecossistema
+- [ ] sinais para o ecossistema
 - [ ] paper trading
 - [ ] gate independente antes de qualquer execução real
 
 ## Próxima Ação
 
-Executar e inspecionar o workflow. Se aprovado, escolher o primeiro feed real com fonte, limites, licença, timestamp e reconciliação documentados; não promover dados de teste a dados de mercado.
+Executar o workflow e confirmar a classificação do COTAHIST histórico. Depois, corrigir a divergência REC-001 através de análise de causa raiz antes de promover a reconciliação; só então avançar para seleção do feed intradiário.
