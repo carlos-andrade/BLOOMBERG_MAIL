@@ -6,7 +6,7 @@ fase: "FASE-03-FEED-INTRADAY"
 id_documento: "BLOOMBERG-MAIL-LAYOUT-FEED-INTRADAY-FASE03"
 titulo: "Layout único da matriz de avaliação do feed intradiário"
 status: "EM_ANALISE"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md"
@@ -43,6 +43,7 @@ EM_ANALISE — o layout define a matriz e os gates; não aprova fornecedores nem
 
 ## Evidências
 
+- Matriz inicial de fontes: `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json` — todos os candidatos permanecem `PENDING_EVIDENCE`.
 - Carta vinculante: `WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md`.
 - Evidência histórica: `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json`.
 - Fontes oficiais e de plataforma enumeradas na Carta.
@@ -91,8 +92,10 @@ EM_ANALISE — o layout define a matriz e os gates; não aprova fornecedores nem
 
 ## Resultado
 
-Uma matriz comparativa auditável, com fontes oficiais, licenças, cobertura, latência, custos, evidências e decisão. O código só é autorizado por atualização posterior da Carta e deste Layout.
+A matriz inicial de triagem foi gravada em `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json`. Ela identifica quatro caminhos: Profit RTD/DDE, ProfitDLL, distribuidores licenciados B3 e acesso direto B3. A classificação é preliminar; não existe fornecedor aprovado, pois acesso real, cobertura, licença, timestamps, freshness e custo ainda exigem evidência específica da conta e do contrato.
+
+O código só é autorizado por atualização posterior da Carta e deste Layout.
 
 ## Próxima Ação
 
-Preencher a matriz de avaliação com evidência concreta por fornecedor; validar os gates e só depois propor alteração de estado para `APPROVED`.
+Começar por um teste assistido de RTD/DDE no Profit instalado, se disponível na edição e conta atuais. Guardar evidência de campos exportados, timestamps, latência observada e comportamento em desconexão; verificar separadamente direitos de captura e armazenamento. Não colocar credenciais no repositório. Só depois preencher a decisão e propor eventual `APPROVED`.
