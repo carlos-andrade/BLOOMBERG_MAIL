@@ -13,7 +13,23 @@ autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # Especificação — gravador RTD por alteração observada
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** ESPECIFICACAO_TECNICA
+> **Fase:** FASE-03-DETECAO-DE-ALTERACOES-RTD
+> **ID:** BLOOMBERG-MAIL-RTD-CAP-003
+> **Status:** ESPECIFICADO; GRAVACAO DESATIVADA; AGUARDA TESTES
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** N/A
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** N/A
+
 
 ## Contexto histórico
 A inspeção estática de `RDT_PROFIT.xlsx` identificou a folha `Folha1`, cabeçalhos na linha 1 e campos na linha 2, incluindo fórmulas RTD. A atualização em tempo real ainda não foi validada. O utilizador definiu que deve ser criada uma nova linha sempre que algum dado monitorizado mudar.

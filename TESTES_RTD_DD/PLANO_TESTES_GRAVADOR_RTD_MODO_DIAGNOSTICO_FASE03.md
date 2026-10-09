@@ -14,7 +14,23 @@ cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 rastreabilidade: "TESTES_RTD_DD/ESPECIFICACAO_GRAVADOR_RTD_AVANCO_POR_ALTERACAO_FASE03.md"
 ---
 
+
+
 # Plano de testes — gravador RTD em modo diagnóstico
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** PLANO_DE_TESTES
+> **Fase:** FASE-03-DETECAO-DE-ALTERACOES-RTD
+> **ID:** BLOOMBERG-MAIL-RTD-TEST-003
+> **Status:** PREPARADO; EXECUCAO LOCAL PENDENTE
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** N/A
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** TESTES_RTD_DD/ESPECIFICACAO_GRAVADOR_RTD_AVANCO_POR_ALTERACAO_FASE03.md
+
 
 ## 1. Objetivo
 Demonstrar que o mecanismo deteta diferenças entre snapshots RTD sem acrescentar linhas ao histórico, sem alterar a folha de origem e sem publicar dados de mercado no Git.
