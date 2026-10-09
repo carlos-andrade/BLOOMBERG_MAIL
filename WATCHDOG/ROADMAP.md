@@ -77,7 +77,8 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 - [x] carta de seleção de feed intradiário com gates legais, temporais, de cobertura e integridade
 - [x] layout único da matriz comparativa; código de ingestão continua bloqueado até fonte aprovada
 - [x] matriz inicial de fontes versionada em `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json`; RTD/DDE Profit, ProfitDLL, distribuidores licenciados B3 e acesso direto B3 listados como candidatos, todos `PENDING_EVIDENCE`
-- [ ] confirmar edição/conta Profit disponível e executar teste RTD/DDE com timestamps e reconexão
+- [x] utilizador confirmou disponibilidade do menu Arquivo → Exportar em Tempo Real no Profit (apenas evidência declarativa de menu)
+- [ ] executar teste local RTD/DDE guiado; registar método, WIN/WDO, campos, timestamps, amostras e recuperação em WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json
 - [ ] obter condições escritas de licença, armazenamento, cobertura WIN/WDO, freshness e custo; atualizar decisão da matriz
 - [ ] VWAP/TWAP
 - [ ] cumulative delta
@@ -116,4 +117,4 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 
 ## Próxima Ação
 
-Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. A Carta e o Layout da FASE 03 e a matriz inicial de fontes já estão versionados. A triagem documental favorece testar primeiro RTD/DDE do Profit por menor complexidade, mas não confirma que esteja disponível na edição/conta do utilizador nem autoriza captura automatizada. Próximo passo: teste assistido de capacidade e timestamps, seguido de validação de licença, cobertura, custo e freshness. COTAHIST permanece dado histórico, não tempo real.
+Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. A Carta e o Layout da FASE 03 e a matriz inicial de fontes já estão versionados. A triagem documental favorece testar primeiro RTD/DDE do Profit por menor complexidade. O utilizador confirmou que o menu Arquivo → Exportar em Tempo Real está presente; isso não comprova exportação funcional nem direitos de armazenamento. O procedimento WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md e o registo WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json foram versionados. Próximo passo: execução local assistida e preenchimento da evidência observada, seguida de validação de licença, cobertura, custo e freshness. COTAHIST permanece dado histórico, não tempo real.
