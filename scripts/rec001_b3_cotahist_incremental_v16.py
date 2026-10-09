@@ -159,13 +159,13 @@ def main():
         "interpretation": "Snapshots mensais oficiais foram usados para reduzir o volume de download e limitar a prova ao período incremental do RAW local. O hash histórico do manifesto não é substituído. Divergências ou datas ausentes bloqueiam a aprovação.",
         "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
     }
-        os.makedirs(os.path.dirname(OUT), exist_ok=True)
-        with open(OUT, "w", encoding="utf-8") as stream:
-            json.dump(evidence, stream, ensure_ascii=False, indent=2)
-            stream.write("\n")
-        print(json.dumps({"result": result, "dates_tested_after_baseline": tested,
-                          "convergent_dates": matched, "divergent_dates_count": len(divergences),
-                          "monthly_snapshots": len(monthly_snapshots), "output": OUT}, ensure_ascii=False))
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as stream:
+        json.dump(evidence, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
+    print(json.dumps({"result": result, "dates_tested_after_baseline": tested,
+                      "convergent_dates": matched, "divergent_dates_count": len(divergences),
+                      "monthly_snapshots": len(monthly_snapshots), "output": OUT}, ensure_ascii=False))
 
 if __name__ == "__main__":
     main()
