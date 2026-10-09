@@ -13,7 +13,7 @@ import tempfile
 import urllib.request
 import zipfile
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date, timedelta
 
 BLOOM = "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP"
 MANIFEST = "EMAILS_RECEBIDOS/INGESTAO/005/manifesto_aquisicao.json"
@@ -88,8 +88,8 @@ def main():
 
     bloom = read_records(BLOOM)
     first_month = (int(BASELINE_END[:4]), int(BASELINE_END[4:6]))
-    last_date = bloom["date_max"]
-    last_month = (int(last_date[:4]), int(last_date[4:6]))
+    last_date = date(int(bloom["date_max"][:4]), int(bloom["date_max"][4:6]), int(bloom["date_max"][6:]))
+    last_month = (last_date.year, last_date.month)
     months = []
     year, month = first_month
     while (year, month) <= last_month:
@@ -99,43 +99,67 @@ def main():
             year, month = year + 1, 1
 
     official_days = defaultdict(Counter)
-    monthly_snapshots = []
+    official_snapshots = []
+    unavailable_official_dates = []
     with tempfile.TemporaryDirectory() as tmp:
         for year, month in months:
-            filename = f"COTAHIST_M{month:02d}{year}.ZIP"
-            url = f"https://bvmf.bmfbovespa.com.br/InstDados/SerHist/{filename}"
-            official_path = os.path.join(tmp, filename)
-            request = urllib.request.Request(url, headers={
-                "User-Agent": "Mozilla/5.0 (compatible; BLOOMBERG_MAIL-REC001/1.6)",
-                "Accept": "*/*",
-            })
-            with urllib.request.urlopen(request, timeout=90) as response, open(official_path, "wb") as target:
-                for chunk in iter(lambda: response.read(1024 * 1024), b""):
-                    target.write(chunk)
-            stats = read_records(official_path)
-            for date, records in stats["by_date"].items():
-                official_days[date].update(records)
-            monthly_snapshots.append({
-                "filename": filename, "url": url, "zip_sha256": sha256_file(official_path),
-                "record01_count": stats["record01_count"], "date_min": stats["date_min"],
-                "date_max": stats["date_max"], "generation_date": stats["generation_date"],
-            })
+            if (year, month) < last_month:
+                filenames = [("COTAHIST_M{:02d}{}.ZIP".format(month, year), None)]
+            else:
+                month_start = date(year, month, 1)
+                baseline_date = date(int(BASELINE_END[:4]), int(BASELINE_END[4:6]), int(BASELINE_END[6:]))
+                day = max(month_start, baseline_date + timedelta(days=1))
+                filenames = []
+                while day <= last_date:
+                    if day.weekday() < 5:
+                        filenames.append(("COTAHIST_D{}.ZIP".format(day.strftime("%d%m%Y")), day.isoformat()))
+                    day += timedelta(days=1)
+
+            for filename, expected_date in filenames:
+                url = "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/{}".format(filename)
+                official_path = os.path.join(tmp, filename)
+                request = urllib.request.Request(url, headers={
+                    "User-Agent": "Mozilla/5.0 (compatible; BLOOMBERG_MAIL-REC001/1.6)",
+                    "Accept": "*/*",
+                })
+                try:
+                    with urllib.request.urlopen(request, timeout=45) as response, open(official_path, "wb") as target:
+                        for chunk in iter(lambda: response.read(1024 * 1024), b""):
+                            target.write(chunk)
+                except urllib.error.HTTPError as exc:
+                    if exc.code == 404 and expected_date:
+                        unavailable_official_dates.append({"date": expected_date, "url": url, "http_status": 404})
+                        continue
+                    raise
+                stats = read_records(official_path)
+                if expected_date and any(date_key != expected_date.replace("-", "") for date_key in stats["by_date"]):
+                    raise RuntimeError("arquivo diário {} contém data diferente da esperada {}".format(filename, expected_date))
+                for date_key, records in stats["by_date"].items():
+                    official_days[date_key].update(records)
+                official_snapshots.append({
+                    "filename": filename, "url": url, "type": "monthly" if expected_date is None else "daily",
+                    "zip_sha256": sha256_file(official_path), "record01_count": stats["record01_count"],
+                    "date_min": stats["date_min"], "date_max": stats["date_max"],
+                    "generation_date": stats["generation_date"],
+                })
 
     dates, divergences = compare_incremental(bloom["by_date"], official_days)
     tested = len(dates)
     matched = tested - len(divergences)
     has_new_data = any(date > BASELINE_END for date in dates)
-    if not has_new_data:
+    if unavailable_official_dates:
+        result = "BLOCKED_OFFICIAL_DAILY_UNAVAILABLE"
+    elif not has_new_data:
         result = "BLOCKED_NO_INCREMENTAL_DATES"
     elif divergences:
         result = "FAIL_INCREMENTAL_DIVERGENCE"
-    elif max((item["date_max"] for item in monthly_snapshots), default="") < bloom["date_max"]:
+    elif max((item["date_max"] for item in official_snapshots), default="") < bloom["date_max"]:
         result = "PASS_INCREMENTAL_OVERLAP_ONLY"
     else:
         result = "PASS_INCREMENTAL_EXACT"
 
     aggregate_hash = hashlib.sha256(
-        "".join(item["zip_sha256"] for item in monthly_snapshots).encode("ascii")
+        "".join(item["zip_sha256"] for item in official_snapshots).encode("ascii")
     ).hexdigest()
     evidence = {
         "schema_version": "1.0-rec001-b3-incremental",
@@ -148,15 +172,16 @@ def main():
                            "record01_count": bloom["record01_count"], "date_min": bloom["date_min"],
                            "date_max": bloom["date_max"], "generation_date": bloom["generation_date"]},
         "official_b3": {"source": "B3 COTAHIST monthly official endpoint", "snapshot_sha256_aggregate": aggregate_hash,
-                        "monthly_snapshots": monthly_snapshots,
-                        "record01_count": sum(item["record01_count"] for item in monthly_snapshots),
+                        "official_snapshots": official_snapshots,
+                        "unavailable_official_dates": unavailable_official_dates,
+                        "record01_count": sum(item["record01_count"] for item in official_snapshots),
                         "date_min": min((item["date_min"] for item in monthly_snapshots), default=None),
                         "date_max": max((item["date_max"] for item in monthly_snapshots), default=None)},
         "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
                        "convergent_dates": matched, "divergent_dates_count": len(divergences),
                        "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
                        "official_dates_after_local_period": sum(1 for date in official_days if date > bloom["date_max"])},
-        "interpretation": "Snapshots mensais oficiais foram usados para reduzir o volume de download e limitar a prova ao período incremental do RAW local. O hash histórico do manifesto não é substituído. Divergências ou datas ausentes bloqueiam a aprovação.",
+        "interpretation": "Foi usado snapshot mensal para o mês fechado e ficheiros diários oficiais para o mês em curso. Dias úteis sem ficheiro oficial disponível bloqueiam a aprovação; o hash histórico do manifesto não é substituído.",
         "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
@@ -165,7 +190,7 @@ def main():
         stream.write("\n")
     print(json.dumps({"result": result, "dates_tested_after_baseline": tested,
                       "convergent_dates": matched, "divergent_dates_count": len(divergences),
-                      "monthly_snapshots": len(monthly_snapshots), "output": OUT}, ensure_ascii=False))
+                      "official_snapshots": len(official_snapshots), "output": OUT}, ensure_ascii=False))
 
 if __name__ == "__main__":
     main()
