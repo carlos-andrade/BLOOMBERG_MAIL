@@ -68,7 +68,7 @@ A carta autoriza a integração do estado de qualidade do COTAHIST histórico no
 ## Reconciliação incremental oficial — regra obrigatória
 
 - A evidência multiconjunto de 2026-10-09 reconcilia somente o período comum até 2026-09-23; não aprova datas posteriores.
-- Executar `scripts/rec001_b3_cotahist_incremental_v16.py` contra o endpoint oficial B3 `https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP`.
+- Executar `scripts/rec001_b3_cotahist_incremental_v16.py` contra os snapshots mensais oficiais B3 (`COTAHIST_MMMAAAA.ZIP`) necessários ao período incremental.
 - Comparar cada registo tipo 01 completo de 245 bytes por data, como multiconjunto, preservando multiplicidade e detetando datas ausentes de qualquer lado.
 - A linha de base é 2026-09-23. O hash atual do endpoint oficial deve ser registado como observação nova; a diferença em relação ao hash histórico do manifesto não pode ser tratada automaticamente como falha nem silenciosamente substituir a referência histórica.
 - Guardar resultado separado em `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json`. RAW, manifesto e REC-001 anteriores são imutáveis.
