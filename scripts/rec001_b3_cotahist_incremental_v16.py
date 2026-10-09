@@ -60,7 +60,11 @@ def read_records(path):
             "generation_date": generation_date, "by_date": by_date}
 
 def compare_incremental(left, right, baseline_end=BASELINE_END):
-    dates = sorted((set(left) | set(right)) - {d for d in set(left) | set(right) if d <= baseline_end})
+    # Reconcile the full incremental period represented by BLOOMBERG_MAIL.
+    # A newer official endpoint may contain later dates; report that separately
+    # rather than misclassifying ordinary source freshness as a missing local date.
+    target_end = max(left) if left else baseline_end
+    dates = sorted(d for d in (set(left) | set(right)) if baseline_end < d <= target_end)
     divergences = []
     for date in dates:
         a, b = left.get(date), right.get(date)
@@ -119,9 +123,10 @@ def main():
                             "current_hash_equals_historical_manifest_reference": official_hash == dataset.get("reference_sha256"),
                             "record01_count": official["record01_count"], "date_min": official["date_min"],
                             "date_max": official["date_max"], "generation_date": official["generation_date"]},
-            "comparison": {"dates_tested_after_baseline": tested, "convergent_dates": matched,
-                           "divergent_dates_count": len(divergences), "divergent_dates": divergences[:200],
-                           "incremental_dates_present": has_new_data},
+            "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
+                           "convergent_dates": matched, "divergent_dates_count": len(divergences),
+                           "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
+                           "official_dates_after_local_period": sum(1 for date in official["by_date"] if date > bloom["date_max"])},
             "interpretation": "O hash atual do endpoint oficial é registado como nova observação de proveniência; não é exigido que coincida com o hash histórico do manifesto. Divergências ou datas ausentes bloqueiam a aprovação.",
             "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
         }
