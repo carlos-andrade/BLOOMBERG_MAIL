@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-LAYOUT-B3-COTAHIST-FASE02"
 titulo: "Layout único do adapter de qualidade histórica B3 COTAHIST"
 status: "IMPLEMENTADO"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md"
@@ -63,6 +63,19 @@ CLI: `python WATCHDOG/adapters/b3_cotahist_status.py --root . --output <ficheiro
 
 Contrato do adapter definido e rastreável à carta.
 
+## Reconciliação incremental oficial
+
+- Script: `scripts/rec001_b3_cotahist_incremental_v16.py`.
+- Testes: `scripts/tests/test_rec001_b3_incremental.py`.
+- Workflow: `.github/workflows/bloomberg-mail-rec001-b3-cotahist-incremental.yml`.
+- Linha de base fixa: último pregão reconciliado 2026-09-23.
+- Fonte de comparação: endpoint oficial anual B3 definido no manifesto de aquisição.
+- O relatório incremental tem caminho próprio e não substitui evidências REC-001 históricas.
+- Comparar união de datas após a linha de base; comparar registos completos como multiconjunto; preservar multiplicidade.
+- O hash atual do endpoint oficial é registado separadamente do hash histórico do manifesto.
+- Uma divergência, data ausente, arquivo inválido ou ausência de datas incrementais bloqueia a aprovação.
+- Uma convergência permite apenas revisão da evidência, não promove automaticamente Layer A nem declara dados intradiários.
+
 ## Próxima Ação
 
-Implementar, testar e executar no workflow do WATCHDOG.
+Executar e inspecionar o workflow incremental, confirmar a evidência versionada e atualizar o roadmap com o resultado real.
