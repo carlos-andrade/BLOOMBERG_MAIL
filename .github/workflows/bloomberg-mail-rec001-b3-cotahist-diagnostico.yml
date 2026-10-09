@@ -1,0 +1,34 @@
+name: BLOOMBERG_MAIL — REC-001 B3 COTAHIST Diagnóstico multiconjunto
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/rec001_b3_cotahist_cross_repo_v15.py"
+      - "scripts/tests/test_rec001_b3_multiset.py"
+      - ".github/workflows/bloomberg-mail-rec001-b3-cotahist-diagnostico.yml"
+permissions:
+  contents: write
+concurrency:
+  group: bloomberg-mail-rec001-b3-cotahist-diagnostico
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Testes determinísticos da comparação por data
+        run: python -m unittest scripts.tests.test_rec001_b3_multiset -v
+      - name: Reconciliar RAWs reais sem alterar o REC-001 original
+        run: python scripts/rec001_b3_cotahist_cross_repo_v15.py
+      - name: Validar e publicar nova evidência diagnóstica
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json
+          git diff --cached --quiet || git commit -m "test(rec001): publicar diagnóstico multiconjunto COTAHIST"
+          git push
