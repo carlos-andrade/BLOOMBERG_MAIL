@@ -5,8 +5,8 @@ tipo_documento: "RELATORIO_TECNICO"
 fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-REC001-CAUSA-RAIZ-001"
 titulo: "REC-001 — triagem inicial da divergência COTAHIST"
-status: "EM_DESENVOLVIMENTO"
-versao: "1.0"
+status: "VALIDADO"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_CROSS_REPO_2026-10-08.json"
@@ -25,8 +25,8 @@ dependencias: "REC-001 JSON; RAWs dos dois repositórios; algoritmo de reconcili
 > **Tipo:** RELATORIO_TECNICO
 > **Fase:** FASE-02-WATCHDOG
 > **ID:** BLOOMBERG-MAIL-REC001-CAUSA-RAIZ-001
-> **Status:** EM_DESENVOLVIMENTO
-> **Versão:** 1.0
+> **Status:** VALIDADO
+> **Versão:** 1.1
 > **Criação:** 2026-10-09
 > **Atualização:** 2026-10-09
 > **Origem:** REC-001
@@ -39,7 +39,7 @@ A reconciliação persistida em 2026-10-08 reporta `FAIL_CONTENT_DIVERGENCE`. Es
 
 ## Estado
 
-EM_DESENVOLVIMENTO — causas ainda não confirmadas; o estado operacional permanece `DEGRADED/HIGH`.
+VALIDADO — a comparação independente por multiconjunto completo, por pregão, confirmou a igualdade de todo o período comum. O resultado antigo permanece imutável como evidência histórica, mas deixa de ser a evidência operacional preferida.
 
 ## Evidências
 
@@ -60,8 +60,16 @@ A divergência tem dimensões que devem ser testadas separadamente:
 
 ## Resultado
 
-Não é possível atribuir a causa raiz apenas com o relatório resumido. A diferença de datas explica uma parte provável das diferenças de cobertura, mas não explica automaticamente divergências de conteúdo em chaves comuns. A hipótese de problema de agrupamento/pareamento precisa de teste independente.
+A execução independente do workflow `BLOOMBERG_MAIL — REC-001 B3 COTAHIST Diagnóstico multiconjunto` terminou com sucesso e gravou `REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json`.
+
+- Resultado: `PASS_OVERLAP_EXACT`.
+- Período comum: `20260102`–`20260923`.
+- Pregões testados: 182; convergentes: 182; divergentes: 0.
+- SHA-256 dos dois ZIPs coincide com os hashes de referência guardados no manifesto.
+- Comparação: multiconjunto dos registos tipo 01 completos (245 bytes) por data, ignorando ordem física e preservando multiplicidade.
+
+**Conclusão técnica:** o `FAIL_CONTENT_DIVERGENCE` anterior é inconsistente com a comparação independente por registo completo e por data. A causa operacional mais provável é a metodologia de comparação por chave lógica/hash do relatório antigo, que gerou falsos pares entre registos repetidos. O relatório original não é sobrescrito; esta evidência versionada passa a governar o estado atual. O trecho de 2026-09-24 a 2026-10-06 existe apenas no snapshot BLOOMBERG_MAIL e não foi reconciliado com o snapshot B3, embora esteja coberto pelas validações estruturais e de normalização locais.
 
 ## Próxima Ação
 
-Executar reconciliação de diagnóstico com data de corte comum (até `20260923`), canonicalização idêntica e comparação multiset por chave; testar os exemplos `AXIA3T`, `BBAS3T` e `BEEF3T`. Guardar o resultado como diagnóstico versionado, sem alterar REC-001 original nem o estado `DEGRADED/HIGH`.
+Manter o novo diagnóstico como fonte operacional preferida no adapter WATCHDOG. Preservar o resultado antigo para auditoria. Em próxima atualização, reconciliar incrementalmente o trecho posterior a `20260923` com o snapshot oficial correspondente mais recente.
