@@ -58,6 +58,10 @@ A informação recebida até à criação desta pasta confirma apenas que, segun
 
 As quatro combinações devem ser testadas separadamente: RTD + WIN, RTD + WDO, DDE + WIN e DDE + WDO.
 
+## Matriz de execução
+
+A matriz [`MATRIZ_EXECUCAO_RTD_DDE.csv`](./MATRIZ_EXECUCAO_RTD_DDE.csv) contém as quatro combinações obrigatórias. Todas começam em `NOT_RUN`; preencher cada linha apenas após observar o teste local. Não converter `NOT_RUN` em sucesso por inferência nem sobrescrever os registos históricos.
+
 ## Documentos relacionados
 
 - Procedimento: [`WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md`](../WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md)
