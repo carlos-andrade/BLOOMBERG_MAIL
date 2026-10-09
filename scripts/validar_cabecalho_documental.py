@@ -21,6 +21,7 @@ SECTIONS = [
 ]
 errors = []
 count = 0
+ids = {}
 
 for path in ROOT.rglob("*.md"):
     if ".git" in path.parts:
