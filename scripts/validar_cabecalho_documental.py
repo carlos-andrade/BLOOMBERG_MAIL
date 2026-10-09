@@ -39,7 +39,7 @@ for path in ROOT.rglob("*.md"):
     for key in REQUIRED:
         if not re.search(rf"(?m)^{re.escape(key)}\s*:", fm):
             errors.append(f"{path.relative_to(ROOT)}: campo ausente: {key}")
-    h1 = re.match(r"^#\s+.+$", body)
+    h1 = re.match(r"^#[ \t]+[^\r\n]+", body)
     if not h1:
         errors.append(f"{path.relative_to(ROOT)}: título Markdown não está imediatamente após o Front Matter")
         continue
