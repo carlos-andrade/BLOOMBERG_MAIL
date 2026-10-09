@@ -34,4 +34,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json
           git diff --cached --quiet || git commit -m "data(rec001): publicar reconciliação incremental B3 oficial"
-          git push
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
