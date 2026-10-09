@@ -6,13 +6,13 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ADAPTERS-README-MD"
 titulo: "Adapters"
 status: "IMPLEMENTADO"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/CARTA_ADAPTERS_FASE02.md"
 autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-rastreabilidade: "BLOOMBERG-MAIL-WATCHDOG-CARTA-ADAPTERS-FASE02"
+rastreabilidade: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md"
 escopo: "WATCHDOG/adapters/"
 objetivo: "Documentar adapters, contrato, estado de integração e limites de evidência."
 dependencias: "WATCHDOG/schema/event.schema.json"
@@ -26,35 +26,36 @@ dependencias: "WATCHDOG/schema/event.schema.json"
 > **Fase:** FASE-02-WATCHDOG
 > **ID:** BLOOMBERG-MAIL-WATCHDOG-ADAPTERS-README-MD
 > **Status:** IMPLEMENTADO
-> **Versão:** 1.1
+> **Versão:** 1.2
 > **Criação:** 2026-10-08
 > **Atualização:** 2026-10-09
 > **Origem:** WATCHDOG/CARTA_ADAPTERS_FASE02.md
 > **Autoridade:** GOVERNANÇA
-> **Rastreabilidade:** BLOOMBERG-MAIL-WATCHDOG-CARTA-ADAPTERS-FASE02
+> **Rastreabilidade:** WATCHDOG/CARTA_B3_COTAHIST_FASE02.md
 
 ## Contexto Histórico
 
-Os adapters isolam fontes e preservam o contrato interno. A implementação atual de replay verifica a ingestão de eventos canónicos, mas não consulta um fornecedor de cotações.
+Os adapters isolam fontes e preservam o contrato interno. A implementação atual inclui replay genérico JSONL e leitura das evidências de qualidade do dataset histórico B3 COTAHIST.
 
 ## Estado
 
-IMPLEMENTADO — replay JSONL determinístico; feeds reais ainda não conectados.
+IMPLEMENTADO — integração de qualidade histórica. Nenhum feed intradiário está ativo.
 
 ## Evidências
 
 - `replay.py`: valida JSONL, campos obrigatórios, severidade e estado.
-- `../tests/test_replay.py`: casos de validação, append, deduplicação e rejeição.
-- Workflow supervisor executa testes em alterações no WATCHDOG.
+- `b3_cotahist_status.py`: verifica manifesto, hashes e resultados de validação/reconciliação.
+- `../tests/`: testes de validação, append, deduplicação, classificação de divergência e rejeição de hashes incompatíveis.
+- Workflow supervisor executa os testes em alterações ao WATCHDOG.
 
 ## Validação
 
-Executar `python -m unittest discover -s WATCHDOG/tests -v`. O modo `--validate-only` não escreve. O modo com `--output` acrescenta eventos sem truncar o destino; IDs existentes são deduplicados.
+Executar `python -m unittest discover -s WATCHDOG/tests -v`. O adapter COTAHIST classifica a reconciliação atual como `DEGRADED/HIGH` quando o resultado REC-001 indica divergência ou bloqueio.
 
 ## Resultado
 
-Ordem planeada de fontes reais: B3 → IBOV → WIN/WDO → VIX → Tesouro → cripto → macro → Bloomberg Mail. Nenhuma fonte é considerada ativa até haver conexão testada e evidência rastreável.
+Ordem planeada: B3 histórico/qualidade → feed intradiário validado → IBOV/WIN/WDO → VIX/Tesouro → cripto → macro/Bloomberg Mail. A ordem não significa que as fontes estejam conectadas.
 
 ## Próxima Ação
 
-Integrar primeiro uma fonte real escolhida com carta e layout específicos, medição de latência, heartbeat, freshness e reconciliação.
+Executar reconciliação REC-001 com análise de causa raiz e documentar um feed intradiário adequado antes de declarar fontes de mercado ativas.
