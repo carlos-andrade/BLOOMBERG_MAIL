@@ -69,7 +69,7 @@ Contrato do adapter definido e rastreável à carta.
 - Testes: `scripts/tests/test_rec001_b3_incremental.py`.
 - Workflow: `.github/workflows/bloomberg-mail-rec001-b3-cotahist-incremental.yml`.
 - Linha de base fixa: último pregão reconciliado 2026-09-23.
-- Fonte de comparação: snapshots mensais oficiais B3 (`COTAHIST_MMAAAA.ZIP`), limitados ao período representado pelo RAW local.
+- Fonte de comparação: snapshots mensais oficiais B3 (`COTAHIST_M{MMAAAA}.ZIP`) para meses fechados e ficheiros diários (`COTAHIST_D{DDMMAAAA}.ZIP`) para o mês em curso, limitados ao período representado pelo RAW local.
 - O relatório incremental tem caminho próprio e não substitui evidências REC-001 históricas.
 - Comparar união de datas após a linha de base; comparar registos completos como multiconjunto; preservar multiplicidade.
 - O hash atual do endpoint oficial é registado separadamente do hash histórico do manifesto.
