@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0-rec001-b3-multiset-diagnostic",
+  "created_at_utc": "2026-10-09T09:48:53.546746+00:00",
+  "result": "PASS_OVERLAP_EXACT",
+  "raw_preserved": true,
+  "comparison_scope": "COTAHIST tipo 01; registo completo de 245 bytes; multiconjunto de SHA-256 por pregão; ordem física ignorada; cabeçalho/trailer excluídos",
+  "bloomberg_mail": {
+    "path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+    "zip_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "expected_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "stats": {
+      "member": "COTAHIST_A2026.TXT",
+      "record01_count": 3070831,
+      "date_min": "20260102",
+      "date_max": "20261006",
+      "generation_date": "20261006"
+    }
+  },
+  "b3": {
+    "url": "https://raw.githubusercontent.com/carlos-andrade/B3/main/dados/cotahist/raw/anual/COTAHIST_A2026.ZIP",
+    "zip_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
+    "expected_sha256": "4f2cf2aac1073446ccd827f5ba868fe5cf15d5cdc87d636178fe00ac06741768",
+    "snapshot_hash_matches_manifest_reference": true,
+    "stats": {
+      "member": "COTAHIST_A2026.TXT",
+      "record01_count": 2919760,
+      "date_min": "20260102",
+      "date_max": "20260923",
+      "generation_date": "20260923"
+    }
+  },
+  "temporal_evidence": {
+    "common_date_min": "20260102",
+    "common_date_max": "20260923",
+    "bloomberg_mail_generation_date": "20261006",
+    "b3_generation_date": "20260923"
+  },
+  "comparison": {
+    "dates_tested": 182,
+    "convergent_dates": 182,
+    "divergent_dates_count": 0,
+    "divergent_dates": [],
+    "exact_common_period": true,
+    "bloomberg_dates_present": 182,
+    "b3_dates_present": 182
+  },
+  "diagnostic_conclusion": "A comparação por data usa a união das datas presentes nas duas fontes e preserva a multiplicidade de registos. Resultado diagnóstico; o REC-001 original é preservado.",
+  "promotion_impact": "REVIEW_REC001_FOR_SUPERSESSION"
+}
