@@ -6,16 +6,16 @@
   "created_at": "2026-10-09",
   "status": "NOT_RUN",
   "evidence_provenance": {
-    "user_report": "O utilizador confirmou que Arquivo → Exportar em Tempo Real está disponível no Profit.",
-    "interpretation": "Confirma apenas a presença do menu. Não comprova exportação funcional, dados em tempo real, campos, timestamps, cobertura, licença ou armazenamento.",
+    "user_report": "O utilizador reportou que Arquivo → Exportar em Tempo Real está disponível no Profit; RTD e DDE são opções; Excel será a folha de cálculo; WIN e WDO aparecem disponíveis; e a interface mostra último preço, bid/ask, volume e data/hora aparentemente de origem.",
+    "interpretation": "Relato de interface, não evidência de que RTD ou DDE iniciem e atualizem dados. A semântica do timestamp de origem permanece por verificar. Não há exportação funcional, latência, reconexão ou direitos de armazenamento comprovados.",
     "independently_observed_by_assistant": false
   },
   "environment": {
     "profit_version": null,
     "profit_edition_or_plan": null,
-    "spreadsheet_application": null,
+    "spreadsheet_application": "Microsoft Excel",
     "spreadsheet_version": null,
-    "method": "NOT_SELECTED",
+    "method": "BOTH_LISTED; TEST_SEPARATELY",
     "test_date_local": null,
     "timezone": null,
     "market_session": null
@@ -23,38 +23,53 @@
   "instruments": [
     {
       "symbol": "WIN",
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
       "fields_observed": [],
-      "notes": null
+      "export_tested": false,
+      "notes": "Reportado como disponível na interface; falta confirmar na folha exportada."
     },
     {
       "symbol": "WDO",
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
       "fields_observed": [],
-      "notes": null
+      "export_tested": false,
+      "notes": "Reportado como disponível na interface; falta confirmar na folha exportada."
     }
   ],
   "fields": {
     "last_price": {
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
+      "verified_in_export": false,
       "semantics": null
     },
     "best_bid": {
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
+      "verified_in_export": false,
       "semantics": null
     },
     "best_ask": {
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
+      "verified_in_export": false,
       "semantics": null
     },
     "traded_volume_or_quantity": {
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_only",
+      "verified_in_export": false,
       "semantics": null
     },
     "source_timestamp": {
-      "available": null,
+      "available": true,
+      "availability_basis": "user_report_interface_appears_source_timestamp",
+      "verified_in_export": false,
       "format": null,
-      "timezone": null
+      "timezone": null,
+      "semantics": "UNVERIFIED"
     }
   },
   "observations": {
@@ -67,7 +82,16 @@
     "latency_p50_ms": null,
     "latency_p95_ms": null,
     "freshness_sla_seconds": null,
-    "freshness_sla_basis": null
+    "freshness_sla_basis": null,
+    "test_methods_to_run": [
+      "RTD",
+      "DDE"
+    ],
+    "instrument_test_order": [
+      "WIN",
+      "WDO"
+    ],
+    "minimum_matrix": "Each method × each instrument; record successful start, field population, update behavior, timestamp format/semantics, and errors."
   },
   "failure_recovery": {
     "interruption_test_performed": false,
@@ -96,9 +120,9 @@
   "criteria": {
     "menu_opens": "USER_CONFIRMED_MENU_PRESENT",
     "export_starts": "NOT_RUN",
-    "instrument_coverage": "NOT_RUN",
-    "fields_semantics": "NOT_RUN",
-    "source_timestamp": "NOT_RUN",
+    "instrument_coverage": "USER_REPORTED_SELECTABLE_NOT_EXPORT_VERIFIED",
+    "fields_semantics": "FIELDS_REPORTED_VISIBLE_NOT_EXPORT_VERIFIED",
+    "source_timestamp": "REPORTED_AS_SOURCE_TIMESTAMP_NOT_VERIFIED",
     "freshness": "NOT_RUN",
     "disconnect_recovery": "NOT_RUN",
     "license_and_storage": "PENDING_EVIDENCE",
@@ -110,5 +134,5 @@
     "Do not store credentials, personal account details, or unlicensed market data in this repository.",
     "No signals, order routing, or trading automation are in scope."
   ],
-  "next_action": "Execute WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md locally; replace null/NOT_RUN only with observed evidence."
+  "next_action": "In Excel, test RTD and DDE separately; for each method test WIN then WDO and confirm exported cells actually populate/update. Verify whether the time field is a source timestamp, including format/timezone. Do not calculate latency until source timestamp semantics are verified."
 }
