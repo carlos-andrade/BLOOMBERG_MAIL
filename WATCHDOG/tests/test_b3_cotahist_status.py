@@ -21,6 +21,8 @@ def write_evidence(root: Path, rec_result="FAIL_CONTENT_DIVERGENCE", raw_sha="a"
         "reconciliation": {"result": rec_result, "comparison_scope": "test"},
     }
     for key, rel in paths.items():
+        if key not in values:
+            continue
         path = root / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(values[key]), encoding="utf-8")
