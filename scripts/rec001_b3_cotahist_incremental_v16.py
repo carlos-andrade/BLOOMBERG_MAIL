@@ -37,7 +37,7 @@ def read_records(path):
         if corrupt:
             raise RuntimeError(f"ZIP corrompido: {corrupt}")
         member = next((name for name in archive.namelist()
-                      if name.upper().endswith("COTAHIST_A2026.TXT")), None)
+                      if name.upper().endswith(".TXT") and "COTAHIST" in name.upper()), None)
         if not member:
             raise RuntimeError("membro COTAHIST_A2026.TXT ausente")
         with archive.open(member) as stream:
@@ -86,58 +86,86 @@ def main():
     if expected_bloom and bloom_hash != expected_bloom:
         raise RuntimeError("SHA-256 do RAW BLOOMBERG_MAIL diverge do manifesto; comparação bloqueada")
 
-    with tempfile.TemporaryDirectory() as tmp:
-        official_path = os.path.join(tmp, "COTAHIST_A2026.ZIP")
-        request = urllib.request.Request(OFFICIAL_URL, headers={"User-Agent": "BLOOMBERG_MAIL-REC001/1.6"})
-        with urllib.request.urlopen(request, timeout=300) as response, open(official_path, "wb") as target:
-            for block in iter(lambda: response.read(1024 * 1024), b""):
-                target.write(block)
-        official_hash = sha256_file(official_path)
-        bloom = read_records(BLOOM)
-        official = read_records(official_path)
-        dates, divergences = compare_incremental(bloom["by_date"], official["by_date"])
-        tested = len(dates)
-        matched = tested - len(divergences)
-        has_new_data = any(date > BASELINE_END for date in dates)
-        if not has_new_data:
-            result = "BLOCKED_NO_INCREMENTAL_DATES"
-        elif divergences:
-            result = "FAIL_INCREMENTAL_DIVERGENCE"
-        elif official["date_max"] < bloom["date_max"]:
-            result = "PASS_INCREMENTAL_OVERLAP_ONLY"
-        else:
-            result = "PASS_INCREMENTAL_EXACT"
+    bloom = read_records(BLOOM)
+    first_month = (int(BASELINE_END[:4]), int(BASELINE_END[4:6]))
+    last_date = bloom["date_max"]
+    last_month = (int(last_date[:4]), int(last_date[4:6]))
+    months = []
+    year, month = first_month
+    while (year, month) <= last_month:
+        months.append((year, month))
+        month += 1
+        if month == 13:
+            year, month = year + 1, 1
 
-        evidence = {
-            "schema_version": "1.0-rec001-b3-incremental",
-            "created_at_utc": datetime.now(timezone.utc).isoformat(),
-            "result": result,
-            "baseline_last_reconciled_date": BASELINE_END,
-            "comparison_scope": "registos COTAHIST tipo 01 completos de 245 bytes; multiconjunto de hashes por data; multiplicidade preservada; apenas datas posteriores à linha de base",
-            "raw_policy": "immutable; nenhum RAW ou manifesto histórico foi substituído",
-            "bloomberg_mail": {"path": BLOOM, "zip_sha256": bloom_hash, "manifest_sha256": expected_bloom,
-                               "record01_count": bloom["record01_count"], "date_min": bloom["date_min"],
-                               "date_max": bloom["date_max"], "generation_date": bloom["generation_date"]},
-            "official_b3": {"url": OFFICIAL_URL, "zip_sha256": official_hash,
-                            "manifest_reference_sha256": dataset.get("reference_sha256"),
-                            "current_hash_equals_historical_manifest_reference": official_hash == dataset.get("reference_sha256"),
-                            "record01_count": official["record01_count"], "date_min": official["date_min"],
-                            "date_max": official["date_max"], "generation_date": official["generation_date"]},
-            "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
-                           "convergent_dates": matched, "divergent_dates_count": len(divergences),
-                           "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
-                           "official_dates_after_local_period": sum(1 for date in official["by_date"] if date > bloom["date_max"])},
-            "interpretation": "O hash atual do endpoint oficial é registado como nova observação de proveniência; não é exigido que coincida com o hash histórico do manifesto. Divergências ou datas ausentes bloqueiam a aprovação.",
-            "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
-        }
+    official_days = defaultdict(Counter)
+    monthly_snapshots = []
+    with tempfile.TemporaryDirectory() as tmp:
+        for year, month in months:
+            filename = f"COTAHIST_M{month:02d}{year}.ZIP"
+            url = f"https://bvmf.bmfbovespa.com.br/InstDados/SerHist/{filename}"
+            official_path = os.path.join(tmp, filename)
+            request = urllib.request.Request(url, headers={
+                "User-Agent": "Mozilla/5.0 (compatible; BLOOMBERG_MAIL-REC001/1.6)",
+                "Accept": "*/*",
+            })
+            with urllib.request.urlopen(request, timeout=90) as response, open(official_path, "wb") as target:
+                for chunk in iter(lambda: response.read(1024 * 1024), b""):
+                    target.write(chunk)
+            stats = read_records(official_path)
+            for date, records in stats["by_date"].items():
+                official_days[date].update(records)
+            monthly_snapshots.append({
+                "filename": filename, "url": url, "zip_sha256": sha256_file(official_path),
+                "record01_count": stats["record01_count"], "date_min": stats["date_min"],
+                "date_max": stats["date_max"], "generation_date": stats["generation_date"],
+            })
+
+    dates, divergences = compare_incremental(bloom["by_date"], official_days)
+    tested = len(dates)
+    matched = tested - len(divergences)
+    has_new_data = any(date > BASELINE_END for date in dates)
+    if not has_new_data:
+        result = "BLOCKED_NO_INCREMENTAL_DATES"
+    elif divergences:
+        result = "FAIL_INCREMENTAL_DIVERGENCE"
+    elif max((item["date_max"] for item in monthly_snapshots), default="") < bloom["date_max"]:
+        result = "PASS_INCREMENTAL_OVERLAP_ONLY"
+    else:
+        result = "PASS_INCREMENTAL_EXACT"
+
+    aggregate_hash = hashlib.sha256(
+        "".join(item["zip_sha256"] for item in monthly_snapshots).encode("ascii")
+    ).hexdigest()
+    evidence = {
+        "schema_version": "1.0-rec001-b3-incremental",
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "result": result,
+        "baseline_last_reconciled_date": BASELINE_END,
+        "comparison_scope": "registos COTAHIST tipo 01 completos de 245 bytes; multiconjunto de hashes por data; multiplicidade preservada; apenas datas posteriores à linha de base até à última data do RAW local",
+        "raw_policy": "immutable; nenhum RAW ou manifesto histórico foi substituído",
+        "bloomberg_mail": {"path": BLOOM, "zip_sha256": bloom_hash, "manifest_sha256": expected_bloom,
+                           "record01_count": bloom["record01_count"], "date_min": bloom["date_min"],
+                           "date_max": bloom["date_max"], "generation_date": bloom["generation_date"]},
+        "official_b3": {"source": "B3 COTAHIST monthly official endpoint", "snapshot_sha256_aggregate": aggregate_hash,
+                        "monthly_snapshots": monthly_snapshots,
+                        "record01_count": sum(item["record01_count"] for item in monthly_snapshots),
+                        "date_min": min((item["date_min"] for item in monthly_snapshots), default=None),
+                        "date_max": max((item["date_max"] for item in monthly_snapshots), default=None)},
+        "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
+                       "convergent_dates": matched, "divergent_dates_count": len(divergences),
+                       "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
+                       "official_dates_after_local_period": sum(1 for date in official_days if date > bloom["date_max"])},
+        "interpretation": "Snapshots mensais oficiais foram usados para reduzir o volume de download e limitar a prova ao período incremental do RAW local. O hash histórico do manifesto não é substituído. Divergências ou datas ausentes bloqueiam a aprovação.",
+        "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
+    }
         os.makedirs(os.path.dirname(OUT), exist_ok=True)
         with open(OUT, "w", encoding="utf-8") as stream:
             json.dump(evidence, stream, ensure_ascii=False, indent=2)
             stream.write("\n")
         print(json.dumps({"result": result, "dates_tested_after_baseline": tested,
                           "convergent_dates": matched, "divergent_dates_count": len(divergences),
-                          "official_hash": official_hash, "official_date_max": official["date_max"],
-                          "output": OUT}, ensure_ascii=False))
+                          "monthly_snapshots": len(monthly_snapshots), "output": OUT}, ensure_ascii=False))
 
 if __name__ == "__main__":
     main()
