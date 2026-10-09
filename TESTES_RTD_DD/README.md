@@ -6,7 +6,7 @@ fase: "FASE-03-FEED-INTRADAY"
 id_documento: "BLOOMBERG-MAIL-TESTES-RTD-DD-README"
 titulo: "TESTES_RTD_DD — Arquivo permanente dos resultados RTD/DDE"
 status: "ATIVO"
-versao: "1.0"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "Decisão do utilizador"
@@ -61,6 +61,12 @@ As quatro combinações devem ser testadas separadamente: RTD + WIN, RTD + WDO, 
 ## Matriz de execução
 
 A matriz [`MATRIZ_EXECUCAO_RTD_DDE.csv`](./MATRIZ_EXECUCAO_RTD_DDE.csv) contém as quatro combinações obrigatórias. Todas começam em `NOT_RUN`; preencher cada linha apenas após observar o teste local. Não converter `NOT_RUN` em sucesso por inferência nem sobrescrever os registos históricos.
+
+## Auditoria do workbook recebido
+
+Relatório: [`AUDITORIA_RDT_PROFIT_XLSX_2026-10-09.md`](./AUDITORIA_RDT_PROFIT_XLSX_2026-10-09.md).
+
+A inspeção estática confirmou 36 fórmulas `RTD` e 36 valores em cache para `WINFUT`. Isto prova que o ficheiro foi preparado com fórmulas RTD e contém uma fotografia de valores; **não prova atualização contínua**, reconexão, DDE, WDO ou direitos de armazenamento. A matriz operacional permanece `NOT_RUN` até aos testes locais.
 
 ## Documentos relacionados
 
