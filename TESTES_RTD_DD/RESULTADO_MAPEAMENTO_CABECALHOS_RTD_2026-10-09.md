@@ -129,3 +129,21 @@ Relacionar os cabeçalhos da linha 1 da folha `Folha1` com as fórmulas RTD enco
 
 **Concluída:** cabeçalhos e tópicos RTD mapeados estaticamente.  
 **Pendente:** origem das colunas A e M, teste RTD ao vivo e validação da estratégia de captura.
+
+
+## Verificação local das células A2 e M2 — 2026-10-09
+
+O utilizador abriu a cópia diagnóstica no Excel e confirmou os seguintes conteúdos:
+
+| Célula | Conteúdo observado | Interpretação limitada |
+|---|---|---|
+| A2 | `WINFUT` | Valor fixo observado; não foi identificada fórmula RTD nesta célula. |
+| M2 | `Ibovespa Mini` | Valor fixo observado; não foi identificada fórmula RTD nesta célula. |
+
+Estes valores identificam o instrumento configurado na linha de amostra, mas não provam, por si só, que a ligação RTD esteja ativa ou atualizada. Ao desenhar o histórico, preservar ambos os campos em cada registo, ou definir uma referência de instrumento equivalente, para que os dados não percam o contexto do ativo.
+
+## Próximo teste solicitado
+
+Com o Profit e o Excel abertos durante um período em que haja atualizações do instrumento, observar se as células `B2` (Data), `C2` (Hora) e `D2` (Último) mudam espontaneamente. Registar apenas se mudaram e aproximadamente quando; não copiar valores de mercado para documentação pública. Esta observação ajudará a distinguir uma atualização RTD de uma célula estática, mas não será suficiente para garantir a captura de todos os negócios/ticks.
+
+A gravação automática continua **não implementada e não ativada**.
