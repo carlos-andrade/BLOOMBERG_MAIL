@@ -5,8 +5,8 @@ tipo_documento: "ARQUITETURA_OPERACIONAL_LOCAL"
 fase: "FASE-01-PREPARACAO-LOCAL"
 id_documento: "BLOOMBERG-MAIL-ARQ-LOCAL-RTD-001"
 titulo: "Arquitetura local — RTD/Profit e sincronização Git manual"
-status: "PLANEADO_SCRIPT_PREPARADO_VALIDACAO_LOCAL_PENDENTE"
-versao: "1.0"
+status: "PREPARACAO_LOCAL_EXECUTADA; REVISAO_GIT_E_CAPTURA_PENDENTES"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "Aprovação do utilizador para arquitetura local"
@@ -26,7 +26,7 @@ Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL com os
 - Sincronização Git: manual
 - Preservação obrigatória: não modificar nem substituir os ficheiros RTD existentes nesta fase.
 
-Este documento especifica a preparação local. A criação de ficheiros no ramo de trabalho não significa que a estrutura tenha sido executada no computador do utilizador.
+A preparação local foi executada pelo utilizador em 2026-10-09. A saída do PowerShell confirmou a criação do clone e das pastas. A verificação local é evidência fornecida pelo utilizador, não execução remota deste assistente.
 
 ## 2. Inspeção inicial
 
@@ -128,27 +128,27 @@ O Excel/RTD pode expor apenas uma parte das mudanças que ocorreram no mercado. 
 
 ## 8. Critérios de aceitação da Fase 1
 
-- [ ] Script revisto e disponível no clone local.
-- [ ] Estrutura criada no Windows.
-- [ ] Clone validado e remoto confirmado.
-- [ ] Diretórios de dados/logs/backups/configuração fora do clone.
+- [x] Script descarregado e executado no computador Windows (a cópia do script está em Downloads; o clone local contém main).
+- [x] Estrutura criada no Windows; diretórios esperados confirmados pela saída PowerShell.
+- [x] Clone validado e remoto confirmado pela saída PowerShell.
+- [x] Diretórios de dados/logs/backups/configuração criados ao lado do clone, fora dele.
 - [ ] `.gitignore` da raiz verificado no clone.
-- [ ] Nenhuma fórmula ou ficheiro RTD alterado.
-- [ ] Nenhum commit/push executado automaticamente.
-- [ ] Evidência local da execução registada.
+- [x] O script informou que não abriu nem modificou o workbook; a integridade binária posterior não foi revalidada.
+- [x] Nenhum commit/push local executado pelo script.
+- [x] Evidência da execução registada em VERIFICACAO_FASE01_AMBIENTE_LOCAL_2026-10-09.md.
 
 ## 9. Roadmap
 
 | Fase | Objetivo | Estado |
 |---|---|---|
 | 0 | Inspeção e arquitetura | CONCLUÍDA |
-| 1 | Preparação local e proteção Git | DOCUMENTADA; execução no Windows pendente |
+| 1 | Preparação local | EXECUTADA; alinhar documentação e incorporar proteções Git após revisão |
 | 2 | Desenho e implementação do gravador RTD | BLOQUEADA até confirmar a estrutura e mapear as células |
 | 3 | Arquivo, deduplicação, reconexão e validação | PENDENTE |
 | 4 | Publicação Git manual por lista autorizada | PENDENTE |
 
 ## 10. Resultado
 
-Foram preparados o `.gitignore` da raiz e um script idempotente de preparação local, acompanhados desta especificação. A fase não será considerada concluída até o script ser executado e validado no computador Windows do utilizador.
+Foram preparados o `.gitignore` da raiz e um script idempotente. O utilizador executou o script e confirmou o clone em `main`, o remoto `origin` e as pastas locais. A preparação de diretórios está concluída. A revisão da branch do PR, a incorporação do `.gitignore` no clone local e os testes RTD continuam pendentes.
 
 Na validação inicial do utilizador, `D:\BLOOMBERG_MAIL` contém `RDT_PROFIT.xlsx` e o ficheiro temporário do Excel, mas não foi encontrado um clone Git nas subpastas imediatas. O script foi ajustado para usar D: por omissão. A próxima ação é executar a preparação ajustada e validar o clone sem tocar no workbook original. Só depois deve começar o desenho do gravador de alterações RTD.
