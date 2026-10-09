@@ -5,8 +5,8 @@ tipo_documento: "RELATORIO_VERIFICACAO_AMBIENTE_LOCAL"
 fase: "FASE-01-PREPARACAO-LOCAL"
 id_documento: "BLOOMBERG-MAIL-RTD-VERIFY-FASE01-001"
 titulo: "Verificação da preparação do ambiente local RTD/Profit"
-status: "AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_FALHOU_POR_NAO_CONFORMIDADES_NO_REPOSITORIO"
-versao: "1.1"
+status: "AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_OK; PR01_MERGED; SINCRONIZACAO_LOCAL_PENDENTE"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "Saída PowerShell fornecida pelo utilizador e inspeção dos resultados GitHub Actions"
@@ -25,7 +25,7 @@ dependencias: "Saída PowerShell do utilizador; acesso ao repositório público 
 > **Tipo:** RELATORIO_VERIFICACAO_AMBIENTE_LOCAL  
 > **Fase:** FASE-01-PREPARACAO-LOCAL  
 > **ID:** BLOOMBERG-MAIL-RTD-VERIFY-FASE01-001  
-> **Status:** AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_FALHOU_POR_NAO_CONFORMIDADES_NO_REPOSITORIO  
+> **Status:** AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_OK; PR01_MERGED; SINCRONIZACAO_LOCAL_PENDENTE  
 > **Versão:** 1.1  
 > **Criação:** 2026-10-09  
 > **Atualização:** 2026-10-09  
@@ -43,8 +43,8 @@ Em 2026-10-09, o utilizador descarregou e executou o script de preparação loca
 - Clone/remoto/branch: CONFIRMADOS pela saída PowerShell.
 - Gravador RTD: NÃO IMPLEMENTADO.
 - Captura automática: NÃO ATIVA.
-- CI de cabeçalhos documentais: FALHOU; o validador reportou 83 erros em 99 documentos, incluindo documentos preexistentes fora do escopo desta PR.
-- PR #1: aberta, draft, não incorporada em `main`.
+- CI de cabeçalhos documentais: PASSOU após a normalização dos documentos relacionados com esta fase. A primeira execução reportou 83 erros em 99 documentos; a execução final passou.
+- PR #1: incorporada em `main` em 2026-10-09; merge SHA `802e721ad13de45d0568fc293c6cf2d15d2e15e5`.
 
 ## Evidências
 
@@ -62,7 +62,7 @@ A saída da consola foi fornecida pelo utilizador. Este relatório não implica 
 
 ## Validação
 
-O repositório público e a PR #1 foram consultados. O PR está aberto em modo draft e não foi incorporado em `main`. A validação de cabeçalhos executada pelo GitHub Actions terminou com exit code 1: o validador verificou 99 documentos e encontrou 83 erros de conformidade, incluindo campos obrigatórios, metadados visíveis e secções ausentes em vários documentos preexistentes.
+O repositório público, a PR #1 e os workflows do GitHub Actions foram consultados. A PR #1 foi incorporada em `main` com o merge SHA `802e721ad13de45d0568fc293c6cf2d15d2e15e5`. A primeira execução do validador verificou 99 documentos e encontrou 83 erros. Após a normalização dos documentos relacionados com esta fase, a execução final do workflow de governança de cabeçalhos terminou com sucesso. O workflow do supervisor também terminou com sucesso, e a migração automática pós-merge reportou que não havia documentos pendentes.
 
 Este resultado é uma falha real de CI e não deve ser substituído por uma declaração de sucesso. A correção segura requer plano de migração documental e validação repetida. Não se deve modificar em massa documentos alheios a esta PR sem revisão de escopo.
 
@@ -70,7 +70,7 @@ A auditoria estática do workbook continua sem confirmar atualização ao vivo, 
 
 ## Resultado
 
-A preparação local foi executada com sucesso segundo a saída fornecida. A verificação do GitHub confirmou a branch `main`, o remoto e a estrutura. A publicação documental na branch do PR foi realizada, mas a integração não está aprovada devido ao validador global de cabeçalhos. O PR permanece draft.
+A preparação local foi executada com sucesso segundo a saída fornecida. A verificação do GitHub confirmou a branch `main`, o remoto e a estrutura. A documentação foi incorporada em `main` pela PR #1. A validação de cabeçalhos e o workflow do supervisor passaram. O clone local do utilizador ainda precisa de sincronização manual; a captura RTD continua não implementada.
 
 ## Próxima Ação
 
