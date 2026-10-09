@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "project": "BLOOMBERG_MAIL",
+  "phase": "FASE-03-FEED-INTRADAY",
+  "created_at": "2026-10-09",
+  "status": "INITIAL_SCREEN_PENDING_USER_ACCOUNT_AND_LICENSE_EVIDENCE",
+  "policy": "No provider is approved. Public documentation is preliminary evidence only; validate the user's exact product, contract, instrument entitlements, storage rights, and freshness before integration.",
+  "candidates": [
+    {
+      "provider_id": "NELOGICA_PROFIT_RTD_DDE",
+      "provider_name": "Nelogica Profit — RTD/DDE export",
+      "provider_type": "existing_platform_export",
+      "timeliness": "REAL_TIME_EXPORT_CLAIM_TO_VERIFY",
+      "evidence_url": "https://ajuda.nelogica.com.br/hc/pt-br/articles/360044293432-Como-configurar-RTD-DDE-no-Profit",
+      "evidence_summary": "Official help describes exporting selected assets/attributes via RTD or DDE to Excel/LibreOffice.",
+      "transport": "RTD/DDE spreadsheet bridge",
+      "coverage": "Must verify WIN/WDO and required fields in user's current Profit edition/account",
+      "latency": "Not measured; must measure source timestamp vs receive time",
+      "storage_rights": "PENDING_EVIDENCE",
+      "costs": "Existing plan and exchange-data charges not verified",
+      "failure_semantics": "Must implement and test disconnect, stale values, workbook shutdown, missing fields and duplicate updates",
+      "decision": "PENDING_EVIDENCE",
+      "next_test": "Confirm menu availability in user's installed edition; export WIN/WDO last price, bid/ask, volume, exchange/source timestamp if exposed; log 30 minutes and test disconnection."
+    },
+    {
+      "provider_id": "NELOGICA_PROFITDLL",
+      "provider_name": "Nelogica DataFeed / ProfitDLL",
+      "provider_type": "licensed_platform_api_or_dll",
+      "timeliness": "REAL_TIME_PRODUCT_AVAILABLE_SUBJECT_TO_CONTRACT",
+      "evidence_url": "https://ajuda.nelogica.com.br/hc/pt-br/sections/11307712057883-DataFeed",
+      "evidence_summary": "Official DataFeed documentation lists ProfitDLL access, real-time functions, connectivity checks, price depth and historical trade retrieval.",
+      "transport": "DLL/API integration subject to access, version and license",
+      "coverage": "Must verify exact instruments, data fields, functions and entitlement",
+      "latency": "Not measured; must measure source timestamp vs receive time",
+      "storage_rights": "PENDING_EVIDENCE",
+      "costs": "Commercial conditions and account access not verified",
+      "failure_semantics": "Must test heartbeat, reconnect, callbacks, gap detection, sequence and shutdown",
+      "decision": "PENDING_EVIDENCE",
+      "next_test": "Obtain official access and license terms; run vendor-supported sample without order-routing functions; capture timestamped events and disconnect/reconnect evidence."
+    },
+    {
+      "provider_id": "B3_LICENSED_DISTRIBUTOR",
+      "provider_name": "B3 licensed Market Data distributors",
+      "provider_type": "licensed_distributor",
+      "timeliness": "PRODUCT_DEPENDENT",
+      "evidence_url": "https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/distribuidores/distribuidores-licenciados/",
+      "evidence_summary": "B3 publishes a licensed-distributor list with coverage categories for equities/options and futures/FX; list includes Nelogica and other providers.",
+      "transport": "Vendor-specific",
+      "coverage": "Select only distributors whose published scope includes futures/FX if WIN/WDO are required; confirm exact symbols and fields in writing",
+      "latency": "Product-dependent; require written statement of real-time vs delayed",
+      "storage_rights": "PENDING_EVIDENCE",
+      "costs": "Quote required; B3 says indirect access is arranged through authorized distributors and subject to contracts/commercial policy",
+      "failure_semantics": "Vendor-specific contract and technical validation required",
+      "decision": "PENDING_EVIDENCE",
+      "next_test": "Request written quote and terms for WIN/WDO real-time, individual/internal use, historical storage, API/DLL availability, timestamps, SLA, and total exchange/platform charges."
+    },
+    {
+      "provider_id": "B3_DIRECT_UMDF",
+      "provider_name": "B3 direct Market Data / UMDF",
+      "provider_type": "direct_exchange_feed",
+      "timeliness": "REAL_TIME_SUBJECT_TO_CONTRACT",
+      "evidence_url": "https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/distribuidores/perguntas-frequentes/",
+      "evidence_summary": "B3 states direct access requires connectivity through RCB and a dedicated link from a homologated operator, plus a real-time Market Data distribution contract.",
+      "transport": "UMDF over contracted connectivity",
+      "coverage": "Product/market-depth dependent; verify exact contract",
+      "latency": "Must be measured under provisioned connectivity",
+      "storage_rights": "PENDING_EVIDENCE",
+      "costs": "Likely high infrastructure/contract burden; no cost estimate inferred; quote required",
+      "failure_semantics": "Requires feed handler, sequence recovery, heartbeats, gap recovery and operational monitoring",
+      "decision": "PENDING_EVIDENCE",
+      "next_test": "Use as benchmark only unless commercial/technical requirements justify direct connectivity; obtain official technical and commercial proposal."
+    }
+  ],
+  "decision_rules": [
+    "Do not label a source REAL_TIME until the exact product entitlement and source timestamps are verified.",
+    "Do not store API keys, passwords, account identifiers or license secrets in the repository.",
+    "Do not assume that platform display rights permit automated capture, long-term storage, derived-data use or redistribution.",
+    "No trade routing, automated signals or order execution is in scope.",
+    "Prefer the lowest-complexity legally authorized path that produces measurable timestamps and reproducible events; evaluate RTD/DDE first, ProfitDLL second, licensed distributors third, direct B3 last."
+  ],
+  "next_action": "Run a user-assisted capability check on the installed Profit edition and account; do not assume the feature or entitlement exists."
+}
