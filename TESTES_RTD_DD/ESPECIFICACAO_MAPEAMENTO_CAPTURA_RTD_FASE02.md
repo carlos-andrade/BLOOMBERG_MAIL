@@ -18,7 +18,23 @@ objetivo: "Definir um caminho verificável para resolver a ausência de avanço 
 dependencias: "Workbook local; Excel/Profit operacionais; mapeamento de células confirmado; direitos de armazenamento"
 ---
 
+
+
 # Especificação — mapeamento e captura observável RTD
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** ESPECIFICACAO_TECNICA
+> **Fase:** FASE-02-MAPEAMENTO-RTD
+> **ID:** BLOOMBERG-MAIL-RTD-MAP-002
+> **Status:** ESPECIFICADO; AGUARDA_VALIDACAO_LOCAL
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** Auditoria estática do workbook RDT_PROFIT.xlsx e sincronização local confirmada
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** TESTES_RTD_DD/AUDITORIA_RDT_PROFIT_XLSX_2026-10-09.md; WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md
+
 
 ## Contexto Histórico
 
