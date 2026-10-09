@@ -13,7 +13,7 @@
 
 [CmdletBinding()]
 param(
-    [string]$Root = 'C:\BLOOMBERG_MAIL',
+    [string]$Root = 'D:\BLOOMBERG_MAIL',
     [string]$RepositoryUrl = 'https://github.com/carlos-andrade/BLOOMBERG_MAIL.git'
 )
 
