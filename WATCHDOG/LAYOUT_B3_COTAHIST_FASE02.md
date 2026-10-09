@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-LAYOUT-B3-COTAHIST-FASE02"
 titulo: "Layout único do adapter de qualidade histórica B3 COTAHIST"
 status: "IMPLEMENTADO"
-versao: "1.2"
+versao: "1.3"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/CARTA_B3_COTAHIST_FASE02.md"
@@ -43,7 +43,9 @@ IMPLEMENTADO — layout aprovado para implementação local e automatizada.
 
 ## Evidências
 
-Artefactos de ingestão 005, REC-001 histórico e diagnóstico multiconjunto versionado enumerados na carta.
+Artefactos de ingestão 005, REC-001 histórico, diagnóstico multiconjunto e evidência incremental oficial enumerados na carta.
+
+Resultado da execução oficial de 2026-10-09: `PASS_INCREMENTAL_EXACT`; 9/9 pregões convergentes entre 2026-09-24 e 2026-10-06; zero divergências; cinco snapshots oficiais (um mensal e quatro diários); hashes dos cinco ficheiros registados na evidência JSON versionada.
 
 ## Validação
 
