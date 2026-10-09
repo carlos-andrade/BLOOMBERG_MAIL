@@ -37,22 +37,22 @@ for path in ROOT.rglob("*.md"):
     fm = text[4:end]
     body = text[end + 5:].lstrip("\n")
     for key in REQUIRED:
-        if not re.search(rf"(?m)^{re.escape(key)}\\s*:", fm):
+        if not re.search(rf"(?m)^{re.escape(key)}\s*:", fm):
             errors.append(f"{path.relative_to(ROOT)}: campo ausente: {key}")
-    h1 = re.match(r"^#\\s+.+$", body)
+    h1 = re.match(r"^#\s+.+$", body)
     if not h1:
         errors.append(f"{path.relative_to(ROOT)}: título Markdown não está imediatamente após o Front Matter")
         continue
     metadata = body[h1.end():].split("\n\n", 1)[0]
     for label in VISIBLE:
-        if not re.search(rf"(?m)^> \\*\\*{re.escape(label)}:\\*\\*", metadata):
+        if not re.search(rf"(?m)^> \*\*{re.escape(label)}:\*\*", metadata):
             errors.append(f"{path.relative_to(ROOT)}: metadado visível ausente: {label}")
     for section in SECTIONS:
-        if not re.search(rf"(?m)^## {re.escape(section)}\\s*$", body):
+        if not re.search(rf"(?m)^## {re.escape(section)}\s*$", body):
             errors.append(f"{path.relative_to(ROOT)}: seção obrigatória ausente: {section}")
-    if not re.search(r"(?m)^cadeia_autoridade:\\s*.+$", fm):
+    if not re.search(r"(?m)^cadeia_autoridade:\s*.+$", fm):
         errors.append(f"{path.relative_to(ROOT)}: cadeia de autoridade vazia")
-    if not re.search(r"(?m)^id_documento:\\s*.+$", fm):
+    if not re.search(r"(?m)^id_documento:\s*.+$", fm):
         errors.append(f"{path.relative_to(ROOT)}: ID documental vazio")
 
 if errors:
