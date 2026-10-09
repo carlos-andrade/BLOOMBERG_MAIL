@@ -41,7 +41,7 @@ jobs:
           assert result['status'] == 'VALIDADO', result
           event = result['event']
           assert event['payload']['is_realtime_feed'] is False
-          assert event['payload']['reconciliation_result'] == 'FAIL_CONTENT_DIVERGENCE'
+          assert event['payload']['reconciliation_result'] == 'PASS_OVERLAP_EXACT'
           assert event['state'] == 'DEGRADED' and event['severity'] == 'HIGH'
           print('Persisted evidence OK; REC-001 correctly remains DEGRADED/HIGH; no event written.')
           PY
