@@ -25,5 +25,12 @@ class IncrementalComparisonTests(unittest.TestCase):
         self.assertEqual(dates, [])
         self.assertEqual(diffs, [])
 
+    def test_newer_official_dates_do_not_extend_local_target_period(self):
+        local = {"20260924": Counter({"a": 1})}
+        official = {"20260924": Counter({"a": 1}), "20260925": Counter({"b": 1})}
+        dates, diffs = compare_incremental(local, official)
+        self.assertEqual(dates, ["20260924"])
+        self.assertEqual(diffs, [])
+
 if __name__ == "__main__":
     unittest.main()
