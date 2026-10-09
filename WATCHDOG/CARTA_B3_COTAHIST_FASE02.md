@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-CARTA-B3-COTAHIST-FASE02"
 titulo: "Carta do adapter de qualidade histórica B3 COTAHIST"
 status: "IMPLEMENTADO"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL/INGESTAO-005"
@@ -65,6 +65,15 @@ IMPLEMENTADO — autorização limitada a um adapter de observabilidade da quali
 
 A carta autoriza a integração do estado de qualidade do COTAHIST histórico no contrato de eventos do WATCHDOG. Não autoriza declarar feed intradiário ativo.
 
+## Reconciliação incremental oficial — regra obrigatória
+
+- A evidência multiconjunto de 2026-10-09 reconcilia somente o período comum até 2026-09-23; não aprova datas posteriores.
+- Executar `scripts/rec001_b3_cotahist_incremental_v16.py` contra o endpoint oficial B3 `https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2026.ZIP`.
+- Comparar cada registo tipo 01 completo de 245 bytes por data, como multiconjunto, preservando multiplicidade e detetando datas ausentes de qualquer lado.
+- A linha de base é 2026-09-23. O hash atual do endpoint oficial deve ser registado como observação nova; a diferença em relação ao hash histórico do manifesto não pode ser tratada automaticamente como falha nem silenciosamente substituir a referência histórica.
+- Guardar resultado separado em `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json`. RAW, manifesto e REC-001 anteriores são imutáveis.
+- Apenas `PASS_INCREMENTAL_EXACT` ou `PASS_INCREMENTAL_OVERLAP_ONLY` sem divergências podem ser encaminhados para revisão humana; a evidência não altera automaticamente a promoção do dataset nem ativa sinais.
+
 ## Próxima Ação
 
-Implementar o layout, executar testes automatizados e confirmar o workflow. Só depois selecionar um fornecedor adequado a dados intradiários.
+Confirmar execução do workflow incremental, analisar a evidência publicada e resolver qualquer divergência ou ausência de datas. Só depois avaliar a promoção. Selecionar separadamente um fornecedor de dados intradiários; COTAHIST não é feed em tempo real.
