@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
 status: "EM_DESENVOLVIMENTO"
-versao: "1.4"
+versao: "1.5"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
@@ -68,7 +68,7 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 - [x] carta/layout do adapter de qualidade COTAHIST
 - [x] classificação de divergência cross-repo como `DEGRADED/HIGH`
 - [x] workflow executado com testes dos adapters e validação contra evidências B3 persistidas
-- [x] diagnóstico REC-001 por multiconjunto completo e por pregão: 182/182 convergentes\n- [x] adapter WATCHDOG atualizado para usar diagnóstico verificado sem sobrescrever a evidência original\n- [ ] reconciliar incrementalmente os pregões posteriores a 20260923 contra snapshot B3 atualizado
+- [x] diagnóstico REC-001 por multiconjunto completo e por pregão: 182/182 convergentes\n- [x] adapter WATCHDOG atualizado para usar diagnóstico verificado sem sobrescrever a evidência original\n- [ ] executar e validar reconciliação incremental dos pregões posteriores a 20260923 contra endpoint oficial B3; evidência própria, sem sobrescrever snapshots anteriores
 - [ ] feed intradiário real, com fonte, licença, timestamps, heartbeat e freshness verificados
 - [ ] mini-índice (WIN), mini-dólar (WDO), IBOV, VIX e Tesouro
 - [ ] cripto 24/7
@@ -111,4 +111,4 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 
 ## Próxima Ação
 
-Executar e confirmar os testes do adapter com o novo diagnóstico. Depois, reconciliar o trecho posterior a `20260923` contra um snapshot B3 atualizado; em paralelo, preparar seleção de feed intradiário sem declarar que o COTAHIST é tempo real.
+Executar o workflow `bloomberg-mail-rec001-b3-cotahist-incremental.yml`, inspecionar o resultado real e resolver divergências/datas ausentes. A fonte é o endpoint oficial B3; o hash da nova captura fica registado sem alterar a referência histórica do manifesto. Em paralelo, preparar seleção de feed intradiário sem declarar que COTAHIST é tempo real.
