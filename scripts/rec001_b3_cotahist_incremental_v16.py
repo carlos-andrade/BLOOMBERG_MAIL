@@ -102,6 +102,7 @@ def main():
     official_days = defaultdict(Counter)
     official_snapshots = []
     unavailable_official_dates = []
+    source_errors = []
     with tempfile.TemporaryDirectory() as tmp:
         for year, month in months:
             if (year, month) < last_month:
@@ -130,9 +131,17 @@ def main():
                 except urllib.error.HTTPError as exc:
                     if exc.code == 404 and expected_date:
                         unavailable_official_dates.append({"date": expected_date, "url": url, "http_status": 404})
-                        continue
-                    raise
-                stats = read_records(official_path)
+                    else:
+                        source_errors.append({"url": url, "error": "HTTPError", "http_status": exc.code, "detail": str(exc)})
+                    continue
+                except (urllib.error.URLError, TimeoutError, OSError) as exc:
+                    source_errors.append({"url": url, "error": type(exc).__name__, "detail": str(exc)})
+                    continue
+                try:
+                    stats = read_records(official_path)
+                except Exception as exc:
+                    source_errors.append({"url": url, "error": type(exc).__name__, "detail": str(exc)})
+                    continue
                 if expected_date and any(date_key != expected_date.replace("-", "") for date_key in stats["by_date"]):
                     raise RuntimeError("arquivo diário {} contém data diferente da esperada {}".format(filename, expected_date))
                 for date_key, records in stats["by_date"].items():
@@ -148,7 +157,9 @@ def main():
     tested = len(dates)
     matched = tested - len(divergences)
     has_new_data = any(date > BASELINE_END for date in dates)
-    if unavailable_official_dates:
+    if source_errors:
+        result = "BLOCKED_OFFICIAL_SOURCE_UNAVAILABLE"
+    elif unavailable_official_dates:
         result = "BLOCKED_OFFICIAL_DAILY_UNAVAILABLE"
     elif not has_new_data:
         result = "BLOCKED_NO_INCREMENTAL_DATES"
@@ -175,6 +186,7 @@ def main():
         "official_b3": {"source": "B3 COTAHIST official monthly and daily endpoints", "snapshot_sha256_aggregate": aggregate_hash,
                         "official_snapshots": official_snapshots,
                         "unavailable_official_dates": unavailable_official_dates,
+                        "source_errors": source_errors,
                         "record01_count": sum(item["record01_count"] for item in official_snapshots),
                         "date_min": min((item["date_min"] for item in official_snapshots), default=None),
                         "date_max": max((item["date_max"] for item in monthly_snapshots), default=None)},
@@ -182,7 +194,7 @@ def main():
                        "convergent_dates": matched, "divergent_dates_count": len(divergences),
                        "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
                        "official_dates_after_local_period": sum(1 for date in official_days if date > bloom["date_max"])},
-        "interpretation": "Foi usado snapshot mensal para o mês fechado e ficheiros diários oficiais para o mês em curso. Dias úteis sem ficheiro oficial disponível bloqueiam a aprovação; o hash histórico do manifesto não é substituído.",
+        "interpretation": "Foi usado snapshot mensal para o mês fechado e ficheiros diários oficiais para o mês em curso. Dias úteis sem ficheiro oficial disponível ou erros de origem bloqueiam a aprovação e ficam registados; o hash histórico do manifesto não é substituído.",
         "promotion_impact": "REVIEW_FOR_PROMOTION" if result.startswith("PASS_") else "BLOCKED"
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
