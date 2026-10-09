@@ -12,6 +12,10 @@ data_atualizacao: "2026-10-09"
 origem: "Decisão do utilizador"
 autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "WATCHDOG/CARTA_FEED_INTRADAY_FASE03.md; TESTES_RTD_DD/ARQUITETURA_LOCAL_FASE01.md"
+escopo: "Governança do arquivo local de evidências de ensaios RTD/DDE"
+objetivo: "Definir regras para preservar, identificar e validar resultados de testes sem confundir amostras com prova funcional"
+dependencias: "Evidências fornecidas pelo utilizador; validação de direitos/licença; nomenclatura e manifestos definidos no projeto"
 ---
 
 
@@ -81,3 +85,22 @@ A inspeção estática confirmou 36 fórmulas `RTD` e 36 valores em cache para `
 3. Repetir para RTD + WDO, DDE + WIN e DDE + WDO.
 4. Verificar atualização contínua, timestamps, interrupção/reconexão e direitos de armazenamento.
 5. Só depois decidir se o candidato pode avançar para a fase seguinte.
+
+
+## Contexto Histórico
+A pasta foi definida como arquivo permanente dos resultados dos testes assistidos RTD/DDE do Profit, com preservação de amostras e rastreabilidade entre execuções.
+
+## Estado
+A pasta e as regras de armazenamento estão documentadas. Os testes operacionais continuam sujeitos a execução local e à confirmação dos direitos aplicáveis.
+
+## Evidências
+O diretório contém auditoria estática, registo de observação e documentos de procedimento. Cada amostra deve manter nome, data/hora, método, instrumento e estado de validação.
+
+## Validação
+Uma opção de menu ou um valor em cache não é prova de atualização contínua. Cada método e instrumento deve ser testado separadamente, com resultados e limitações explícitos.
+
+## Resultado
+O arquivo é a referência documental para evidências de teste. Dados brutos não devem ser publicados no repositório público sem revisão e autorização.
+
+## Próxima Ação
+Executar as etapas manuais do procedimento RTD/DDE, atualizar os manifestos de evidência e verificar o padrão de cabeçalho com o validador do repositório.
