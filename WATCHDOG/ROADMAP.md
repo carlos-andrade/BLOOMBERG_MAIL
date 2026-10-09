@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
 status: "EM_DESENVOLVIMENTO"
-versao: "1.7"
+versao: "1.8"
 data_criacao: "2026-10-08"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
@@ -76,7 +76,9 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 ### FASE 03 — Fonte intradiária e fluxo
 - [x] carta de seleção de feed intradiário com gates legais, temporais, de cobertura e integridade
 - [x] layout único da matriz comparativa; código de ingestão continua bloqueado até fonte aprovada
-- [ ] preencher matriz de fornecedores e validar plataforma existente, fonte autorizada, custo, licença e freshness
+- [x] matriz inicial de fontes versionada em `WATCHDOG/MATRIZ_FONTES_FEED_INTRADAY_2026-10-09.json`; RTD/DDE Profit, ProfitDLL, distribuidores licenciados B3 e acesso direto B3 listados como candidatos, todos `PENDING_EVIDENCE`
+- [ ] confirmar edição/conta Profit disponível e executar teste RTD/DDE com timestamps e reconexão
+- [ ] obter condições escritas de licença, armazenamento, cobertura WIN/WDO, freshness e custo; atualizar decisão da matriz
 - [ ] VWAP/TWAP
 - [ ] cumulative delta
 - [ ] volume financeiro
@@ -114,4 +116,4 @@ O workflow compila os scripts, executa testes determinísticos, verifica o contr
 
 ## Próxima Ação
 
-Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. A Carta e o Layout da FASE 03 já estão versionados; próximo passo é preencher a matriz de fontes e validar acesso, licença, cobertura, custos e freshness antes de autorizar código. COTAHIST permanece dado histórico, não tempo real.
+Submeter `PASS_INCREMENTAL_EXACT` a revisão de promoção independente, mantendo a Layer A bloqueada até ao gate de aprovação definido no manifesto. Preservar a evidência original REC-001, o diagnóstico de sobreposição e a evidência incremental como artefactos distintos. A Carta e o Layout da FASE 03 e a matriz inicial de fontes já estão versionados. A triagem documental favorece testar primeiro RTD/DDE do Profit por menor complexidade, mas não confirma que esteja disponível na edição/conta do utilizador nem autoriza captura automatizada. Próximo passo: teste assistido de capacidade e timestamps, seguido de validação de licença, cobertura, custo e freshness. COTAHIST permanece dado histórico, não tempo real.
