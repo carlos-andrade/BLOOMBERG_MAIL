@@ -8,10 +8,10 @@
 # =============================================================================
 
 # Diretórios operacionais locais (devem ficar fora do clone Git)
- /dados_locais/
- /logs/
- /backups/
- /configuracao_local/
+/dados_locais/
+/logs/
+/backups/
+/configuracao_local/
 
 # Segredos e configuração privada
 .env
