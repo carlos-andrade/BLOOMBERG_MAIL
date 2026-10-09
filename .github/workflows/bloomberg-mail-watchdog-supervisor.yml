@@ -26,9 +26,9 @@ jobs:
 
       - name: Python syntax check
         run: |
-          python -m py_compile WATCHDOG/scripts/watchdog.py WATCHDOG/adapters/replay.py
+          python -m py_compile WATCHDOG/scripts/watchdog.py WATCHDOG/adapters/replay.py WATCHDOG/adapters/b3_cotahist_status.py
 
-      - name: Deterministic replay tests
+      - name: Deterministic adapter tests
         run: python -m unittest discover -s WATCHDOG/tests -v
 
       - name: Contract validation
