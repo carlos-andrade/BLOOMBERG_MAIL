@@ -2,72 +2,58 @@
 projeto: "BLOOMBERG_MAIL"
 repositorio: "carlos-andrade/BLOOMBERG_MAIL"
 tipo_documento: "DOCUMENTO_TECNICO"
-fase: "FASE-01-WATCHDOG"
+fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD"
 titulo: "WATCHDOG — Roadmap"
-status: "IMPLEMENTADO"
-versao: "1.0"
+status: "EM_DESENVOLVIMENTO"
+versao: "1.1"
 data_criacao: "2026-10-08"
-data_atualizacao: "2026-10-08"
+data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL"
 autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
-rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+rastreabilidade: "WATCHDOG/CARTA_ADAPTERS_FASE02.md; WATCHDOG/LAYOUT_ADAPTERS_FASE02.md"
 escopo: "WATCHDOG/ROADMAP.md"
-objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
-dependencias: "MODELO-PADRAO-CABECALHO"
+objetivo: "Controlar a sequência de implementação e a evidência de cada fase do WATCHDOG."
+dependencias: "WATCHDOG/schema/event.schema.json; governança documental"
 ---
-
-
 
 # WATCHDOG — Roadmap
 
 > **Projeto:** BLOOMBERG_MAIL
 > **Repositório:** carlos-andrade/BLOOMBERG_MAIL
 > **Tipo:** DOCUMENTO_TECNICO
-> **Fase:** FASE-01-WATCHDOG
+> **Fase:** FASE-02-WATCHDOG
 > **ID:** BLOOMBERG-MAIL-WATCHDOG-ROADMAP-MD
-> **Status:** IMPLEMENTADO
-> **Versão:** 1.0
+> **Status:** EM_DESENVOLVIMENTO
+> **Versão:** 1.1
 > **Criação:** 2026-10-08
-> **Atualização:** 2026-10-08
+> **Atualização:** 2026-10-09
 > **Origem:** BLOOMBERG_MAIL
 > **Autoridade:** GOVERNANÇA
-> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
-
+> **Rastreabilidade:** WATCHDOG/CARTA_ADAPTERS_FASE02.md; WATCHDOG/LAYOUT_ADAPTERS_FASE02.md
 
 ## Contexto Histórico
 
-Documento do WATCHDOG integrado à governança documental central.
+A FASE 01 criou contrato de eventos, configuração, heartbeat, persistência incremental, reinício Docker e supervisor auxiliar. Em 2026-10-09 iniciou-se a FASE 02 com carta, layout e replay determinístico. O replay é infraestrutura de validação; não equivale a feed intradiário real.
 
 ## Estado
 
-IMPLEMENTADO.
+EM_DESENVOLVIMENTO — infraestrutura de replay implementada; testes automatizados incorporados ao supervisor. Integrações de dados de mercado permanecem pendentes.
 
 ## Evidências
 
-Modelo canônico de cabeçalho do projeto Curioso-da-Internet-IA.
+- Carta: `WATCHDOG/CARTA_ADAPTERS_FASE02.md`.
+- Layout único: `WATCHDOG/LAYOUT_ADAPTERS_FASE02.md`.
+- Implementação: `WATCHDOG/adapters/replay.py`.
+- Testes: `WATCHDOG/tests/test_replay.py`.
+- Workflow: `.github/workflows/bloomberg-mail-watchdog-supervisor.yml`.
 
 ## Validação
 
-Cabeçalho e rastreabilidade aplicados.
+O workflow deve compilar os scripts Python, executar os testes de replay e verificar os enums do contrato. O sucesso do workflow será a evidência de execução; não declarar a FASE 02 concluída apenas por existir código.
 
 ## Resultado
-
-Documento normalizado.
-
-## Próxima Ação
-
-Atualizar versão, data e rastreabilidade quando houver alteração relevante.
-
----
-
-# WATCHDOG — Roadmap
-
-## Cabeçalho histórico
-- Projeto: BLOOMBERG_MAIL
-- Módulo: WATCHDOG
-- Data: 2026-10-08
 
 ### FASE 01 — Fundação
 - [x] pasta WATCHDOG
@@ -78,10 +64,14 @@ Atualizar versão, data e rastreabilidade quando houver alteração relevante.
 - [x] Docker restart policy
 - [x] supervisor GitHub Actions
 
-### FASE 02 — Mercado
-- [ ] B3 intraday
-- [ ] mini-índice
-- [ ] mini-dólar
+### FASE 02 — Mercado e adapters
+- [x] carta e layout do adapter de replay
+- [x] replay JSONL append-only com deduplicação por `event_id`
+- [x] validação do contrato e rejeição de entradas inválidas
+- [x] testes determinísticos no workflow
+- [ ] B3 intraday — feed real validado
+- [ ] mini-índice (WIN)
+- [ ] mini-dólar (WDO)
 - [ ] IBOV
 - [ ] VIX
 - [ ] Tesouro
@@ -108,7 +98,7 @@ Atualizar versão, data e rastreabilidade quando houver alteração relevante.
 - [ ] deduplicação/cooldown
 
 ### FASE 06 — Qualidade
-- [ ] replay
+- [ ] replay com dados reais históricos
 - [ ] gaps
 - [ ] reconciliação entre fontes
 - [ ] falso positivo
@@ -124,3 +114,7 @@ Atualizar versão, data e rastreabilidade quando houver alteração relevante.
 - [ ] sinais para ecossistema
 - [ ] paper trading
 - [ ] gate independente antes de qualquer execução real
+
+## Próxima Ação
+
+Executar e inspecionar o workflow. Se aprovado, escolher o primeiro feed real com fonte, limites, licença, timestamp e reconciliação documentados; não promover dados de teste a dados de mercado.
