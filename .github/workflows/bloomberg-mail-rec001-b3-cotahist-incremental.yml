@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: bloomberg-mail-rec001-b3-cotahist-incremental
+  group: bloomberg-mail-rec001-b3-cotahist-incremental-monthly-v2
   cancel-in-progress: true
 
 jobs:
