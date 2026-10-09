@@ -25,20 +25,20 @@ def parse_front_matter(text):
     fm = text[4:end]
     values = {}
     for line in fm.splitlines():
-        match = re.match(r"^([a-z_]+):\\s*(.*)$", line)
+        match = re.match(r"^([a-z_]+):\s*(.*)$", line)
         if match:
             values[match.group(1)] = match.group(2).strip().strip('"')
     return values, text[end + 5:]
 
 def title_for(path, body):
-    match = re.search(r"(?m)^#\\s+(.+)$", body)
+    match = re.search(r"(?m)^#\s+(.+)$", body)
     return match.group(1).strip() if match else path.stem.replace("_", " ").replace("-", " ").title()
 
 def phase_for(path):
     p = path.as_posix()
     if p.startswith("WATCHDOG/"):
         return "FASE-01-WATCHDOG"
-    match = re.search(r"INGESTAO/(\\d+)", p)
+    match = re.search(r"INGESTAO/(\d+)", p)
     if match:
         return f"FASE-{match.group(1).zfill(3)}-INGESTAO"
     if p.startswith("FONTES/"):
@@ -69,15 +69,15 @@ def visible_header(v):
     return "\n".join(lines) + "\n"
 
 def add_visible_header(body, values):
-    h1 = re.search(r"(?m)^#\\s+.+$", body)
+    h1 = re.search(r"(?m)^#\s+.+$", body)
     if not h1:
         title = values.get("titulo", "Documento sem título")
         body = f"# {title}\n\n" + body.lstrip()
-        h1 = re.search(r"(?m)^#\\s+.+$", body)
+        h1 = re.search(r"(?m)^#\s+.+$", body)
     after = h1.end()
     tail = body[after:]
     # Não duplicar o bloco se já houver os campos principais.
-    if re.search(r"(?m)^> \\*\\*Projeto:\\*\\*", tail) and re.search(r"(?m)^> \\*\\*Rastreabilidade:\\*\\*", tail):
+    if re.search(r"(?m)^> \*\*Projeto:\*\*", tail) and re.search(r"(?m)^> \*\*Rastreabilidade:\*\*", tail):
         return body
     return body[:after] + "\n\n" + visible_header(values) + body[after:]
 
@@ -123,7 +123,7 @@ for path in ROOT.rglob("*.md"):
         end = original.find("\n---\n", 4)
         fm = original[4:end]
         original_body = original[end + 5:]
-        updated = original[:end + 5] + "\n\n" + add_visible_header(original_body, values) if not re.search(r"(?m)^> \\*\\*Projeto:\\*\\*", original_body) else original
+        updated = original[:end + 5] + "\n\n" + add_visible_header(original_body, values) if not re.search(r"(?m)^> \*\*Projeto:\*\*", original_body) else original
 
     if updated != original:
         path.write_text(updated, encoding="utf-8")
