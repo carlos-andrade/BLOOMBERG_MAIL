@@ -14,7 +14,23 @@ autoridade_documental: "GOVERNANÇA"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # Resultado do teste Excel/RTD FASE04 — janela imediata sem saída
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** EVIDENCIA_DE_TESTE
+> **Fase:** FASE04
+> **ID:** BLOOMBERG-MAIL-RTD-FASE04-SEM-SAIDA-2026-10-10
+> **Status:** BLOQUEADO_POR_DIAGNOSTICO
+> **Versão:** 1.0
+> **Criação:** 2026-10-10
+> **Atualização:** 2026-10-10
+> **Origem:** Relato do utilizador
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** N/A
+
 
 ## Resultado observado
 
