@@ -35,14 +35,14 @@ dependencias: "Windows; Git for Windows; Excel e Profit instalados para os teste
 
 ## Contexto Histórico
 
-Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL. A raiz Windows definida é `D:\\BLOOMBERG_MAIL`; o repositório central é público e a sincronização Git é manual. O workbook RTD original deve ser preservado.
+Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL. A raiz Windows definida é `D:\BLOOMBERG_MAIL`; o repositório central é público e a sincronização Git é manual. O workbook RTD original deve ser preservado.
 
 A preparação inicial foi executada pelo utilizador. Em seguida, a sincronização local foi confirmada por saída PowerShell fornecida pelo utilizador: `git pull --ff-only` avançou por fast-forward de `56ee032` para `1ed8948`, sem conflitos.
 
 ## Estado
 
 - Preparação de diretórios: EXECUTADA, conforme saída anterior do utilizador.
-- Clone Git: `D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL`.
+- Clone Git: `D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL`.
 - Branch: `main`.
 - Commit após sincronização: `1ed8948 | 2026-10-09 | FECHO FASE 01: atualizar estado final da verificação`.
 - Estado Git após atualização: `## main...origin/main`, sem alterações locais reportadas.
@@ -62,10 +62,10 @@ A atualização Git apresentada em 2026-10-09 enumerou oito ficheiros atualizado
 Comandos executados pelo utilizador:
 
 ```powershell
-git -C "D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL" status --short --branch
-git -C "D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL" pull --ff-only
-git -C "D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL" log -1 --format="%h | %cs | %s"
-git -C "D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL" check-ignore -v dados_locais/ logs/ backups/ configuracao_local/
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" status --short --branch
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" pull --ff-only
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" log -1 --format="%h | %cs | %s"
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais/ logs/ backups/ configuracao_local/
 ```
 
 Resultado reportado:
