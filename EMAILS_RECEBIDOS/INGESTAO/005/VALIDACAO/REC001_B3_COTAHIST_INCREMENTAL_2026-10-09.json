@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0-rec001-b3-incremental",
+  "created_at_utc": "2026-10-09T10:35:19.605569+00:00",
+  "result": "PASS_INCREMENTAL_EXACT",
+  "baseline_last_reconciled_date": "20260923",
+  "comparison_scope": "registos COTAHIST tipo 01 completos de 245 bytes; multiconjunto de hashes por data; multiplicidade preservada; apenas datas posteriores à linha de base até à última data do RAW local",
+  "raw_policy": "immutable; nenhum RAW ou manifesto histórico foi substituído",
+  "bloomberg_mail": {
+    "path": "EMAILS_RECEBIDOS/INGESTAO/005/RAW/COTAHIST_A2026.ZIP",
+    "zip_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "manifest_sha256": "c65e64f468def41439ff05e47869d934b406cb3f59ab2638f66a3a59bd4d974f",
+    "record01_count": 3070831,
+    "date_min": "20260102",
+    "date_max": "20261006",
+    "generation_date": "20261006"
+  },
+  "official_b3": {
+    "source": "B3 COTAHIST official monthly and daily endpoints",
+    "snapshot_sha256_aggregate": "5151d379eda43669b7c17ea3dfb9fb4afa4ebe5e12ea1102d896967d4b032066",
+    "official_snapshots": [
+      {
+        "filename": "COTAHIST_M092026.ZIP",
+        "url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_M092026.ZIP",
+        "type": "monthly",
+        "zip_sha256": "f164e17727b4eee2ac8e74c0188feb41fdedc64b2c49311c7cad9f6e81c85b1c",
+        "record01_count": 366221,
+        "date_min": "20260901",
+        "date_max": "20260930",
+        "generation_date": "20260930"
+      },
+      {
+        "filename": "COTAHIST_D01102026.ZIP",
+        "url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_D01102026.ZIP",
+        "type": "daily",
+        "zip_sha256": "472277bad1e2b4c1af7b1de58abf0c367fab1dad48818b04608782faff59ddd2",
+        "record01_count": 15700,
+        "date_min": "20261001",
+        "date_max": "20261001",
+        "generation_date": "20261001"
+      },
+      {
+        "filename": "COTAHIST_D02102026.ZIP",
+        "url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_D02102026.ZIP",
+        "type": "daily",
+        "zip_sha256": "ed74b2743182a951390dd8d4bc505c38ab08bdc99d790fcfc21829b466831ea0",
+        "record01_count": 17948,
+        "date_min": "20261002",
+        "date_max": "20261002",
+        "generation_date": "20261002"
+      },
+      {
+        "filename": "COTAHIST_D05102026.ZIP",
+        "url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_D05102026.ZIP",
+        "type": "daily",
+        "zip_sha256": "7a49be907565cffd1ef7765083540a36742ecc50b147c5475249527c126d3d7e",
+        "record01_count": 20720,
+        "date_min": "20261005",
+        "date_max": "20261005",
+        "generation_date": "20261005"
+      },
+      {
+        "filename": "COTAHIST_D06102026.ZIP",
+        "url": "https://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_D06102026.ZIP",
+        "type": "daily",
+        "zip_sha256": "f523461ce199293426fbb0c9d10adc8ab366adb3752850ddbd391e1af82f3e5c",
+        "record01_count": 17453,
+        "date_min": "20261006",
+        "date_max": "20261006",
+        "generation_date": "20261006"
+      }
+    ],
+    "unavailable_official_dates": [],
+    "source_errors": [],
+    "record01_count": 438042,
+    "date_min": "20260901",
+    "date_max": "20261006"
+  },
+  "comparison": {
+    "dates_tested_after_baseline": 9,
+    "target_period_end": "20261006",
+    "convergent_dates": 9,
+    "divergent_dates_count": 0,
+    "divergent_dates": [],
+    "incremental_dates_present": true,
+    "official_dates_after_local_period": 0
+  },
+  "interpretation": "Foi usado snapshot mensal para o mês fechado e ficheiros diários oficiais para o mês em curso. Dias úteis sem ficheiro oficial disponível ou erros de origem bloqueiam a aprovação e ficam registados; o hash histórico do manifesto não é substituído.",
+  "promotion_impact": "REVIEW_FOR_PROMOTION"
+}
