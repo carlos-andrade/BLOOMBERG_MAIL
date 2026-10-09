@@ -1,0 +1,27 @@
+name: BLOOMBERG_MAIL — Testes sintéticos RTD
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "TESTES_RTD_DD/prototipo_comparacao_snapshots_sinteticos.py"
+      - ".github/workflows/rtd-synthetic-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  testes-sinteticos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Obter código versionado
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validar sintaxe
+        run: python -m py_compile TESTES_RTD_DD/prototipo_comparacao_snapshots_sinteticos.py
+      - name: Executar testes do próprio ficheiro versionado
+        run: python TESTES_RTD_DD/prototipo_comparacao_snapshots_sinteticos.py
