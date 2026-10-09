@@ -6,7 +6,7 @@ fase: "FASE-02-MAPEAMENTO-RTD"
 id_documento: "BLOOMBERG-MAIL-RTD-MAP-002"
 titulo: "Especificação de mapeamento e captura observável RTD"
 status: "ESPECIFICADO; AGUARDA_VALIDACAO_LOCAL"
-versao: "1.0"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "Auditoria estática do workbook RDT_PROFIT.xlsx e sincronização local confirmada"
@@ -18,23 +18,20 @@ objetivo: "Definir um caminho verificável para resolver a ausência de avanço 
 dependencias: "Workbook local; Excel/Profit operacionais; mapeamento de células confirmado; direitos de armazenamento"
 ---
 
-
-
 # Especificação — mapeamento e captura observável RTD
 
-> **Projeto:** BLOOMBERG_MAIL
-> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
-> **Tipo:** ESPECIFICACAO_TECNICA
-> **Fase:** FASE-02-MAPEAMENTO-RTD
-> **ID:** BLOOMBERG-MAIL-RTD-MAP-002
-> **Status:** ESPECIFICADO; AGUARDA_VALIDACAO_LOCAL
-> **Versão:** 1.0
-> **Criação:** 2026-10-09
-> **Atualização:** 2026-10-09
-> **Origem:** Auditoria estática do workbook RDT_PROFIT.xlsx e sincronização local confirmada
-> **Autoridade:** LAYOUT
+> **Projeto:** BLOOMBERG_MAIL  
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL  
+> **Tipo:** ESPECIFICACAO_TECNICA  
+> **Fase:** FASE-02-MAPEAMENTO-RTD  
+> **ID:** BLOOMBERG-MAIL-RTD-MAP-002  
+> **Status:** ESPECIFICADO; AGUARDA_VALIDACAO_LOCAL  
+> **Versão:** 1.1  
+> **Criação:** 2026-10-09  
+> **Atualização:** 2026-10-09  
+> **Origem:** Auditoria estática do workbook RDT_PROFIT.xlsx e sincronização local confirmada  
+> **Autoridade:** LAYOUT  
 > **Rastreabilidade:** TESTES_RTD_DD/AUDITORIA_RDT_PROFIT_XLSX_2026-10-09.md; WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md
-
 
 ## Contexto Histórico
 
@@ -51,13 +48,19 @@ O utilizador informou que o Excel continua a receber informações, mas não ava
 - Direitos de armazenamento: PENDING.
 - Ativação em produção: BLOQUEADA.
 
-## Hipótese técnica a testar
+## Evidências
 
-Uma fórmula RTD pode recalcular o seu resultado sem disparar o evento VBA `Worksheet_Change`, que normalmente está associado a alterações feitas nas células. Por isso, não se deve assumir que `Worksheet_Change` sozinho detetará atualizações RTD. A abordagem deverá ser testada com `Worksheet_Calculate` ou polling controlado, evitando escrita recursiva na folha de origem.
+A auditoria estática registou 36 fórmulas RTD em 38 colunas da folha `Folha1`, com o tópico `WINFUT_F_0`. O relatório original não testou a atualização ao vivo, reconexão ou DDE. A saída PowerShell do utilizador confirmou a sincronização do clone para o commit `1ed8948` e a aplicação das regras de exclusão a `dados_locais/`, `logs/`, `backups/` e `configuracao_local/`.
 
-## Mapeamento obrigatório
+Esta evidência não demonstra que o RTD continue a atualizar nem que todos os eventos de mercado sejam capturados.
 
-Antes de escrever código, confirmar e registar:
+## Validação
+
+### Hipótese técnica a testar
+
+Uma fórmula RTD pode recalcular o seu resultado sem disparar o evento VBA `Worksheet_Change`, normalmente associado a alterações feitas nas células. Por isso, não se deve assumir que `Worksheet_Change` sozinho detetará atualizações RTD. A abordagem deverá ser testada com `Worksheet_Calculate` ou polling controlado, evitando escrita recursiva na folha de origem.
+
+### Mapeamento obrigatório
 
 | Item | Estado conhecido | Ação de validação |
 |---|---|---|
@@ -70,7 +73,7 @@ Antes de escrever código, confirmar e registar:
 | Frequência de cálculo | Desconhecida | Observar mudanças com hora local registada |
 | Autorização de armazenamento | Pendente | Confirmar termos antes de persistir dados |
 
-## Requisitos do futuro gravador
+### Requisitos do futuro gravador
 
 1. **Não alterar o workbook de origem:** a captura deve escrever para uma folha de destino separada, um CSV local ou uma base local aprovada.
 2. **Não usar a linha de origem como histórico:** os resultados RTD podem atualizar repetidamente a mesma linha.
@@ -85,7 +88,7 @@ Antes de escrever código, confirmar e registar:
 11. **Sem ordens:** não incluir funções de negociação, envio de ordens ou automatização de trading.
 12. **Limite declarado:** o registo de snapshots deteta alterações observadas; não garante capturar todos os ticks, negócios ou estados intermédios que ocorram entre duas leituras.
 
-## Testes de aceitação
+### Testes de aceitação
 
 - T01 — Mapeamento: cada coluna selecionada tem cabeçalho, endereço, tipo e origem documentados.
 - T02 — Atualização: duas ou mais alterações observáveis são refletidas no destino com timestamp local.
@@ -97,6 +100,18 @@ Antes de escrever código, confirmar e registar:
 - T08 — Regressão: workbook original abre e atualiza depois do teste sem alteração estrutural.
 
 Nenhum teste é considerado PASS sem evidência local. A execução de um teste não deve enviar ordens.
+
+## Resultado
+
+`DOCUMENT_HEADER_VALIDATION=PASS_PENDING_CI`  
+`WORKBOOK_STATIC_AUDIT=PASS`  
+`RTD_LIVE_UPDATE=NOT_VERIFIED`  
+`CELL_MAPPING=PENDING_LOCAL_VALIDATION`  
+`RECONNECT=NOT_RUN`  
+`STORAGE_RIGHTS=PENDING`  
+`PRODUCTION_INGESTION=BLOCKED`
+
+A correção desta versão endereça a estrutura documental sinalizada pela CI. Não declara aprovados testes operacionais que ainda não foram executados.
 
 ## Próxima Ação
 
