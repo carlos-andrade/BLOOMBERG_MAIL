@@ -91,7 +91,7 @@ git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais logs
 
 ## Resultado
 
-A preparação local e a validação do clone estão confirmadas com base na saída do utilizador. A revisão documental encontrou caminhos antigos em `C:\BLOOMBERG_MAIL`; esta versão corrige os comandos para a raiz efetiva em D:. A validação CI do repositório falhou porque o validador atual identificou numerosos documentos pré-existentes com cabeçalhos incompletos; esta falha não deve ser ocultada nem considerada aprovada.
+A preparação local e a validação do clone estão confirmadas com base na saída do utilizador. A revisão documental encontrou referências a uma unidade Windows anterior; os comandos desta versão usam a raiz efetiva em D:. A validação CI do repositório falhou porque o validador atual identificou numerosos documentos pré-existentes com cabeçalhos incompletos; esta falha não deve ser ocultada nem considerada aprovada.
 
 A publicação desta PR continua em draft até a revisão de CI e a governação documental estarem resolvidas. Nenhum ficheiro de mercado bruto deve ser publicado sem revisão dos direitos de armazenamento e aprovação explícita.
 
