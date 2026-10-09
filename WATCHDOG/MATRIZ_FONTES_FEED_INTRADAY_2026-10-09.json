@@ -3,7 +3,7 @@
   "project": "BLOOMBERG_MAIL",
   "phase": "FASE-03-FEED-INTRADAY",
   "created_at": "2026-10-09",
-  "status": "INITIAL_SCREEN_PENDING_USER_ACCOUNT_AND_LICENSE_EVIDENCE",
+  "status": "RTD_DDE_MENU_CONFIRMED_USER_REPORT_TEST_NOT_RUN",
   "policy": "No provider is approved. Public documentation is preliminary evidence only; validate the user's exact product, contract, instrument entitlements, storage rights, and freshness before integration.",
   "candidates": [
     {
@@ -20,7 +20,16 @@
       "costs": "Existing plan and exchange-data charges not verified",
       "failure_semantics": "Must implement and test disconnect, stale values, workbook shutdown, missing fields and duplicate updates",
       "decision": "PENDING_EVIDENCE",
-      "next_test": "Confirm menu availability in user's installed edition; export WIN/WDO last price, bid/ask, volume, exchange/source timestamp if exposed; log 30 minutes and test disconnection."
+      "next_test": "Menu availability confirmed by user; execute WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md locally. Record actual RTD/DDE method, WIN/WDO availability, exported fields, source timestamps, 10+ observations (recommended 30-minute stability run), and supported disconnect/reconnect behavior in WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json. Do not infer timestamp/latency or approve storage rights.",
+      "observed_evidence": {
+        "menu_available": true,
+        "export_started": false,
+        "fields_observed": false,
+        "source_timestamp_verified": false,
+        "latency_measured": false,
+        "reconnect_tested": false,
+        "storage_rights": "PENDING_EVIDENCE"
+      }
     },
     {
       "provider_id": "NELOGICA_PROFITDLL",
@@ -78,5 +87,12 @@
     "No trade routing, automated signals or order execution is in scope.",
     "Prefer the lowest-complexity legally authorized path that produces measurable timestamps and reproducible events; evaluate RTD/DDE first, ProfitDLL second, licensed distributors third, direct B3 last."
   ],
-  "next_action": "Run a user-assisted capability check on the installed Profit edition and account; do not assume the feature or entitlement exists."
+  "next_action": "User-confirmed menu presence advances the capability check only. Run the guided local test and update the evidence JSON from observed results; do not implement ingestion until functional, temporal, failure-recovery, coverage, and licensing gates pass.",
+  "user_confirmation": {
+    "date": "2026-10-09",
+    "claim": "Arquivo → Exportar em Tempo Real está disponível no Profit",
+    "source": "user_report",
+    "scope": "menu availability only",
+    "independently_verified": false
+  }
 }
