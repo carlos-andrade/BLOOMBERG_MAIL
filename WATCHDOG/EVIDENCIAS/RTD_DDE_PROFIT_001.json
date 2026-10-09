@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "project": "BLOOMBERG_MAIL",
+  "phase": "FASE-03-FEED-INTRADAY",
+  "evidence_id": "RTD_DDE_PROFIT_001",
+  "created_at": "2026-10-09",
+  "status": "NOT_RUN",
+  "evidence_provenance": {
+    "user_report": "O utilizador confirmou que Arquivo → Exportar em Tempo Real está disponível no Profit.",
+    "interpretation": "Confirma apenas a presença do menu. Não comprova exportação funcional, dados em tempo real, campos, timestamps, cobertura, licença ou armazenamento.",
+    "independently_observed_by_assistant": false
+  },
+  "environment": {
+    "profit_version": null,
+    "profit_edition_or_plan": null,
+    "spreadsheet_application": null,
+    "spreadsheet_version": null,
+    "method": "NOT_SELECTED",
+    "test_date_local": null,
+    "timezone": null,
+    "market_session": null
+  },
+  "instruments": [
+    {
+      "symbol": "WIN",
+      "available": null,
+      "fields_observed": [],
+      "notes": null
+    },
+    {
+      "symbol": "WDO",
+      "available": null,
+      "fields_observed": [],
+      "notes": null
+    }
+  ],
+  "fields": {
+    "last_price": {
+      "available": null,
+      "semantics": null
+    },
+    "best_bid": {
+      "available": null,
+      "semantics": null
+    },
+    "best_ask": {
+      "available": null,
+      "semantics": null
+    },
+    "traded_volume_or_quantity": {
+      "available": null,
+      "semantics": null
+    },
+    "source_timestamp": {
+      "available": null,
+      "format": null,
+      "timezone": null
+    }
+  },
+  "observations": {
+    "planned_minimum_observations": 10,
+    "observed_count": null,
+    "test_duration_minutes": null,
+    "receive_timestamps_utc": [],
+    "source_timestamps": [],
+    "latency_ms_samples": [],
+    "latency_p50_ms": null,
+    "latency_p95_ms": null,
+    "freshness_sla_seconds": null,
+    "freshness_sla_basis": null
+  },
+  "failure_recovery": {
+    "interruption_test_performed": false,
+    "interruption_method": null,
+    "interruption_started_at": null,
+    "recovery_observed": false,
+    "recovery_time": null,
+    "stale_value_behavior": null,
+    "gaps_observed": null,
+    "duplicates_observed": null,
+    "notes": null
+  },
+  "licensing": {
+    "capture_rights": "PENDING_EVIDENCE",
+    "persistent_storage_rights": "PENDING_EVIDENCE",
+    "internal_use_rights": "PENDING_EVIDENCE",
+    "redistribution_rights": "NOT_ASSUMED",
+    "written_terms_reference": null
+  },
+  "artifacts": {
+    "redacted_screenshot_paths": [],
+    "local_log_path": null,
+    "hashes": [],
+    "privacy_review_completed": false
+  },
+  "criteria": {
+    "menu_opens": "USER_CONFIRMED_MENU_PRESENT",
+    "export_starts": "NOT_RUN",
+    "instrument_coverage": "NOT_RUN",
+    "fields_semantics": "NOT_RUN",
+    "source_timestamp": "NOT_RUN",
+    "freshness": "NOT_RUN",
+    "disconnect_recovery": "NOT_RUN",
+    "license_and_storage": "PENDING_EVIDENCE",
+    "overall_decision": "PENDING_EVIDENCE"
+  },
+  "limitations": [
+    "No local Profit session was accessed by the assistant.",
+    "Do not infer market latency from local cell update time without source timestamp.",
+    "Do not store credentials, personal account details, or unlicensed market data in this repository.",
+    "No signals, order routing, or trading automation are in scope."
+  ],
+  "next_action": "Execute WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md locally; replace null/NOT_RUN only with observed evidence."
+}
