@@ -14,7 +14,23 @@ autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # Auditoria estática — RDT_PROFIT.xlsx
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** RELATORIO_AUDITORIA_WORKBOOK_RTD
+> **Fase:** FASE-03-FEED-INTRADAY
+> **ID:** BLOOMBERG-MAIL-RTD-PROFIT-XLSX-AUDIT-001
+> **Status:** ANALISADO_COM_LIMITACOES
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** Ficheiro RDT_PROFIT.xlsx anexado pelo utilizador
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** N/A
+
 
 ## 1. Resultado executivo
 
