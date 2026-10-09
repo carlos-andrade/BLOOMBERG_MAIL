@@ -1,0 +1,5 @@
+execution_id,date_local,time_local,timezone,method,instrument,export_started,cells_populated,values_updated,observations_count,duration_minutes,source_timestamp_present,timestamp_semantics_verified,timestamp_timezone_verified,disconnect_recovery_tested,storage_rights_checked,result,notes,workbook_filename
+RTD-WIN-2026-001,,,,RTD,WIN,NOT_RUN,NOT_RUN,NOT_RUN,0,0,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,Awaiting local execution,
+RTD-WDO-2026-001,,,,RTD,WDO,NOT_RUN,NOT_RUN,NOT_RUN,0,0,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,Awaiting local execution,
+DDE-WIN-2026-001,,,,DDE,WIN,NOT_RUN,NOT_RUN,NOT_RUN,0,0,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,Awaiting local execution,
+DDE-WDO-2026-001,,,,DDE,WDO,NOT_RUN,NOT_RUN,NOT_RUN,0,0,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,Awaiting local execution,
