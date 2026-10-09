@@ -3,7 +3,7 @@
   "project": "BLOOMBERG_MAIL",
   "phase": "FASE-03-FEED-INTRADAY",
   "created_at": "2026-10-09",
-  "status": "RTD_DDE_MENU_CONFIRMED_USER_REPORT_TEST_NOT_RUN",
+  "status": "RTD_DDE_OPTIONS_AND_FIELDS_REPORTED; FUNCTIONAL_TEST_NOT_RUN",
   "policy": "No provider is approved. Public documentation is preliminary evidence only; validate the user's exact product, contract, instrument entitlements, storage rights, and freshness before integration.",
   "candidates": [
     {
@@ -20,11 +20,28 @@
       "costs": "Existing plan and exchange-data charges not verified",
       "failure_semantics": "Must implement and test disconnect, stale values, workbook shutdown, missing fields and duplicate updates",
       "decision": "PENDING_EVIDENCE",
-      "next_test": "Menu availability confirmed by user; execute WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md locally. Record actual RTD/DDE method, WIN/WDO availability, exported fields, source timestamps, 10+ observations (recommended 30-minute stability run), and supported disconnect/reconnect behavior in WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json. Do not infer timestamp/latency or approve storage rights.",
+      "next_test": "Test RTD and DDE separately in Microsoft Excel; test WIN then WDO for each method. Confirm successful export start, populated and updating cells, semantics of last price/bid/ask/volume, and whether date/time is truly source timestamp with known timezone. Then log at least 10 observations over a recommended 30-minute stability run and conduct a supported stop/restart recovery test. Menu/options/field-selector visibility alone do not prove functional data.",
       "observed_evidence": {
         "menu_available": true,
+        "methods_reported": [
+          "RTD",
+          "DDE"
+        ],
+        "spreadsheet_reported": "Microsoft Excel",
+        "instruments_reported": [
+          "WIN",
+          "WDO"
+        ],
+        "fields_reported": [
+          "last_price",
+          "best_bid",
+          "best_ask",
+          "traded_volume_or_quantity",
+          "date_time_field"
+        ],
         "export_started": false,
-        "fields_observed": false,
+        "cells_populated": false,
+        "updates_verified": false,
         "source_timestamp_verified": false,
         "latency_measured": false,
         "reconnect_tested": false,
@@ -87,12 +104,28 @@
     "No trade routing, automated signals or order execution is in scope.",
     "Prefer the lowest-complexity legally authorized path that produces measurable timestamps and reproducible events; evaluate RTD/DDE first, ProfitDLL second, licensed distributors third, direct B3 last."
   ],
-  "next_action": "User-confirmed menu presence advances the capability check only. Run the guided local test and update the evidence JSON from observed results; do not implement ingestion until functional, temporal, failure-recovery, coverage, and licensing gates pass.",
+  "next_action": "Execute RTD and DDE separately in Excel; test each of WIN and WDO. Record only observations from the exported spreadsheet in WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json. Keep decision PENDING_EVIDENCE until functional export, timestamp/freshness, recovery, coverage and licensing gates pass.",
   "user_confirmation": {
     "date": "2026-10-09",
-    "claim": "Arquivo → Exportar em Tempo Real está disponível no Profit",
-    "source": "user_report",
-    "scope": "menu availability only",
-    "independently_verified": false
+    "reported_options": [
+      "RTD",
+      "DDE"
+    ],
+    "spreadsheet": "Microsoft Excel",
+    "reported_instruments": [
+      "WIN",
+      "WDO"
+    ],
+    "reported_fields": [
+      "last_price",
+      "best_bid",
+      "best_ask",
+      "traded_volume_or_quantity",
+      "date_time_field"
+    ],
+    "timestamp_claim": "User says displayed field appears to be source timestamp; semantics and timezone are unverified.",
+    "evidence_class": "USER_REPORTED_INTERFACE_OBSERVATION",
+    "independently_verified": false,
+    "functional_export_verified": false
   }
 }
