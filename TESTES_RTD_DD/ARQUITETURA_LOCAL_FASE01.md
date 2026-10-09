@@ -20,7 +20,7 @@ escopo: "Ambiente Windows local e preparação segura do clone Git"
 ## 1. Contexto histórico
 
 Em 2026-10-09, foi aprovada a arquitetura local do projeto BLOOMBERG_MAIL com os seguintes parâmetros:
-- Raiz Windows: `C:\BLOOMBERG_MAIL`
+- Raiz Windows confirmada pelo utilizador: `D:\BLOOMBERG_MAIL`
 - Repositório GitHub: público, `carlos-andrade/BLOOMBERG_MAIL`
 - Captura futura: por alteração observada
 - Sincronização Git: manual
@@ -45,7 +45,7 @@ A auditoria disponível indica 36 fórmulas RTD, 38 colunas e o identificador `W
 O script `scripts/windows/preparar_ambiente_local.ps1` prepara esta estrutura sem eliminar conteúdos existentes:
 
 ```text
-C:\BLOOMBERG_MAIL\
+D:\BLOOMBERG_MAIL\
 ├── repo\BLOOMBERG_MAIL\
 ├── dados_locais\
 │   ├── RAW\
@@ -78,7 +78,7 @@ Execução prevista em PowerShell:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-& "C:\CAMINHO\PARA\preparar_ambiente_local.ps1"
+& "D:\CAMINHO\PARA\preparar_ambiente_local.ps1"
 ```
 
 O utilizador deve substituir o caminho pelo local onde guardou o script obtido do repositório. A política de execução é alterada apenas para o processo atual; não se recomenda alterar a política global do Windows.
@@ -98,7 +98,7 @@ A sincronização é manual. Antes de qualquer commit:
 Comandos de inspeção:
 
 ```powershell
-git -C "C:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" status --short --branch
+git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" status --short --branch
 git -C "C:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" remote -v
 git -C "C:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais logs backups configuracao_local
 ```
@@ -151,4 +151,4 @@ O Excel/RTD pode expor apenas uma parte das mudanças que ocorreram no mercado. 
 
 Foram preparados o `.gitignore` da raiz e um script idempotente de preparação local, acompanhados desta especificação. A fase não será considerada concluída até o script ser executado e validado no computador Windows do utilizador.
 
-A próxima ação é executar o script, verificar o estado do clone e devolver as saídas dos comandos de validação. Só depois deve começar o desenho do gravador de alterações RTD.
+Na validação inicial do utilizador, `D:\BLOOMBERG_MAIL` contém `RDT_PROFIT.xlsx` e o ficheiro temporário do Excel, mas não foi encontrado um clone Git nas subpastas imediatas. O script foi ajustado para usar D: por omissão. A próxima ação é executar a preparação ajustada e validar o clone sem tocar no workbook original. Só depois deve começar o desenho do gravador de alterações RTD.
