@@ -5,8 +5,8 @@ tipo_documento: "ARQUITETURA_OPERACIONAL_LOCAL"
 fase: "FASE-01-PREPARACAO-LOCAL"
 id_documento: "BLOOMBERG-MAIL-ARQ-LOCAL-RTD-001"
 titulo: "Arquitetura local — RTD/Profit e sincronização Git manual"
-status: "PREPARACAO_LOCAL_EXECUTADA; REVISAO_GIT_E_CAPTURA_PENDENTES"
-versao: "1.2"
+status: "PREPARACAO_LOCAL_EXECUTADA; CI_DOCUMENTAL_OK; SINCRONIZACAO_LOCAL_PENDENTE"
+versao: "1.3"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "Aprovação do utilizador e saída PowerShell fornecida pelo utilizador"
@@ -48,7 +48,7 @@ A preparação foi executada pelo utilizador em 2026-10-09. A saída do PowerShe
 - Remoto: `https://github.com/carlos-andrade/BLOOMBERG_MAIL.git`.
 - Captura RTD: NÃO IMPLEMENTADA nem ativa.
 - Direitos/licença para armazenamento persistente: PENDENTES.
-- PR #1: draft; não incorporada em `main`.
+- PR #1: incorporada em `main` em 2026-10-09; commit de merge `802e721ad13de45d0568fc293c6cf2d15d2e15e5`.
 
 ## Evidências
 
@@ -79,7 +79,7 @@ D:\BLOOMBERG_MAIL\
 
 O script `scripts/windows/preparar_ambiente_local.ps1` verifica Git e remoto, cria apenas diretórios em falta e clona apenas quando o destino não existe. Não faz pull, commit, push, não inicia a captura e não abre nem altera o Excel.
 
-A branch local `main` foi clonada antes da incorporação desta PR. Portanto, o `.gitignore` adicionado na branch de trabalho não está garantidamente presente no clone local até que a PR seja incorporada e o clone seja sincronizado. O `.gitignore` também não remove ficheiros já rastreados.
+A branch local `main` foi clonada antes da incorporação da PR #1. O `.gitignore` já está em `main` no GitHub, mas ainda não está garantidamente presente no clone local até o utilizador executar `git pull --ff-only`. O `.gitignore` também não remove ficheiros já rastreados.
 
 Comandos para nova verificação local:
 
@@ -91,18 +91,16 @@ git -C "D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL" check-ignore -v dados_locais logs
 
 ## Resultado
 
-A preparação local e a validação do clone estão confirmadas com base na saída do utilizador. A revisão documental encontrou referências a uma unidade Windows anterior; os comandos desta versão usam a raiz efetiva em D:. A validação CI do repositório falhou porque o validador atual identificou numerosos documentos pré-existentes com cabeçalhos incompletos; esta falha não deve ser ocultada nem considerada aprovada.
+A preparação local e a validação do clone estão confirmadas com base na saída do utilizador. A revisão documental encontrou referências a uma unidade Windows anterior; os comandos desta versão usam a raiz efetiva em D:. A primeira validação CI identificou 83 erros em 99 documentos. Após normalizar os documentos relacionados com esta fase, a validação de cabeçalhos no commit da PR passou; o workflow do supervisor também passou. A migração automática pós-merge terminou sem encontrar documentos pendentes.
 
-A publicação desta PR continua em draft até a revisão de CI e a governação documental estarem resolvidas. Nenhum ficheiro de mercado bruto deve ser publicado sem revisão dos direitos de armazenamento e aprovação explícita.
+A PR #1 foi incorporada em `main` após a revisão do diff e os checks bem-sucedidos. A sincronização do clone local continua pendente. A captura RTD permanece fora do âmbito desta fase. Nenhum ficheiro de mercado bruto deve ser publicado sem revisão dos direitos de armazenamento e aprovação explícita.
 
 ## Próxima Ação
 
-1. Rever o resultado do validador documental e definir uma migração controlada para os documentos preexistentes, sem alterar 99 documentos em lote sem plano aprovado.
-2. Confirmar os controlos de integração no GitHub.
-3. Após a revisão, incorporar as proteções Git e sincronizar o clone local.
-4. Mapear as células RTD e desenhar o gravador por alteração observável.
-5. Testar deduplicação, timestamps, interrupção e reconexão.
-6. Rever os direitos de utilização antes de qualquer armazenamento persistente ou publicação.
+1. Sincronizar o clone local com `git pull --ff-only` e verificar o `.gitignore`.
+2. Mapear as células RTD e desenhar o gravador por alteração observável.
+3. Testar deduplicação, timestamps, interrupção e reconexão.
+4. Rever os direitos de utilização antes de qualquer armazenamento persistente ou publicação.
 
 ---
 Documento operacional. A preparação de ambiente não equivale a validar o funcionamento do RTD em tempo real.
