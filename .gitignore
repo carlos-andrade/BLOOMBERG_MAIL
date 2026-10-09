@@ -1,0 +1,55 @@
+# =============================================================================
+# BLOOMBERG_MAIL — GOVERNANÇA DE EXCLUSÃO LOCAL
+# Projeto: BLOOMBERG_MAIL
+# Repositório: carlos-andrade/BLOOMBERG_MAIL
+# Fase: FASE-01-WATCHDOG / PREPARAÇÃO LOCAL
+# Data: 2026-10-09
+# Regra: dados operacionais locais não são publicados por defeito.
+# =============================================================================
+
+# Diretórios operacionais locais (devem ficar fora do clone Git)
+ /dados_locais/
+ /logs/
+ /backups/
+ /configuracao_local/
+
+# Segredos e configuração privada
+.env
+.env.*
+!.env.example
+*.secret
+*.secrets
+secrets/
+credentials/
+*_credentials.*
+*_token.*
+
+# Ficheiros temporários e de execução
+*.tmp
+*.temp
+*.log
+*.pid
+*.lock
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Ficheiros de bloqueio temporário do Excel
+~$*.xlsx
+~$*.xlsm
+~$*.xlsb
+
+# Livros com macros: não publicar por defeito num repositório público.
+# O código VBA aprovado deve ser exportado para ficheiros .bas/.cls/.frm
+# e revisto antes de ser versionado.
+*.xlsm
+
+# Artefactos locais do sistema operativo/editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
