@@ -6,7 +6,7 @@ fase: "FASE-03-FEED-INTRADAY"
 id_documento: "BLOOMBERG-MAIL-CARTA-FEED-INTRADAY-FASE03"
 titulo: "Carta de seleção e validação de feed intradiário"
 status: "EM_ANALISE"
-versao: "1.1"
+versao: "1.2"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "WATCHDOG/ROADMAP.md; pesquisa de fontes oficiais"
@@ -26,7 +26,7 @@ dependencias: "Reconciliação REC-001; contrato de eventos WATCHDOG; licenças 
 > **Fase:** FASE-03-FEED-INTRADAY  
 > **ID:** BLOOMBERG-MAIL-CARTA-FEED-INTRADAY-FASE03  
 > **Status:** EM_ANALISE  
-> **Versão:** 1.1  
+> **Versão:** 1.2  
 > **Criação:** 2026-10-09  
 > **Atualização:** 2026-10-09  
 > **Origem:** WATCHDOG/ROADMAP.md; pesquisa de fontes oficiais  
@@ -83,10 +83,17 @@ Nenhum fornecedor será selecionado apenas por exibir uma cotação num gráfico
 
 ## Resultado
 
-A Carta estabelece os critérios de seleção e impede a implementação prematura. A fonte permanece `PENDING_EVIDENCE` até que a matriz comparativa seja preenchida e revista.
+A Carta estabelece os critérios de seleção e impede a implementação prematura. O utilizador confirmou que o menu Arquivo → Exportar em Tempo Real está presente no Profit. Esta confirmação é apenas evidência declarativa de disponibilidade do menu; o ensaio funcional ainda não foi executado. A fonte permanece `PENDING_EVIDENCE` até que a matriz comparativa seja preenchida e revista.
+
+## Evidência nova — 2026-10-09
+
+- Procedimento guiado: `WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md`.
+- Registo estruturado inicial (estado `NOT_RUN`): `WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json`.
+- Proveniência: confirmação do utilizador de que o menu existe; não houve acesso remoto/local do assistente à sessão Profit.
+- Não há ainda evidência de exportação ativa, instrumentos, campos, timestamps, latência, reconexão ou licença de armazenamento.
 
 ## Próxima Ação
 
-Preencher uma matriz comparativa de fontes, começando pela plataforma existente e pelas alternativas licenciadas. Produzir evidências de acesso, latência/freshness, cobertura, custos e direitos antes de escolher a fonte. Só depois o Layout poderá autorizar código.
+Executar localmente `WATCHDOG/TESTE_RTD_DDE_PROFIT_001.md` e atualizar `WATCHDOG/EVIDENCIAS/RTD_DDE_PROFIT_001.json` com observações reais. Confirmar licença de captura/armazenamento, cobertura, timestamps, freshness e recuperação antes de alterar a decisão da matriz. Só depois o Layout poderá autorizar código.
 
 **Data da consulta das fontes:** 2026-10-09. As condições comerciais devem ser revalidadas no momento da contratação.
