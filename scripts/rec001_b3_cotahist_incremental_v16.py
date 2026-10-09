@@ -11,6 +11,7 @@ import json
 import os
 import tempfile
 import urllib.request
+import urllib.error
 import zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone, date, timedelta
@@ -171,11 +172,11 @@ def main():
         "bloomberg_mail": {"path": BLOOM, "zip_sha256": bloom_hash, "manifest_sha256": expected_bloom,
                            "record01_count": bloom["record01_count"], "date_min": bloom["date_min"],
                            "date_max": bloom["date_max"], "generation_date": bloom["generation_date"]},
-        "official_b3": {"source": "B3 COTAHIST monthly official endpoint", "snapshot_sha256_aggregate": aggregate_hash,
+        "official_b3": {"source": "B3 COTAHIST official monthly and daily endpoints", "snapshot_sha256_aggregate": aggregate_hash,
                         "official_snapshots": official_snapshots,
                         "unavailable_official_dates": unavailable_official_dates,
                         "record01_count": sum(item["record01_count"] for item in official_snapshots),
-                        "date_min": min((item["date_min"] for item in monthly_snapshots), default=None),
+                        "date_min": min((item["date_min"] for item in official_snapshots), default=None),
                         "date_max": max((item["date_max"] for item in monthly_snapshots), default=None)},
         "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
                        "convergent_dates": matched, "divergent_dates_count": len(divergences),
