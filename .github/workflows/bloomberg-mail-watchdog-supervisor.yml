@@ -2,6 +2,10 @@ name: BLOOMBERG_MAIL — WATCHDOG Supervisor
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "WATCHDOG/**"
+      - ".github/workflows/bloomberg-mail-watchdog-supervisor.yml"
   schedule:
     - cron: "*/5 * * * *"
 
@@ -21,7 +25,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Python syntax check
-        run: python -m py_compile WATCHDOG/scripts/watchdog.py
+        run: |
+          python -m py_compile WATCHDOG/scripts/watchdog.py WATCHDOG/adapters/replay.py
+
+      - name: Deterministic replay tests
+        run: python -m unittest discover -s WATCHDOG/tests -v
 
       - name: Contract validation
         run: |
@@ -31,6 +39,7 @@ jobs:
           schema = json.loads(Path("WATCHDOG/schema/event.schema.json").read_text())
           config = json.loads(Path("WATCHDOG/config/watchdog.example.json").read_text())
           assert schema["properties"]["severity"]["enum"] == ["INFO","LOW","MEDIUM","HIGH","CRITICAL"]
+          assert schema["properties"]["state"]["enum"] == ["UP","DEGRADED","DOWN","STALE","UNKNOWN"]
           assert config["heartbeat_interval_seconds"] > 0
           assert config["sources"]
           print("WATCHDOG contract OK")
