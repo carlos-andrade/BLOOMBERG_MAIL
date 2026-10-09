@@ -6,7 +6,7 @@ fase: "FASE-02-WATCHDOG"
 id_documento: "BLOOMBERG-MAIL-WATCHDOG-CARTA-B3-COTAHIST-FASE02"
 titulo: "Carta do adapter de qualidade histórica B3 COTAHIST"
 status: "IMPLEMENTADO"
-versao: "1.2"
+versao: "1.3"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
 origem: "BLOOMBERG_MAIL/INGESTAO-005"
@@ -47,7 +47,8 @@ IMPLEMENTADO — autorização limitada a um adapter de observabilidade da quali
 - Validação de layout: `EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/VALIDACAO_LAYOUT_COTAHIST_A2026.json`.
 - Validação da normalização: `EMAILS_RECEBIDOS/INGESTAO/005/NORMALIZADO/B3/VALIDACAO_NORMALIZACAO_B3_A2026.json`.
 - Reconciliação histórica original (imutável): `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_CROSS_REPO_2026-10-08.json`.
-- Diagnóstico operacional atual: `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json`.
+- Diagnóstico operacional do período comum: `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_DIAGNOSTICO_MULTICONJUNTO_2026-10-09.json`.
+- Reconciliação incremental oficial: `EMAILS_RECEBIDOS/INGESTAO/005/VALIDACAO/REC001_B3_COTAHIST_INCREMENTAL_2026-10-09.json`.
 - Triagem/causa raiz: `WATCHDOG/REC001_CAUSA_RAIZ_001.md`.
 
 ## Validação
@@ -64,6 +65,10 @@ IMPLEMENTADO — autorização limitada a um adapter de observabilidade da quali
 ## Resultado
 
 A carta autoriza a integração do estado de qualidade do COTAHIST histórico no contrato de eventos do WATCHDOG. Não autoriza declarar feed intradiário ativo.
+
+## Resultado da reconciliação incremental oficial
+
+`PASS_INCREMENTAL_EXACT` — 9/9 pregões convergentes, zero divergências, zero datas oficiais indisponíveis e zero erros de origem. Período reconciliado: 2026-09-24 a 2026-10-06. A evidência foi publicada pelo workflow `https://github.com/carlos-andrade/BLOOMBERG_MAIL/actions/runs/37918438688`. O resultado autoriza revisão da evidência para promoção; não promove automaticamente Layer A.
 
 ## Reconciliação incremental oficial — regra obrigatória
 
