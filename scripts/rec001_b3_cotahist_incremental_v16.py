@@ -189,7 +189,7 @@ def main():
                         "source_errors": source_errors,
                         "record01_count": sum(item["record01_count"] for item in official_snapshots),
                         "date_min": min((item["date_min"] for item in official_snapshots), default=None),
-                        "date_max": max((item["date_max"] for item in monthly_snapshots), default=None)},
+                        "date_max": max((item["date_max"] for item in official_snapshots), default=None)},
         "comparison": {"dates_tested_after_baseline": tested, "target_period_end": bloom["date_max"],
                        "convergent_dates": matched, "divergent_dates_count": len(divergences),
                        "divergent_dates": divergences[:200], "incremental_dates_present": has_new_data,
