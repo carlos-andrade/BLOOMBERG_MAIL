@@ -31,6 +31,21 @@ jobs:
       - name: Deterministic adapter tests
         run: python -m unittest discover -s WATCHDOG/tests -v
 
+      - name: Validate against persisted B3 evidence
+        run: |
+          python WATCHDOG/adapters/b3_cotahist_status.py --root . --validate-only > /tmp/b3-cotahist-event.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('/tmp/b3-cotahist-event.json').read_text())
+          assert result['status'] == 'VALIDADO', result
+          event = result['event']
+          assert event['payload']['is_realtime_feed'] is False
+          assert event['payload']['reconciliation_result'] == 'FAIL_CONTENT_DIVERGENCE'
+          assert event['state'] == 'DEGRADED' and event['severity'] == 'HIGH'
+          print('Persisted evidence OK; REC-001 correctly remains DEGRADED/HIGH; no event written.')
+          PY
+
       - name: Contract validation
         run: |
           python - <<'PY'
