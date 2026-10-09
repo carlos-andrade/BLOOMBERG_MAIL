@@ -13,12 +13,12 @@ permissions:
 
 concurrency:
   group: bloomberg-mail-rec001-b3-cotahist-incremental
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   reconcile:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
