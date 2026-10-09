@@ -14,7 +14,23 @@ cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 rastreabilidade: "TESTES_RTD_DD/prototipo_comparacao_snapshots_sinteticos.py; TESTES_RTD_DD/PLANO_TESTES_GRAVADOR_RTD_MODO_DIAGNOSTICO_FASE03.md"
 ---
 
+
+
 # Resultado preliminar — testes sintéticos do comparador RTD
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** RESULTADO_DE_TESTES
+> **Fase:** FASE-03-DETECAO-DE-ALTERACOES-RTD
+> **ID:** BLOOMBERG-MAIL-RTD-RESULT-003A
+> **Status:** LOGICA PRELIMINAR APROVADA; SCRIPT DO REPOSITORIO AINDA SEM EXECUCAO DIRETA
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** N/A
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** TESTES_RTD_DD/prototipo_comparacao_snapshots_sinteticos.py; TESTES_RTD_DD/PLANO_TESTES_GRAVADOR_RTD_MODO_DIAGNOSTICO_FASE03.md
+
 
 ## Âmbito e limite da evidência
 
