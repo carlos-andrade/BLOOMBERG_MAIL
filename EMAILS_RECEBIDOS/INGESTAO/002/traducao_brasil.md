@@ -18,7 +18,23 @@ objetivo: "Manter o documento identificável, rastreável, contextualizado e val
 dependencias: "MODELO-PADRAO-CABECALHO"
 ---
 
+
+
 # INGESTÃO 002 — TRADUÇÃO PARA O MERCADO BRASILEIRO
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** FASE-002-INGESTAO
+> **ID:** BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-002-TRADUCAO-BRASIL-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
 
 ## Contexto Histórico
 

@@ -18,7 +18,23 @@ objetivo: "Manter o documento identificável, rastreável, contextualizado e val
 dependencias: "MODELO-PADRAO-CABECALHO"
 ---
 
+
+
 # BLOOMBERG_MAIL — RECONCILIAÇÃO TPMERC 021 — EVIDÊNCIA INTERNA DO REPOSITÓRIO B3 — 2026-10-08
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** FASE-005-INGESTAO
+> **ID:** BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-NORMALIZADO-B3-RECONCILIACAO-TPMERC021-COM-REPOSITORIO-B3-2026-10-08-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
 
 ## Contexto Histórico
 

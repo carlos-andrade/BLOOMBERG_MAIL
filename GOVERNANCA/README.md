@@ -18,7 +18,23 @@ objetivo: "Centralizar as regras documentais do projeto."
 dependencias: "CARTA_CABECALHO_PADRAO"
 ---
 
+
+
 # Governança Documental
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** GOVERNANCA
+> **Fase:** GOVERNANCA
+> **ID:** BLOOMBERG-MAIL-GOVERNANCA-README
+> **Status:** PUBLICADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** Curioso-da-Internet-IA — MODELO-PADRAO-CABECALHO.md
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** CARTA_CABECALHO_PADRAO
+
 
 ## Contexto Histórico
 

@@ -18,7 +18,23 @@ objetivo: "Manter o documento identificável, rastreável, contextualizado e val
 dependencias: "MODELO-PADRAO-CABECALHO"
 ---
 
+
+
 # BLOOMBERG_MAIL — INGESTÃO 005 — RECONCILIAÇÃO DO ENDPOINT B3
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** FASE-005-INGESTAO
+> **ID:** BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-VALIDACAO-FONTE-B3-ENDPOINT-RECONCILIADO-2026-10-07-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
 
 ## Contexto Histórico
 

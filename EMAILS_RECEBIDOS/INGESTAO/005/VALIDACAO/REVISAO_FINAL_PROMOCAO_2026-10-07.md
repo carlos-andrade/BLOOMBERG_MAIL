@@ -18,7 +18,23 @@ objetivo: "Manter o documento identificável, rastreável, contextualizado e val
 dependencias: "MODELO-PADRAO-CABECALHO"
 ---
 
+
+
 # BLOOMBERG_MAIL — REVISÃO FINAL DE PROMOÇÃO — INGESTÃO 005
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** FASE-005-INGESTAO
+> **ID:** BLOOMBERG-MAIL-EMAILS-RECEBIDOS-INGESTAO-005-VALIDACAO-REVISAO-FINAL-PROMOCAO-2026-10-07-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
 
 ## Contexto Histórico
 

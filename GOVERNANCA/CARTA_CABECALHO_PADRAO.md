@@ -18,7 +18,23 @@ objetivo: "Tornar todos os documentos identificáveis, rastreáveis, contextuali
 dependencias: "Curioso-da-Internet-IA/CABEÇALHO/MODELO-PADRAO-CABECALHO.md"
 ---
 
+
+
 # CARTA — Cabeçalho Padrão dos Documentos
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** CARTA_GOVERNANCA
+> **Fase:** GOVERNANCA
+> **ID:** BLOOMBERG-MAIL-CARTA-CABECALHO-PADRAO-V1
+> **Status:** PUBLICADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-08
+> **Atualização:** 2026-10-08
+> **Origem:** Curioso-da-Internet-IA — MODELO-PADRAO-CABECALHO.md
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO
+
 
 ## Contexto Histórico
 
