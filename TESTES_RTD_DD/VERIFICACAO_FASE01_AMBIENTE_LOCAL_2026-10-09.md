@@ -5,70 +5,80 @@ tipo_documento: "RELATORIO_VERIFICACAO_AMBIENTE_LOCAL"
 fase: "FASE-01-PREPARACAO-LOCAL"
 id_documento: "BLOOMBERG-MAIL-RTD-VERIFY-FASE01-001"
 titulo: "Verificação da preparação do ambiente local RTD/Profit"
-status: "AMBIENTE_LOCAL_CONFIRMADO; DOCUMENTACAO_PENDENTE_DE_ALINHAMENTO"
-versao: "1.0"
+status: "AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_FALHOU_POR_NAO_CONFORMIDADES_NO_REPOSITORIO"
+versao: "1.1"
 data_criacao: "2026-10-09"
 data_atualizacao: "2026-10-09"
-origem: "Saída PowerShell fornecida pelo utilizador e inspeção do GitHub"
+origem: "Saída PowerShell fornecida pelo utilizador e inspeção dos resultados GitHub Actions"
 autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "TESTES_RTD_DD/ARQUITETURA_LOCAL_FASE01.md; PR #1"
+escopo: "Verificar a preparação local, o clone Git e os resultados da integração documental"
+objetivo: "Manter evidência auditável da execução e dos bloqueios ainda ativos"
+dependencias: "Saída PowerShell do utilizador; acesso ao repositório público GitHub e aos logs de Actions"
 ---
 
 # Verificação da preparação do ambiente local RTD/Profit
 
-## 1. Resultado executivo
+> **Projeto:** BLOOMBERG_MAIL  
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL  
+> **Tipo:** RELATORIO_VERIFICACAO_AMBIENTE_LOCAL  
+> **Fase:** FASE-01-PREPARACAO-LOCAL  
+> **ID:** BLOOMBERG-MAIL-RTD-VERIFY-FASE01-001  
+> **Status:** AMBIENTE_LOCAL_CONFIRMADO; CI_DOCUMENTAL_FALHOU_POR_NAO_CONFORMIDADES_NO_REPOSITORIO  
+> **Versão:** 1.1  
+> **Criação:** 2026-10-09  
+> **Atualização:** 2026-10-09  
+> **Origem:** Saída PowerShell fornecida pelo utilizador e inspeção dos resultados GitHub Actions  
+> **Autoridade:** LAYOUT  
+> **Rastreabilidade:** TESTES_RTD_DD/ARQUITETURA_LOCAL_FASE01.md; PR #1
 
-A execução do script de preparação no computador Windows foi confirmada pela saída do PowerShell fornecida pelo utilizador em 2026-10-09. O clone e a estrutura local foram criados. Esta verificação não demonstra que o gravador RTD exista ou esteja operacional.
+## Contexto Histórico
 
-## 2. Evidência local reportada
+Em 2026-10-09, o utilizador descarregou e executou o script de preparação local para BLOOMBERG_MAIL. Depois, executou comandos de verificação e forneceu a saída para validação independente.
 
-- Raiz local: `D:\\BLOOMBERG_MAIL`
-- Clone: `D:\\BLOOMBERG_MAIL\\repo\\BLOOMBERG_MAIL`
-- Branch local: `main`
-- Commit local: `56ee032` — `GOVERNANCA: normalizar cabecalhos documentais [skip ci]`
-- Estado Git: `## main...origin/main`, sem alterações reportadas.
-- Remoto fetch/push: `https://github.com/carlos-andrade/BLOOMBERG_MAIL.git`
-- Diretórios de dados confirmados: `RAW`, `HISTORICO`, `NORMALIZADOS`, `QUARENTENA`, `MANIFESTOS`.
-- Ficheiros na raiz local reportados: `RDT_PROFIT.xlsx` e `~$RDT_PROFIT.xlsx`.
-- Mensagem do script: nenhum ficheiro RTD foi aberto ou modificado; nenhum commit ou push foi executado; captura por alteração ainda não ativa.
+## Estado
 
-A saída de consola foi fornecida pelo utilizador; este relatório não resulta de acesso remoto ao computador Windows.
-
-## 3. Verificação do GitHub
-
-- Repositório público confirmado: `carlos-andrade/BLOOMBERG_MAIL`.
-- Branch por omissão: `main`.
-- PR #1: aberto, em modo draft, não incorporado em `main`.
-- Branch do PR: `feat/arquitetura-local-rtd-fase01`.
-- Commit de topo reportado no PR: `a6dd1a70ebe909fd3c1128a5c0c0a1b2c7c38789`.
-- O endpoint de status desse commit devolveu `pending` com zero statuses registados. Isto não equivale a aprovação de testes; os checks devem ser consultados no PR.
-
-## 4. Divergências documentais encontradas
-
-1. O corpo do PR #1 ainda descreve a raiz Windows como `C:\\BLOOMBERG_MAIL`, mas a raiz efetivamente utilizada é `D:\\BLOOMBERG_MAIL`.
-2. `TESTES_RTD_DD/ARQUITETURA_LOCAL_FASE01.md` ainda contém comandos com caminhos em `C:\\BLOOMBERG_MAIL` e declara que a validação local está pendente, apesar da evidência posterior de execução.
-3. O clone local foi criado a partir de `main`; por isso, os ficheiros adicionados apenas à branch do PR, incluindo o `.gitignore` da raiz, não devem ser considerados presentes no clone local até a branch ser incorporada ou explicitamente obtida.
-4. A auditoria estática do workbook continua a marcar a atualização ao vivo e a reconexão como não verificadas, e os direitos de armazenamento como pendentes. A existência de fórmulas RTD e valores em cache não valida esses pontos.
-
-## 5. Decisão e bloqueios
-
-- Preparação local: CONFIRMADA com base na saída do utilizador.
-- Clone/remoto/branch: CONFIRMADOS com base na saída do utilizador.
-- Integridade do workbook após a execução do script: o script reportou que não o abriu nem modificou; não foi feita uma nova inspeção binária após a execução.
+- Preparação local: CONFIRMADA pela saída PowerShell fornecida pelo utilizador.
+- Clone/remoto/branch: CONFIRMADOS pela saída PowerShell.
 - Gravador RTD: NÃO IMPLEMENTADO.
 - Captura automática: NÃO ATIVA.
-- Publicação de dados de mercado: BLOQUEADA até rever direitos/licença e a lista de ficheiros autorizados.
-- Próxima etapa técnica: mapear as células/cabeçalhos do workbook e especificar a estratégia de registo de alterações antes de escrever código de captura.
+- CI de cabeçalhos documentais: FALHOU; o validador reportou 83 erros em 99 documentos, incluindo documentos preexistentes fora do escopo desta PR.
+- PR #1: aberta, draft, não incorporada em `main`.
 
-## 6. Roadmap
+## Evidências
 
-| Fase | Estado |
-|---|---|
-| 0 — Inspeção estática inicial | CONCLUÍDA COM LIMITAÇÕES |
-| 1 — Preparação local | EXECUTADA; documentação do PR por alinhar |
-| 2 — Mapeamento RTD e desenho do gravador | PENDENTE |
-| 3 — Deduplicação, reconexão e validação | PENDENTE |
-| 4 — Publicação seletiva no GitHub | PENDENTE |
+- Raiz local: `D:\BLOOMBERG_MAIL`.
+- Clone: `D:\BLOOMBERG_MAIL\repo\BLOOMBERG_MAIL`.
+- Branch: `main`.
+- Commit local reportado: `56ee032` — `GOVERNANCA: normalizar cabecalhos documentais [skip ci]`.
+- Estado Git reportado: `## main...origin/main`.
+- Remoto fetch/push: `https://github.com/carlos-andrade/BLOOMBERG_MAIL.git`.
+- Pastas de dados confirmadas: `RAW`, `HISTORICO`, `NORMALIZADOS`, `QUARENTENA`, `MANIFESTOS`.
+- Ficheiros reportados na raiz local: `RDT_PROFIT.xlsx` e `~$RDT_PROFIT.xlsx`.
+- O script reportou que não abriu nem modificou o workbook, não executou commit/push e não ativou captura.
+
+A saída da consola foi fornecida pelo utilizador. Este relatório não implica acesso remoto ao computador Windows nem uma nova inspeção binária do Excel.
+
+## Validação
+
+O repositório público e a PR #1 foram consultados. O PR está aberto em modo draft e não foi incorporado em `main`. A validação de cabeçalhos executada pelo GitHub Actions terminou com exit code 1: o validador verificou 99 documentos e encontrou 83 erros de conformidade, incluindo campos obrigatórios, metadados visíveis e secções ausentes em vários documentos preexistentes.
+
+Este resultado é uma falha real de CI e não deve ser substituído por uma declaração de sucesso. A correção segura requer plano de migração documental e validação repetida. Não se deve modificar em massa documentos alheios a esta PR sem revisão de escopo.
+
+A auditoria estática do workbook continua sem confirmar atualização ao vivo, reconexão, semântica de timestamps e direitos de armazenamento.
+
+## Resultado
+
+A preparação local foi executada com sucesso segundo a saída fornecida. A verificação do GitHub confirmou a branch `main`, o remoto e a estrutura. A publicação documental na branch do PR foi realizada, mas a integração não está aprovada devido ao validador global de cabeçalhos. O PR permanece draft.
+
+## Próxima Ação
+
+1. Executar a validação após corrigir os dois documentos desta PR.
+2. Separar os erros restantes preexistentes e preparar uma migração documental governada.
+3. Confirmar os checks e as regras de proteção antes de marcar o PR como pronto ou fazer merge.
+4. Só depois de estabilizar a proteção Git, mapear as células RTD.
+5. Não iniciar a captura nem publicar dados brutos antes dos testes funcionais e da revisão de direitos.
 
 ---
-Registo de verificação baseado na saída do PowerShell fornecida pelo utilizador e na inspeção do repositório GitHub em 2026-10-09.
+Relatório baseado na saída do PowerShell fornecida pelo utilizador e nos logs GitHub Actions consultados em 2026-10-09.
