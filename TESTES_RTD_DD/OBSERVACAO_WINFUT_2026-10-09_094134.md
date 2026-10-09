@@ -14,7 +14,23 @@ autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # Observação de mercado — WINFUT
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** REGISTO_DE_OBSERVACAO_DE_TESTE
+> **Fase:** FASE-03-FEED-INTRADAY
+> **ID:** BLOOMBERG-MAIL-RTD-DDE-OBS-WINFUT-20261009-094134
+> **Status:** DADOS_RECEBIDOS; METODO_E_EXPORTACAO_NAO_CONFIRMADOS
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** Tabela fornecida pelo utilizador nesta conversa
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** N/A
+
 
 - Data/hora apresentada na tabela: 09/10/2026 09:41:34.
 - Ativo: WINFUT (Ibovespa Mini).
