@@ -25,7 +25,7 @@ dependencias: "Windows; Git for Windows; Excel e Profit instalados para os teste
 > **Tipo:** ARQUITETURA_OPERACIONAL_LOCAL  
 > **Fase:** FASE-01-PREPARACAO-LOCAL  
 > **ID:** BLOOMBERG-MAIL-ARQ-LOCAL-RTD-001  
-> **Status:** PREPARACAO_LOCAL_EXECUTADA; REVISAO_GIT_E_CAPTURA_PENDENTES  
+> **Status:** PREPARACAO_LOCAL_EXECUTADA; CI_DOCUMENTAL_OK; SINCRONIZACAO_LOCAL_PENDENTE  
 > **Versão:** 1.2  
 > **Criação:** 2026-10-09  
 > **Atualização:** 2026-10-09  
