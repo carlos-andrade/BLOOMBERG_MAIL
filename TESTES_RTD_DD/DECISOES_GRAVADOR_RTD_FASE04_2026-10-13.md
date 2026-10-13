@@ -12,7 +12,23 @@ autoridade_documental: "LAYOUT"
 cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
 ---
 
+
+
 # Decisões confirmadas — gravador RTD FASE04
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DECISAO_TECNICA
+> **Fase:** FASE-04-PREPARACAO-GRAVADOR
+> **ID:** BLOOMBERG-MAIL-RTD-DEC-004
+> **Status:** DECISOES_CONFIRMADAS; PERSISTENCIA_DESATIVADA
+> **Versão:** 1.0
+> **Criação:** 2026-10-13
+> **Atualização:** N/A
+> **Origem:** N/A
+> **Autoridade:** LAYOUT
+> **Rastreabilidade:** N/A
+
 
 ## Decisões do utilizador
 
