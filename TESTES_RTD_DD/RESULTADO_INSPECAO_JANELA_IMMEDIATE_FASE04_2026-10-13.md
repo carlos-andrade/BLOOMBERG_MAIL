@@ -1,3 +1,59 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "N/A"
+id_documento: "BLOOMBERG-MAIL-TESTES-RTD-DD-RESULTADO-INSPECAO-JANELA-IMMEDIATE-FASE04-2026-10-13-MD"
+titulo: "Resultado de inspeção visual — FASE04 Excel/RTD"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-09"
+data_atualizacao: "2026-10-09"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "TESTES_RTD_DD/RESULTADO_INSPECAO_JANELA_IMMEDIATE_FASE04_2026-10-13.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "N/A"
+id_documento: "BLOOMBERG-MAIL-TESTES-RTD-DD-RESULTADO-INSPECAO-JANELA-IMMEDIATE-FASE04-2026-10-13-MD"
+titulo: "Resultado de inspeção visual — FASE04 Excel/RTD"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-09"
+data_atualizacao: "2026-10-09"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "TESTES_RTD_DD/RESULTADO_INSPECAO_JANELA_IMMEDIATE_FASE04_2026-10-13.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# Resultado de inspeção visual — FASE04 Excel/RTD
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** N/A
+> **ID:** BLOOMBERG-MAIL-TESTES-RTD-DD-RESULTADO-INSPECAO-JANELA-IMMEDIATE-FASE04-2026-10-13-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
+
 # Resultado de inspeção visual — FASE04 Excel/RTD
 
 - **Data:** 2026-10-13
