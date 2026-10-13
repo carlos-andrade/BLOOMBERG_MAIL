@@ -1,19 +1,43 @@
-name: BLOOMBERG_MAIL — Governança de Cabeçalhos
+name: BLOOMBERG_MAIL — Validação de Governação
 
 on:
   workflow_dispatch:
   pull_request:
     branches: [main]
+    paths:
+      - "GOVERNANCA/**"
+      - "WATCHDOG/**"
+      - "README.md"
+      - "scripts/validar_cabecalho_documental.py"
+      - "scripts/tests/test_governanca_documental.py"
+      - ".github/workflows/bloomberg-mail-governanca-cabecalho.yml"
   push:
     branches: [main]
+    paths:
+      - "GOVERNANCA/**"
+      - "WATCHDOG/**"
+      - "README.md"
+      - "scripts/validar_cabecalho_documental.py"
+      - "scripts/tests/test_governanca_documental.py"
+      - ".github/workflows/bloomberg-mail-governanca-cabecalho.yml"
 
 permissions:
   contents: read
 
+concurrency:
+  group: governanca-bloomberg-mail-\${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  validar-cabecalhos:
-    runs-on: ubuntu-latest
+  validar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - name: Validar cabeçalhos Markdown
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Validar cabeçalhos e requisitos documentais
         run: python scripts/validar_cabecalho_documental.py
+      - name: Testes unitários do controlo documental
+        run: python -m unittest scripts.tests.test_governanca_documental -v
