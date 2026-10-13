@@ -1,8 +1,7 @@
 name: BLOOMBERG_MAIL — Migração Automática de Cabeçalhos
 
+# Migração em massa requer revisão; acionamento automático em push foi removido.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
