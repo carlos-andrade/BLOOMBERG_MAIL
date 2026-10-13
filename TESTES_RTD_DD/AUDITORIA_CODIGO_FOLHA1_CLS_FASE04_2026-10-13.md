@@ -1,3 +1,59 @@
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "N/A"
+id_documento: "BLOOMBERG-MAIL-TESTES-RTD-DD-AUDITORIA-CODIGO-FOLHA1-CLS-FASE04-2026-10-13-MD"
+titulo: "Auditoria do código VBA `Folha1.cls` — FASE04"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-09"
+data_atualizacao: "2026-10-09"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "TESTES_RTD_DD/AUDITORIA_CODIGO_FOLHA1_CLS_FASE04_2026-10-13.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+---
+projeto: "BLOOMBERG_MAIL"
+repositorio: "carlos-andrade/BLOOMBERG_MAIL"
+tipo_documento: "DOCUMENTO"
+fase: "N/A"
+id_documento: "BLOOMBERG-MAIL-TESTES-RTD-DD-AUDITORIA-CODIGO-FOLHA1-CLS-FASE04-2026-10-13-MD"
+titulo: "Auditoria do código VBA `Folha1.cls` — FASE04"
+status: "IMPLEMENTADO"
+versao: "1.0"
+data_criacao: "2026-10-09"
+data_atualizacao: "2026-10-09"
+origem: "BLOOMBERG_MAIL"
+autoridade_documental: "GOVERNANÇA"
+cadeia_autoridade: "PROMPT → CARTA → LAYOUT ÚNICO → CÓDIGO"
+rastreabilidade: "MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA"
+escopo: "TESTES_RTD_DD/AUDITORIA_CODIGO_FOLHA1_CLS_FASE04_2026-10-13.md"
+objetivo: "Manter o documento identificável, rastreável, contextualizado e validável."
+dependencias: "MODELO-PADRAO-CABECALHO"
+---
+
+# Auditoria do código VBA `Folha1.cls` — FASE04
+
+> **Projeto:** BLOOMBERG_MAIL
+> **Repositório:** carlos-andrade/BLOOMBERG_MAIL
+> **Tipo:** DOCUMENTO
+> **Fase:** N/A
+> **ID:** BLOOMBERG-MAIL-TESTES-RTD-DD-AUDITORIA-CODIGO-FOLHA1-CLS-FASE04-2026-10-13-MD
+> **Status:** IMPLEMENTADO
+> **Versão:** 1.0
+> **Criação:** 2026-10-09
+> **Atualização:** 2026-10-09
+> **Origem:** BLOOMBERG_MAIL
+> **Autoridade:** GOVERNANÇA
+> **Rastreabilidade:** MODELO-PADRAO-CABECALHO — Curioso-da-Internet-IA
+
+
 # Auditoria do código VBA `Folha1.cls` — FASE04
 
 - **Data:** 2026-10-13
