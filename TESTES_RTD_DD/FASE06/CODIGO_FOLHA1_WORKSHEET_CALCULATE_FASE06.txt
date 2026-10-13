@@ -1,0 +1,13 @@
+Option Explicit
+
+Private Sub Worksheet_Calculate()
+    On Error GoTo ErrorHandler
+
+    modGravadorRTD.ObservarSnapshotRTD
+    Exit Sub
+
+ErrorHandler:
+    Debug.Print Format$(Now, "yyyy-mm-dd hh:nn:ss") & _
+        " | WORKSHEET_EVENT_ERROR | " & _
+        Err.Number & " | " & Err.Description
+End Sub
