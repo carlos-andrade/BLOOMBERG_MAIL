@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: bloomberg-mail-watchdog-supervisor
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   supervisor:
