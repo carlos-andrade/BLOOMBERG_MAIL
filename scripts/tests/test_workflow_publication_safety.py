@@ -22,9 +22,12 @@ EXPECTED_GROUP = "bloomberg-mail-005n-publish-${{ github.ref }}"
 
 
 def git(cwd: Path, *args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ["git", *args], cwd=cwd, text=True, capture_output=True, check=check
+    result = subprocess.run(
+        ["git", *args], cwd=cwd, text=True, capture_output=True, check=False
     )
+    if check and result.returncode:
+        raise AssertionError(f"git {' '.join(args)} failed: {result.stderr}")
+    return result
 
 
 def set_identity(repo: Path) -> None:
@@ -71,23 +74,24 @@ class WorkflowSafetyTests(unittest.TestCase):
             git(a, "commit", "-qm", "base")
             git(a, "branch", "-M", "main")
             git(a, "push", "-u", "origin", "main")
-            git(bare.parent, "--git-dir", str(bare), "symbolic-ref", "HEAD", "refs/heads/main")
+            git(root, "--git-dir", str(bare), "symbolic-ref", "HEAD", "refs/heads/main")
             git(root, "clone", str(bare), str(b))
             set_identity(b)
 
             (a / "writer-a.txt").write_text("A\n", encoding="utf-8")
             git(a, "add", "writer-a.txt")
             git(a, "commit", "-qm", "writer A")
-            git(a, "push", "origin", "main")
+            git(a, "push", "origin", "HEAD:main")
 
             (b / "writer-b.txt").write_text("B\n", encoding="utf-8")
             git(b, "add", "writer-b.txt")
             git(b, "commit", "-qm", "writer B")
-            first_push = git(b, "push", "origin", "main", check=False)
+            first_push = git(b, "push", "origin", "HEAD:main", check=False)
             self.assertNotEqual(first_push.returncode, 0, "Expected synthetic non-fast-forward")
 
             git(b, "pull", "--rebase", "origin", "main")
-            git(b, "push", "origin", "main")
+            recovered_push = git(b, "push", "origin", "HEAD:main", check=False)
+            self.assertEqual(recovered_push.returncode, 0, recovered_push.stderr)
             git(a, "pull", "--ff-only", "origin", "main")
             self.assertEqual((a / "writer-a.txt").read_text(encoding="utf-8"), "A\n")
             self.assertEqual((a / "writer-b.txt").read_text(encoding="utf-8"), "B\n")
