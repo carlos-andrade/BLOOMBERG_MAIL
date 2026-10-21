@@ -71,6 +71,7 @@ class WorkflowSafetyTests(unittest.TestCase):
             git(a, "commit", "-qm", "base")
             git(a, "branch", "-M", "main")
             git(a, "push", "-u", "origin", "main")
+            git(bare.parent, "--git-dir", str(bare), "symbolic-ref", "HEAD", "refs/heads/main")
             git(root, "clone", str(bare), str(b))
             set_identity(b)
 
