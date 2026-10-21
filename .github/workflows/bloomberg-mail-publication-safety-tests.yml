@@ -1,0 +1,28 @@
+name: BLOOMBERG_MAIL — Testes seguros de publicação 005N
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/bloomberg-mail-ingestao-005n-normalizacao.yml"
+      - ".github/workflows/bloomberg-mail-ingestao-005n-validacao-normalizadores.yml"
+      - ".github/workflows/bloomberg-mail-rec001-b3-cotahist-cross-repo.yml"
+      - ".github/workflows/bloomberg-mail-publication-safety-tests.yml"
+      - "scripts/tests/test_workflow_publication_safety.py"
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-safety-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install YAML parser
+        run: python -m pip install --disable-pip-version-check PyYAML
+      - name: Validate workflow syntax and safe publication behavior
+        run: python -m unittest scripts.tests.test_workflow_publication_safety -v
