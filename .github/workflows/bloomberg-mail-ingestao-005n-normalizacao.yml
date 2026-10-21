@@ -1,5 +1,10 @@
 name: BLOOMBERG_MAIL — INGESTÃO 005N — Normalização Determinística
 
+# Grupo comum a todos os workflows que publicam evidências da ingestão 005N.
+concurrency:
+  group: bloomberg-mail-005n-publish-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
 
