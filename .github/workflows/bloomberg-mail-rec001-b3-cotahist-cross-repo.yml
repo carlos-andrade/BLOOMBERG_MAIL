@@ -1,4 +1,10 @@
 name: BLOOMBERG_MAIL — REC-001 B3 COTAHIST Cross-Repo
+
+# Grupo comum aos escritores que publicam evidências de ingestão/validação.
+concurrency:
+  group: bloomberg-mail-005n-publish-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
 permissions:
